@@ -1,0 +1,33 @@
+# Virtual Environment
+.venv/
+venv/
+ENV/
+env/
+
+# Python caching
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Jupyter Notebooks caching
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# Environment Variables & API Keys
+.env
+.env.*
+*.env
+credentials.json
+client_secrets.json
+
+# macOS System Files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Project run files or temporary outputs
+runs/
+runs_v1_backup/
+runs_v2_backup/
+scratch/

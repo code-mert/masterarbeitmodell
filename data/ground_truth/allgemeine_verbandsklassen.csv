@@ -1,0 +1,325 @@
+user_id,image_id,updated_at,ist_fertig,lokalisation,wundtyp_spezifikation,exsudat,infektion,wundrand,wundumgebung,auffaelligkeiten,debridement_notwendig,antimikrobiell_notwendig,kompression_indiziert,einschraenkungen,wundtyp,wundstadium,spuelloesung,debridement,praeferenz_produkt,alternative_produkt,antimikrobielles_agens,sekundaerverband,hautschutz,kompression_produkte
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_01,2026-05-26 09:46:49.166+00,true,"Abdomen, links",Dehiszente Operationswunde,Stark,Deutliche Infektionszeichen,"[""Mazeriert"",""Gerötet / entzündlich""]","[""Erythem / Rötung"",""Mazeration""]",Tiefer Gewebedefekt mit möglicher Beteiligung von Subkutangewebe,Ja,Ja,Nein,,"[""Postoperative Wunde""]","[""Fibrinbelag / Slough""]","[""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""Chirurgisch/Scharf (Skalpell, Kürette)"",""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)"",""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)""]","[""Alginate"",""Hydrofaser / Hydrofiber""]","[""PHMB-haltige Wundauflagen""]","[""Silber (Ag⁺)"",""PHMB""]","[""saugfähiger Schaumverband, atraumatische Fixierung""]","[""Nicht erforderlich""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_02,2026-05-19 13:20:14.923+00,true,"rechter Unterarm, rechtes Handgelenk, rechte Hand","Verbrennung Grad IIa bis teilweise IIb, 
+ausgedehnte oberflächlich-dermale Verbrennung",Leicht,Verdacht auf Infektion / kritische Kolonisation,"[""Gerötet / entzündlich""]","[""Ödem"",""Erythem / Rötung""]","ausreichende Analgesie,
+atraumatische Verbandwechsel,
+Verbrennungsflächen sind infektionsgefährdet,
+Achten auf:
+- zunehmende Rötung
+- Eiter
+- Geruch
+- Fieber
+- zunehmende Schmerzen",Ja,Nein,Nein,"Ödemmanagement,
+Blasenmanagement,
+Spezialversorgung / Verbrennungsbeurteilung","[""Verbrennungswunde""]","[""Gemischt""]","[""Neutrale Spüllösung (NaCl, Ringer)""]","[""atraumatische Versorgung""]","[""Wundkontaktschichten (Silikon/Paraffin)"",""Hydrofaser / Hydrofiber""]","[""Schaumstoffverbände (Foam)"",""Lipidokolloid-Auflagen""]",,"[""weicher PU-Schaumverband,absorbierende sterile Sekundärauflagen""]","[""Nicht erforderlich""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_03,2026-05-21 10:00:50.065+00,true,Unterarm,heilender Verbrennungswunde Grad II,Leicht,Keine Infektionszeichen,"[""Mazeriert""]","[""Erythem / Rötung""]","intensiv rotes, feucht glänzendes Granulationsgewebe,
+saubere Wundoberfläche ohne sichtbare Nekrosen,
+keine ausgeprägten fibrinösen Beläge",Ja,Nein,Nein,,"[""Verbrennungswunde""]","[""Granulation""]","[""Neutrale Spüllösung (NaCl, Ringer)""]","[""Kein Débridement erforderlich""]","[""Hydrofaser / Hydrofiber""]","[""Wundkontaktschichten (Silikon/Paraffin)""]",,"[""silikonisierter Schaumverband, absorbierende sterile Auflagen""]","[""Nicht erforderlich""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_04,2026-05-20 09:33:23.487+00,true,"linker Oberarm, Innenseite","infizierter Insektenstich,
+nekrotisierende bakterielle Hautinfektion,
+Pyoderma-artige Reaktion,
+MRSA-/Staphylokokkeninfektion,
+
+Das Bild zeigt eine behandlungsbedürftige entzündlich-infizierte Wundsituation.",Mäßig,Verdacht auf Infektion / kritische Kolonisation,"[""Gerötet / entzündlich""]","[""Erythem / Rötung"",""Ödem""]","mehrere tiefe Hautdefekte
+gelblich-weißliche fibrinöse bzw. nekrotische Beläge
+entzündlich gerötete Umgebungshaut
+deutliche Schwellung/Ödem,
+teilweise unterminierte Wundbereiche,
+mäßige Exsudation,
+Hinweise auf lokale bakterielle Infektion,",Ja,Ja,Nein,NPWT/VAC-Therapie,"[""Traumatische Wunde"",""durch Insektenstich""]","[""Fibrinbelag / Slough"",""Nekrose / Eschara"",""Gemischt""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)"",""Chirurgisch/Scharf (Skalpell, Kürette)""]","[""Hydrofaser / Hydrofiber"",""Alginate""]","[""antimikrobielle Wundauflagen""]","[""Silber (Ag⁺)""]","[""absorbierender Schaumverband, Superabsorber bei stärkerer Sekretion""]","[""Hautschutzfilm / Barrierespray"",""Zinksalbe / Zinkpaste""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_05,2026-05-21 13:19:22.52+00,true,"rechtes Bein, Kniebereich, Unterschenkel",tiefe Verbrennung zweiten bis dritten Grades (Grad IIb–III).,Leicht,Verdacht auf Infektion / kritische Kolonisation,"[""Gerötet / entzündlich""]","[""Erythem / Rötung""]","Verdacht auf:
+- Nekrosebildung
+- bakterielle Besiedlung/Infektion
+- gemischte Verbrennungszonen unterschiedlicher Tiefe
+
+Gelblich-bräunliche Beläge und avitales Gewebe",Ja,Ja,Nein,"Infektionsmanagement,
+Schmerztherapie,
+Schmerztherapie","[""Verbrennungswunde""]","[""Nekrose / Eschara""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""Chirurgisch/Scharf (Skalpell, Kürette)""]","[""Schaumstoffverbände (Foam)"",""silberhaltige Verbrennungsauflagen""]","[""Hydrofaser / Hydrofiber""]","[""Silber (Ag⁺)""]","[""Superabsorber ergänzen""]","[""Nicht erforderlich""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_06,2026-05-20 13:26:02.689+00,true,"rechter Fuß, Spann","Verbrennung Grad IIa bis IIb
+gemischt oberflächlich- und tief-dermale Verbrennung",Leicht,Keine Infektionszeichen,"[""Gerötet / entzündlich""]","[""Erythem / Rötung"",""Ödem""]","einzelne dunklere Areale mit möglicher tieferer Gewebeschädigung,
+unterschiedlich tiefe Verbrennungszonen",Ja,Nein,Nein,,"[""Verbrennungswunde""]","[""Gemischt""]","[""Neutrale Spüllösung (NaCl, Ringer)""]","[""Kein Débridement erforderlich""]","[""Wundkontaktschichten (Silikon/Paraffin)"",""Lipidokolloid-Auflagen""]","[""Hydrofaser / Hydrofiber"",""Schaumstoffverbände (Foam)""]",,"[""weicher absorbierender Schaumverband sterile Saugkompressen""]","[""Nicht erforderlich""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_07,2026-05-27 11:34:10.035+00,true,"Unterschenkel/Knöchelregion, zirkumferenziell ausgedehnt",,Stark,Verdacht auf Infektion / kritische Kolonisation,"[""Mazeriert"",""Gerötet / entzündlich""]","[""Erythem / Rötung""]",Schmerz: bei dieser Wundsituation häufig deutlich vorhanden,Ja,Ja,Ja,,"[""chronisches Ulkus cruris""]","[""Fibrinbelag / Slough"",""Granulation""]","[""Neutrale Spüllösung (NaCl, Ringer)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)"",""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)""]","[""Hydrofaser / Hydrofiber""]","[""Alginate""]","[""Silber (Ag⁺)""]","[""stark saugfähige Superabsorber""]","[""Zinksalbe / Zinkpaste"",""Hautschutzfilm / Barrierespray""]","[""Mehrkomponentensysteme (2-/4-Lagen)"",""Kurzzugbinden""]"
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_08,2026-05-20 09:08:49.283+00,true,linker Fuß,Extravasationsverletzung am Fuß/Knöchel eines Säuglings mit ausgeprägter Gewebeschädigung.,Leicht,Keine Infektionszeichen,"[""Gerötet / entzündlich""]","[""Ödem""]","livid-violette bis schwarz verfärbte Hautareale,
+massive Schwellung/Ödem,
+blasige Hautablösungen,
+epidermale Nekrosen,
+zentrale Hautdefekte,
+Zeichen tiefer Gewebeischämie/Nekrose,
+gespannte glänzende Haut,",Ja,Ja,Nein,,"[""Extravasationsverletzung""]","[""Nekrose / Eschara"",""Gemischt""]","[""Neutrale Spüllösung (NaCl, Ringer)""]","[""konservatives Abwarten bei unklarer Demarkation, selektives chirurgisches Débridement, enzymatisch/autolytisch ergänzend""]","[""Wundkontaktschichten (Silikon/Paraffin)"",""Hydrofaser / Hydrofiber""]","[""silberhaltige Produkte kurzfristig""]","[""Silber (Ag⁺)""]","[""weicher PU-Schaumverband, sterile Polsterung""]","[""Nicht erforderlich""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_09,2026-05-27 15:07:33.971+00,true,linker Fuß,großflächige nekrotische Läsion im Bereich des lateralen Fußes sowie trockene Nekrose an den Zehen,Leicht,Verdacht auf Infektion / kritische Kolonisation,"[""Gerötet / entzündlich""]","[""Ödem"",""Erythem / Rötung""]","Sofortige gefäßmedizinische Abklärung (Notfallsituation)
+Das Bild spricht für eine schwere kritische Ischämie.",Nein,Nein,Nein,,"[""nekrotische ischämische Fußwunde / Gangrän""]","[""Nekrose / Eschara""]",,,"[""trockene sterile Schutzverbände, atraumatische Kontaktlagen, keine aggressive Befeuchtung der stabilen Nekrose""]","[""Hydrofaser / Hydrofiber"",""Schaumstoffverbände (Foam)"",""Superabsorber""]",,"[""abhängig von Therapieform""]","[""Nicht erforderlich""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_10,2026-05-19 13:59:19.235+00,true,rechte Ferse,nekrotische Fersenwunde mit ausgeprägter Gewebedestruktion infolge von Druck und kritischer Ischämie.,Leicht,Verdacht auf Infektion / kritische Kolonisation,"[""Mazeriert"",""Gerötet / entzündlich""]","[""Erythem / Rötung""]","Zeichen schwerer lokaler Gewebeischämie,
+Die Wunde passt klinisch zu:
+- ischämischem Fersendekubitus
+- diabetisch-ischämischem Fußulkus
+- kritischer Extremitätenischämie mit Drucknekrose",Ja,Ja,Nein,,"[""nekrotische Fersenwunde"",""Dekubitus""]","[""Nekrose / Eschara"",""Granulation"",""Fibrinbelag / Slough""]","[""Neutrale Spüllösung (NaCl, Ringer)""]","[""Chirurgisch/Scharf (Skalpell, Kürette)""]","[""Bei trockenen Nekrosen: atraumatische trockene Schutzverbände"",""Bei feuchten/infizierten Bereichen: Silberhydrofaser Silberalginat antimikrobielle Wundauflagen""]","[""Alginate""]","[""Silber (Ag⁺)""]","[""weicher PU-Schaumverband Superabsorber bei stärkerem Exsudat""]","[""Nicht erforderlich""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_11,2026-05-18 12:09:03.451+00,true,"linker Fuß, Außenseite",multiple nekrotische Fußulzera mit ausgeprägten Zeichen einer schweren ischämischen Gewebeschädigung und Druckbelastung,Keine,Keine Infektionszeichen,"[""Gerötet / entzündlich""]","[""Erythem / Rötung""]","atrophische, schlecht durchblutete Haut,
+begrenzte Granulationsanteile,
+teilweise livide bis dunkel verfärbte Wundanteile,
+mehrere Ulzerationen an druckexponierten Stellen:
+- Ferse
+- lateraler Vorfuß/Zehenbereich",Ja,Nein,Nein,,"[""Dekubitus""]","[""Nekrose / Eschara""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""nicht aggressiv entfernen, solange keine Revaskularisation erfolgt ist"",""Chirurgisch/Scharf (Skalpell, Kürette)""]","[""Bei trockener Nekrose: trockener Schutzverband atraumatische Kontaktlagen.""]","[""Bei feuchten/infizierten Bereichen: Silberhydrofaser Silberalginat antimikrobielle Wundauflagen.""]",,"[""weicher PU-Schaumverband, weicher PU-Schaumverband""]","[""Nicht erforderlich""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_12,2026-05-16 11:31:44.595+00,true,"rechter Fuß, Fußsohle",tiefes Ulcus an der plantaren/lateralen Fersenregion mit typischen Zeichen einer kombinierten Druck- und Ischämieschädigung,Leicht,Keine Infektionszeichen,"[""Mazeriert""]","[""Mazeration"",""glänzende, gespannte Umgebungshaut""]","Bild passt zu:
+- neuropathisch-ischämischem Druckulkus
+- diabetischem Fußulkus
+- ischämischem Fersendekubitus",Ja,Ja,Nein,,"[""Dekubitus""]","[""Fibrinbelag / Slough"",""Granulation""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)""]","[""Hydrofaser / Hydrofiber""]","[""Alginate""]","[""Silber (Ag⁺)""]","[""weicher PU-Schaumverband, druckreduzierende Polsterung, ggf. Superabsorber""]","[""Hautschutzfilm / Barrierespray""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_13,2026-05-16 10:49:02.174+00,true,"rechter Fuß, Innenseite, Knöchel",Zeichen einer kombinierten Druck- und Ischämieschädigung,Leicht,Keine Infektionszeichen,"[""Gerötet / entzündlich"",""livid-erythematöse Hautveränderungen""]","[""Mazeration"",""Erythem / Rötung"",""trockener wirkende Areale mit verminderter Durchblutung""]","Hinweis auf chronische Minderperfusion/Ischämie,
+ischämischem Ulcus,
+Dekubitalulcus bei Minderperfusion,
+ggf. gemischt arteriell-venöser Genese,",Nein,Ja,Nicht beurteilbar,,"[""Dekubitus""]","[""Fibrinbelag / Slough"",""Granulation"",""Gemischt""]",,,"[""Hydrofaser / Hydrofiber"",""Hydrogele (Kompresse)""]","[""Wundkontaktschichten (Silikon/Paraffin)""]","[""Silber (Ag⁺)"",""kurzfristig""]","[""weicher PU-Schaumverband, druckentlastende Polsterung""]","[""Hautschutzfilm / Barrierespray"",""rückfettende Pflege außerhalb der Wunde""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_14,2026-05-27 13:42:09.333+00,true,"linker Fuß
+Lokalisation: dorsaler und lateraler Vorfuß mit Beteiligung der Zehenbasis",Wundausdehnung: großflächiger Gewebedefekt mit Beteiligung mehrerer anatomischer Regionen,Stark,Verdacht auf Infektion / kritische Kolonisation,"[""Mazeriert""]","[""Ödem"",""CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)""]","Differenzialdiagnosen/Ursachen:
+- diabetisches Fußsyndrom
+- neuroischämisches Ulkus
+- venös-lymphatische Beteiligung
+- chronische Druck- und Scherbelastung
+
+Bei kritischer Kolonisation:
+
+zeitlich begrenzte antiseptische Therapie:
+- Silber
+- PHMB
+- Octenidin
+
+Systemische Antibiotika nur bei klinischer Infektion.",Ja,Nein,Nein,"Infektionsmanagement,
+Ernährung,
+Interdisziplinäre Versorgung","[""chronische Fußwunde / Ulkus""]","[""Granulation""]","[""Neutrale Spüllösung (NaCl, Ringer)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)""]","[""Hydrofaser / Hydrofiber"",""Alginate""]","[""Wundkontaktschichten (Silikon/Paraffin)"",""Superabsorber""]",,"[""Elastische Fixierbinden""]","[""Hautschutzfilm / Barrierespray""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_15,2026-05-21 12:15:50.803+00,true,"linker Fuß, seite",,Mäßig,Verdacht auf Infektion / kritische Kolonisation,"[""Gerötet / entzündlich""]","[""Ödem"",""Erythem / Rötung""]","Lokalisation und Morphologie passend zu:
+- fortgeschrittenem Dekubitus
+- schwerem diabetischem Fußulkus
+- oder ischämischer Wunde bei pAVK",Ja,Ja,Nein,„Mehrere tiefe Ulzerationen im Bereich des lateralen/plantaren Fußes mit Nekroseanteilen und fibrinösen Belägen. Stark exsudierende Wundsituation mit Verdacht auf kritische Kolonisation/Infektion. Umgebungshaut gerötet und livide imponierend. Wundrand teilweise mazeriert. Tiefe Gewebebeteiligung bis in subkutane Strukturen. Dringende chirurgische und gefäßmedizinische Mitbeurteilung empfohlen.“ :-),"[""ausgedehnte, tiefe, nekrotische Ulzeration""]","[""Nekrose / Eschara"",""Fibrinbelag / Slough""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""Chirurgisch/Scharf (Skalpell, Kürette)""]","[""Hydrofaser / Hydrofiber"",""Alginate""]","[""Superabsorber""]","[""Silber (Ag⁺)""]","[""atraumatische Schaumverbände"",""ggf. Unterdrucktherapie (VAC) nach Débridement""]","[""Nicht erforderlich""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_16,2026-05-27 13:00:09.382+00,true,rechter Fuß - lateraler und plantarer Fußbereich/Ferse,,Mäßig,Keine Infektionszeichen,"[""Mazeriert""]","[""Erythem / Rötung""]","Besonderheiten bei Paraplegie:
+- reduzierte/fehlende Schmerz- und Druckwahrnehmung
+- erhöhte Rezidivneigung
+- verlängerte Heilungsdauer
+- Gefahr tiefer Gewebeschäden trotz oberflächlich wirkender Läsionen",Ja,Nein,Nein,"Konsequente Druckentlastung
+Infektionsprophylaxe","[""Gravitationsulzera/Druckulzera""]","[""Granulation"",""Fibrinbelag / Slough""]","[""Neutrale Spüllösung (NaCl, Ringer)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)""]","[""Hydrogele (Kompresse)"",""Hydrofaser / Hydrofiber""]","[""Wundkontaktschichten (Silikon/Paraffin)""]",,"[""Schaumverbände""]","[""Hautschutzfilm / Barrierespray""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_17,2026-05-27 15:14:12.263+00,true,"Lokalisation: Fußrücken, lateraler Vorfuß sowie Zehenbereiche",mehrere disseminierte Ulzera unterschiedlicher Größe mit teils konfluierenden Läsionen,Mäßig,Deutliche Infektionszeichen,"[""Gerötet / entzündlich"",""Mazeriert""]","[""Erythem / Rötung"",""Ödem"",""CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)""]","Differenzialdiagnosen/Ursachen:
+- diabetisches Fußsyndrom
+- neuroischämische Ulzera
+- vaskuläre Minderperfusion
+- chronische Druck- und Scherbelastung",Ja,Ja,Nein,Druckentlastung (Offloading),"[""multiple infizierte chronische Fußulzera""]","[""Fibrinbelag / Slough"",""Granulation""]","[""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)""]","[""Hydrofaser / Hydrofiber"",""Alginate""]","[""Wundkontaktschichten (Silikon/Paraffin)"",""Superabsorber""]","[""Silber (Ag⁺)"",""PHMB""]","[""Nicht erforderlich (selbsthaftender Primärverband)""]","[""Hautschutzfilm / Barrierespray""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_18,2026-05-16 10:23:44.866+00,true,"linker Fuß, Innenseite",,Stark,Verdacht auf Infektion / kritische Kolonisation,"[""Mazeriert"",""Gerötet / entzündlich""]","[""Erythem / Rötung"",""deutliche entzündliche Rötung der Umgebung""]","schuppige, chronisch vorgeschädigte Haut,
+dunkleres nekrotisch bzw. stark belegtes Gewebe,
+mögliche chronisch venöse Insuffizienz,
+",Ja,Ja,Ja,,"[""Diabetisches Fußulkus"",""mit deutlichen Zeichen einer lokalen Infektion und chronisch entzündlicher Hautveränderungen""]","[""Gemischt""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)"",""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)"",""Chirurgisch/Scharf (Skalpell, Kürette)""]","[""Hydrofaser / Hydrofiber"",""Schaumstoffverbände (Foam)""]","[""Silberalginate, Silberhydrofaser""]","[""Silber (Ag⁺)""]","[""Superabsorber oder PU-Schaumverband""]","[""Hautschutzfilm / Barrierespray""]","[""Mehrkomponentensysteme (2-/4-Lagen)"",""Kurzzugbinden""]"
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_19,2026-05-27 15:00:14.228+00,true,Lokalisation: lateraler Mittelfuß/Knöchelbereich,,Leicht,Verdacht auf Infektion / kritische Kolonisation,"[""Mazeriert"",""Gerötet / entzündlich""]","[""Ödem"",""gespannte, trophisch veränderte Haut""]","Besonderheiten:
+- Lokalisation typisch für Druck- oder neuroischämische Belastung
+- Gefahr tiefer Strukturbeteiligung (Sehnen/Knochen)
+- mögliche diabetische oder vaskuläre Mitursache",Ja,Ja,Nein,,"[""chronisches Ulkus""]","[""Granulation"",""Fibrinbelag / Slough""]","[""Neutrale Spüllösung (NaCl, Ringer)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)"",""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)""]","[""Hydrogele (Kompresse)"",""Hydrofaser / Hydrofiber""]","[""Wundkontaktschichten (Silikon/Paraffin)""]","[""Silber (Ag⁺)"",""Octenidin"",""PHMB""]","[""Elastische Fixierbinden""]","[""Hautschutzfilm / Barrierespray""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_20,2026-05-21 11:15:11.518+00,true,"rechter Fuß, Ferse, Mittelfuß - Fußsohle","ischämisch-druckbedingten Fußulzera,
+hohem Risiko für Infektion und Gewebsverlust,",Leicht,Verdacht auf Infektion / kritische Kolonisation,"[""Gerötet / entzündlich""]","[""Erythem / Rötung""]",teils livide Verfärbungen mit Hinweis auf Durchblutungsstörung,Ja,Nein,Nein,,"[""Dekubitus""]","[""Nekrose / Eschara"",""Fibrinbelag / Slough""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)"",""Chirurgisch/Scharf (Skalpell, Kürette)""]","[""Hydrogel bei trockenen Nekroseanteilen, Hydrofaser oder Alginat bei Exsudat""]","[""Wundkontaktschichten (Silikon/Paraffin)""]",,"[""absorbierender Schaumverband, atraumatische Fixierung""]","[""schützen vor Mazeration, rückfettende Pflege""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_21,2026-05-20 09:17:48.569+00,true,"linker Fuß, Mittelfußsohle, Ferse","schwerem diabetisch-ischämischem Fußulcus,
+infizierter feuchter Gangrän,
+nekrotisierendem Druck-/Ischämieschaden,",Mäßig,Verdacht auf Infektion / kritische Kolonisation,"[""Mazeriert"",""Gerötet / entzündlich""]","[""Erythem / Rötung"",""Mazeration""]","livide bis grau-schwarze Verfärbungen,
+tiefer Gewebeverlust,
+freiliegende Sehnenstrukturen,
+wahrscheinlich bakterielle Besiedlung/Infektion
+",Ja,Ja,Nein,"NPWT/VAC-Therapie:
+Nach chirurgischer Sanierung häufig sinnvoll.
+
+Plastische Deckung:
+--> Bei freiliegenden Sehnen oft notwendig:
+- Hauttransplantation
+- Lappenplastik
+- rekonstruktive Chirurgie
+","[""Diabetisches Fußulkus"",""hochgradig destruierende Fußwunde""]","[""Nekrose / Eschara""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""Chirurgisch/Scharf (Skalpell, Kürette)""]","[""Alginate"",""Hydrofaser / Hydrofiber""]","[""antimikrobielle Wundauflagen""]","[""Silber (Ag⁺)""]","[""Superabsorber, hochabsorbierende Schaumverbände""]","[""Nicht erforderlich""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_22,2026-05-27 14:24:20.481+00,true,"linker Fuß, Ferse",Kategorie/Stadium: vermutlich tiefe Gewebeschädigung bzw. Kategorie III–IV nach EPUAP/NPIAP,Leicht,Keine Infektionszeichen,"[""Gerötet / entzündlich""]","[""fragile, atrophe Haut""]","Besonderheiten:
+- Fersennekrosen sind häufig ischämisch mitbedingt
+- Gefahr tiefer Gewebsdestruktion unter scheinbar stabiler Oberfläche
+- Risiko der Progression bei Druckbelastung",Nein,Nein,Nein,"Infektionsmanagement,
+Nekrosenmanagement","[""Dekubitus""]","[""Nekrose / Eschara""]",,,"[""trockene sterile Abdeckung, atraumatische Schutzverbände, keine aggressive Befeuchtung""]","[""trockene sterile Abdeckung, atraumatische Schutzverbände, keine aggressive Befeuchtung""]",,"[""abhängig ob Wunde trocken oder feucht""]","[""Hautinspektion täglich, Schutz gefährdeter Druckpunkte, rückfettende Hautpflege""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_23,2026-05-26 10:07:28.741+00,true,"linker Fuß, außenseite",infiziertes neuropathisches Ulkus,Leicht,Verdacht auf Infektion / kritische Kolonisation,"[""Gerötet / entzündlich""]","[""Erythem / Rötung"",""Ödem""]","Verdacht auf:
+- tiefe Gewebebeteiligung
+- subkutane Taschenbildung
+- beginnende Abszedierung",Ja,Ja,Nein,Druckentlastung,"[""Dekubitus"",""Diabetisches Fußulkus""]","[""Fibrinbelag / Slough""]","[""Neutrale Spüllösung (NaCl, Ringer)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)"",""Chirurgisch/Scharf (Skalpell, Kürette)"",""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)""]","[""Alginate""]","[""Hydrofaser / Hydrofiber""]","[""Silber (Ag⁺)""]","[""saugfähiger Schaumverband""]","[""Nicht erforderlich""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_24,2026-05-27 12:07:35.052+00,true,linker Fuß - dorsaler Vorfuß/Fußrücken,,Mäßig,Verdacht auf Infektion / kritische Kolonisation,"[""Mazeriert"",""Gerötet / entzündlich"",""Unterminiert (Wundtaschen)""]","[""Ödem"",""Erythem / Rötung""]","starke Weichteilschwellung,
+gefährdete Durchblutung möglich,
+Risiko tiefer Strukturenbeteiligung (Sehnen/Gelenke)",Ja,Ja,Nein,"Ödem- und Durchblutungsmanagement,
+Infektionsmanagement","[""Diabetisches Fußulkus""]","[""Fibrinbelag / Slough""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)"",""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)"",""Chirurgisch/Scharf (Skalpell, Kürette)""]","[""Alginate"",""Hydrofaser / Hydrofiber""]","[""Schaumstoffverbände (Foam)"",""Wundkontaktschichten (Silikon/Paraffin)""]","[""Silber (Ag⁺)"",""PHMB""]","[""Elastische Fixierbinden""]","[""Hautschutzfilm / Barrierespray""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_25,2026-05-16 11:48:14.956+00,true,"linker Fuß, Spann, Fußrücken",,Stark,Verdacht auf Infektion / kritische Kolonisation,"[""Gerötet / entzündlich""]","[""Ödem"",""Erythem / Rötung""]","freiliegende Sehne sichtbar, 
+Hochrisikowunde,
+interdisziplinäre Versorgung:
+- Wundzentrum
+- Gefäßchirurgie
+- Diabetologie
+- plastische Chirurgie
+- Infektiologie
+
+",Ja,Ja,Nein,,"[""Ulcus Fußrücken mit deutlicher Gewebedestruktion und freiliegender Sehnenstruktur""]","[""Fibrinbelag / Slough""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)"",""Chirurgisch/Scharf (Skalpell, Kürette)"",""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)""]","[""Alginate"",""Hydrofaser / Hydrofiber"",""Wundkontaktschichten (Silikon/Paraffin)""]","[""Silberhydrofaser, antimikrobielle Alginate""]","[""Silber (Ag⁺)""]","[""Superabsorber weicher PU-Schaumverband""]","[""Hautschutzfilm / Barrierespray""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_26,2026-05-27 12:48:18.141+00,true,Lokalisation: lateraler Vor-/Mittelfuß,,Leicht,Verdacht auf Infektion / kritische Kolonisation,"[""scharf begrenzt, teils livide/verfärbt, ischämietypisch""]","[""atrophisch-trockene Haut mit trophischen Störungen"",""CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)""]","Ischämische Ulzera sind oft sehr schmerzhaft:
+- regelmäßiges Schmerzassessment
+- suffiziente Analgesie
+- Schmerztherapie vor Verbandwechsel",Ja,Ja,Nein,"Druckentlastung:
+- konsequente Entlastung der lateralen Fußseite
+- Spezialschuh/Entlastungsschuh
+- Vermeidung von Druck und Reibung
+- Mobilisation angepasst
+
+Schmerzmanagement","[""neuroischämisches bzw. arterielles Fußulkus""]","[""Nekrose / Eschara"",""Granulation"",""Fibrinbelag / Slough""]","[""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)"",""chirurgisches Debridement erst nach Perfusionsverbesserung, sofern möglich""]","[""Hydrofaser / Hydrofiber""]","[""Alginate""]","[""Silber (Ag⁺)"",""PHMB""]","[""Schaumverbände""]","[""trockene Haut pflegen, Zehenzwischenräume kontrollieren""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_27,2026-05-26 10:01:15.095+00,true,"Ferse, linker Fuß","fibrinbelegtes Ulkus im Bereich der Ferse mit Verdacht auf eine druckbedingte Gewebeschädigung (Dekubitalulcus).
+Dekubitus Kategorie/Grad 3–4 (je nach tatsächlicher Tiefe)",Mäßig,Verdacht auf Infektion / kritische Kolonisation,"[""Mazeriert"",""Gerötet / entzündlich""]","[""Erythem / Rötung"",""Mazeration""]","Verdacht auf:
+- tieferen Gewebeschaden
+- instabile Nekrose
+- kritische Kolonisation",Ja,Ja,Nein,"Sofortige Druckentlastung
+Gefäßstatus prüfen","[""Dekubitus""]","[""Gemischt"",""Nekrose / Eschara"",""Fibrinbelag / Slough""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)"",""Chirurgisch/Scharf (Skalpell, Kürette)"",""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)""]","[""Alginate"",""Hydrofaser / Hydrofiber""]","[""Hydrogele (Kompresse)""]","[""Silber (Ag⁺)"",""PHMB""]","[""saugfähiger Schaumverband""]","[""Nicht erforderlich""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_28,2026-05-21 12:53:35.103+00,true,"Ferse, rechter Fuß",Druckulzeration/Dekubitus Kategorie 3–4,Mäßig,Keine Infektionszeichen,"[""Gerötet / entzündlich""]","[""rocken, teils schuppig, gespannt""]","Verdacht auf:
+- kritische Kolonisation
+- lokale Infektion
+- tiefe Gewebebeteiligung",Ja,Ja,Nein,,"[""Dekubitus""]","[""Fibrinbelag / Slough"",""Granulation""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""Chirurgisch/Scharf (Skalpell, Kürette)""]","[""Hydrofaser / Hydrofiber"",""Alginate""]","[""Superabsorber""]","[""Silber (Ag⁺)""]","[""atraumatischer Schaumverband""]","[""fetthaltige Pflege""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_29,2026-05-27 14:49:44.78+00,true,Gesäß-/perianale Region eines Säuglings,"exophytisches, livid-rötliches Hämangiom mit zentralem nekrotisch-fibrinösem Defekt",Leicht,Keine Infektionszeichen,"[""Gerötet / entzündlich""]","[""empfindliche Säuglingshaut mit hoher Feuchtigkeits- und Reibungsbelastung""]","Besonderheiten:
+- ulzerierte Hämangiome sind häufig sehr schmerzhaft
+- erhöhte Blutungsneigung
+- Gefahr sekundärer Infektion
+- Lokalisation im Windelbereich erschwert Heilung",Ja,Nein,Nein,"Feuchtigkeits- und Windelmanagement
+Infektionsmanagement
+Blutungsprophylaxe","[""ulzeriertes infantiles Hämangiom mit zentraler Nekrose""]","[""Nekrose / Eschara"",""Fibrinbelag / Slough""]","[""Neutrale Spüllösung (NaCl, Ringer)""]","[""Kein Débridement erforderlich""]","[""Wundkontaktschichten (Silikon/Paraffin)"",""Schaumstoffverbände (Foam)""]","[""Hydrofaser / Hydrofiber""]",,"[""abhängig von Exsudation""]","[""Nicht erforderlich""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_30,2026-05-27 13:31:09.047+00,true,Lokalisation: Unterschenkelregion,vaskulitische Genese differentialdiagnostisch wahrscheinlich,Mäßig,Verdacht auf Infektion / kritische Kolonisation,"[""Gerötet / entzündlich""]","[""zahlreiche erythematöse Makulae/Papeln, livid-entzündliche Hautveränderungen, Hinweis auf entzündlich-vaskulären Prozess""]","Differenzialdiagnosen:
+- kutane Vaskulitis
+- immunologische/systemische Grunderkrankung
+- Pyoderma gangraenosum
+- embolische oder hämatologische Ursachen
+- atypisches Ulkus",Ja,Nein,Nein,"Infektionsmanagement,
+Dringende Ursachenabklärung (entscheidend!)","[""multiple kleine Ulzera""]","[""Gemischt"",""Fibrinbelag / Slough"",""Granulation""]","[""Neutrale Spüllösung (NaCl, Ringer)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)""]","[""Hydrofaser / Hydrofiber"",""Schaumstoffverbände (Foam)""]","[""Hydrogele (Kompresse)"",""Wundkontaktschichten (Silikon/Paraffin)""]",,"[""Elastische Fixierbinden""]","[""Nicht erforderlich""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_31,2026-05-27 13:48:37.694+00,true,???,ischämisches Ulkus mit ausgeprägtem fibrösem/fibrinbelegtem Gewebe,Mäßig,Keine Infektionszeichen,"[""Mazeriert""]","[""Erythem / Rötung""]","Besonderheiten:
+- Zeichen chronischer Minderperfusion
+- geringe Heilungstendenz
+- Gefahr tiefer Gewebsnekrosen und Progression bei unzureichender Durchblutung",Ja,Nein,Nein,"Dringende Gefäßdiagnostik,
+Infektionsmanagement,
+Druckentlastung,
+Schmerzmanagement","[""Diabetisches Fußulkus"",""ischämisches Ulkus""]","[""Fibrinbelag / Slough""]","[""Neutrale Spüllösung (NaCl, Ringer)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)"",""vorsichtige mechanische Reinigung lockerer Beläge""]","[""Hydrofaser / Hydrofiber""]","[""Hydrogele (Kompresse)"",""Schaumstoffverbände (Foam)""]",,"[""abhängig von der Auflage...""]","[""Nicht erforderlich""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_32,2026-05-19 13:30:51.932+00,true,"Das Bild zeigt ein großflächiges venöses Ulcus cruris bei ausgeprägter chronisch venöser Stauung und Adipositas-assoziierter Belastung. Möglich, Oberschenkel links, Unterschenkel","chronischem venösem Ulcus,
+venös-lymphatischer Insuffizienz,
+Adipositas-assoziierter chronischer Ödemproblematik,",Stark,Verdacht auf Infektion / kritische Kolonisation,"[""Mazeriert"",""Gerötet / entzündlich""]","[""Erythem / Rötung""]","Schuppung,
+Stauungsdermatitis,
+trophische Hautschäden,
+keine trockene Nekrose sichtbar,
+Ödemmanagement",Ja,Ja,Ja,,"[""Ulcus cruris venosum"",""Adipositas-assoziiert""]","[""Fibrinbelag / Slough"",""Granulation""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)"",""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)""]","[""Hydrofaser / Hydrofiber"",""Wundkontaktschichten (Silikon/Paraffin)"",""Alginate""]","[""Silberhydrofaser oder Silberalginat""]","[""Silber (Ag⁺)""]","[""Superabsorber, hochabsorbierender PU-Schaumverband""]","[""Hautschutzfilm / Barrierespray""]","[""Mehrkomponentensysteme (2-/4-Lagen)"",""Kurzzugbinden"",""Adaptive Kompressionsbandagen (Wrap)""]"
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_33,2026-05-27 13:19:50.709+00,true,Lokalisation: Unterschenkelbereich,,Leicht,Keine Infektionszeichen,"[""Gerötet / entzündlich""]","[""Ödem""]",Reinigungsphase mit beginnender Granulation,Ja,Nein,Ja,"Mobilisation und Venentherapie,
+Infektionsmanagement","[""Ulkus cruris""]","[""Fibrinbelag / Slough"",""Granulation""]","[""Neutrale Spüllösung (NaCl, Ringer)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)""]","[""Hydrogele (Kompresse)"",""Hydrofaser / Hydrofiber""]","[""Wundkontaktschichten (Silikon/Paraffin)""]",,"[""abhängig von der Kompressionstherapie""]","[""Hautschutzfilm / Barrierespray""]","[""Kurzzugbinden"",""Mehrkomponentensysteme (2-/4-Lagen)""]"
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_34,2026-05-21 12:07:47.504+00,true,Arm oder Bein??,"Differenzialdiagnostisch passend zu:
+- venösem Ulkus
+- posttraumatischem Ulkus
+- chronischer sekundär heilender Wunde",Mäßig,Keine Infektionszeichen,"[""Mazeriert""]","[""gut durchbluteter, überwiegend roter Wundgrund""]","keine ausgeprägten Nekrosen,
+keine eindeutigen Zeichen einer tiefen Infektion,
+zwei weißlich imponierende Inseln vitalen Regenerations-/Epithelgewebes",Ja,Nein,Ja,"Infektionsprophylaxe,
+Behandlung der Grunderkrankung","[""großflächiges, flaches chronisches Ulkus""]","[""Epithelisierung""]","[""Neutrale Spüllösung (NaCl, Ringer)""]","[""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)"",""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)""]","[""Schaumstoffverbände (Foam)"",""Wundkontaktschichten (Silikon/Paraffin)""]","[""Hydropolymerverbände""]",,"[""Schaumverband""]","[""Hautschutzfilm / Barrierespray""]","[""ggf. Kompression bei venöser Ursache""]"
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_35,2026-05-13 08:06:32.267+00,true,"mehrere kleine bis mittelgroße Ulzerationen am Unterschenkel (Wade, rechts?) mit entzündlich wirkender Umgebungshaut.","Läsionen,
+größere Ulzeration mit:
+
+-gelblich-fibrinösen Belägen
+-rötlichem Granulationsgewebe
+-unregelmäßigen Rändern
+
+entzündliche Umgebungshaut
+
+differentialdiagnostisch: immunologische Genese, Mikroangiopathie, Pyoderma gangraenosum",Mäßig,Verdacht auf Infektion / kritische Kolonisation,"[""Gerötet / entzündlich"",""unregelmäßigen Rändern""]","[""Erythem / Rötung"",""entzündliche Umgebungshaut""]","mehrere kleinere satellitenartige Ulzera
+diffuse erythematöse Flecken/Purpura-artige Hautveränderungen
+entzündliche Umgebungshaut
+vermutlich mäßige Exsudation",Ja,Ja,Nein,,"[""vaskulitischen Ulzera"",""möglicher kutaner Vaskulitis""]","[""Fibrinbelag / Slough"",""Gemischt""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""atraumatische Reinigung"",""Antiseptika nur gezielt bei: Infektionszeichen, kritischer Kolonisation""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)""]","[""Hydrofaser / Hydrofiber"",""Wundkontaktschichten (Silikon/Paraffin)"",""Bei bakterieller Belastung: silberhaltige Varianten kurzfristig""]","[""ggf. Hydrogel bei trockeneren Belägen""]","[""Silber (Ag⁺)""]","[""PU-Schaumverband oder Superabsorber bei stärkerer Exsudation""]","[""Hautschutzfilm / Barrierespray""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_36,2026-05-07 10:44:45.768+00,true,"fibrinösem gelblich-weißem Belag,
+mäßiger Exsudation,
+gerötetem Wundrand,
+--> vermutlich entzündlicher bzw. kritisch kolonisierter Situation,",,Mäßig,Verdacht auf Infektion / kritische Kolonisation,"[""Mazeriert"",""Gerötet / entzündlich""]","[""Erythem / Rötung"",""Mazeration""]",,Ja,Nein,Nicht beurteilbar,"Abklärung der Ursache --> venös, arteriell, Druckulcus, diabetisch","[""Dekubitus"",""Ulcus""]","[""Fibrinbelag / Slough""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""bei kritischer Kolonisation: mit PHMB/Octenidin""]","[""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)"",""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)""]","[""Alginate"",""Hydrofaser / Hydrofiber"",""bei kritischer Kolonisation silberhaltige Varianten erwägen""]","[""Alginate"",""Hydrofaser / Hydrofiber""]",,"[""PU-Schaumverband, bei stärkerem Exsudat: Superabsorber""]","[""Hautschutzfilm / Barrierespray"",""Zinksalbe / Zinkpaste""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_37,2026-05-18 11:53:23.532+00,true,nicht beurteilbar,fibrinösem Belag und zentralen nekrotischen Anteilen bei wahrscheinlich chronisch venöser Genese.,Mäßig,Verdacht auf Infektion / kritische Kolonisation,"[""Gerötet / entzündlich""]","[""Ödem"",""Erythem / Rötung""]","zentrale dunkle nekrotische Areale,
+Zeichen chronischer venöser Stauung wahrscheinlich,
+",Ja,Ja,Ja,,"[""kleines, oberflächliches Ulcus""]","[""Fibrinbelag / Slough""]","[""Neutrale Spüllösung (NaCl, Ringer)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)""]","[""Hydrofaser / Hydrofiber""]","[""Hydrogele (Kompresse)"",""Wundkontaktschichten (Silikon/Paraffin)""]","[""Silber (Ag⁺)""]","[""PU-Schaumverband oder kleiner Superabsorber bei stärkerer Sekretion""]","[""Hautschutzfilm / Barrierespray"",""Zinksalbe / Zinkpaste""]","[""Mehrkomponentensysteme (2-/4-Lagen)"",""Kurzzugbinden""]"
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_38,2026-05-27 13:14:50.245+00,true,könnte Unterschenkel oder Handgelenk sein,"Wundgröße: großflächig oval ausgedehnt
+Wundtiefe: oberflächlich bis flach",Mäßig,Keine Infektionszeichen,"[""Gerötet / entzündlich""]","[""Ödem"",""Erythem / Rötung""]","Heilungsphase: Übergang von Reinigungs- zu Granulationsphase
+Typische Ursache: chronisch venöse Insuffizienz (CVI)",Ja,Nein,Ja,Infektionsmanagement,"[""Ulcus cruris venosum""]","[""Fibrinbelag / Slough"",""Granulation""]","[""Neutrale Spüllösung (NaCl, Ringer)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)""]","[""Hydrogele (Kompresse)"",""Hydrofaser / Hydrofiber""]","[""Wundkontaktschichten (Silikon/Paraffin)"",""Superabsorber""]",,"[""abhängig von Kompressionstherapie""]","[""Hautschutzfilm / Barrierespray""]","[""Kurzzugbinden"",""Mehrkomponentensysteme (2-/4-Lagen)""]"
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_39,2026-05-27 11:41:02.623+00,true,"Bein, evtl. links, Unterschenkel",oberflächliches Ulkus cruris,Mäßig,Keine Infektionszeichen,"[""Mazeriert"",""Gerötet / entzündlich""]","[""gerötet-glänzende Haut, Hinweis auf chronische venöse Stauung/Ödemneigung""]",überwiegend Granulationsphase mit noch fibrinösen Anteilen,Ja,Nein,Ja,"Infektionsprophylaxe
+Verlaufskontrolle","[""Ulcus cruris venosum""]","[""Granulation"",""Fibrinbelag / Slough""]","[""Neutrale Spüllösung (NaCl, Ringer)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)""]","[""Schaumstoffverbände (Foam)"",""Hydrofaser / Hydrofiber""]","[""Wundkontaktschichten (Silikon/Paraffin)"",""Alginate""]",,"[""über Kompression""]","[""Hautschutzfilm / Barrierespray"",""pH-neutrale Pflegeprodukte""]","[""Mehrkomponentensysteme (2-/4-Lagen)"",""Kurzzugbinden"",""medizinische Kompressionssysteme""]"
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_40,2026-05-16 10:59:22.312+00,true,könnte Innenseite linker Fuß sein,"Dekubitus Kategorie/Stadium 2
+bis oberflächliches Stadium 3",Leicht,Verdacht auf Infektion / kritische Kolonisation,"[""Gerötet / entzündlich""]","[""Ödem""]","deutliche perifokale Rötung, 
+umgebende Rötung spricht für:
+- Druckschädigung
+- lokale Entzündung
+- evtl. beginnende kritische Kolonisation,
+",Ja,Ja,Nein,,"[""Dekubitus""]","[""Gemischt"",""Fibrinbelag / Slough"",""Granulation""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)""]","[""Hydrofaser / Hydrofiber"",""Hydrokolloide""]","[""Schaumstoffverbände (Foam)""]","[""Silber (Ag⁺)""]","[""Elastische Fixierbinden"",""dünner PU-Schaumverband""]","[""Hautschutzfilm / Barrierespray""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_41,2026-05-16 10:15:26.729+00,true,"schwierig zu beantworten... könnte die Wade sein, evtl. rechts","oberflächliches venöses Ulcus cruris,
+",Mäßig,Keine Infektionszeichen,"[""Gerötet / entzündlich"",""unregelmäßige Wundränder""]","[""Erythem / Rötung"",""leicht gerötete, glänzende Umgebungshaut""]",randständig einzelne rote Granulationsinseln,Ja,Nein,Ja,,"[""Ulcus cruris venosum""]","[""Fibrinbelag / Slough""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""bei kritischer Kolonisation:  PHMB oder Octenidin zeitlich begrenzt""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)"",""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)""]","[""Hydrofaser / Hydrofiber""]","[""Hydrogele (Kompresse)"",""Alginate""]",,"[""PU-Schaumverband"",""Superabsorber bei stärkerer Sekretion""]","[""Hautschutzfilm / Barrierespray""]","[""Mehrkomponentensysteme (2-/4-Lagen)"",""Kurzzugbinden""]"
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_42,2026-05-21 13:12:34.477+00,true,könnte am linken Fuß sein... Knöchelbereich,"Umgebungshaut:
+- atrophisch
+- livide/verfärbt
+- trophisch gestört",Mäßig,Verdacht auf Infektion / kritische Kolonisation,"[""Gelbliche fibrinöse Randbeläge""]","[""CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)""]","Hochrisikowunde mit Gefahr von:
+- Nekroseprogression
+- Wundinfektion
+- Osteomyelitis
+- kritischer Extremitätenischämie
+- Amputation",Ja,Ja,Nein,,"[""Dekubitus""]","[""Fibrinbelag / Slough"",""Granulation""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""kein aggressives Debridement ohne Gefäßstatus, trockene stabile Nekrosen ggf. belassen, Bei infizierten/fibrinösen Belägen:  zurückhaltendes scharfes Debridement, autolytische Verfahren möglich""]","[""Hydrogele (Kompresse)""]","[""Hydrofaser / Hydrofiber"",""Alginate""]","[""Silber (Ag⁺)"",""PHMB""]","[""atraumatischer Schaumverband""]","[""Nicht erforderlich""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_43,2026-05-07 10:28:20.457+00,true,"...stark exsudierendes, nekrotisch belegtes Ulcus mit grünlicher Verfärbung typisch für Pseudomonas aeruginosa.",,Mäßig,Deutliche Infektionszeichen,"[""Gerötet / entzündlich"",""Mazeriert"",""Unterminiert (Wundtaschen)""]","[""Mazeration"",""Erythem / Rötung""]",,Ja,Ja,Nicht beurteilbar,"Kompressionsverband (falls venöses Ulcus und arterielle Perfusion ausreichend):
+als zentraler Bestandteil der Therapie mit z. B. Mehrkomponentensysteme","[""Ulcus""]","[""Nekrose / Eschara"",""Gemischt""]","[""Antimikrobielle Spüllösung (PHMB, Octenisept)"",""ggf. Essigsäure-Umschläge (0,5–1 %) bei ausgeprägtem Pseudomonas-Befall""]","[""Chirurgisch/Scharf (Skalpell, Kürette)"",""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)""]","[""Hydrofaser / Hydrofiber"",""Schaumstoffverbände (Foam)"",""Silber-Schaumverbände""]","[""Hydrofaser / Hydrofiber"",""Superabsorber""]","[""Silber (Ag⁺)"",""PHMB"",""Gele - bei bakterieller Belastung sinnvoll""]","[""Sekundär: Superabsorber + Fixier-/Kompressionssystem"",""Superabsorber-Verband"",""Fixierbinden / kohäsive Binden""]","[""Zinksalbe / Zinkpaste"",""Hautschutzfilm / Barrierespray""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_44,2026-05-16 11:25:51.437+00,true,"Unterschenkel, rechts, Innenseite",Ulcus mit massiver Belagsbildung und deutlichen Zeichen einer schweren lokalen Gewebeschädigung,Stark,Deutliche Infektionszeichen,"[""Gerötet / entzündlich"",""glänzende, ödematöse Haut""]","[""Erythem / Rötung"",""Ödem""]","chronisch stagnierend,
+stark reinigungsbedürftig,
+wahrscheinlich infiziert oder kritisch kolonisiert,
+tiefer Gewebedefekt",Ja,Ja,Ja,,"[""ausgedehntes, tiefes chronisches Ulcus""]","[""Nekrose / Eschara"",""Fibrinbelag / Slough""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""Chirurgisch/Scharf (Skalpell, Kürette)"",""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)""]","[""Silberhydrofaser""]","[""Silberalginat"",""antimikrobielle Alginate ggf. PHMB-haltige Wundauflagen""]","[""Silber (Ag⁺)""]","[""Superabsorber, hochabsorbierender PU-Schaumverband""]","[""Hautschutzfilm / Barrierespray"",""Wundrandschutzpaste"",""Zinksalbe / Zinkpaste""]","[""Falls venöse Genese und ausreichende arterielle Perfusion:  → konsequente Kompressionstherapie""]"
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_45,2026-05-13 08:05:19.205+00,true,"größeres, flächiges Ulcus am Unterschenkel (Wade) bei ausgeprägtem Ödem und Adipositas-assoziierter Hautveränderung.",,Stark,Verdacht auf Infektion / kritische Kolonisation,"[""Gerötet / entzündlich"",""unregelmäßige Wundränder""]","[""Ödem"",""Erythem / Rötung""]","stark gerötete und ödematöse Umgebungshaut, feucht glänzende Wundumgebung, Zeichen chronischer venös-lymphatischer Stauung wahrscheinlich",Ja,Ja,Ja,,"[""Ulcus cruris venosum"",""venös-lymphatischem Ulcus""]","[""Fibrinbelag / Slough"",""Granulation"",""Gemischt""]","[""Antimikrobielle Spüllösung (PHMB, Octenisept)"",""Neutrale Spüllösung (NaCl, Ringer)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)"",""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)""]","[""Hydrofaser / Hydrofiber"",""silberhaltige Varianten bei bakterieller Belastung""]","[""Alginate""]","[""Silber (Ag⁺)""]","[""Superabsorber oder PU-Schaumverband""]","[""Hautschutzfilm / Barrierespray"",""Zinksalbe / Zinkpaste""]","[""Mehrkomponentensysteme (2-/4-Lagen)"",""Kurzzugbinden"",""Adaptive Kompressionsbandagen (Wrap)""]"
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_46,2026-05-16 11:06:41.156+00,true,"Unterschenkel, Außenseite auf Knie Höhe","kleines, scharf begrenztes („ausgestanzt“ wirkendes) Ulkus am Unterschenkel mit fibrinösem Wundgrund",Mäßig,Verdacht auf Infektion / kritische Kolonisation,"[""Gerötet / entzündlich"",""relativ scharf begrenzte Wundränder""]","[""Erythem / Rötung"",""eher trocken wirkende Umgebung""]","Das Erscheinungsbild kann passen zu:
+- arteriell/ischämischem Ulkus
+- vaskulitischer Läsion
+- Mikroangiopathie
+- diabetischer Genese
+- embolischer Ursache
+- atypischem Ulkus",Ja,Ja,Nein,,"[""rundlich-ovales Ulcus""]","[""Fibrinbelag / Slough"",""Granulation""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)""]","[""Hydrofaser / Hydrofiber""]","[""Hydrogele (Kompresse)"",""Wundkontaktschichten (Silikon/Paraffin)""]","[""Silber (Ag⁺)""]","[""kleiner PU-Schaumverband oder weicher Superabsorber bei stärkerer Exsudation""]","[""Hautschutzfilm / Barrierespray""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_47,2026-05-26 10:22:07.613+00,true,"Bein, Unterschenkel Richtung Fuß","fortgeschrittene Gewebedestruktion,
+kritische Kolonisation bzw. manifeste Infektion,",Mäßig,Deutliche Infektionszeichen,"[""Gerötet / entzündlich""]","[""Erythem / Rötung""]",,Ja,Ja,Nicht beurteilbar,"Kompressionstherapie --> Bei venöser Genese: medizinische Kompression indiziert
+Schutz der freiliegenden Sehnen","[""ausgeprägtes infiziertes Ulcus cruris"",""Ulcus cruris venosum""]","[""Fibrinbelag / Slough"",""Gemischt"",""Nekrose / Eschara""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""Chirurgisch/Scharf (Skalpell, Kürette)"",""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)""]","[""Hydrofaser / Hydrofiber"",""Alginate""]","[""PHMB-haltige Auflagen""]","[""Silber (Ag⁺)""]","[""absorbierender Schaumverband""]","[""Nicht erforderlich""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_48,2026-05-21 11:23:34.358+00,true,"könnte der Unterschenkel sein, rechts",großflächiges venöses Ulkus am (Unterschenkel) bei ausgeprägter chronischer venöser Insuffizienz und Adipositas.,Stark,Verdacht auf Infektion / kritische Kolonisation,"[""Mazeriert""]","[""Erythem / Rötung"",""Ödem""]","Zeichen chronischer venöser Stauung,
+kräftig granulierender, überwiegend roter Wundgrund",Ja,Nein,Ja,Mobilisation und Entstauung,"[""Ulcus cruris venosum""]","[""Fibrinbelag / Slough""]","[""Neutrale Spüllösung (NaCl, Ringer)""]","[""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)""]","[""Hydrofaser / Hydrofiber""]","[""Schaumstoffverbände (Foam)"",""Alginate""]",,"[""Kompressionstherapie""]","[""Wundrandschutzpaste"",""Hautschutzfilm / Barrierespray""]","[""Kurzzugbinden"",""Mehrkomponentensysteme (2-/4-Lagen)""]"
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_49,2026-05-16 10:37:46.946+00,true,"Bein, evtl. rechts, Unterschenkel",mehrere kleine bis mittelgroße Ulzera,Mäßig,Verdacht auf Infektion / kritische Kolonisation,"[""Gerötet / entzündlich"",""unregelmäßige Wundränder""]","[""Erythem / Rötung"",""Ödem""]","teilweise tiefe Gewebedefekte,
+punktförmige rötliche Einschlüsse im Belag",Ja,Ja,Ja,,"[""tiefer reichende Ulzerationen am Unterschenkel mit chronisch entzündlicher Umgebung""]","[""Fibrinbelag / Slough""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)"",""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)""]","[""Alginate"",""Hydrofaser / Hydrofiber""]","[""Silberhydrofaser, Silberalginat""]","[""Silber (Ag⁺)""]","[""PU-Schaumverband oder Superabsorber""]","[""Hautschutzfilm / Barrierespray"",""Zinksalbe / Zinkpaste"",""Wundrandschutzpaste""]","[""falls venöse Ursache und arterielle Perfusion ausreichend --> konsequente Kompression""]"
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_50,2026-05-27 11:52:13.926+00,true,"chronisches Ulkus im Bereich der Achillessehne
+dorsaler Unterschenkel / Achillessehnenregion",Besonderheit: Lokalisation über der Achillessehne → Gefahr freiliegender Sehnenanteile und funktioneller Einschränkungen,Stark,Verdacht auf Infektion / kritische Kolonisation,"[""Mazeriert"",""teilweise aufgequollen""]","[""gerötet-glänzende, ödematöse Haut"",""Erythem / Rötung""]",Lokalisation über der Achillessehne → Gefahr freiliegender Sehnenanteile und funktioneller Einschränkungen,Ja,Nein,Ja,Infektionsmanagement,"[""Ulkus""]","[""Granulation"",""Fibrinbelag / Slough""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)"",""vorsichtig mechanisches Debridement""]","[""Hydrogele (Kompresse)"",""Hydrofaser / Hydrofiber""]","[""Alginate"",""Wundkontaktschichten (Silikon/Paraffin)""]",,"[""kommt auf die Kompression an""]","[""Nicht erforderlich""]","[""Kurzzugbinden"",""Mehrkomponentensysteme (2-/4-Lagen)""]"
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_51,2026-05-19 13:37:49.963+00,true,"rechter Fuß, Ferse","Das Bild zeigt einen kleinen, tiefen Dekubitus im Bereich der Ferse mit typischer druckbedingter Gewebeschädigung. Dekubitus Kategorie/Stadium 3",Leicht,Keine Infektionszeichen,"[""Mazeriert""]","[""Erythem / Rötung""]","tiefer wirkender Gewebedefekt („lochförmig“),
+keine freiliegenden tiefen Strukturen erkennbar",Ja,Nein,Nein,"konsequente Fersenfreilagerung --> Maßnahmen:
+Fersenfreilagerung
+Lagerungskissen
+spezielle Fersenprotektoren
+Wechseldrucksysteme bei Immobilität","[""Dekubitus""]","[""Fibrinbelag / Slough""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""Bei kritischer Kolonisation:  PHMB oder Octenidin zeitlich begrenzt""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)""]","[""Hydrofaser / Hydrofiber"",""Wundkontaktschichten (Silikon/Paraffin)""]","[""Bei kritischer Kolonisation:  Silberhydrofaser kurzfristig"",""Hydrogele (Kompresse)""]",,"[""weicher PU-Schaumverband druckreduzierende Polsterung""]","[""Hautschutzfilm / Barrierespray""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_52,2026-05-07 10:59:10.913+00,true,"Ferse, scheint links zu sein:
+gelblich-fibrinösem Belag
+mäßiger Exsudation
+gerötetem Wundrand","wahrscheinlich Dekubitus Kategorie/Stadium 2–3
+(je nach Tiefe und tatsächlichem Gewebeverlust)
+rundliche Ulzeration",Mäßig,Keine Infektionszeichen,"[""Gerötet / entzündlich""]","[""Mazeration"",""glänzend""]","Keine ausgeprägte schwarze Nekrose sichtbar
+Kein offensichtlicher freiliegender Knochen oder Sehne",Ja,Nein,Nein,"Vielleicht sollte noch angegeben werden was die weitere Therapie beinhaltet
+","[""Dekubitus""]","[""Fibrinbelag / Slough"",""Gemischt""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""bei kritischer Kolonisation:  PHMB/Octenidin""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)"",""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)""]","[""Hydrofaser / Hydrofiber"",""Bei Infektionsverdacht silberhaltige Varianten"",""Schaumstoffverbände (Foam)""]","[""Alginate bei stärker exsudierend""]",,"[""PU-Schaumverband, Atraumatische Fixierung""]","[""Hautschutzfilm / Barrierespray"",""Zinksalbe / Zinkpaste""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_53,2026-05-26 10:49:01.743+00,true,"Fuß, Ferse links","Dekubitus Kategorie 3
+(möglicherweise tiefer, abhängig von tatsächlicher Gewebebeteiligung)",Stark,Verdacht auf Infektion / kritische Kolonisation,"[""Mazeriert""]","[""Erythem / Rötung"",""Ödem""]",Dekubitus im Bereich der Ferse mit ausgeprägten fibrinösen Belägen und tiefer Gewebeschädigung.,Ja,Ja,Nein,"Konsequente Druckentlastung
+Einsatz:
+- Fersenfreilagerungssysteme
+- druckentlastende Lagerungshilfen
+- Weichlagerung","[""Dekubitus""]","[""Fibrinbelag / Slough"",""Granulation""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""PHMB oder Octenidin zeitlich begrenzt""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)"",""Chirurgisch/Scharf (Skalpell, Kürette)"",""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)""]","[""Hydrofaser / Hydrofiber"",""Hydrogele (Kompresse)""]","[""Alginate""]","[""Silber (Ag⁺)""]","[""absorbierender Schaumverband""]","[""Nicht erforderlich""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_54,2026-05-27 12:01:01.888+00,true,Gesäß-/Sakralregion,vermutlich Kategorie III–IV nach EPUAP/NPIAP,Mäßig,Verdacht auf Infektion / kritische Kolonisation,"[""Unterminiert (Wundtaschen)"",""Gerötet / entzündlich""]","[""Erythem / Rötung"",""Weichteilreizung""]","Geruch: bei dieser Wundsituation häufig foetorverdächtig
+tiefreichender Gewebedefekt mit ausgedehnten Nekrosen",Ja,Ja,Nein,"Druckentlastung (zentral!),
+Schmerztherapie,
+Ernährung","[""Dekubitus""]","[""Nekrose / Eschara""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""Chirurgisch/Scharf (Skalpell, Kürette)"",""autolytisches Debridement, enzymatisches Debridement - ergänzend""]","[""antiseptische Wundauflagen --> Silber PHMB-haltige Produkte""]","[""Alginate"",""Hydrofaser / Hydrofiber"",""Superabsorber"",""ggf. Unterdrucktherapie (NPWT/VAC) nach Nekrosensanierung""]","[""Silber (Ag⁺)"",""PHMB""]","[""Nicht erforderlich (selbsthaftender Primärverband)""]","[""Hautschutzfilm / Barrierespray"",""Wundrandschutzpaste""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_55,2026-05-19 13:47:09.879+00,true,Steiß,"Das Bild zeigt ein tiefes Dekubitalulkus mit ausgeprägtem Gewebeverlust und deutlichen Zeichen einer schweren chronischen Wundheilungsstörung.
+Dekubitus Kategorie/Stadium 3–4",Stark,Verdacht auf Infektion / kritische Kolonisation,"[""Gerötet / entzündlich""]","[""Erythem / Rötung"",""Ödem""]","tiefe Gewebebeteiligung wahrscheinlich,
+Taschenbildung/Unterminierungen möglich,
+hohes Risiko für:
+- Infektion
+- Abszessbildung
+- Osteomyelitis
+- Sepsis",Ja,Ja,Nein,NPWT/VAC-Therapie erwägen,"[""Dekubitus""]","[""Fibrinbelag / Slough""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)"",""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)"",""Chirurgisch/Scharf (Skalpell, Kürette)""]","[""Hydrofaser / Hydrofiber"",""Alginate""]","[""silberhydrofaser/Silberalginat bei kritischer Kolonisation""]","[""Silber (Ag⁺)""]","[""Superabsorber, hochabsorbierender PU-Schaumverband""]","[""Hautschutzfilm / Barrierespray"",""Zinksalbe / Zinkpaste""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_56,2026-05-20 14:28:34.543+00,true,könnte sich im Bereich des Steißes befinden,"Dekubitus Kategorie/Stadium 3,
+tiefem Druckulkus mit cavitärer Ausdehnung",Mäßig,Keine Infektionszeichen,"[""Gerötet / entzündlich"",""Taschenbildung möglich""]","[""Erythem / Rötung""]","chronische Druckschädigung wahrscheinlich,
+",Ja,Ja,Nein,,"[""Dekubitus""]","[""Nekrose / Eschara"",""Fibrinbelag / Slough""]","[""Neutrale Spüllösung (NaCl, Ringer)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)"",""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)""]","[""Hydrofaser / Hydrofiber""]","[""Alginate""]","[""Silber (Ag⁺)""]","[""silikonisierter Schaumverband, absorbierender PU-Schaumverband""]","[""Hautschutzfilm / Barrierespray""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_57,2026-05-27 13:08:24.544+00,true,sakrales Dekubitalulkus,wahrscheinlich Kategorie III nach EPUAP/NPIAP,Stark,Verdacht auf Infektion / kritische Kolonisation,"[""Mazeriert"",""Gerötet / entzündlich""]","[""Erythem / Rötung""]","Besonderheiten:
+- Lokalisation im sakralen Bereich → hohe Kontaminations- und Druckbelastung
+- Gefahr von Taschenbildung und Tiefenausdehnung
+- erhöhtes Risiko für Feuchtigkeits- und Inkontinenzschäden",Ja,Nein,Nein,"Konsequente Druckentlastung,
+Infektionsmanagement,
+Ernährung,
+Schmerzmanagement","[""Dekubitus""]","[""Fibrinbelag / Slough""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)"",""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)""]","[""Hydrogele (Kompresse)"",""Hydrofaser / Hydrofiber""]","[""Alginate"",""Schaumstoffverbände (Foam)"",""Wundkontaktschichten (Silikon/Paraffin)"",""Superabsorber""]",,"[""abhängig von Druckentlastung""]","[""Hautschutzfilm / Barrierespray""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_58,2026-05-27 14:17:45.789+00,true,Lokalisation: vermutlich Sakral-/Gesäßregion,Kategorie/Stadium: wahrscheinlich Kategorie II nach EPUAP/NPIAP,Leicht,Keine Infektionszeichen,"[""Gerötet / entzündlich""]","[""Erythem / Rötung""]","Besonderheiten: frühe Druckschädigung mit hohem Risiko der Progression bei anhaltender Belastung,
+kleinflächige flache Ulzerationen mit hell fibrinösem Belag",Ja,Nein,Nein,,"[""Dekubitus""]","[""Fibrinbelag / Slough""]","[""Neutrale Spüllösung (NaCl, Ringer)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)""]","[""Schaumstoffverbände (Foam)""]","[""Hydrokolloide""]",,"[""Nicht erforderlich (selbsthaftender Primärverband)""]","[""Hautschutzfilm / Barrierespray""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_59,2026-05-20 09:25:34.425+00,true,Steiß,"Dekubitus Kategorie/Stadium 3,
+tiefem Druckulkus mit ausgeprägter Unterminierung",Mäßig,Keine Infektionszeichen,"[""Unterminiert (Wundtaschen)"",""Mazeriert""]","[""Mazeration"",""Erythem / Rötung""]","ovales bis kraterförmiges Ulkus,
+tiefreichender Gewebedefekt",Ja,Ja,Nein,NPWT/VAC-Therapie,"[""Dekubitus""]","[""Granulation""]","[""Neutrale Spüllösung (NaCl, Ringer)""]","[""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)"",""Chirurgisch/Scharf (Skalpell, Kürette)""]","[""Alginate"",""Hydrofaser / Hydrofiber""]","[""Wundkontaktschichten (Silikon/Paraffin)""]","[""Silber (Ag⁺)""]","[""absorbierender Schaumverband, Superabsorber bei stärkerer Sekretion""]","[""Hautschutzfilm / Barrierespray"",""Zinksalbe / Zinkpaste""]",
+982c75ed-e401-429f-8452-5e26ac8452db,wunde_60,2026-05-27 13:35:52.855+00,true,Lokalisation: sakrogluteale/perianale Region beidseits,Kategorie/Stadium: vermutlich Kategorie III–IV nach EPUAP/NPIAP,Mäßig,Verdacht auf Infektion / kritische Kolonisation,"[""Mazeriert"",""Gerötet / entzündlich""]","[""Erythem / Rötung""]","Besonderheiten:
+- hohe Feuchtigkeits- und Kontaminationsbelastung
+- Gefahr von Taschenbildung/Fistelung
+- hohes Rezidivrisiko",Ja,Nein,Nein,"Ernährung,
+Schmerzmanagement,
+Konsequente Druckentlastung (oberste Priorität)","[""Dekubitus""]","[""Granulation""]","[""Neutrale Spüllösung (NaCl, Ringer)"",""Antimikrobielle Spüllösung (PHMB, Octenisept)""]","[""Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)"",""Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)""]","[""Hydrofaser / Hydrofiber"",""Schaumstoffverbände (Foam)""]","[""Superabsorber"",""Wundkontaktschichten (Silikon/Paraffin)""]",,"[""abhängig von der Druckentlastung""]","[""Hautschutzfilm / Barrierespray""]",

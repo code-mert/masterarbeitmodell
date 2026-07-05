@@ -176,7 +176,7 @@ def normalise_lokalisation(text):
     Decodiert Lokalisations-Keywords in standardisierte Körperteil-Bezeichnungen.
     """
     if not isinstance(text, str):
-        return "unbekannt"
+        return text
     
     text_lower = text.lower()
     found_parts = []
@@ -190,7 +190,7 @@ def normalise_lokalisation(text):
     found_parts = sorted(list(set(found_parts)))
     
     if not found_parts:
-        return "unbekannt"
+        return text
     return ", ".join(found_parts)
 
 def normalise_by_mapping(val, mapping_dict):

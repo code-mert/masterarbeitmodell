@@ -142,10 +142,18 @@ def explore_answers_interactive(df: pd.DataFrame, label: str = "Kategorie"):
 
     return widgets.interactive(show_answers, selected_category=category_select)
 
-def explore_distributions_interactive(df: pd.DataFrame, label: str = "Kategorie"):
+def explore_distributions_interactive(df: pd.DataFrame, df_norm: pd.DataFrame = None, label: str = "Kategorie"):
     """
     Displays an interactive dropdown widget to show the frequency distribution of answers for a selected category.
+    If df_norm is provided, displays raw and normalized distributions side-by-side.
     """
+    from IPython.display import display, HTML
+    
+    # Handle positional arguments if label was passed as second argument
+    if isinstance(df_norm, str):
+        label = df_norm
+        df_norm = None
+        
     if df.empty:
         print("Das DataFrame ist leer.")
         return
@@ -157,11 +165,13 @@ def explore_distributions_interactive(df: pd.DataFrame, label: str = "Kategorie"
             print("Keine Kategorie ausgewählt.")
             return
             
-        if selected_category in df.columns:
-            series = df[selected_category].dropna()
+        def get_counts_for_df(target_df):
+            if selected_category not in target_df.columns:
+                return None, 0, 0
+            series = target_df[selected_category].dropna()
             
             # Process Sonstiges to include detailed text
-            if selected_category == 'wundtyp' and 'wundtyp_sonstiges' in df.columns:
+            if selected_category == 'wundtyp' and 'wundtyp_sonstiges' in target_df.columns:
                 def process_wundtyp(row):
                     val = row['wundtyp']
                     sonst = row['wundtyp_sonstiges']
@@ -173,9 +183,9 @@ def explore_distributions_interactive(df: pd.DataFrame, label: str = "Kategorie"
                         elif isinstance(val, str) and val.strip().lower() == "sonstiges":
                             return f"Sonstiges ({sonst})"
                     return val
-                series = df.apply(process_wundtyp, axis=1).dropna()
+                series = target_df.apply(process_wundtyp, axis=1).dropna()
                 
-            elif selected_category == 'wundstadium' and 'wundstadium_sonstiges' in df.columns:
+            elif selected_category == 'wundstadium' and 'wundstadium_sonstiges' in target_df.columns:
                 def process_wundstadium(row):
                     val = row['wundstadium']
                     sonst = row['wundstadium_sonstiges']
@@ -187,29 +197,95 @@ def explore_distributions_interactive(df: pd.DataFrame, label: str = "Kategorie"
                         elif isinstance(val, str) and val.strip().lower() == "sonstiges":
                             return f"Sonstiges ({sonst})"
                     return val
-                series = df.apply(process_wundstadium, axis=1).dropna()
+                series = target_df.apply(process_wundstadium, axis=1).dropna()
                 
-            # Compute distributions without exploding lists (treating the whole response for a wound as a single entry)
             series_display = series.apply(clean_display_value)
-            total_entries = series_display.count()
+            total = series_display.count()
             counts = series_display.value_counts()
+            return counts, total, len(counts)
+
+        # Get counts for raw
+        counts_raw, total_raw, unique_raw = get_counts_for_df(df)
+        
+        # If df_norm is provided, get counts for norm
+        if df_norm is not None:
+            counts_norm, total_norm, unique_norm = get_counts_for_df(df_norm)
+            
+            if counts_raw is None or counts_norm is None:
+                print(f"Die Kategorie '{selected_category}' existiert nicht in beiden Datensätzen.")
+                return
                 
-            unique_entries = len(counts)
+            df_raw_counts = pd.DataFrame({"Antwort": counts_raw.index, "Anzahl": counts_raw.values})
+            df_norm_counts = pd.DataFrame({"Antwort": counts_norm.index, "Anzahl": counts_norm.values})
             
+            reduction = (1.0 - unique_norm / unique_raw) * 100.0 if unique_raw > 0 else 0.0
+            
+            style = """
+            <style>
+                .explore-table {
+                    border-collapse: collapse;
+                    width: 100%;
+                    font-family: 'Segoe UI', Arial, sans-serif;
+                    font-size: 12px;
+                    margin-top: 10px;
+                }
+                .explore-table th {
+                    background-color: #1d3557;
+                    color: white;
+                    padding: 8px 10px;
+                    text-align: left;
+                    border: 1px solid #d3d3d3;
+                    font-weight: bold;
+                }
+                .explore-table td {
+                    padding: 6px 10px;
+                    border: 1px solid #e0e0e0;
+                }
+                .explore-table tr:nth-child(even) {
+                    background-color: #f8f9fa;
+                }
+            </style>
+            """
+            
+            html_raw = f"""
+            <div style="float: left; width: 48%; margin-right: 4%;">
+                <h3 style="color: #1d3557; font-family: 'Segoe UI', Arial, sans-serif; margin-bottom: 5px;">Roh-Version (Raw GT)</h3>
+                <p style="margin: 0; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #457b9d;">
+                    <b>{unique_raw}</b> unterschiedliche Antworten / {total_raw} Einträge
+                </p>
+                {df_raw_counts.to_html(index=False, classes='explore-table')}
+            </div>
+            """
+            
+            html_norm = f"""
+            <div style="float: left; width: 48%;">
+                <h3 style="color: #2a9d8f; font-family: 'Segoe UI', Arial, sans-serif; margin-bottom: 5px;">Normalisiert (Normalised GT)</h3>
+                <p style="margin: 0; font-family: 'Segoe UI', Arial, sans-serif; font-size: 13px; color: #2a9d8f;">
+                    <b>{unique_norm}</b> unterschiedliche Antworten / {total_norm} Einträge (<b>-{reduction:.1f}%</b> Reduktion)
+                </p>
+                {df_norm_counts.to_html(index=False, classes='explore-table')}
+            </div>
+            """
+            
+            display(HTML(f'{style}<div style="width: 100%; overflow: hidden; margin-top: 15px;">{html_raw}{html_norm}</div>'))
+            
+        else:
+            # Original single DataFrame printout
+            if counts_raw is None:
+                print(f"Die Kategorie '{selected_category}' existiert nicht im Datensatz.")
+                return
             print(f"Häufigkeitsverteilung für Kategorie '{selected_category}':")
-            print(f"-> {unique_entries} unterschiedliche Antworten aus insgesamt {total_entries} Einträgen:\n")
-            
-            for antwort, anzahl in counts.items():
+            print(f"-> {unique_raw} unterschiedliche Antworten aus insgesamt {total_raw} Einträgen:\n")
+            for antwort, anzahl in counts_raw.items():
                 antwort_display = clean_display_value(antwort)
                 print(f"- {antwort_display}: {anzahl}x")
-        else:
-            print(f"Die Kategorie '{selected_category}' existiert nicht im Datensatz.")
 
     category_select = widgets.Dropdown(
         options=categories,
         value='wundtyp' if 'wundtyp' in categories else (categories[0] if categories else None),
         description=f'{label}:',
         style={'description_width': 'initial'},
+        layout=widgets.Layout(width='300px'),
         disabled=False,
     )
 

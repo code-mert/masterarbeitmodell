@@ -44,23 +44,43 @@ OUTPUT_SCHEMA_LR = {
         },
         "wundrand": {
             "type": "array",
-            "items": {"type": "string"},
-            "description": (
-                "Beschaffenheit des Wundrands, Mehrfachauswahl möglich. "
-                "Vorschlagswerte: 'Reizlos/unauffällig', 'Mazeriert', 'Hyperkeratotisch', "
-                "'Unterminiert', 'Epibolie', 'Gerötet/entzündlich'. "
-                "Falls keiner passt: konkreten Freitext direkt als String eintragen."
-            )
+            "items": {
+                "type": "string",
+                "enum": [
+                    "Reizlos / unauffällig",
+                    "Mazeriert",
+                    "Hyperkeratotisch",
+                    "Unterminiert (Wundtaschen)",
+                    "Epibolie (eingerollter Wundrand)",
+                    "Gerötet / entzündlich",
+                    "Sonstiges"
+                ]
+            },
+            "description": "Beschaffenheit des Wundrands, Mehrfachauswahl möglich. Bei 'Sonstiges' muss wundrand_sonstiges befüllt sein."
+        },
+        "wundrand_sonstiges": {
+            "type": "string",
+            "description": "Konkrete Beschaffenheit des Wundrands wenn wundrand 'Sonstiges' enthält. Leer lassen wenn wundrand kein 'Sonstiges' enthält."
         },
         "wundumgebung": {
             "type": "array",
-            "items": {"type": "string"},
-            "description": (
-                "Zustand der Wundumgebung, Mehrfachauswahl möglich. "
-                "Vorschlagswerte: 'Reizlos/intakt', 'Erythem/Rötung', 'Mazeration', 'Ödem', "
-                "'Ekzem/Dermatitis', 'CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipdermatosklerose)'. "
-                "Falls keiner passt: konkreten Freitext direkt als String eintragen."
-            )
+            "items": {
+                "type": "string",
+                "enum": [
+                    "Reizlos / intakt",
+                    "Erythem / Rötung",
+                    "Mazeration",
+                    "Ödem",
+                    "Ekzem / Dermatitis",
+                    "CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)",
+                    "Sonstiges"
+                ]
+            },
+            "description": "Zustand der Wundumgebung, Mehrfachauswahl möglich. Bei 'Sonstiges' muss wundumgebung_sonstiges befüllt sein."
+        },
+        "wundumgebung_sonstiges": {
+            "type": "string",
+            "description": "Konkreter Zustand der Wundumgebung wenn wundumgebung 'Sonstiges' enthält. Leer lassen wenn wundumgebung kein 'Sonstiges' enthält."
         },
         "exsudat_menge": {
             "type": "string",
@@ -182,7 +202,9 @@ OUTPUT_SCHEMA_LR = {
         "wundstadium_sonstiges",
         "wundgrund",
         "wundrand",
+        "wundrand_sonstiges",
         "wundumgebung",
+        "wundumgebung_sonstiges",
         "exsudat_menge",
         "weitere_auffaelligkeiten",
         "debridement_notwendig",
@@ -207,7 +229,9 @@ EXAMPLE_OUTPUT_LR = {
     "wundstadium_sonstiges": "",
     "wundgrund": "Fibrinbelag / Slough, Granulationsgewebe",
     "wundrand": ["Mazeriert"],
+    "wundrand_sonstiges": "",
     "wundumgebung": ["Ödem"],
+    "wundumgebung_sonstiges": "",
     "exsudat_menge": "Mäßig",
     "weitere_auffaelligkeiten": "Leichter Geruch",
     "debridement_notwendig": "ja",
@@ -230,8 +254,10 @@ EXAMPLE_OUTPUT_LR_SONSTIGES = {
     "wundstadium": "Sonstiges",
     "wundstadium_sonstiges": "Nekrosestadium mit Calcinosis cutis",
     "wundgrund": "Nekrose / Eschara, Calcinosis cutis",
-    "wundrand": ["Unterminiert"],
-    "wundumgebung": ["Erythem/Rötung"],
+    "wundrand": ["Sonstiges"],
+    "wundrand_sonstiges": "Extrem schmerzhaft gerötet",
+    "wundumgebung": ["Sonstiges"],
+    "wundumgebung_sonstiges": "Milde Schuppung",
     "exsudat_menge": "Sehr stark",
     "weitere_auffaelligkeiten": "Starker Geruch, Schmerzen VAS 8/10",
     "debridement_notwendig": "ja",

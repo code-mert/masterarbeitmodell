@@ -12,6 +12,7 @@ try:
         SPELLING_MAPPING,
         WUNDTYP_GT_MAPPING,
         WUNDGRUND_GT_MAPPING,
+        EXSUDAT_GT_MAPPING,
         WUNDUMGEBUNG_GT_MAPPING,
         WUNDRAND_GT_MAPPING,
         PRODUKT_GT_MAPPING,
@@ -23,6 +24,7 @@ except ImportError:
         SPELLING_MAPPING,
         WUNDTYP_GT_MAPPING,
         WUNDGRUND_GT_MAPPING,
+        EXSUDAT_GT_MAPPING,
         WUNDUMGEBUNG_GT_MAPPING,
         WUNDRAND_GT_MAPPING,
         PRODUKT_GT_MAPPING,
@@ -176,7 +178,7 @@ def normalise_lokalisation(text):
     Decodiert Lokalisations-Keywords in standardisierte Körperteil-Bezeichnungen.
     """
     if not isinstance(text, str):
-        return "unbekannt"
+        return text
     
     text_lower = text.lower()
     found_parts = []
@@ -190,7 +192,7 @@ def normalise_lokalisation(text):
     found_parts = sorted(list(set(found_parts)))
     
     if not found_parts:
-        return "unbekannt"
+        return text
     return ", ".join(found_parts)
 
 def normalise_by_mapping(val, mapping_dict):
@@ -277,11 +279,18 @@ def normalise_wundumgebung(val):
 def normalise_wundrand(val):
     return normalise_by_mapping(val, WUNDRAND_GT_MAPPING)
 
+def normalise_exsudat(val):
+    return normalise_by_mapping(val, EXSUDAT_GT_MAPPING)
+
 def normalise_wundgrund(val):
     # Immer als JSON-Liste ausgeben für F1-Score (Set-basierte Auswertung)
+    if pd.isna(val) or val is None or str(val).strip() in ["", "nan", "—", "— (leer)"]:
+        return "[]"
     items = normalise_by_mapping(val, WUNDGRUND_GT_MAPPING)
-    if not (isinstance(items, str) and items.startswith('[') and items.endswith(']')):
-        item_list = [x.strip() for x in split_by_delimiters_outside_parentheses(items) if x.strip()]
+    if not isinstance(items, str):
+        return "[]"
+    if not (items.startswith('[') and items.endswith(']')):
+        item_list = [x.strip() for x in split_by_delimiters_outside_parentheses(items) if isinstance(x, str) and x.strip()]
         return json.dumps(item_list, ensure_ascii=False)
     return items
 
@@ -329,6 +338,9 @@ def clean_ground_truth(input_path: str, output_path: str):
         
     if 'wundgrund' in df_cleaned.columns:
         df_cleaned['wundgrund'] = df_cleaned['wundgrund'].apply(normalise_wundgrund)
+        
+    if 'exsudat' in df_cleaned.columns:
+        df_cleaned['exsudat'] = df_cleaned['exsudat'].apply(normalise_exsudat)
         
     if 'praeferenz_produkt' in df_cleaned.columns:
         df_cleaned['praeferenz_produkt'] = df_cleaned['praeferenz_produkt'].apply(normalise_produkt)

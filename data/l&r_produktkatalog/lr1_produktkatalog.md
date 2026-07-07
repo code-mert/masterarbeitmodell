@@ -134,8 +134,7 @@ Wundheilungsphasen:
 - Beständig gegenüber gängigen Desinfektionsmitteln
 - Frei von Kolophonium, Kolophoniumderivat und DMF
 - Nicht geeignet für die Anwendung in der Unterdrucktherapie
-### Suprasorb G
-Gel-Kompresse
+### Suprasorb G Gel-Kompresse
 #### Beschreibung
 Die bewährte Suprasorb G Gel-Kompresse von L&R erhalten Sie ab sofort in neuer Qualität. Das Hydrogel löst sanft wundgrundtiefe Beläge, Nekrosen und Gewebetrümmer und hält sie fest. Suprasorb G Gel-Kompresse spendet Feuchtigkeit, wirkt schmerzlindernd und bietet einen hohen Tragekomfort für den Patienten. Bei Ärzten und Pflegepersonal punktet die hochwertige Gel-Kompresse durch die einfache Applikation und eine anwenderfreundliche Handhabung
 

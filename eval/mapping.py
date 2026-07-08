@@ -55,64 +55,128 @@ def align(gt_record: Dict[str, Any], llm_record: Dict[str, Any]) -> Dict[str, An
     Returns:
         A dictionary containing the aligned evaluation levels and categorical fields.
     """
-    return {
-        # 6 Evaluationsebenen (pro Ebene das Paar/die Paare)
-        "primaerverband": {
-            "llm_praef": filter_markers(llm_record.get("praeferenz_verbandklasse") or []),
-            "llm_alt": filter_markers(llm_record.get("alternativ_verbandklasse") or []),
-            "gt_praef": filter_markers(gt_record.get("praeferenz_produkt") or []),
-            "gt_alt": filter_markers(gt_record.get("alternative_produkt") or [])
-        },
-        "debridement": {
-            "llm": filter_markers(llm_record.get("debridement_methode") or []),
-            "gt": filter_markers(gt_record.get("debridement") or [])
-        },
-        "antimikrobielles_agens": {
-            "llm": filter_markers(llm_record.get("antimikrobielles_agens") or []),
-            "gt": filter_markers(gt_record.get("antimikrobielles_agens") or [])
-        },
-        "sekundaerverband": {
-            "llm": filter_markers(llm_record.get("sekundaerverband_fixierung") or []),
-            "gt": filter_markers(gt_record.get("sekundaerverband") or [])
-        },
-        "hautschutz": {
-            "llm": filter_markers(llm_record.get("wundrand_hautschutz") or []),
-            "gt": filter_markers(gt_record.get("hautschutz") or [])
-        },
-        "kompression": {
-            "llm": filter_markers(llm_record.get("kompression_art") or []),
-            "gt": filter_markers(gt_record.get("kompression_produkte") or [])
-        },
-        
-        # Angeglichene kategoriale Felder
-        "kategorial": {
-            "wundtyp": {
-                "llm": unpack_value(llm_record.get("wundtyp")),
-                "gt": unpack_value(gt_record.get("wundtyp"))
+    is_lr = "praeferenz_wundauflage" in llm_record
+
+    if is_lr:
+        return {
+            "primaerverband": {
+                "llm_praef": filter_markers(llm_record.get("praeferenz_wundauflage") or []),
+                "llm_alt": filter_markers(llm_record.get("alternativ_wundauflage") or []),
+                "gt_praef": filter_markers(gt_record.get("praeferenz_produkt") or []),
+                "gt_alt": filter_markers(gt_record.get("alternative_produkt") or [])
             },
-            "wundstadium": {
-                "llm": unpack_value(llm_record.get("wundphase")),
-                "gt": unpack_value(gt_record.get("wundstadium"))
+            "debridement": {
+                "llm": filter_markers(llm_record.get("debridement_methode") or []),
+                "gt": filter_markers(gt_record.get("debridement") or [])
             },
-            "exsudat": {
-                "llm": unpack_value(llm_record.get("exsudat_menge")),
-                "gt": unpack_value(gt_record.get("exsudat"))
+            "antimikrobielles_agens": {
+                "llm": [],
+                "gt": []
             },
-            "infektion": {
-                "llm": unpack_value(llm_record.get("infektionsstatus")),
-                "gt": unpack_value(gt_record.get("infektion"))
+            "sekundaerverband": {
+                "llm": filter_markers(llm_record.get("praeferenz_ergaenzung") or []),
+                "gt": filter_markers(gt_record.get("ergaenzende_produkte_praeferenz") or [])
             },
-            "debridement_notwendig": {
-                "llm": unpack_value(llm_record.get("debridement_notwendig")),
-                "gt": unpack_value(gt_record.get("debridement_notwendig"))
+            "hautschutz": {
+                "llm": [],
+                "gt": []
             },
-            "antimikrobiell_notwendig": {
-                "llm": unpack_value(llm_record.get("antimikrobieller_verband")),
-                "gt": unpack_value(gt_record.get("antimikrobiell_notwendig"))
+            "kompression": {
+                "llm": filter_markers(llm_record.get("kompression_product") or []),
+                "gt": filter_markers(gt_record.get("kompression_produkte") or [])
             },
-            "kompression_indiziert": {
-                "llm": unpack_value(llm_record.get("kompression_indiziert")),
-                "gt": unpack_value(gt_record.get("kompression_indiziert"))
+            
+            # Angeglichene kategoriale Felder
+            "kategorial": {
+                "wundtyp": {
+                    "llm": unpack_value(llm_record.get("wundtyp")),
+                    "gt": unpack_value(gt_record.get("wundtyp"))
+                },
+                "wundstadium": {
+                    "llm": unpack_value(llm_record.get("wundstadium")),
+                    "gt": unpack_value(gt_record.get("wundstadium"))
+                },
+                "exsudat": {
+                    "llm": unpack_value(llm_record.get("exsudat_menge")),
+                    "gt": unpack_value(gt_record.get("exsudat"))
+                },
+                "infektion": {
+                    "llm": unpack_value(llm_record.get("infektion_vorhanden")),
+                    "gt": unpack_value(gt_record.get("infektion"))
+                },
+                "debridement_notwendig": {
+                    "llm": unpack_value(llm_record.get("debridement_notwendig")),
+                    "gt": unpack_value(gt_record.get("debridement_notwendig"))
+                },
+                "antimikrobiell_notwendig": {
+                    "llm": "",
+                    "gt": ""
+                },
+                "kompression_indiziert": {
+                    "llm": unpack_value(llm_record.get("kompression_indiziert")),
+                    "gt": unpack_value(gt_record.get("kompression_indiziert"))
+                }
             }
         }
-    }
+    else:
+        return {
+            # 6 Evaluationsebenen (pro Ebene das Paar/die Paare)
+            "primaerverband": {
+                "llm_praef": filter_markers(llm_record.get("praeferenz_verbandklasse") or []),
+                "llm_alt": filter_markers(llm_record.get("alternativ_verbandklasse") or []),
+                "gt_praef": filter_markers(gt_record.get("praeferenz_produkt") or []),
+                "gt_alt": filter_markers(gt_record.get("alternative_produkt") or [])
+            },
+            "debridement": {
+                "llm": filter_markers(llm_record.get("debridement_methode") or []),
+                "gt": filter_markers(gt_record.get("debridement") or [])
+            },
+            "antimikrobielles_agens": {
+                "llm": filter_markers(llm_record.get("antimikrobielles_agens") or []),
+                "gt": filter_markers(gt_record.get("antimikrobielles_agens") or [])
+            },
+            "sekundaerverband": {
+                "llm": filter_markers(llm_record.get("sekundaerverband_fixierung") or []),
+                "gt": filter_markers(gt_record.get("sekundaerverband") or [])
+            },
+            "hautschutz": {
+                "llm": filter_markers(llm_record.get("wundrand_hautschutz") or []),
+                "gt": filter_markers(gt_record.get("hautschutz") or [])
+            },
+            "kompression": {
+                "llm": filter_markers(llm_record.get("kompression_art") or []),
+                "gt": filter_markers(gt_record.get("kompression_produkte") or [])
+            },
+            
+            # Angeglichene kategoriale Felder
+            "kategorial": {
+                "wundtyp": {
+                    "llm": unpack_value(llm_record.get("wundtyp")),
+                    "gt": unpack_value(gt_record.get("wundtyp"))
+                },
+                "wundstadium": {
+                    "llm": unpack_value(llm_record.get("wundphase")),
+                    "gt": unpack_value(gt_record.get("wundstadium"))
+                },
+                "exsudat": {
+                    "llm": unpack_value(llm_record.get("exsudat_menge")),
+                    "gt": unpack_value(gt_record.get("exsudat"))
+                },
+                "infektion": {
+                    "llm": unpack_value(llm_record.get("infektionsstatus")),
+                    "gt": unpack_value(gt_record.get("infektion"))
+                },
+                "debridement_notwendig": {
+                    "llm": unpack_value(llm_record.get("debridement_notwendig")),
+                    "gt": unpack_value(gt_record.get("debridement_notwendig"))
+                },
+                "antimikrobiell_notwendig": {
+                    "llm": unpack_value(llm_record.get("antimikrobieller_verband")),
+                    "gt": unpack_value(gt_record.get("antimikrobiell_notwendig"))
+                },
+                "kompression_indiziert": {
+                    "llm": unpack_value(llm_record.get("kompression_indiziert")),
+                    "gt": unpack_value(gt_record.get("kompression_indiziert"))
+                }
+            }
+        }

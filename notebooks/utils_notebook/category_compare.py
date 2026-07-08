@@ -32,29 +32,54 @@ def compare_categories_interactive(csv_path: str, json_dir: str):
 
     print(f"Erfolgreich {len(matched_ids)} Wundbilder zum Kategorievergleich geladen.")
 
+    # Auto-detect if we are in L&R mode
+    sample_llm = llm_data[matched_ids[0]]
+    is_lr = "praeferenz_wundauflage" in sample_llm
+
     # Mapping of categories between GT (CSV) and LLM (JSON)
-    CATEGORIES = {
-        "Wundtyp": {"gt_key": "wundtyp", "llm_key": "wundtyp"},
-        "Spezifizierung": {"gt_key": "wundtyp_spec", "llm_key": "wundtyp_spezifizierung"},
-        "Lokalisation": {"gt_key": "lokalisation", "llm_key": "lokalisation"},
-        "Wundstadium / -phase": {"gt_key": "wundstadium", "llm_key": "wundphase"},
-        "Exsudat-Menge": {"gt_key": "exsudat", "llm_key": "exsudat_menge"},
-        "Infektionsstatus": {"gt_key": "infektion", "llm_key": "infektionsstatus"},
-        "Wundrand": {"gt_key": "wundrand", "llm_key": "wundrand"},
-        "Wundumgebung": {"gt_key": "wundumgebung", "llm_key": "wundumgebung"},
-        "Weitere Auffälligkeiten": {"gt_key": "auffaelligkeiten", "llm_key": "weitere_auffaelligkeiten"},
-        "Débridement notwendig?": {"gt_key": "debridement_notwendig", "llm_key": "debridement_notwendig"},
-        "Débridement-Methode": {"gt_key": "debridement", "llm_key": "debridement_methode"},
-        "Spüllösung": {"gt_key": "spuelloesung", "llm_key": "spuelloesung"},
-        "1. Primärverband (Präferenz & Alternative)": {"special": "primaerverband"},
-        "Antimikrobieller Verband?": {"gt_key": "antimikrobiell_notwendig", "llm_key": "antimikrobieller_verband"},
-        "Antimikrobielles Agens": {"gt_key": "antimikrobielles_agens", "llm_key": "antimikrobielles_agens"},
-        "4. Sekundärverband / Fixierung": {"gt_key": "sekundaerverband", "llm_key": "sekundaerverband_fixierung"},
-        "5. Hautschutz": {"gt_key": "hautschutz", "llm_key": "wundrand_hautschutz"},
-        "Kompression indiziert?": {"gt_key": "kompression_indiziert", "llm_key": "kompression_indiziert"},
-        "Kompression (Art/Produkte)": {"gt_key": "kompression_produkte", "llm_key": "kompression_art"},
-        "Einschränkungen / Annahmen": {"gt_key": "einschraenkungen", "llm_key": "einschraenkungen_annahmen"},
-    }
+    if is_lr:
+        CATEGORIES = {
+            "Wundtyp": {"gt_key": "wundtyp", "llm_key": "wundtyp"},
+            "Lokalisation": {"gt_key": "lokalisation", "llm_key": "lokalisation"},
+            "Wundstadium / -phase": {"gt_key": "wundstadium", "llm_key": "wundstadium"},
+            "Wundgrund": {"gt_key": "wundgrund", "llm_key": "wundgrund"},
+            "Exsudat-Menge": {"gt_key": "exsudat", "llm_key": "exsudat_menge"},
+            "Infektionsstatus": {"gt_key": "infektion", "llm_key": "infektion_vorhanden"},
+            "Wundrand": {"gt_key": "wundrand", "llm_key": "wundrand"},
+            "Wundumgebung": {"gt_key": "wundumgebung", "llm_key": "wundumgebung"},
+            "Weitere Auffälligkeiten": {"gt_key": "auffaelligkeiten", "llm_key": "weitere_auffaelligkeiten"},
+            "Débridement notwendig?": {"gt_key": "debridement_notwendig", "llm_key": "debridement_notwendig"},
+            "Débridement-Methode": {"gt_key": "debridement", "llm_key": "debridement_methode"},
+            "Spüllösung": {"gt_key": "spuelloesung", "llm_key": "spuelloesung"},
+            "1. Primärverband (Präferenz & Alternative)": {"special": "primaerverband_lr"},
+            "4. Sekundärverband / Fixierung (Präferenz & Alternative)": {"special": "ergaenzung_lr"},
+            "Kompression indiziert?": {"gt_key": "kompression_indiziert", "llm_key": "kompression_indiziert"},
+            "Kompression (Art/Produkte)": {"gt_key": "kompression_produkte", "llm_key": "kompression_product"},
+            "Einschränkungen / Annahmen": {"gt_key": "einschraenkungen", "llm_key": "einschraenkungen_annahmen"},
+        }
+    else:
+        CATEGORIES = {
+            "Wundtyp": {"gt_key": "wundtyp", "llm_key": "wundtyp"},
+            "Spezifizierung": {"gt_key": "wundtyp_spec", "llm_key": "wundtyp_spezifizierung"},
+            "Lokalisation": {"gt_key": "lokalisation", "llm_key": "lokalisation"},
+            "Wundstadium / -phase": {"gt_key": "wundstadium", "llm_key": "wundphase"},
+            "Exsudat-Menge": {"gt_key": "exsudat", "llm_key": "exsudat_menge"},
+            "Infektionsstatus": {"gt_key": "infektion", "llm_key": "infektionsstatus"},
+            "Wundrand": {"gt_key": "wundrand", "llm_key": "wundrand"},
+            "Wundumgebung": {"gt_key": "wundumgebung", "llm_key": "wundumgebung"},
+            "Weitere Auffälligkeiten": {"gt_key": "auffaelligkeiten", "llm_key": "weitere_auffaelligkeiten"},
+            "Débridement notwendig?": {"gt_key": "debridement_notwendig", "llm_key": "debridement_notwendig"},
+            "Débridement-Methode": {"gt_key": "debridement", "llm_key": "debridement_methode"},
+            "Spüllösung": {"gt_key": "spuelloesung", "llm_key": "spuelloesung"},
+            "1. Primärverband (Präferenz & Alternative)": {"special": "primaerverband"},
+            "Antimikrobieller Verband?": {"gt_key": "antimikrobiell_notwendig", "llm_key": "antimikrobieller_verband"},
+            "Antimikrobielles Agens": {"gt_key": "antimikrobielles_agens", "llm_key": "antimikrobielles_agens"},
+            "4. Sekundärverband / Fixierung": {"gt_key": "sekundaerverband", "llm_key": "sekundaerverband_fixierung"},
+            "5. Hautschutz": {"gt_key": "hautschutz", "llm_key": "wundrand_hautschutz"},
+            "Kompression indiziert?": {"gt_key": "kompression_indiziert", "llm_key": "kompression_indiziert"},
+            "Kompression (Art/Produkte)": {"gt_key": "kompression_produkte", "llm_key": "kompression_art"},
+            "Einschränkungen / Annahmen": {"gt_key": "einschraenkungen", "llm_key": "einschraenkungen_annahmen"},
+        }
 
     # Helper function to format values beautifully
     def format_val(val):
@@ -122,6 +147,12 @@ def compare_categories_interactive(csv_path: str, json_dir: str):
             if "special" in cfg and cfg["special"] == "primaerverband":
                 gt_val = f"Präferenz: {format_val(gt_rec.get('praeferenz_product', gt_rec.get('praeferenz_produkt')))} | Alternative: {format_val(gt_rec.get('alternative_product', gt_rec.get('alternative_produkt')))}"
                 llm_val = f"Präferenz: {format_val(llm_rec.get('praeferenz_verbandklasse'))} | Alternative: {format_val(llm_rec.get('alternativ_verbandklasse'))}"
+            elif "special" in cfg and cfg["special"] == "primaerverband_lr":
+                gt_val = f"Präferenz: {format_val(gt_rec.get('praeferenz_product', gt_rec.get('praeferenz_produkt')))} | Alternative: {format_val(gt_rec.get('alternative_product', gt_rec.get('alternative_produkt')))}"
+                llm_val = f"Präferenz: {format_val(llm_rec.get('praeferenz_wundauflage'))} | Alternative: {format_val(llm_rec.get('alternativ_wundauflage'))}"
+            elif "special" in cfg and cfg["special"] == "ergaenzung_lr":
+                gt_val = f"Präferenz: {format_val(gt_rec.get('ergaenzende_produkte_praeferenz'))} | Alternative: {format_val(gt_rec.get('ergaenzende_produkte_alternativ'))}"
+                llm_val = f"Präferenz: {format_val(llm_rec.get('praeferenz_ergaenzung'))} | Alternative: {format_val(llm_rec.get('alternativ_ergaenzung'))}"
             else:
                 gt_k = cfg["gt_key"]
                 llm_k = cfg["llm_key"]

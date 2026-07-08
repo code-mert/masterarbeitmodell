@@ -103,11 +103,8 @@ OUTPUT_SCHEMA_LR = {
             "type": "array",
             "items": {"type": "string"},
             "description": (
-                "Wundbettvorbereitung / Débridement, Mehrfachauswahl möglich. "
-                "Vorschlagswerte: 'Debrisoft Pad', 'Debrisoft Duo', 'Debrisoft Lolly', "
-                "'Keine Wundbettvorbereitung erforderlich', 'Chirurgisches Debridement', "
-                "'Autolytisches Debridement', 'Ultraschall'. "
-                "Falls keiner passt: konkreten Freitext direkt als String eintragen."
+                "Wundbettvorbereitung / Débridement-Methode aus dem L&R-Produktkatalog (lr0). "
+                "Mehrfachauswahl möglich."
             )
         },
 
@@ -181,9 +178,8 @@ OUTPUT_SCHEMA_LR = {
             "type": "array",
             "items": {"type": "string"},
             "description": (
-                "Kompressionstherapie-Produkte, nur wenn kompression_indiziert = 'ja'. "
-                "Wähle Produkte aus dem L&R3-Kompressionstherapie-Katalog. "
-                "Leeres Array wenn kompression_indiziert != 'ja'."
+                "Kompressionstherapie-Produkte aus dem L&R-Produktkatalog (lr3). "
+                "Mehrfachauswahl möglich. Nur befüllen, wenn kompression_indiziert = 'ja', sonst leeres Array."
             )
         },
 

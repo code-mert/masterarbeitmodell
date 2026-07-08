@@ -61,6 +61,35 @@ def calculate_scores(csv_path: str, json_dir: str, raw: bool = False) -> pd.Data
     llm_data = load_llm_outputs(json_dir)
     matched_ids = matched_image_ids(gt_data, llm_data)
 
+    is_lr = False
+    if matched_ids:
+        sample_llm = llm_data[matched_ids[0]]
+        is_lr = "praeferenz_wundauflage" in sample_llm
+
+    if is_lr:
+        col_mapping = {
+            "spuelloesung": "spuelloesung",
+            "debridement_notwendig": "debridement_notwendig",
+            "kompression_indiziert": "kompression_indiziert",
+            "exsudat": "exsudat_menge",
+            "infektion": "infektion_vorhanden",
+            "wundtyp": "wundtyp",
+            "lokalisation": "lokalisation",
+            "wundstadium": "wundstadium",
+            "wundrand": "wundrand",
+            "wundumgebung": "wundumgebung",
+            "debridement": "debridement_methode",
+            "praeferenz_produkt": "praeferenz_wundauflage",
+            "alternative_produkt": "alternativ_wundauflage",
+            "sekundaerverband": "praeferenz_ergaenzung",
+            "kompression_produkte": "kompression_product",
+            "wundtyp_spezifikation": "wundtyp_spezifizierung",
+            "auffaelligkeiten": "weitere_auffaelligkeiten",
+            "einschraenkungen": "einschraenkungen_annahmen",
+        }
+    else:
+        col_mapping = COLUMN_MAPPING
+
     results = []
     for img_id in matched_ids:
         gt_rec = gt_data[img_id]
@@ -69,23 +98,25 @@ def calculate_scores(csv_path: str, json_dir: str, raw: bool = False) -> pd.Data
         row_scores = {"image_id": img_id}
         
         # 1. Berechnung für Primärverband (best-path cross-match)
+        llm_p_col = col_mapping["praeferenz_produkt"]
+        llm_a_col = col_mapping["alternative_produkt"]
         if raw:
             gt_p = metrics.to_clean_set(gt_rec.get("praeferenz_produkt"))
             gt_a = metrics.to_clean_set(gt_rec.get("alternative_produkt"))
-            llm_p = metrics.to_clean_set(llm_rec.get("praeferenz_verbandklasse"))
-            llm_a = metrics.to_clean_set(llm_rec.get("alternativ_verbandklasse"))
+            llm_p = metrics.to_clean_set(llm_rec.get(llm_p_col))
+            llm_a = metrics.to_clean_set(llm_rec.get(llm_a_col))
         else:
             gt_p = metrics.to_clean_set(clean.clean_whitespace(gt_rec.get("praeferenz_produkt")))
             gt_a = metrics.to_clean_set(clean.clean_whitespace(gt_rec.get("alternative_produkt")))
-            llm_p = metrics.to_clean_set(clean.clean_whitespace(llm_rec.get("praeferenz_verbandklasse")))
-            llm_a = metrics.to_clean_set(clean.clean_whitespace(llm_rec.get("alternativ_verbandklasse")))
+            llm_p = metrics.to_clean_set(clean.clean_whitespace(llm_rec.get(llm_p_col)))
+            llm_a = metrics.to_clean_set(clean.clean_whitespace(llm_rec.get(llm_a_col)))
             
         prim_f1, prim_exact = metrics.best_path_f1(llm_p, llm_a, gt_p, gt_a)
         row_scores["primaerverband_f1"] = prim_f1
         row_scores["primaerverband_exact"] = prim_exact
         
         # 2. Übrige Kategorien
-        for gt_col, llm_col in COLUMN_MAPPING.items():
+        for gt_col, llm_col in col_mapping.items():
             if gt_col in ["praeferenz_produkt", "alternative_produkt"]:
                 continue
                 
@@ -182,8 +213,15 @@ def calculate_summary(df_scores: pd.DataFrame) -> pd.DataFrame:
         "kompression_produkte": "checklist",
     }
     
-    summary_rows = []
+    # Active categories filtering based on which columns exist in df_scores
+    active_categories = {}
     for cat, cat_type in base_categories.items():
+        cols = [f"{cat}_f1", f"{cat}_score", f"{cat}_exact"]
+        if any(col in df_scores.columns for col in cols):
+            active_categories[cat] = cat_type
+            
+    summary_rows = []
+    for cat, cat_type in active_categories.items():
         if cat_type in ["checklist", "checklist (best path)", "decode"]:
             score_col = f"{cat}_f1"
         elif cat_type == "ordinal":
@@ -202,6 +240,9 @@ def calculate_summary(df_scores: pd.DataFrame) -> pd.DataFrame:
             "Score / F1-Score (Mean)": mean_score,
             "Exact-Match-Rate": mean_exact
         })
+        
+    if not summary_rows:
+        return pd.DataFrame(columns=["Kategorie", "Typ", "Score / F1-Score (Mean)", "Exact-Match-Rate"])
         
     return pd.DataFrame(summary_rows).sort_values(by=["Typ", "Kategorie"]).reset_index(drop=True)
 

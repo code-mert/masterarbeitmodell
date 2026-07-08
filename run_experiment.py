@@ -64,7 +64,12 @@ def main():
 
     # 2. Produktkatalog laden
     if mode == "lr":
-        catalog_files = [catalog_dir / "lr1_produktkatalog.md", catalog_dir / "lr2_produktkatalog.md"]
+        catalog_files = [
+            catalog_dir / "lr0_produktkatalog.md",
+            catalog_dir / "lr1_produktkatalog.md",
+            catalog_dir / "lr2_produktkatalog.md",
+            catalog_dir / "lr3_produktkatalog.md"
+        ]
         missing = [f for f in catalog_files if not f.exists()]
         if missing:
             print(f"Folgende Katalogdateien wurden nicht gefunden: {[f.name for f in missing]}")

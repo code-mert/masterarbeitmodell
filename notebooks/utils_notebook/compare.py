@@ -99,40 +99,103 @@ def compare_wunden_interactive(csv_path: str, json_dir: str):
         # Resolve "Sonstiges" for wundtyp
         resolved_llm_wundtyp = get_resolved_wundtyp(llm_rec)
 
-        # Mapping Categories (GT Column -> LLM Column)
-        comparison_rows = [
-            # === KLINISCHE ANAMNESE UND STATUS ===
-            {"Kategorie": "Wundtyp", "Ground Truth (GT)": format_val(gt_rec.get("wundtyp")), "LLM Output": format_val(resolved_llm_wundtyp)},
-            {"Kategorie": "Spezifizierung", "Ground Truth (GT)": format_val(gt_rec.get("wundtyp_spezifikation")), "LLM Output": format_val(llm_rec.get("wundtyp_spezifizierung"))},
-            {"Kategorie": "Lokalisation", "Ground Truth (GT)": format_val(gt_rec.get("lokalisation")), "LLM Output": format_val(llm_rec.get("lokalisation"))},
-            {"Kategorie": "Wundstadium / -phase", "Ground Truth (GT)": format_val(gt_rec.get("wundstadium")), "LLM Output": format_val(llm_rec.get("wundphase"))},
-            {"Kategorie": "Exsudat-Menge", "Ground Truth (GT)": format_val(gt_rec.get("exsudat")), "LLM Output": format_val(llm_rec.get("exsudat_menge"))},
-            {"Kategorie": "Infektionsstatus", "Ground Truth (GT)": format_val(gt_rec.get("infektion")), "LLM Output": format_val(llm_rec.get("infektionsstatus"))},
-            {"Kategorie": "Wundrand", "Ground Truth (GT)": format_val(gt_rec.get("wundrand")), "LLM Output": format_val(llm_rec.get("wundrand"))},
-            {"Kategorie": "Wundumgebung", "Ground Truth (GT)": format_val(gt_rec.get("wundumgebung")), "LLM Output": format_val(llm_rec.get("wundumgebung"))},
-            {"Kategorie": "Weitere Auffälligkeiten", "Ground Truth (GT)": format_val(gt_rec.get("auffaelligkeiten")), "LLM Output": format_val(llm_rec.get("weitere_auffaelligkeiten"))},
-            
-            # === BEHANDLUNGSEMPFEHLUNGEN ===
-            {"Kategorie": "Débridement notwendig?", "Ground Truth (GT)": format_val(gt_rec.get("debridement_notwendig")), "LLM Output": format_val(llm_rec.get("debridement_notwendig"))},
-            {"Kategorie": "Débridement-Methode", "Ground Truth (GT)": format_val(gt_rec.get("debridement")), "LLM Output": format_val(llm_rec.get("debridement_methode"))},
-            {"Kategorie": "Spüllösung", "Ground Truth (GT)": format_val(gt_rec.get("spuelloesung")), "LLM Output": format_val(llm_rec.get("spuelloesung"))},
-            {"Kategorie": "1. Primärverband (Präferenz)", "Ground Truth (GT)": format_val(gt_rec.get("praeferenz_produkt")), "LLM Output": format_val(llm_rec.get("praeferenz_verbandklasse"))},
-            {"Kategorie": "1. Primärverband (Alternative)", "Ground Truth (GT)": format_val(gt_rec.get("alternative_produkt")), "LLM Output": format_val(llm_rec.get("alternativ_verbandklasse"))},
-            
-            # Antimikrobieller Teil (Ja/Nein + Produkt)
-            {"Kategorie": "Antimikrobieller Verband?", "Ground Truth (GT)": format_val(gt_rec.get("antimikrobiell_notwendig")), "LLM Output": format_val(llm_rec.get("antimikrobieller_verband"))},
-            {"Kategorie": "Antimikrobielles Agens", "Ground Truth (GT)": format_val(gt_rec.get("antimikrobielles_agens")), "LLM Output": format_val(llm_rec.get("antimikrobielles_agens"))},
-            
-            {"Kategorie": "4. Sekundärverband / Fixierung", "Ground Truth (GT)": format_val(gt_rec.get("sekundaerverband")), "LLM Output": format_val(llm_rec.get("sekundaerverband_fixierung"))},
-            {"Kategorie": "5. Hautschutz", "Ground Truth (GT)": format_val(gt_rec.get("hautschutz")), "LLM Output": format_val(llm_rec.get("wundrand_hautschutz"))},
-            
-            # Kompressions-Teil (Ja/Nein + Produkt)
-            {"Kategorie": "Kompression indiziert?", "Ground Truth (GT)": format_val(gt_rec.get("kompression_indiziert")), "LLM Output": format_val(llm_rec.get("kompression_indiziert"))},
-            {"Kategorie": "Kompression (Art/Produkte)", "Ground Truth (GT)": format_val(gt_rec.get("kompression_produkte")), "LLM Output": format_val(llm_rec.get("kompression_art"))},
-            
-            # Einschränkungen / Annahmen
-            {"Kategorie": "Einschränkungen / Annahmen", "Ground Truth (GT)": format_val(gt_rec.get("einschraenkungen")), "LLM Output": format_val(llm_rec.get("einschraenkungen_annahmen"))},
-        ]
+        # Auto-detect if we are in L&R mode
+        is_lr = "praeferenz_wundauflage" in llm_rec
+
+        if is_lr:
+            # Helper to resolve "Sonstiges" for other L&R fields
+            def get_resolved_field(field_name):
+                raw_val = llm_rec.get(field_name)
+                sonstiges_key = f"{field_name}_sonstiges"
+                if not raw_val:
+                    return raw_val
+                if isinstance(raw_val, (list, set, tuple)):
+                    resolved = []
+                    for item in raw_val:
+                        if str(item).strip().lower() == "sonstiges":
+                            sonstiges_val = llm_rec.get(sonstiges_key)
+                            if sonstiges_val and str(sonstiges_val).strip():
+                                resolved.append(str(sonstiges_val))
+                            else:
+                                resolved.append(str(item))
+                        else:
+                            resolved.append(str(item))
+                    return resolved
+                elif isinstance(raw_val, str):
+                    if raw_val.strip().lower() == "sonstiges":
+                        sonstiges_val = llm_rec.get(sonstiges_key)
+                        if sonstiges_val and str(sonstiges_val).strip():
+                            return sonstiges_val
+                    return raw_val
+                return raw_val
+
+            resolved_llm_wundstadium = get_resolved_field("wundstadium")
+            resolved_llm_wundrand = get_resolved_field("wundrand")
+            resolved_llm_wundumgebung = get_resolved_field("wundumgebung")
+
+            comparison_rows = [
+                # === KLINISCHE ANAMNESE UND STATUS ===
+                {"Kategorie": "Wundtyp", "Ground Truth (GT)": format_val(gt_rec.get("wundtyp")), "LLM Output": format_val(resolved_llm_wundtyp)},
+                {"Kategorie": "Lokalisation", "Ground Truth (GT)": format_val(gt_rec.get("lokalisation")), "LLM Output": format_val(llm_rec.get("lokalisation"))},
+                {"Kategorie": "Wundstadium / -phase", "Ground Truth (GT)": format_val(gt_rec.get("wundstadium")), "LLM Output": format_val(resolved_llm_wundstadium)},
+                {"Kategorie": "Wundgrund", "Ground Truth (GT)": format_val(gt_rec.get("wundgrund")), "LLM Output": format_val(llm_rec.get("wundgrund"))},
+                {"Kategorie": "Exsudat-Menge", "Ground Truth (GT)": format_val(gt_rec.get("exsudat")), "LLM Output": format_val(llm_rec.get("exsudat_menge"))},
+                {"Kategorie": "Infektionsstatus", "Ground Truth (GT)": format_val(gt_rec.get("infektion")), "LLM Output": format_val(llm_rec.get("infektion_vorhanden"))},
+                {"Kategorie": "Wundrand", "Ground Truth (GT)": format_val(gt_rec.get("wundrand")), "LLM Output": format_val(resolved_llm_wundrand)},
+                {"Kategorie": "Wundumgebung", "Ground Truth (GT)": format_val(gt_rec.get("wundumgebung")), "LLM Output": format_val(resolved_llm_wundumgebung)},
+                {"Kategorie": "Weitere Auffälligkeiten", "Ground Truth (GT)": format_val(gt_rec.get("auffaelligkeiten")), "LLM Output": format_val(llm_rec.get("weitere_auffaelligkeiten"))},
+                
+                # === BEHANDLUNGSEMPFEHLUNGEN ===
+                {"Kategorie": "Débridement notwendig?", "Ground Truth (GT)": format_val(gt_rec.get("debridement_notwendig")), "LLM Output": format_val(llm_rec.get("debridement_notwendig"))},
+                {"Kategorie": "Débridement-Methode", "Ground Truth (GT)": format_val(gt_rec.get("debridement")), "LLM Output": format_val(llm_rec.get("debridement_methode"))},
+                {"Kategorie": "Spüllösung", "Ground Truth (GT)": format_val(gt_rec.get("spuelloesung")), "LLM Output": format_val(llm_rec.get("spuelloesung"))},
+                {"Kategorie": "1. Primärverband (Präferenz)", "Ground Truth (GT)": format_val(gt_rec.get("praeferenz_produkt")), "LLM Output": format_val(llm_rec.get("praeferenz_wundauflage"))},
+                {"Kategorie": "1. Primärverband (Alternative)", "Ground Truth (GT)": format_val(gt_rec.get("alternative_produkt")), "LLM Output": format_val(llm_rec.get("alternativ_wundauflage"))},
+                
+                {"Kategorie": "4. Sekundärverband / Fixierung (Präferenz)", "Ground Truth (GT)": format_val(gt_rec.get("ergaenzende_produkte_praeferenz")), "LLM Output": format_val(llm_rec.get("praeferenz_ergaenzung"))},
+                {"Kategorie": "4. Sekundärverband / Fixierung (Alternative)", "Ground Truth (GT)": format_val(gt_rec.get("ergaenzende_produkte_alternativ")), "LLM Output": format_val(llm_rec.get("alternativ_ergaenzung"))},
+                
+                # Kompressions-Teil (Ja/Nein + Produkt)
+                {"Kategorie": "Kompression indiziert?", "Ground Truth (GT)": format_val(gt_rec.get("kompression_indiziert")), "LLM Output": format_val(llm_rec.get("kompression_indiziert"))},
+                {"Kategorie": "Kompression (Art/Produkte)", "Ground Truth (GT)": format_val(gt_rec.get("kompression_produkte")), "LLM Output": format_val(llm_rec.get("kompression_produkt"))},
+                
+                # Einschränkungen / Annahmen
+                {"Kategorie": "Einschränkungen / Annahmen", "Ground Truth (GT)": format_val(gt_rec.get("einschraenkungen")), "LLM Output": format_val(llm_rec.get("einschraenkungen_annahmen"))},
+            ]
+        else:
+            comparison_rows = [
+                # === KLINISCHE ANAMNESE UND STATUS ===
+                {"Kategorie": "Wundtyp", "Ground Truth (GT)": format_val(gt_rec.get("wundtyp")), "LLM Output": format_val(resolved_llm_wundtyp)},
+                {"Kategorie": "Spezifizierung", "Ground Truth (GT)": format_val(gt_rec.get("wundtyp_spezifikation")), "LLM Output": format_val(llm_rec.get("wundtyp_spezifizierung"))},
+                {"Kategorie": "Lokalisation", "Ground Truth (GT)": format_val(gt_rec.get("lokalisation")), "LLM Output": format_val(llm_rec.get("lokalisation"))},
+                {"Kategorie": "Wundstadium / -phase", "Ground Truth (GT)": format_val(gt_rec.get("wundstadium")), "LLM Output": format_val(llm_rec.get("wundphase"))},
+                {"Kategorie": "Exsudat-Menge", "Ground Truth (GT)": format_val(gt_rec.get("exsudat")), "LLM Output": format_val(llm_rec.get("exsudat_menge"))},
+                {"Kategorie": "Infektionsstatus", "Ground Truth (GT)": format_val(gt_rec.get("infektion")), "LLM Output": format_val(llm_rec.get("infektionsstatus"))},
+                {"Kategorie": "Wundrand", "Ground Truth (GT)": format_val(gt_rec.get("wundrand")), "LLM Output": format_val(llm_rec.get("wundrand"))},
+                {"Kategorie": "Wundumgebung", "Ground Truth (GT)": format_val(gt_rec.get("wundumgebung")), "LLM Output": format_val(llm_rec.get("wundumgebung"))},
+                {"Kategorie": "Weitere Auffälligkeiten", "Ground Truth (GT)": format_val(gt_rec.get("auffaelligkeiten")), "LLM Output": format_val(llm_rec.get("weitere_auffaelligkeiten"))},
+                
+                # === BEHANDLUNGSEMPFEHLUNGEN ===
+                {"Kategorie": "Débridement notwendig?", "Ground Truth (GT)": format_val(gt_rec.get("debridement_notwendig")), "LLM Output": format_val(llm_rec.get("debridement_notwendig"))},
+                {"Kategorie": "Débridement-Methode", "Ground Truth (GT)": format_val(gt_rec.get("debridement")), "LLM Output": format_val(llm_rec.get("debridement_methode"))},
+                {"Kategorie": "Spüllösung", "Ground Truth (GT)": format_val(gt_rec.get("spuelloesung")), "LLM Output": format_val(llm_rec.get("spuelloesung"))},
+                {"Kategorie": "1. Primärverband (Präferenz)", "Ground Truth (GT)": format_val(gt_rec.get("praeferenz_produkt")), "LLM Output": format_val(llm_rec.get("praeferenz_verbandklasse"))},
+                {"Kategorie": "1. Primärverband (Alternative)", "Ground Truth (GT)": format_val(gt_rec.get("alternative_produkt")), "LLM Output": format_val(llm_rec.get("alternativ_verbandklasse"))},
+                
+                # Antimikrobieller Teil (Ja/Nein + Produkt)
+                {"Kategorie": "Antimikrobieller Verband?", "Ground Truth (GT)": format_val(gt_rec.get("antimikrobiell_notwendig")), "LLM Output": format_val(llm_rec.get("antimikrobieller_verband"))},
+                {"Kategorie": "Antimikrobielles Agens", "Ground Truth (GT)": format_val(gt_rec.get("antimikrobielles_agens")), "LLM Output": format_val(llm_rec.get("antimikrobielles_agens"))},
+                
+                {"Kategorie": "4. Sekundärverband / Fixierung", "Ground Truth (GT)": format_val(gt_rec.get("sekundaerverband")), "LLM Output": format_val(llm_rec.get("sekundaerverband_fixierung"))},
+                {"Kategorie": "5. Hautschutz", "Ground Truth (GT)": format_val(gt_rec.get("hautschutz")), "LLM Output": format_val(llm_rec.get("wundrand_hautschutz"))},
+                
+                # Kompressions-Teil (Ja/Nein + Produkt)
+                {"Kategorie": "Kompression indiziert?", "Ground Truth (GT)": format_val(gt_rec.get("kompression_indiziert")), "LLM Output": format_val(llm_rec.get("kompression_indiziert"))},
+                {"Kategorie": "Kompression (Art/Produkte)", "Ground Truth (GT)": format_val(gt_rec.get("kompression_produkte")), "LLM Output": format_val(llm_rec.get("kompression_art"))},
+                
+                # Einschränkungen / Annahmen
+                {"Kategorie": "Einschränkungen / Annahmen", "Ground Truth (GT)": format_val(gt_rec.get("einschraenkungen")), "LLM Output": format_val(llm_rec.get("einschraenkungen_annahmen"))},
+            ]
 
         df_compare = pd.DataFrame(comparison_rows)
 
@@ -298,6 +361,37 @@ def compare_categories_detailed_interactive(raw_csv_gt: str, raw_csv_llm: str, n
     from utils_notebook import metrics, clean
     from eval.loaders import normalize_image_id
 
+    # Auto-detect if L&R mode
+    try:
+        df_llm_temp = pd.read_csv(raw_csv_llm, nrows=1)
+        is_lr = "praeferenz_wundauflage" in df_llm_temp.columns
+    except:
+        is_lr = False
+
+    if is_lr:
+        col_mapping = {
+            "spuelloesung": "spuelloesung",
+            "debridement_notwendig": "debridement_notwendig",
+            "kompression_indiziert": "kompression_indiziert",
+            "exsudat": "exsudat_menge",
+            "infektion": "infektion_vorhanden",
+            "wundtyp": "wundtyp",
+            "lokalisation": "lokalisation",
+            "wundstadium": "wundstadium",
+            "wundrand": "wundrand",
+            "wundumgebung": "wundumgebung",
+            "debridement": "debridement_methode",
+            "praeferenz_produkt": "praeferenz_wundauflage",
+            "alternative_produkt": "alternativ_wundauflage",
+            "sekundaerverband": "praeferenz_ergaenzung",
+            "kompression_produkte": "kompression_product",
+            "wundtyp_spezifikation": "wundtyp_spezifizierung",
+            "auffaelligkeiten": "weitere_auffaelligkeiten",
+            "einschraenkungen": "einschraenkungen_annahmen",
+        }
+    else:
+        col_mapping = COLUMN_MAPPING
+
     def parse_cell_value(val):
         """Konvertiert String-Repräsentationen von Listen wieder in echte Listen."""
         if not isinstance(val, str):
@@ -336,18 +430,32 @@ def compare_categories_detailed_interactive(raw_csv_gt: str, raw_csv_llm: str, n
             return f1
 
     def show_category_details(selected_cat):
+        # Delimiter detection
+        def detect_delimiter(file_path):
+            try:
+                with open(file_path, "r", encoding="utf-8") as f:
+                    first_line = f.readline()
+                    return ";" if ";" in first_line else ","
+            except:
+                return ","
+
         # Laden der DataFrames und Füllen von NaNs
         try:
-            df_gt_r = pd.read_csv(raw_csv_gt).fillna("")
-            df_gt_n = pd.read_csv(norm_csv_gt).fillna("")
-            df_llm_r = pd.read_csv(raw_csv_llm).fillna("")
-            df_llm_n = pd.read_csv(norm_csv_llm).fillna("")
+            sep_gt_r = detect_delimiter(raw_csv_gt)
+            sep_gt_n = detect_delimiter(norm_csv_gt)
+            sep_llm_r = detect_delimiter(raw_csv_llm)
+            sep_llm_n = detect_delimiter(norm_csv_llm)
+
+            df_gt_r = pd.read_csv(raw_csv_gt, sep=sep_gt_r).fillna("")
+            df_gt_n = pd.read_csv(norm_csv_gt, sep=sep_gt_n).fillna("")
+            df_llm_r = pd.read_csv(raw_csv_llm, sep=sep_llm_r).fillna("")
+            df_llm_n = pd.read_csv(norm_csv_llm, sep=sep_llm_n).fillna("")
         except Exception as e:
             print(f"Fehler beim Laden der CSV-Dateien: {e}")
             return
         
         gt_col = selected_cat
-        llm_col = COLUMN_MAPPING.get(selected_cat)
+        llm_col = col_mapping.get(selected_cat)
         
         if not llm_col or gt_col not in df_gt_r.columns or llm_col not in df_llm_r.columns:
             print(f"Kategorie '{selected_cat}' ist in den DataFrames nicht verfügbar.")
@@ -452,7 +560,7 @@ def compare_categories_detailed_interactive(raw_csv_gt: str, raw_csv_llm: str, n
         display(styler)
 
     # Widget UI erstellen
-    categories = sorted(list(COLUMN_MAPPING.keys()))
+    categories = sorted(list(col_mapping.keys()))
     dropdown = widgets.Dropdown(
         options=categories,
         value="wundrand" if "wundrand" in categories else categories[0],

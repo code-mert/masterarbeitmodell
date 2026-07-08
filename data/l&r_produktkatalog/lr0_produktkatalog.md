@@ -149,7 +149,7 @@ Verflüssigung und Ablösung von Nekrosen und Fibrinbelägen über die körperei
 - erhöhtes Mazerations- und Infektionsrisiko bei unzureichendem Exsudatmanagement
 - nicht geeignet bei akuter Infektion oder trockener Gangrän
 
-### Chirurgisches (scharfes) Debridement
+### Chirurgisches Debridement
  
 Abtragung von avitalem Gewebe mit Skalpell, Schere, Kürette oder Ringkürette durch geschultes/ärztliches Personal.
  

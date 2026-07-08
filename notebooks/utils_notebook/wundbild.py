@@ -15,6 +15,11 @@ def zeige_wundbild(image_id, base_dir="../data/wundbilder"):
     """
     Lädt und zeigt das Wundbild für eine gegebene Image-ID (z.B. "wunde_02", "Bild2", "2", 2).
     """
+    # Auto-detect correct path if default is used and doesn't exist
+    if base_dir == "../data/wundbilder" and not os.path.exists(base_dir):
+        if os.path.exists("../../data/wundbilder"):
+            base_dir = "../../data/wundbilder"
+
     normalized = normalize_image_id(str(image_id))
     if not normalized:
         print(f"Fehler: Ungültige Image-ID '{image_id}'")

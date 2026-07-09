@@ -82,7 +82,7 @@ def align(gt_record: Dict[str, Any], llm_record: Dict[str, Any]) -> Dict[str, An
                 "gt": []
             },
             "kompression": {
-                "llm": filter_markers(llm_record.get("kompression_product") or []),
+                "llm": filter_markers(llm_record.get("kompression_product") or llm_record.get("kompression_produkt") or []),
                 "gt": filter_markers(gt_record.get("kompression_produkte") or [])
             },
             

@@ -37,6 +37,9 @@ COLUMN_MAPPING = {
     "wundtyp_spezifikation": "wundtyp_spezifizierung",
     "auffaelligkeiten": "weitere_auffaelligkeiten",
     "einschraenkungen": "einschraenkungen_annahmen",
+    "ergaenzende_produkte_praeferenz": "praeferenz_ergaenzung",
+    "ergaenzende_produkte_alternativ": "alternativ_ergaenzung",
+    "wundgrund": "wundgrund",
 }
 
 CATEGORY_TYPES = {
@@ -44,8 +47,9 @@ CATEGORY_TYPES = {
     "ordinal": ["exsudat", "infektion"],
     "decode": ["lokalisation"],
     "checklist": ["spuelloesung", "wundstadium", "wundrand", "wundumgebung", "debridement", "praeferenz_produkt", 
-                  "alternative_produkt", "antimikrobielles_agens", "sekundaerverband", "hautschutz", "kompression_produkte"],
-    "skip": ["wundtyp_spezifikation", "auffaelligkeiten", "einschraenkungen"]
+                  "alternative_produkt", "antimikrobielles_agens", "sekundaerverband", "hautschutz", "kompression_produkte",
+                  "ergaenzende_produkte_praeferenz", "ergaenzende_produkte_alternativ"],
+    "skip": ["wundtyp_spezifikation", "auffaelligkeiten", "einschraenkungen", "wundgrund"]
 }
 
 # =====================================================================
@@ -81,11 +85,13 @@ def calculate_scores(csv_path: str, json_dir: str, raw: bool = False) -> pd.Data
             "debridement": "debridement_methode",
             "praeferenz_produkt": "praeferenz_wundauflage",
             "alternative_produkt": "alternativ_wundauflage",
-            "sekundaerverband": "praeferenz_ergaenzung",
-            "kompression_produkte": "kompression_product",
+            "ergaenzende_produkte_praeferenz": "praeferenz_ergaenzung",
+            "ergaenzende_produkte_alternativ": "alternativ_ergaenzung",
+            "kompression_produkte": "kompression_produkt",
             "wundtyp_spezifikation": "wundtyp_spezifizierung",
             "auffaelligkeiten": "weitere_auffaelligkeiten",
             "einschraenkungen": "einschraenkungen_annahmen",
+            "wundgrund": "wundgrund"
         }
     else:
         col_mapping = COLUMN_MAPPING

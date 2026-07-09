@@ -253,6 +253,11 @@ EXSUDAT_GT_MAPPING = {
     "keine Angabe möglich, vermutlich trocken": ["Keine"],
     "keine Angabe möglich / vermutlich mässig": ["Mäßig"],
 
+    # ── Komplexe / Mehrteilige Angaben ──
+    "geschlossene stelle kein bis wenig exsudat, offenen stelle mäßig": ["Leicht", "Mäßig"],
+    "nekrosen: kein exsudat. unterschenkel mäßig": ["Leicht", "Mäßig"],
+    "große wunde: stark, da mazerationen am wundrand kleine nekrose: trocken": ["Mäßig", "Stark"],
+
     # ── Bereiche ──
     "schwach bis mäßig": ["Leicht", "Mäßig"],
     "schwach bin mäßig": ["Leicht", "Mäßig"],
@@ -292,10 +297,10 @@ DEBRIDEMENT_GT_MAPPING = {
 # LOKALISATION KEYWORDS
 LOKALISATION_KEYWORDS = {
     "Abdomen": ["abdomen", "bauch"],
-    "Bein": ["bein", "fuß", "fuss", "zehe", "knöchel", "unterschenkel", "oberschenkel",
-             "ferse", "fußsohle", "fußrücken", "plantar", "vorfuß", "malleol",
-             "achillessehne", "knie"],
-    "Arm": ["arm", "hand", "finger", "ellenbogen", "oberarm", "unterarm", "bizeps"],
+    "Fuß": ["fuß", "fuss", "zehe", "ferse", "fußsohle", "fußrücken", "plantar", "vorfuß", "malleol", "achillessehne"],
+    "Bein": ["bein", "knöchel", "unterschenkel", "oberschenkel", "knie"],
+    "Hand": ["hand", "finger", "handgelenk"],
+    "Arm": ["arm", "ellenbogen", "oberarm", "unterarm", "bizeps"],
     "Gesäß": ["gesäß", "sakral", "kreuzbein", "steißbein", "os sacrum", "sacral",
               "rima ani", "steiß", "trochanter"],
     "Rücken": ["rücken"],

@@ -5,12 +5,29 @@ import json
 # =====================================================================
 ORDINAL_SCALES = {
     "exsudat": {
-        "keine": 0, "leicht": 1, "mäßig": 2, "maessig": 2, "stark": 3, "sehr stark": 4
+        "keine": 0,
+        "keine, leicht": 0.5,
+        "keine,leicht": 0.5,
+        "leicht": 1,
+        "leicht, mäßig": 1.5,
+        "leicht, maessig": 1.5,
+        "leicht,mäßig": 1.5,
+        "leicht,maessig": 1.5,
+        "mäßig": 2,
+        "maessig": 2,
+        "mäßig, stark": 2.5,
+        "maessig, stark": 2.5,
+        "mäßig,stark": 2.5,
+        "maessig,stark": 2.5,
+        "stark": 3,
+        "stark, sehr stark": 3.5,
+        "stark,sehr stark": 3.5,
+        "sehr stark": 4
     },
     "infektion": {
-        "keine infektionszeichen": 0, "keine": 0,
+        "keine infektionszeichen": 0, "keine": 0, "nein": 0,
         "verdacht auf infektion / kritische kolonisation": 1, "verdacht": 1,
-        "deutliche infektionszeichen": 2, "deutliche": 2
+        "deutliche infektionszeichen": 2, "deutliche": 2, "ja": 2
     }
 }
 
@@ -194,27 +211,28 @@ def score_ordinal(category, gt_val, llm_val):
     """
     Berechnet den ordinalen Abstandsscore und das exakte Match für abgestufte Kategorien.
     """
+    # 1. Konvertiere Werte zu bereinigten Strings
     gt_str = str(gt_val).strip().lower() if gt_val is not None else ""
     llm_str = str(llm_val).strip().lower() if llm_val is not None else ""
     
-    scale = ORDINAL_SCALES[category]
+    # 2. Behandle leere / nicht angegebene Werte
+    empty_values = ["", "nan", "—", "keine angabe", "keine angabe möglich", "keine einschätzung möglich", "nicht beurteilbar"]
+    is_gt_empty = gt_str in empty_values
+    is_llm_empty = llm_str in empty_values
     
-    def get_num(s):
-        if s in scale:
-            return scale[s]
-        for k, v in scale.items():
-            if k in s or s in k:
-                return v
-        return None
-
-    gt_num = get_num(gt_str)
-    llm_num = get_num(llm_str)
-    
-    if gt_num is None or llm_num is None:
-        if not gt_str and not llm_str:
-            return 1.0, 1.0
+    if is_gt_empty and is_llm_empty:
+        return 1.0, 1.0
+    if is_gt_empty or is_llm_empty:
         return 0.0, 0.0
         
+    # 3. Hole die numerischen Werte aus der Skala
+    scale = ORDINAL_SCALES[category]
+    if gt_str not in scale or llm_str not in scale:
+        return 0.0, 0.0
+        
+    gt_num = scale[gt_str]
+    llm_num = scale[llm_str]
+    
     max_val = max(scale.values())
     abs_diff = abs(gt_num - llm_num)
     

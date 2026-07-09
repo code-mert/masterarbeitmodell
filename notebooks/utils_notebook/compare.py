@@ -361,6 +361,15 @@ def compare_categories_detailed_interactive(raw_csv_gt: str, raw_csv_llm: str, n
     from utils_notebook import metrics, clean
     from eval.loaders import normalize_image_id
 
+    # Delimiter detection helper
+    def detect_delimiter(file_path):
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                first_line = f.readline()
+                return ";" if ";" in first_line else ","
+        except:
+            return ","
+
     # Auto-detect if L&R mode
     try:
         df_llm_temp = pd.read_csv(raw_csv_llm, nrows=1)
@@ -383,14 +392,34 @@ def compare_categories_detailed_interactive(raw_csv_gt: str, raw_csv_llm: str, n
             "debridement": "debridement_methode",
             "praeferenz_produkt": "praeferenz_wundauflage",
             "alternative_produkt": "alternativ_wundauflage",
-            "sekundaerverband": "praeferenz_ergaenzung",
-            "kompression_produkte": "kompression_product",
+            "ergaenzende_produkte_praeferenz": "praeferenz_ergaenzung",
+            "ergaenzende_produkte_alternativ": "alternativ_ergaenzung",
+            "kompression_produkte": "kompression_produkt",
             "wundtyp_spezifikation": "wundtyp_spezifizierung",
             "auffaelligkeiten": "weitere_auffaelligkeiten",
             "einschraenkungen": "einschraenkungen_annahmen",
+            "wundgrund": "wundgrund",
         }
     else:
         col_mapping = COLUMN_MAPPING
+
+    # Filter categories so that they only contain fields present in both files
+    try:
+        sep_gt = detect_delimiter(raw_csv_gt)
+        sep_llm = detect_delimiter(raw_csv_llm)
+        df_gt_cols = pd.read_csv(raw_csv_gt, sep=sep_gt, nrows=0).columns.tolist()
+        df_llm_cols = pd.read_csv(raw_csv_llm, sep=sep_llm, nrows=0).columns.tolist()
+    except Exception as e:
+        df_gt_cols = []
+        df_llm_cols = []
+
+    valid_categories = []
+    for gt_col, llm_col in col_mapping.items():
+        if gt_col in df_gt_cols and llm_col in df_llm_cols:
+            valid_categories.append(gt_col)
+    
+    categories = sorted(valid_categories)
+
 
     def parse_cell_value(val):
         """Konvertiert String-Repräsentationen von Listen wieder in echte Listen."""
@@ -495,16 +524,22 @@ def compare_categories_detailed_interactive(raw_csv_gt: str, raw_csv_llm: str, n
         m = m.drop(columns=["GT (Roh) parsed", "GT (Normalisiert) parsed", "LLM (Roh) parsed", "LLM (Normalisiert) parsed"])
         
         # Anzeigen-Spalten erzeugen
-        m["Score (Raw)"] = m["Score (Raw) Float"].apply(lambda x: f"{x:.0%}")
+        is_skip = selected_cat in CATEGORY_TYPES.get("skip", [])
         
-        def get_norm_display(row):
-            raw = row["Score (Raw) Float"]
-            norm = row["Score (Bereinigt) Float"]
-            if raw > norm:
-                return f"{norm:.0%} ⚠️ (Fällt!)"
-            return f"{norm:.0%}"
+        if is_skip:
+            m["Score (Raw)"] = "-"
+            m["Score (Bereinigt)"] = "-"
+        else:
+            m["Score (Raw)"] = m["Score (Raw) Float"].apply(lambda x: f"{x:.0%}")
             
-        m["Score (Bereinigt)"] = m.apply(get_norm_display, axis=1)
+            def get_norm_display(row):
+                raw = row["Score (Raw) Float"]
+                norm = row["Score (Bereinigt) Float"]
+                if raw > norm:
+                    return f"{norm:.0%} ⚠️ (Fällt!)"
+                return f"{norm:.0%}"
+                
+            m["Score (Bereinigt)"] = m.apply(get_norm_display, axis=1)
         
         # Nur die gewünschten Spalten für das Styler-Objekt anzeigen
         display_cols = [
@@ -517,6 +552,11 @@ def compare_categories_detailed_interactive(raw_csv_gt: str, raw_csv_llm: str, n
             img_id = row["image_id"]
             # Hole die originalen numerischen Werte aus dem DataFrame m
             row_original = m[m["image_id"] == img_id].iloc[0]
+            
+            if is_skip:
+                # Neutrale Darstellung für Freitext/Kommentare
+                base_style = "background-color: #ffffff; color: #333333; border: 1px solid #e2e8f0;"
+                return [base_style] * len(row)
             
             score_raw = row_original["Score (Raw) Float"]
             score_norm = row_original["Score (Bereinigt) Float"]
@@ -560,10 +600,9 @@ def compare_categories_detailed_interactive(raw_csv_gt: str, raw_csv_llm: str, n
         display(styler)
 
     # Widget UI erstellen
-    categories = sorted(list(col_mapping.keys()))
     dropdown = widgets.Dropdown(
         options=categories,
-        value="wundrand" if "wundrand" in categories else categories[0],
+        value="wundrand" if "wundrand" in categories else (categories[0] if categories else None),
         description="Kategorie:",
         style={'description_width': 'initial'},
         layout=widgets.Layout(width='300px')

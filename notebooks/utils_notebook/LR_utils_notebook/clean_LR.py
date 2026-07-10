@@ -250,8 +250,12 @@ def normalise_by_mapping(val, mapping_dict):
         for k, v in mapping_dict.items():
             cleaned_key = clean_whitespace(k)
             key_items = [clean_whitespace(x) for x in split_by_delimiters_outside_parentheses(cleaned_key)]
+            if item.lower() == cleaned_key.lower():
+                mapped_items.extend(flatten_items(v))
+                matched = True
+                break
             # Only match single items here to avoid partial match with multi-item keys
-            if len(key_items) == 1:
+            elif len(key_items) == 1:
                 if item.lower() == key_items[0].lower():
                     mapped_items.extend(flatten_items(v))
                     matched = True
@@ -363,3 +367,169 @@ def clean_ground_truth(input_path: str, output_path: str):
 
 # Alias für Kompatibilität
 normalize_gt_file = clean_ground_truth
+
+
+# =====================================================================
+# LLM FILE NORMALIZATION
+# =====================================================================
+
+def _safe_parse_list(val):
+    """
+    Parst einen String sicher als Liste, falls dieser mit eckigen Klammern umschlossen ist.
+    """
+    import ast
+    if not isinstance(val, str):
+        return val
+    val_stripped = val.strip()
+    if val_stripped.startswith('[') and val_stripped.endswith(']'):
+        try:
+            parsed = ast.literal_eval(val_stripped)
+            if isinstance(parsed, (list, tuple, set)):
+                return list(parsed)
+        except Exception:
+            pass
+    return val
+
+
+def merge_wundtyp_sonstiges(wundtyp_val, sonstiges_val):
+    """
+    Hilfsfunktion, die 'Sonstiges' aus wundtyp entfernt und durch den 
+    konkreten sonstigen Wundtyp ersetzt, falls dieser vorhanden ist.
+    Unterstützt sowohl Strings als auch Listen.
+    """
+    if wundtyp_val is None:
+        return wundtyp_val
+    if hasattr(wundtyp_val, "__len__") and not isinstance(wundtyp_val, (str, dict)):
+        if len(wundtyp_val) == 0:
+            return wundtyp_val
+    else:
+        # Check for single values
+        try:
+            if not wundtyp_val or pd.isna(wundtyp_val):
+                return wundtyp_val
+        except ValueError:
+            # Fallback if somehow an ambiguous comparison happens
+            if pd.isna(wundtyp_val).any():
+                return wundtyp_val
+        
+    sonst_str = str(sonstiges_val).strip() if pd.notna(sonstiges_val) else ""
+    if sonst_str.lower() in ["nan", "—", ""]:
+        sonst_str = ""
+        
+    is_list = isinstance(wundtyp_val, list)
+    if not is_list and isinstance(wundtyp_val, str):
+        val_stripped = wundtyp_val.strip()
+        if val_stripped.startswith('[') and val_stripped.endswith(']'):
+            try:
+                import ast
+                parsed = ast.literal_eval(val_stripped)
+                if isinstance(parsed, (list, tuple, set)):
+                    wundtyp_val = list(parsed)
+                    is_list = True
+            except:
+                pass
+        if not is_list:
+            wundtyp_val = split_by_delimiters_outside_parentheses(val_stripped)
+            is_list = True
+
+    if is_list:
+        new_list = []
+        for x in wundtyp_val:
+            x_str = str(x).strip()
+            if x_str.lower() == "sonstiges":
+                if sonst_str:
+                    new_list.append(sonst_str)
+                else:
+                    new_list.append(x_str)
+            else:
+                new_list.append(x_str)
+        import json
+        return json.dumps(new_list, ensure_ascii=False)
+    
+    wund_str = str(wundtyp_val).strip()
+    if wund_str.lower() == "sonstiges":
+        return sonst_str if sonst_str else wund_str
+    return wund_str
+
+
+def normalize_llm_file(input_path: str, output_path: str):
+    """
+    Führt die Normalisierung auf die rohe LLM CSV-Datei aus (speziell für Lohmann Rauscher) und speichert sie am Zielort.
+    """
+    print("--- RUNNING LR SPECIFIC NORMALIZATION ---")
+    input_file = Path(input_path)
+    output_file = Path(output_path)
+    
+    if not input_file.exists():
+        raise FileNotFoundError(f"Eingabedatei existiert nicht: {input_path}")
+        
+    df = pd.read_csv(input_file)
+    df_cleaned = df.copy()
+    
+    # Merge wundtyp and wundtyp_sonstiges
+    if 'wundtyp' in df_cleaned.columns and 'wundtyp_sonstiges' in df_cleaned.columns:
+        df_cleaned['wundtyp'] = df_cleaned.apply(
+            lambda r: merge_wundtyp_sonstiges(r['wundtyp'], r['wundtyp_sonstiges']),
+            axis=1
+        )
+        
+    for col in df_cleaned.columns:
+        if col == 'image_id':
+            continue
+            
+        def clean_field(val):
+            if pd.isna(val):
+                return ""
+            parsed_val = _safe_parse_list(val)
+            if isinstance(parsed_val, list):
+                # Bereinige jedes Element der Liste
+                cleaned_lst = [clean_whitespace(x) for x in parsed_val if x is not None]
+                return json.dumps(cleaned_lst, ensure_ascii=False)
+            else:
+                return clean_whitespace(parsed_val)
+                
+        df_cleaned[col] = df_cleaned[col].apply(clean_field)
+        
+    if 'lokalisation' in df_cleaned.columns:
+        df_cleaned['lokalisation'] = df_cleaned['lokalisation'].apply(normalise_lokalisation)
+        
+    if 'wundtyp' in df_cleaned.columns:
+        df_cleaned['wundtyp'] = df_cleaned['wundtyp'].apply(normalise_wundtyp)
+        
+    if 'wundumgebung' in df_cleaned.columns:
+        df_cleaned['wundumgebung'] = df_cleaned['wundumgebung'].apply(normalise_wundumgebung)
+        
+    if 'wundrand' in df_cleaned.columns:
+        df_cleaned['wundrand'] = df_cleaned['wundrand'].apply(normalise_wundrand)
+        
+    if 'wundgrund' in df_cleaned.columns:
+        df_cleaned['wundgrund'] = df_cleaned['wundgrund'].apply(normalise_wundgrund)
+        
+    if 'exsudat' in df_cleaned.columns:
+        df_cleaned['exsudat'] = df_cleaned['exsudat'].apply(normalise_exsudat)
+        
+    if 'exsudat_menge' in df_cleaned.columns:
+        df_cleaned['exsudat_menge'] = df_cleaned['exsudat_menge'].apply(normalise_exsudat)
+        
+    if 'praeferenz_wundauflage' in df_cleaned.columns:
+        df_cleaned['praeferenz_wundauflage'] = df_cleaned['praeferenz_wundauflage'].apply(normalise_produkt)
+        
+    if 'alternativ_wundauflage' in df_cleaned.columns:
+        df_cleaned['alternativ_wundauflage'] = df_cleaned['alternativ_wundauflage'].apply(normalise_produkt)
+        
+    if 'praeferenz_ergaenzung' in df_cleaned.columns:
+        df_cleaned['praeferenz_ergaenzung'] = df_cleaned['praeferenz_ergaenzung'].apply(normalise_produkt)
+        
+    if 'alternativ_ergaenzung' in df_cleaned.columns:
+        df_cleaned['alternativ_ergaenzung'] = df_cleaned['alternativ_ergaenzung'].apply(normalise_produkt)
+        
+    if 'debridement_methode' in df_cleaned.columns:
+        df_cleaned['debridement_methode'] = df_cleaned['debridement_methode'].apply(normalise_debridement)
+        
+    if 'debridement' in df_cleaned.columns:
+        df_cleaned['debridement'] = df_cleaned['debridement'].apply(normalise_debridement)
+        
+    output_file.parent.mkdir(parents=True, exist_ok=True)
+    df_cleaned.to_csv(output_file, index=False)
+    print(f"Normalisierte LLM-Datei erfolgreich erstellt: {output_path}")
+

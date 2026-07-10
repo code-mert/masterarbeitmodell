@@ -414,10 +414,23 @@ def compare_categories_detailed_interactive(raw_csv_gt: str, raw_csv_llm: str, n
         df_llm_cols = []
 
     valid_categories = []
+    has_primary = False
+    has_secondary = False
+    
     for gt_col, llm_col in col_mapping.items():
         if gt_col in df_gt_cols and llm_col in df_llm_cols:
-            valid_categories.append(gt_col)
-    
+            if gt_col in ["praeferenz_produkt", "alternative_produkt"]:
+                has_primary = True
+            elif gt_col in ["ergaenzende_produkte_praeferenz", "ergaenzende_produkte_alternativ"]:
+                has_secondary = True
+            else:
+                valid_categories.append(gt_col)
+                
+    if has_primary:
+        valid_categories.append("Primärverband (Präferenz & Alternative)")
+    if has_secondary:
+        valid_categories.append("Sekundärverband (Präferenz & Alternative)")
+        
     categories = sorted(valid_categories)
 
 
@@ -483,63 +496,216 @@ def compare_categories_detailed_interactive(raw_csv_gt: str, raw_csv_llm: str, n
             print(f"Fehler beim Laden der CSV-Dateien: {e}")
             return
         
-        gt_col = selected_cat
-        llm_col = col_mapping.get(selected_cat)
-        
-        if not llm_col or gt_col not in df_gt_r.columns or llm_col not in df_llm_r.columns:
-            print(f"Kategorie '{selected_cat}' ist in den DataFrames nicht verfügbar.")
-            return
-            
-        # Extrahieren und Spalten vereinheitlichen
-        df1 = df_gt_r[["image_id", gt_col]].copy().rename(columns={gt_col: "GT (Roh)"})
-        df1["image_id"] = df1["image_id"].apply(normalize_image_id)
-        df1["GT (Roh) parsed"] = df1["GT (Roh)"].apply(parse_cell_value)
-        
-        df2 = df_gt_n[["image_id", gt_col]].copy().rename(columns={gt_col: "GT (Normalisiert)"})
-        df2["image_id"] = df2["image_id"].apply(normalize_image_id)
-        df2["GT (Normalisiert) parsed"] = df2["GT (Normalisiert)"].apply(parse_cell_value)
-        
-        df3 = df_llm_r[["image_id", llm_col]].copy().rename(columns={llm_col: "LLM (Roh)"})
-        df3["image_id"] = df3["image_id"].apply(normalize_image_id)
-        df3["LLM (Roh) parsed"] = df3["LLM (Roh)"].apply(parse_cell_value)
-        
-        df4 = df_llm_n[["image_id", llm_col]].copy().rename(columns={llm_col: "LLM (Normalisiert)"})
-        df4["image_id"] = df4["image_id"].apply(normalize_image_id)
-        df4["LLM (Normalisiert) parsed"] = df4["LLM (Normalisiert)"].apply(parse_cell_value)
-        
-        # Zusammenführen der Daten
-        m = pd.merge(df1, df2, on="image_id", how="inner")
-        m = pd.merge(m, df3, on="image_id", how="inner")
-        m = pd.merge(m, df4, on="image_id", how="inner")
-        
-        # Sortieren nach Bildnummer
-        m["img_num"] = m["image_id"].str.extract(r"(\d+)")[0].astype(int)
-        m = m.sort_values(by="img_num").drop(columns=["img_num"]).reset_index(drop=True)
-        
-        # Float-Scores berechnen (für den Hintergrund-Vergleich)
-        m["Score (Raw) Float"] = m.apply(lambda r: get_row_score_for_cat(selected_cat, r["GT (Roh) parsed"], r["LLM (Roh) parsed"]), axis=1)
-        m["Score (Bereinigt) Float"] = m.apply(lambda r: get_row_score_for_cat(selected_cat, r["GT (Normalisiert) parsed"], r["LLM (Normalisiert) parsed"]), axis=1)
-        
-        # Hilfsspalten entfernen
-        m = m.drop(columns=["GT (Roh) parsed", "GT (Normalisiert) parsed", "LLM (Roh) parsed", "LLM (Normalisiert) parsed"])
-        
-        # Anzeigen-Spalten erzeugen
-        is_skip = selected_cat in CATEGORY_TYPES.get("skip", [])
-        
-        if is_skip:
-            m["Score (Raw)"] = "-"
-            m["Score (Bereinigt)"] = "-"
+        if selected_cat == "Primärverband (Präferenz & Alternative)":
+            gt_col_p, llm_col_p = "praeferenz_produkt", col_mapping["praeferenz_produkt"]
+            gt_col_a, llm_col_a = "alternative_produkt", col_mapping["alternative_produkt"]
+            is_grouped = "primary"
+        elif selected_cat == "Sekundärverband (Präferenz & Alternative)":
+            gt_col_p, llm_col_p = "ergaenzende_produkte_praeferenz", col_mapping["ergaenzende_produkte_praeferenz"]
+            gt_col_a, llm_col_a = "ergaenzende_produkte_alternativ", col_mapping["ergaenzende_produkte_alternativ"]
+            is_grouped = "secondary"
         else:
-            m["Score (Raw)"] = m["Score (Raw) Float"].apply(lambda x: f"{x:.0%}")
+            gt_col, llm_col = selected_cat, col_mapping.get(selected_cat)
+            is_grouped = None
             
-            def get_norm_display(row):
-                raw = row["Score (Raw) Float"]
-                norm = row["Score (Bereinigt) Float"]
-                if raw > norm:
-                    return f"{norm:.0%} ⚠️ (Fällt!)"
-                return f"{norm:.0%}"
+        if is_grouped:
+            # GT Raw
+            df1_p = df_gt_r[["image_id", gt_col_p]].copy().rename(columns={gt_col_p: "GT (Roh)_p"})
+            df1_a = df_gt_r[["image_id", gt_col_a]].copy().rename(columns={gt_col_a: "GT (Roh)_a"})
+            df1 = pd.merge(df1_p, df1_a, on="image_id", how="inner")
+            df1["image_id"] = df1["image_id"].apply(normalize_image_id)
+            
+            # GT Norm
+            df2_p = df_gt_n[["image_id", gt_col_p]].copy().rename(columns={gt_col_p: "GT (Normalisiert)_p"})
+            df2_a = df_gt_n[["image_id", gt_col_a]].copy().rename(columns={gt_col_a: "GT (Normalisiert)_a"})
+            df2 = pd.merge(df2_p, df2_a, on="image_id", how="inner")
+            df2["image_id"] = df2["image_id"].apply(normalize_image_id)
+            
+            # LLM Raw
+            df3_p = df_llm_r[["image_id", llm_col_p]].copy().rename(columns={llm_col_p: "LLM (Roh)_p"})
+            df3_a = df_llm_r[["image_id", llm_col_a]].copy().rename(columns={llm_col_a: "LLM (Roh)_a"})
+            df3 = pd.merge(df3_p, df3_a, on="image_id", how="inner")
+            df3["image_id"] = df3["image_id"].apply(normalize_image_id)
+            
+            # LLM Norm
+            df4_p = df_llm_n[["image_id", llm_col_p]].copy().rename(columns={llm_col_p: "LLM (Normalisiert)_p"})
+            df4_a = df_llm_n[["image_id", llm_col_a]].copy().rename(columns={llm_col_a: "LLM (Normalisiert)_a"})
+            df4 = pd.merge(df4_p, df4_a, on="image_id", how="inner")
+            df4["image_id"] = df4["image_id"].apply(normalize_image_id)
+            
+            # Merge all
+            m = pd.merge(df1, df2, on="image_id", how="inner")
+            m = pd.merge(m, df3, on="image_id", how="inner")
+            m = pd.merge(m, df4, on="image_id", how="inner")
+            
+            # Sort
+            m["img_num"] = m["image_id"].str.extract(r"(\d+)")[0].astype(int)
+            m = m.sort_values(by="img_num").drop(columns=["img_num"]).reset_index(drop=True)
+            
+            # Parse cell values for calculations
+            m["GT (Roh)_p_parsed"] = m["GT (Roh)_p"].apply(parse_cell_value)
+            m["GT (Roh)_a_parsed"] = m["GT (Roh)_a"].apply(parse_cell_value)
+            m["GT (Normalisiert)_p_parsed"] = m["GT (Normalisiert)_p"].apply(parse_cell_value)
+            m["GT (Normalisiert)_a_parsed"] = m["GT (Normalisiert)_a"].apply(parse_cell_value)
+            m["LLM (Roh)_p_parsed"] = m["LLM (Roh)_p"].apply(parse_cell_value)
+            m["LLM (Roh)_a_parsed"] = m["LLM (Roh)_a"].apply(parse_cell_value)
+            m["LLM (Normalisiert)_p_parsed"] = m["LLM (Normalisiert)_p"].apply(parse_cell_value)
+            m["LLM (Normalisiert)_a_parsed"] = m["LLM (Normalisiert)_a"].apply(parse_cell_value)
+            
+            # Calculate Scores
+            if is_grouped == "primary":
+                # Primary dressing uses best_path_f1 cross-match score (one combined score for both)
+                def calc_prim_score(row, raw_flag):
+                    if raw_flag:
+                        gt_p = metrics.to_clean_set(row["GT (Roh)_p_parsed"])
+                        gt_a = metrics.to_clean_set(row["GT (Roh)_a_parsed"])
+                        llm_p = metrics.to_clean_set(row["LLM (Roh)_p_parsed"])
+                        llm_a = metrics.to_clean_set(row["LLM (Roh)_a_parsed"])
+                    else:
+                        gt_p = metrics.to_clean_set(clean.clean_whitespace(row["GT (Normalisiert)_p_parsed"]))
+                        gt_a = metrics.to_clean_set(clean.clean_whitespace(row["GT (Normalisiert)_a_parsed"]))
+                        llm_p = metrics.to_clean_set(clean.clean_whitespace(row["LLM (Normalisiert)_p_parsed"]))
+                        llm_a = metrics.to_clean_set(clean.clean_whitespace(row["LLM (Normalisiert)_a_parsed"]))
+                    f1, _ = metrics.best_path_f1(llm_p, llm_a, gt_p, gt_a)
+                    return f1
+                    
+                m["Score (Raw) Float"] = m.apply(lambda r: calc_prim_score(r, True), axis=1)
+                m["Score (Bereinigt) Float"] = m.apply(lambda r: calc_prim_score(r, False), axis=1)
                 
-            m["Score (Bereinigt)"] = m.apply(get_norm_display, axis=1)
+                # Format text displays (HTML stacked)
+                m["GT (Roh)"] = m.apply(lambda r: f"<b>P:</b> {r['GT (Roh)_p']}<br><b>A:</b> {r['GT (Roh)_a']}", axis=1)
+                m["LLM (Roh)"] = m.apply(lambda r: f"<b>P:</b> {r['LLM (Roh)_p']}<br><b>A:</b> {r['LLM (Roh)_a']}", axis=1)
+                m["GT (Normalisiert)"] = m.apply(lambda r: f"<b>P:</b> {r['GT (Normalisiert)_p']}<br><b>A:</b> {r['GT (Normalisiert)_a']}", axis=1)
+                m["LLM (Normalisiert)"] = m.apply(lambda r: f"<b>P:</b> {r['LLM (Normalisiert)_p']}<br><b>A:</b> {r['LLM (Normalisiert)_a']}", axis=1)
+                
+                m["Score (Raw)"] = m["Score (Raw) Float"].apply(lambda x: f"{x:.0%}")
+                
+                def get_norm_display(row):
+                    raw = row["Score (Raw) Float"]
+                    norm = row["Score (Bereinigt) Float"]
+                    if raw > norm:
+                        return f"{norm:.0%} ⚠️ (Fällt!)"
+                    return f"{norm:.0%}"
+                m["Score (Bereinigt)"] = m.apply(get_norm_display, axis=1)
+                
+            else: # secondary
+                # Secondary dressing has individual scores for preference and alternative
+                def calc_sub_score(row, raw_flag):
+                    val_p_gt = row["GT (Roh)_p_parsed"] if raw_flag else row["GT (Normalisiert)_p_parsed"]
+                    val_p_llm = row["LLM (Roh)_p_parsed"] if raw_flag else row["LLM (Normalisiert)_p_parsed"]
+                    val_a_gt = row["GT (Roh)_a_parsed"] if raw_flag else row["GT (Normalisiert)_a_parsed"]
+                    val_a_llm = row["LLM (Roh)_a_parsed"] if raw_flag else row["LLM (Normalisiert)_a_parsed"]
+                    
+                    if not raw_flag:
+                        val_p_gt = clean.clean_whitespace(val_p_gt)
+                        val_p_llm = clean.clean_whitespace(val_p_llm)
+                        val_a_gt = clean.clean_whitespace(val_a_gt)
+                        val_a_llm = clean.clean_whitespace(val_a_llm)
+                        
+                    f1_p, _ = metrics.evaluate_checklist(val_p_gt, val_p_llm)
+                    f1_a, _ = metrics.evaluate_checklist(val_a_gt, val_a_llm)
+                    return f1_p, f1_a
+                    
+                scores_raw = m.apply(lambda r: calc_sub_score(r, True), axis=1)
+                m["Score (Raw) Float P"] = [x[0] for x in scores_raw]
+                m["Score (Raw) Float A"] = [x[1] for x in scores_raw]
+                m["Score (Raw) Float"] = (m["Score (Raw) Float P"] + m["Score (Raw) Float A"]) / 2
+                
+                scores_norm = m.apply(lambda r: calc_sub_score(r, False), axis=1)
+                m["Score (Bereinigt) Float P"] = [x[0] for x in scores_norm]
+                m["Score (Bereinigt) Float A"] = [x[1] for x in scores_norm]
+                m["Score (Bereinigt) Float"] = (m["Score (Bereinigt) Float P"] + m["Score (Bereinigt) Float A"]) / 2
+                
+                # Format text displays (HTML stacked)
+                m["GT (Roh)"] = m.apply(lambda r: f"<b>P:</b> {r['GT (Roh)_p']}<br><b>A:</b> {r['GT (Roh)_a']}", axis=1)
+                m["LLM (Roh)"] = m.apply(lambda r: f"<b>P:</b> {r['LLM (Roh)_p']}<br><b>A:</b> {r['LLM (Roh)_a']}", axis=1)
+                m["GT (Normalisiert)"] = m.apply(lambda r: f"<b>P:</b> {r['GT (Normalisiert)_p']}<br><b>A:</b> {r['GT (Normalisiert)_a']}", axis=1)
+                m["LLM (Normalisiert)"] = m.apply(lambda r: f"<b>P:</b> {r['LLM (Normalisiert)_p']}<br><b>A:</b> {r['LLM (Normalisiert)_a']}", axis=1)
+                
+                m["Score (Raw)"] = m.apply(lambda r: f"<b>P:</b> {r['Score (Raw) Float P']:.0%}<br><b>A:</b> {r['Score (Raw) Float A']:.0%}", axis=1)
+                
+                def get_norm_display_sec(row):
+                    raw_p = row["Score (Raw) Float P"]
+                    norm_p = row["Score (Bereinigt) Float P"]
+                    raw_a = row["Score (Raw) Float A"]
+                    norm_a = row["Score (Bereinigt) Float A"]
+                    
+                    disp_p = f"{norm_p:.0%} ⚠️ (Fällt!)" if raw_p > norm_p else f"{norm_p:.0%}"
+                    disp_a = f"{norm_a:.0%} ⚠️ (Fällt!)" if raw_a > norm_a else f"{norm_a:.0%}"
+                    return f"<b>P:</b> {disp_p}<br><b>A:</b> {disp_a}"
+                    
+                m["Score (Bereinigt)"] = m.apply(get_norm_display_sec, axis=1)
+
+            # Drop helper columns
+            m = m.drop(columns=[
+                "GT (Roh)_p", "GT (Roh)_a", "GT (Normalisiert)_p", "GT (Normalisiert)_a",
+                "LLM (Roh)_p", "LLM (Roh)_a", "LLM (Normalisiert)_p", "LLM (Normalisiert)_a",
+                "GT (Roh)_p_parsed", "GT (Roh)_a_parsed", "GT (Normalisiert)_p_parsed", "GT (Normalisiert)_a_parsed",
+                "LLM (Roh)_p_parsed", "LLM (Roh)_a_parsed", "LLM (Normalisiert)_p_parsed", "LLM (Normalisiert)_a_parsed"
+            ])
+            if is_grouped == "secondary":
+                m = m.drop(columns=[
+                    "Score (Raw) Float P", "Score (Raw) Float A",
+                    "Score (Bereinigt) Float P", "Score (Bereinigt) Float A"
+                ])
+                
+            is_skip = False
+            
+        else:
+            if not llm_col or gt_col not in df_gt_r.columns or llm_col not in df_llm_r.columns:
+                print(f"Kategorie '{selected_cat}' ist in den DataFrames nicht verfügbar.")
+                return
+                
+            # Extrahieren und Spalten vereinheitlichen
+            df1 = df_gt_r[["image_id", gt_col]].copy().rename(columns={gt_col: "GT (Roh)"})
+            df1["image_id"] = df1["image_id"].apply(normalize_image_id)
+            df1["GT (Roh) parsed"] = df1["GT (Roh)"].apply(parse_cell_value)
+            
+            df2 = df_gt_n[["image_id", gt_col]].copy().rename(columns={gt_col: "GT (Normalisiert)"})
+            df2["image_id"] = df2["image_id"].apply(normalize_image_id)
+            df2["GT (Normalisiert) parsed"] = df2["GT (Normalisiert)"].apply(parse_cell_value)
+            
+            df3 = df_llm_r[["image_id", llm_col]].copy().rename(columns={llm_col: "LLM (Roh)"})
+            df3["image_id"] = df3["image_id"].apply(normalize_image_id)
+            df3["LLM (Roh) parsed"] = df3["LLM (Roh)"].apply(parse_cell_value)
+            
+            df4 = df_llm_n[["image_id", llm_col]].copy().rename(columns={llm_col: "LLM (Normalisiert)"})
+            df4["image_id"] = df4["image_id"].apply(normalize_image_id)
+            df4["LLM (Normalisiert) parsed"] = df4["LLM (Normalisiert)"].apply(parse_cell_value)
+            
+            # Zusammenführen der Daten
+            m = pd.merge(df1, df2, on="image_id", how="inner")
+            m = pd.merge(m, df3, on="image_id", how="inner")
+            m = pd.merge(m, df4, on="image_id", how="inner")
+            
+            # Sortieren nach Bildnummer
+            m["img_num"] = m["image_id"].str.extract(r"(\d+)")[0].astype(int)
+            m = m.sort_values(by="img_num").drop(columns=["img_num"]).reset_index(drop=True)
+            
+            # Float-Scores berechnen (für den Hintergrund-Vergleich)
+            m["Score (Raw) Float"] = m.apply(lambda r: get_row_score_for_cat(selected_cat, r["GT (Roh) parsed"], r["LLM (Roh) parsed"]), axis=1)
+            m["Score (Bereinigt) Float"] = m.apply(lambda r: get_row_score_for_cat(selected_cat, r["GT (Normalisiert) parsed"], r["LLM (Normalisiert) parsed"]), axis=1)
+            
+            # Hilfsspalten entfernen
+            m = m.drop(columns=["GT (Roh) parsed", "GT (Normalisiert) parsed", "LLM (Roh) parsed", "LLM (Normalisiert) parsed"])
+            
+            # Anzeigen-Spalten erzeugen
+            is_skip = selected_cat in CATEGORY_TYPES.get("skip", [])
+            
+            if is_skip:
+                m["Score (Raw)"] = "-"
+                m["Score (Bereinigt)"] = "-"
+            else:
+                m["Score (Raw)"] = m["Score (Raw) Float"].apply(lambda x: f"{x:.0%}")
+                
+                def get_norm_display(row):
+                    raw = row["Score (Raw) Float"]
+                    norm = row["Score (Bereinigt) Float"]
+                    if raw > norm:
+                        return f"{norm:.0%} ⚠️ (Fällt!)"
+                    return f"{norm:.0%}"
+                    
+                m["Score (Bereinigt)"] = m.apply(get_norm_display, axis=1)
         
         # Nur die gewünschten Spalten für das Styler-Objekt anzeigen
         display_cols = [

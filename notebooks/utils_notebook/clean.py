@@ -450,6 +450,7 @@ def normalize_llm_file(input_path: str, output_path: str):
     """
     Führt die Normalisierung auf die rohe LLM CSV-Datei aus und speichert sie am Zielort.
     """
+    print("--- RUNNING GENERAL NORMALIZATION (NOT LR!) ---")
     input_file = Path(input_path)
     output_file = Path(output_path)
     

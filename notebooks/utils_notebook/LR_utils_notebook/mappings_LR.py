@@ -132,6 +132,76 @@ WUNDTYP_GT_MAPPING = {
     "Postoperative Wunde abdominal": ["Postoperative Wunde"],
     "infantiles Hämangiom,": ["Hämangiom"],
 
+    # LLM
+    # ---- Dekubitus ----
+    "Dekubitus (Druckulkus)": ["Dekubitus"],
+    "Dekubitus": ["Dekubitus"],
+    "Dekubitus (Fersenulkus)": ["Dekubitus"],
+    "Dekubitalulkus (Druckulcus) Ferse": ["Dekubitus"],
+    "Druckulzer (Ferse/Fußulkus)": ["Dekubitus"],
+    "Dekubitus (druckbedingtes Ulkus) an der Ferse": ["Dekubitus"],
+    "Dekubitus (Druckulkus) Ferse": ["Dekubitus"],
+    "Dekubitalulkus (Ferse)": ["Dekubitus"],
+    "Dekubitalulkus (Druckulkus)": ["Dekubitus"],
+    "Dekubitus (Druckulkus) der Ferse": ["Dekubitus"],
+    "Dekubitalulkus (Druckulcus) an der Ferse": ["Dekubitus"],
+    "Dekubitalulkus (Druckulkus) an der Ferse": ["Dekubitus"],
+    "Dekubitus (Druckulzera)": ["Dekubitus"],
+
+    # ---- Ulkus cruris ----
+    "Ulcus cruris (vermutlich venös)": ["Ulkus cruris venosum"],
+    "Ulcus cruris (wahrscheinlich venös)": ["Ulkus cruris venosum"],
+    "Ulcus cruris": ["Ulkus cruris"],
+    "Ulcus cruris (vermutlich venös), oberflächliche flächige Ulzeration": ["Ulkus cruris venosum","Ulkus"],
+
+    "Ulcus cruris venosum (Verdacht)": ["Ulkus cruris venosum"],
+    "Ulcus cruris (vermutlich venös, Bildbeurteilung)": ["Ulkus cruris venosum"],
+    "Ulcus cruris (chronisch, Ätiologie unklar)": ["Ulkus cruris"],
+    "Ulcus cruris (vermutet, chronische Unterschenkelwunde)": ["Ulkus cruris"],
+    "Ulcus cruris (vermutet venös)": ["Ulkus cruris venosum"],
+    "Ulcus cruris venosum (vermutet)": ["Ulkus cruris venosum"],
+    "Ulcus cruris (wahrscheinlich venös), klein/oberflächlich": ["Ulkus cruris venosum"],
+    "Ulcus cruris (Verdacht anhand Bild)": ["Ulkus cruris"],
+    "Ulcus cruris (unklare Ätiologie)": ["Ulkus cruris"],
+    "Ulcus cruris (vermutlich venös), chronische Wunde": ["Ulkus cruris venosum"],
+
+    # ---- Ulkus ----
+    "Traumatische/chronische Wunde (Fußulkus unklarer Genese)": ["Ulkus"],
+    "Chronisches Fußulkus (mehrere Ulzerationen)": ["Ulkus"],
+    "Traumatische/infizierte Ulzeration (kleines Ulkus)": ["Ulkus"],
+    "Ulzeration, unklare Genese (oberflächlich, mit Nekrose/Fibrin)": ["Ulkus"],
+    "Nekrotische Ulzeration (unklare Genese, möglich druck-/ischämiebedingt)": ["Ulkus"],
+
+    # ---- Ulzera ----
+    "Mehrere Ulzera am Fuß; Ätiologie im Bild nicht sicher (druck-/ischämisch möglich)": ["Ulzera"],
+    "Mehrere nekrotisch-belegte Ulzera am Fuß (druck-/ischämieassoziiert möglich)": ["Ulzera"],
+    "Multiple chronische Ulzera am Fuß (nur Bildbeurteilung)": ["Ulzera"],
+
+    # ---- Diabetisches Fußulkus ----
+    "Diabetisches Fußulkus (mehrere flache Ulzera)": ["Diabetisches Fußulkus"],
+    "Plantare Fußulzeration (vermutet neuropathisch/diabetisches Fußulkus)": ["Diabetisches Fußulkus"],
+    "Plantare Fußulzera, wahrscheinliches diabetisches/neuropathisches Fußulkus": ["Diabetisches Fußulkus"],
+
+    # ---- Ischämisch / Nekrose ----
+    "Ischämische, nekrotische Wunde (arterielles Ulcus möglich)": ["Ischämisches Fußulkus (Gangrän)"],
+    "Nekrotische Fußwunde (z. B. Ulcus/Gangrän des Vorfußes)": ["Ischämisches Fußulkus (Gangrän)"],
+
+    # ---- Verbrennung ----
+    "Oberflächliche thermische Verletzung/Verbrennung (grad 2a) der Hand": ["Verbrennungswunde"],
+    "Verbrennung (thermische Verletzung), flächig": ["Verbrennungswunde"],
+    "Thermische Verletzung (Verbrennung/Verbrühung 2. Grades, bullös)": ["Verbrennungswunde"],
+    "Thermische Verletzung (Verbrennung Grad 2b, Blasenbildung)": ["Verbrennungswunde"],
+
+    # ---- Postoperative Wunde ----
+    "Postoperative Wunde (dehiszient, sekundär heilend)": ["Postoperative Wunde"],
+    "Postoperative Wunde (Spalthautentnahmestelle)": ["Postoperative Wunde"],
+    "Postoperative/traumatische sekundär heilende Wunde": ["Postoperative Wunde","Traumatische Wunde"],
+    "Traumatische oder postoperativ sekundär heilende Wunde": ["Postoperative Wunde","Traumatische Wunde"],
+
+    # ---- Sonstige ----
+    "Großflächige traumatische/sekundär heilende Wunde": ["Traumatische Wunde"],
+    "Kleiner Abszess/Sinusöffnung (infizierte oberflächliche Hautläsion)": ["Abszess"],
+
 }
 
 # WUNDGRUND MAPPING
@@ -286,7 +356,135 @@ WUNDRAND_GT_MAPPING = {
 
 # PRODUKT MAPPING (Präferenz- und Alternativprodukte)
 PRODUKT_GT_MAPPING = {
-    # z.B. "Suprasorb CNP": ["Suprasorb CNP"]
+    # ---- Suprasorb A + Ag ----
+    "Suprasorb A + Ag": ["Suprasorb A + Ag"],
+    "Suprasorb A + Ag (Kompresse)": ["Suprasorb A + Ag"],
+    "Suprasorb A + Ag Kompresse": ["Suprasorb A + Ag"],
+    "Suprasorb A + Ag Tamponade": ["Suprasorb A + Ag"],
+
+    # ---- Suprasorb A Pro ----
+    "Suprasorb A Pro": ["Suprasorb A Pro"],
+    "Suprasorb A Pro (Kompresse)": ["Suprasorb A Pro"],
+    "Suprasorb A Pro (Tamponade)": ["Suprasorb A Pro"],
+    "Suprasorb A Pro Kompresse": ["Suprasorb A Pro"],
+    "Suprasorb A Pro Tamponade": ["Suprasorb A Pro"],
+
+    # ---- Suprasorb Liquacel Pro ----
+    "Suprasorb Liquacel Pro": ["Suprasorb Liquacel Pro"],
+    "Suprasorb Liquacel Pro (Kompresse)": ["Suprasorb Liquacel Pro"],
+    "Suprasorb Liquacel Pro (Tamponade)": ["Suprasorb Liquacel Pro"],
+    "Suprasorb Liquacel Pro Kompresse": ["Suprasorb Liquacel Pro"],
+    "Suprasorb Liquacel Pro Tamponade": ["Suprasorb Liquacel Pro"],
+
+    # ---- Suprasorb P ----
+    "Suprasorb P": ["Suprasorb P"],
+    "Suprasorb P (nicht klebend)": ["Suprasorb P"],
+    "Suprasorb P (selbstklebend)": ["Suprasorb P"],
+    "Suprasorb P (self-adhesive, sacrum)": ["Suprasorb P"],
+    "Suprasorb P nicht klebend": ["Suprasorb P"],
+    "Suprasorb P heel (selbstklebend)": ["Suprasorb P"],
+
+    # ---- Suprasorb P + PHMB ----
+    "Suprasorb P + PHMB": ["Suprasorb P + PHMB"],
+
+    # ---- Suprasorb P Sensiflex ----
+    "Suprasorb P SensiFlex (border rechteckig)": ["Suprasorb P Sensiflex"],
+    "Suprasorb P SensiFlex border": ["Suprasorb P Sensiflex"],
+    "Suprasorb P SensiFlex border rechteckig": ["Suprasorb P Sensiflex"],
+    "Suprasorb P SensiFlex multisite border": ["Suprasorb P Sensiflex"],
+    "Suprasorb P Sensiflex": ["Suprasorb P Sensiflex"],
+
+    # ---- Suprasorb P Sensitive ----
+    "Suprasorb P Sensitive": ["Suprasorb P Sensitive"],
+    "Suprasorb P sensitive": ["Suprasorb P Sensitive"],
+    "Suprasorb P sensitive (heel)": ["Suprasorb P Sensitive"],
+    "Suprasorb P sensitive (nicht klebend)": ["Suprasorb P Sensitive"],
+    "Suprasorb P sensitive (selbstklebend)": ["Suprasorb P Sensitive"],
+    "Suprasorb P sensitive (selbstklebend) als abdeckender Verband": ["Suprasorb P Sensitive"],
+    "Suprasorb P sensitive heel": ["Suprasorb P Sensitive"],
+    "Suprasorb P sensitive heel (selbstklebend) – als polsternde, absorbierende Sekundärlage über der Tamponade": ["Suprasorb P Sensitive"],
+    "Suprasorb P sensitive sacrum": ["Suprasorb P Sensitive"],
+    "Suprasorb P sensitive selbstklebend": ["Suprasorb P Sensitive"],
+
+    # ---- Suprasorb X ----
+    "Suprasorb X": ["Suprasorb X"],
+    "Suprasorb X Kompresse": ["Suprasorb X"],
+
+    # ---- Suprasorb X Pro ----
+    "Suprasorb X Pro": ["Suprasorb X Pro"],
+    "Suprasorb X Pro (Kompresse)": ["Suprasorb X Pro"],
+    "Suprasorb X Pro Kompresse": ["Suprasorb X Pro"],
+
+    # ---- Suprasorb X + PHMB ----
+    "Suprasorb X + PHMB": ["Suprasorb X + PHMB"],
+    "Suprasorb X + PHMB (Kompresse)": ["Suprasorb X + PHMB"],
+    "Suprasorb X + PHMB Kompresse": ["Suprasorb X + PHMB"],
+
+    # ---- Suprasorb G ----
+    "Suprasorb G Gel-Kompresse": ["Suprasorb G Gel-Kompresse"],
+
+    # ---- Suprasorb H ----
+    "Suprasorb H": ["Suprasorb H"],
+
+    # ---- Suprasorb F / F Protect ----
+    "Suprasorb F": ["Suprasorb F"],
+    "Suprasorb F Protect": ["Suprasorb F Protect"],
+
+    # ---- Lomatuell Pro / H ----
+    "Lomatuell Pro": ["Lomatuell Pro"],
+    "Lomatuell H": ["Lomatuell H"],
+
+    # ---- Vliwasorb Pro / sensitive ----
+    "Vliwasorb Pro": ["Vliwasorb Pro"],
+    "Vliwasorb sensitive": ["Vliwasorb sensitive"],
+
+    # ---- Vliwazell / Vliwazell Pro ----
+    "Vliwazell": ["Vliwazell"],
+    "Vliwazell Pro": ["Vliwazell Pro"],
+    "Vliwazell Pro als abdeckender Verband": ["Vliwazell Pro"],
+    "Vliwazell Pro – als hochabsorbierende Sekundärlage über der Tamponade": ["Vliwazell Pro"],
+
+    # ---- Vliwaktiv Ag ----
+    "Vliwaktiv Ag": ["Vliwaktiv Ag"],
+    "Vliwaktiv Ag Saugkompresse": ["Vliwaktiv Ag"],
+    "Vliwaktiv Ag Tamponade": ["Vliwaktiv Ag"],
+
+    # ---- Solvaline N ----
+    "Solvaline N": ["Solvaline N"],
+
+    # ---- Metalline ----
+    "Metalline Kompresse": ["Metalline Kompresse"],
+
+    # ---- Curafix / Porofix / Silkafix ----
+    "Curafix H": ["Curafix H"],
+    "Porofix": ["Porofix"],
+    "Silkafix": ["Silkafix"],
+
+    # ---- Mollelast ----
+    "Mollelast": ["Mollelast"],
+    "Mollelast (Elastische Fixierbinde)": ["Mollelast"],
+    "Mollelast haft latexfrei": ["Mollelast haft latexfrei"],
+
+    # ---- Haftelast ----
+    "Haftelast latexfrei": ["Haftelast latexfrei"],
+    "Haftelast latexfrei (kohäsive Fixierbinde)": ["Haftelast latexfrei"],
+
+    # ---- ActiFast / tg ----
+    "ActiFast": ["ActiFast"],
+    "ActiFast Schlauchverband": ["ActiFast"],
+    "tg Schlauchverband": ["tg Schlauchverband"],
+
+    # ---- Curapor ----
+    "Curapor": ["Curapor"],
+    "Curapor transparent": ["Curapor transparent"],
+
+    # ---- Sonstige GT-Produkte ----
+    "Suprasorb CNP": ["Suprasorb CNP"],
+    "amorphes Gel": ["amorphes Gel"],
+    "Fixierbinde": ["Fixierbinde"],
+    "Fixierbinden": ["Fixierbinde"],
+    "Universalbinde": ["Universalbinde"],
+    "Universalbinden": ["Universalbinde"]
 }
 
 # DEBRIDEMENT MAPPING

@@ -34,13 +34,26 @@ def parse_cell_value(val):
 
 def get_score(category, val_gt, val_llm, raw_flag=True):
     """Berechnet den Score passend zum Kategorie-Typ."""
-    if category == "Exsudat":
+    # Normalisieren, um Schreibweisen (Umlaute, Akzente, Bindestriche, etc.) robust zu vergleichen
+    cat_clean = category.lower().replace("é", "e").replace("ä", "a").replace("ü", "u").replace("-", " ").strip()
+    
+    if cat_clean == "exsudat":
         score, _ = metrics.score_ordinal(category.lower(), val_gt, val_llm)
         return score
-    elif category in ["Wundstadium", "Wundrand", "Wundumgebung", "Débridement Methode", "Kompression Produkte"]:
+    elif cat_clean in [
+        "wundstadium", 
+        "wundrand", 
+        "wundumgebung", 
+        "wundgrund",
+        "debridement methode", 
+        "kompression produkte", 
+        "kompression produkt", 
+        "kompression product"
+    ]:
         f1, _ = metrics.evaluate_checklist(val_gt, val_llm)
         return f1
-    elif category in ["Auffälligkeiten", "Einschränkungen/Annahmen"]:
+    elif cat_clean in ["auffalligkeiten", "einschrankungen/annahmen", "einschrankungen annahmen"]:
         return None
     else: # exact match (inkl. Wundtyp, Infektion, Lokalisation, etc.)
         return metrics.score_exact(val_gt, val_llm)
+

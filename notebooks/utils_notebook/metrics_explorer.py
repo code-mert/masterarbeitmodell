@@ -48,8 +48,8 @@ CATEGORY_TYPES = {
     "decode": ["lokalisation"],
     "checklist": ["spuelloesung", "wundstadium", "wundrand", "wundumgebung", "debridement", "praeferenz_produkt", 
                   "alternative_produkt", "antimikrobielles_agens", "sekundaerverband", "hautschutz", "kompression_produkte",
-                  "ergaenzende_produkte_praeferenz", "ergaenzende_produkte_alternativ"],
-    "skip": ["wundtyp_spezifikation", "auffaelligkeiten", "einschraenkungen", "wundgrund"]
+                  "ergaenzende_produkte_praeferenz", "ergaenzende_produkte_alternativ", "wundgrund"],
+    "skip": ["wundtyp_spezifikation", "auffaelligkeiten", "einschraenkungen"]
 }
 
 # =====================================================================
@@ -217,6 +217,7 @@ def calculate_summary(df_scores: pd.DataFrame) -> pd.DataFrame:
         "sekundaerverband": "checklist",
         "hautschutz": "checklist",
         "kompression_produkte": "checklist",
+        "wundgrund": "checklist",
     }
     
     # Active categories filtering based on which columns exist in df_scores

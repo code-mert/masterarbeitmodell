@@ -52,12 +52,11 @@ def main():
     print("Lade Produktkatalog...")
     catalog = load_catalog(CATALOG_PATH)
 
-    # 3. Few-Shot Beispiele festlegen
-    # Wir nehmen wunde_01, wunde_02, wunde_03 als Beispiele
-    example_ids = ["wunde_01", "wunde_02", "wunde_03"]
+    # 3. Few-Shot Beispiele festlegen (2 ausgewählte prägnante Wundbilder: wunde_04 und wunde_18)
+    example_ids = ["wunde_04", "wunde_18"]
     examples = []
     
-    print("\nBereite Few-Shot Beispiele vor:")
+    print("\nBereite Few-Shot Beispiele vor (2 Bilder):")
     for eid in example_ids:
         if eid not in gt_data:
             print(f"❌ Fehler: '{eid}' nicht in Ground Truth Daten gefunden.")
@@ -74,9 +73,14 @@ def main():
             print(f"❌ {e}")
             return
 
-    # 4. Zielbild definieren
-    # Wir analysieren wunde_04
-    target_id = "wunde_04"
+    # 4. Zielbild definieren (z. B. wunde_01)
+    target_id = "wunde_01"
+    
+    # Prüfen, ob das Zielbild eines der Beispielbilder ist (soll im Gesamtlauf übersprungen werden):
+    if target_id in example_ids:
+        print(f"\n⏩ Überspringe '{target_id}', da es als Few-Shot Beispielbild verwendet wird.")
+        return
+
     try:
         target_img_path = find_image_path(target_id, IMAGE_DIR)
         print(f"\nZielbild zur Analyse: {target_id} -> {target_img_path.name}")

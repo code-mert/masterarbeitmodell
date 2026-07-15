@@ -4,6 +4,7 @@ import re
 from pathlib import Path
 from dotenv import load_dotenv
 from prompts.zero_shot_prompt import analyze_wound_image, load_catalog, get_system_prompt, MODEL, TEMPERATURE
+from prompts.few_shot_prompt import analyze_wound_image_few_shot, get_default_few_shot_examples, DEFAULT_FEW_SHOT_EXAMPLE_IDS
 from core.storage import save_run, compute_hash
 
 # Lade den API-Key aus der .env Datei
@@ -23,25 +24,41 @@ CATALOG_DIR = Path("data/produktkatalog")
 RUNS_DIR = Path("runs")
 
 def main():
-    # 0. Katalog auswählen
+    # 0. Katalog & Prompt-Ansatz auswählen
     print("============================================================")
     print("Wundbild-Analyse Experiment-Runner")
     print("============================================================")
-    print("Bitte wähle den Produktkatalog aus:")
-    print("  1: Generischer Wundversorgungs-Produktkatalog (Standard)")
-    print("  2: Lohmann & Rauscher Produktkatalog (L&R)")
+    print("Bitte wähle den Produktkatalog und den Prompt-Ansatz aus:")
+    print("  1: Zero-Shot (Generischer Produktkatalog)")
+    print("  2: Zero-Shot (Lohmann & Rauscher Produktkatalog)")
+    print("  3: Few-Shot (Lohmann & Rauscher Produktkatalog, 2 Beispiele)")
+    print("  4: Few-Shot (Generischer Produktkatalog, 2 Beispiele)")
     
-    catalog_choice = input("Deine Auswahl (1 oder 2, Standard: 1): ").strip()
-    if catalog_choice == "2":
-        mode = "lr"
-        catalog_dir = Path("data/l&r_produktkatalog")
-        prompt_approach = "zero_shot_lr"
-        print("-> Modus: Lohmann & Rauscher Produktkatalog (L&R) ausgewählt.")
-    else:
+    choice = input("Deine Auswahl (1, 2, 3 oder 4, Standard: 2): ").strip()
+    if choice == "1":
         mode = "standard"
         catalog_dir = Path("data/produktkatalog")
         prompt_approach = "zero_shot"
-        print("-> Modus: Generischer Produktkatalog ausgewählt.")
+        is_few_shot = False
+        print("-> Modus: Zero-Shot mit Generischem Produktkatalog ausgewählt.")
+    elif choice == "3":
+        mode = "lr"
+        catalog_dir = Path("data/l&r_produktkatalog")
+        prompt_approach = "few_shot_lr"
+        is_few_shot = True
+        print("-> Modus: Few-Shot mit L&R Produktkatalog (2 Beispiele) ausgewählt.")
+    elif choice == "4":
+        mode = "standard"
+        catalog_dir = Path("data/produktkatalog")
+        prompt_approach = "few_shot"
+        is_few_shot = True
+        print("-> Modus: Few-Shot mit Generischem Produktkatalog (2 Beispiele) ausgewählt.")
+    else:
+        mode = "lr"
+        catalog_dir = Path("data/l&r_produktkatalog")
+        prompt_approach = "zero_shot_lr"
+        is_few_shot = False
+        print("-> Modus: Zero-Shot mit L&R Produktkatalog ausgewählt.")
 
     # 1. Benötigte Ordner erstellen
     RUNS_DIR.mkdir(exist_ok=True)
@@ -124,20 +141,42 @@ def main():
         print(f"❌ Es wurden keine passenden Bilder für die Auswahl '{choice}' gefunden.")
         return
         
-    print(f"\nStarte Analyse für {len(selected_images)} Bild(er) im Modus '{mode}' ...")
+    few_shot_examples = None
+    if is_few_shot:
+        print("Lade prägnante Few-Shot Beispiele (wunde_04 und wunde_18)...")
+        few_shot_examples = get_default_few_shot_examples(mode=mode)
+        print(f"-> {len(few_shot_examples)} Beispiele geladen.")
+        
+    print(f"\nStarte Analyse für {len(selected_images)} Bild(er) im Modus '{prompt_approach}' ...")
     
     for img_idx, selected_image in enumerate(selected_images, 1):
         print(f"\n============================================================")
         print(f"Verarbeite Bild {img_idx}/{len(selected_images)}: {selected_image.name}")
         print(f"============================================================")
         
+        # In Few-Shot Modus: Beispielbilder überspringen, da sie als Kontext dienen
+        if is_few_shot:
+            m = re.search(r"\d+", selected_image.stem)
+            img_id_norm = f"wunde_{int(m.group()):02d}" if m else selected_image.stem.lower()
+            if img_id_norm in DEFAULT_FEW_SHOT_EXAMPLE_IDS:
+                print(f"⏩ Überspringe '{selected_image.name}' ({img_id_norm}), da dieses Bild als Few-Shot Kontextbeispiel verwendet wird.")
+                continue
+
         try:
             # KI aufrufen
-            result = analyze_wound_image(
-                image_path=str(selected_image),
-                catalog=catalog_text,
-                mode=mode
-            )
+            if is_few_shot:
+                result = analyze_wound_image_few_shot(
+                    image_path=str(selected_image),
+                    catalog=catalog_text,
+                    examples=few_shot_examples,
+                    mode=mode
+                )
+            else:
+                result = analyze_wound_image(
+                    image_path=str(selected_image),
+                    catalog=catalog_text,
+                    mode=mode
+                )
             
             raw_response = result["raw_response"]
             parsed_output = result["response"]

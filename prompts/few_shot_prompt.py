@@ -216,23 +216,61 @@ def map_csv_to_schema(gt_record: dict, mode: str = "standard") -> dict:
         }
 
 
+DEFAULT_FEW_SHOT_EXAMPLE_IDS = ["wunde_04", "wunde_18"]
+
+
+def find_image_path(image_id: str, image_dir: Path = Path("data/wundbilder")) -> Path:
+    """Findet die Bilddatei für eine gegebenen Image ID (z.B. wunde_04 -> Bild4.jpg)."""
+    import re
+    match = re.search(r"\d+", image_id)
+    if match:
+        num = int(match.group())
+        for f in image_dir.glob("*"):
+            stem_lower = f.stem.lower()
+            if stem_lower in (f"bild{num}", f"bild{num:02d}", f"wunde_{num:02d}", f"wunde_{num}"):
+                return f
+    raise FileNotFoundError(f"Keine Bilddatei für '{image_id}' in '{image_dir}' gefunden.")
+
+
+def get_default_few_shot_examples(mode: str = "standard", example_ids: list = None) -> list:
+    """
+    Lädt automatisch die 2 prägnanten Few-Shot-Beispiele (wunde_04 und wunde_18)
+    inklusive ihrer Ground-Truth-Daten und Bildpfade.
+    """
+    from eval.loaders import load_ground_truth
+    if example_ids is None:
+        example_ids = DEFAULT_FEW_SHOT_EXAMPLE_IDS
+
+    csv_path = "data/ground_truth/lohmann_rauscher/Experte1_LR_GroundTruth_normalised.csv" if mode == "lr" else "data/ground_truth/allgemeine_verbandsklassen.csv"
+    gt_data = load_ground_truth(csv_path)
+
+    examples = []
+    for eid in example_ids:
+        if eid in gt_data:
+            img_p = find_image_path(eid)
+            examples.append({
+                "image_path": str(img_p),
+                "gt_record": gt_data[eid]
+            })
+    return examples
+
+
 def analyze_wound_image_few_shot(
     image_path: str,
     catalog: str,
-    examples: list,
+    examples: list = None,
     client: OpenAI = None,
     mode: str = "standard"
 ) -> dict:
     """
-    Schickt ein Wundbild + Katalog + 3 Few-Shot Beispiele (Bilder & Ground Truth)
+    Schickt ein Wundbild + Katalog + 2 Few-Shot Beispiele (Bilder & Ground Truth)
     an das LLM über die OpenAI API.
 
     Args:
         image_path: Pfad zum Ziel-Wundbild, das analysiert werden soll.
         catalog: Katalog-String.
-        examples: Liste von 3 Dictionaries. Jedes Dict muss enthalten:
-            - 'image_path': Pfad zum Beispielbild
-            - 'gt_record': Das Ground Truth Dictionary (entweder schon passend strukturiert oder als rohe CSV-Zeile)
+        examples: Liste von 2 Dictionaries mit 'image_path' und 'gt_record'.
+                  Falls None, werden automatisch wunde_04 und wunde_18 geladen.
         client: OpenAI Client. Wird automatisch erstellt falls None.
         mode: "standard" für generische Verbandklassen, "lr" für L&R-Produkte.
 
@@ -241,6 +279,9 @@ def analyze_wound_image_few_shot(
     """
     if client is None:
         client = OpenAI()
+
+    if examples is None:
+        examples = get_default_few_shot_examples(mode=mode)
 
     # 1. System Prompt & User Prompt (Target) aufbauen
     system_prompt = get_system_prompt(mode)

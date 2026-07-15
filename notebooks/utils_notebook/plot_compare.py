@@ -108,3 +108,73 @@ def plot_gt_comparison(df_summary_raw: pd.DataFrame, df_summary_norm: pd.DataFra
     
     plt.tight_layout(rect=[0, 0, 1, 0.92])
     plt.show()
+
+
+def plot_sorted_norm_comparison(df_summary_norm: pd.DataFrame):
+    """
+    Erstellt ein gruppiertes Balkendiagramm (einzelnes Diagramm), das für jede Kategorie
+    den normalisierten F1-Score/Score und die normalisierte Exact-Match-Rate vergleicht.
+    Die Kategorien sind absteigend nach dem Score/F1-Score sortiert.
+    """
+    # 1. Daten sortieren nach Haupt-Score absteigend
+    df_sorted = df_summary_norm.sort_values(
+        by="Score / F1-Score (Mean)", 
+        ascending=False
+    ).copy()
+    
+    # 2. DataFrame für Seaborn "schmelzen" (melt), um gruppiertes Balkendiagramm zu erhalten
+    plot_data = []
+    for _, row in df_sorted.iterrows():
+        plot_data.append({
+            "Kategorie": row["Kategorie"],
+            "Metrik": "F1-Score / Score (normalisiert)",
+            "Wert": row["Score / F1-Score (Mean)"]
+        })
+        plot_data.append({
+            "Kategorie": row["Kategorie"],
+            "Metrik": "Exact-Match-Rate (normalisiert)",
+            "Wert": row["Exact-Match-Rate"]
+        })
+        
+    df_plot = pd.DataFrame(plot_data)
+    
+    # 3. Design-Setup
+    sns.set_theme(style="whitegrid")
+    fig, ax = plt.subplots(figsize=(12, 8))
+    
+    # Schöne HSL-kompatible Farben für die beiden Metriken
+    colors = {
+        "F1-Score / Score (normalisiert)": "#2a9d8f",     # Schönes Teal
+        "Exact-Match-Rate (normalisiert)": "#e76f51"       # Schönes Terracotta / Orange
+    }
+    
+    # Gruppiertes Balkendiagramm zeichnen
+    sns.barplot(
+        data=df_plot,
+        x="Wert",
+        y="Kategorie",
+        hue="Metrik",
+        palette=colors,
+        ax=ax,
+        edgecolor="black",
+        linewidth=0.8
+    )
+    
+    # Formatierung
+    ax.set_title("Vergleich der normalisierten Metriken (absteigend nach Haupt-Score sortiert)", fontsize=14, fontweight="bold", pad=15)
+    ax.set_xlabel("Prozentualer Wert", fontsize=11, labelpad=8)
+    ax.set_ylabel("Kategorie", fontsize=11)
+    ax.set_xlim(0.0, 1.08)
+    ax.xaxis.set_major_formatter(mtick.PercentFormatter(1.0))
+    
+    # Legende positionieren
+    ax.legend(loc="lower left", frameon=True, fontsize=10)
+    
+    # Balkenbeschriftungen hinzufügen
+    for container in ax.containers:
+        labels = [f"{v*100:.1f}%" if v > 0 else "0.0%" for v in container.datavalues]
+        ax.bar_label(container, labels=labels, padding=3, fontsize=9)
+        
+    plt.tight_layout()
+    plt.show()
+

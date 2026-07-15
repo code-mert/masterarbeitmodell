@@ -202,6 +202,72 @@ WUNDTYP_GT_MAPPING = {
     "Großflächige traumatische/sekundär heilende Wunde": ["Traumatische Wunde"],
     "Kleiner Abszess/Sinusöffnung (infizierte oberflächliche Hautläsion)": ["Abszess"],
 
+    # ---- Few-Shot LLM Mappings ----
+    # Dekubitus
+    "Dekubitus (Druckulcus)": ["Dekubitus"],
+    "Dekubitus (Druckulcus) an der Ferse": ["Dekubitus"],
+    "Dekubitus (Druckulkus) mit Nekrosen": ["Dekubitus"],
+    "Dekubitus (Druckulkus), tiefer Defekt": ["Dekubitus"],
+    "Dekubitus (Druckulzera), multipel": ["Dekubitus"],
+    "Dekubitus (sakral/paraglutäal)": ["Dekubitus"],
+    "Druckulcus (Dekubitus)": ["Dekubitus"],
+    "Druckulcus (Ferse)": ["Dekubitus"],
+    "Druckulcus an der Ferse": ["Dekubitus"],
+    "Druckulcus der Ferse (Fersendekubitus) mit trockener Eschar": ["Dekubitus"],
+    "Druckulkus / Ulkus an der Ferse": ["Dekubitus", "Ulkus"],
+    "Druckulkus der Ferse (Fersenulkus)": ["Dekubitus"],
+    "Druckulzeration / Fersenulkus": ["Dekubitus", "Ulkus"],
+
+    # Ulkus cruris
+    "Ulcus cruris (V. a. venös)": ["Ulkus cruris venosum"],
+    "Ulcus cruris (chronisches Unterschenkelulkus)": ["Ulkus cruris"],
+    "Ulcus cruris (infiziert, stark exsudierend)": ["Ulkus cruris"],
+    "Ulcus cruris (oberflächlich), unklare Ätiologie": ["Ulkus cruris"],
+    "Ulcus cruris (venös verdächtig) – großes, oberflächliches Ulkus": ["Ulkus cruris venosum"],
+    "Ulcus cruris (venös vermutet)": ["Ulkus cruris venosum"],
+    "Ulcus cruris (vermutet), flächige oberflächliche Erosion": ["Ulkus cruris"],
+    "Ulcus cruris (vermutet), großflächig mit Belägen": ["Ulkus cruris"],
+    "Ulcus cruris (vermutet), oberflächliche chronische Wunde": ["Ulkus cruris"],
+    "Ulcus cruris (Ätiologie unklar)": ["Ulkus cruris"],
+    "Ulcus cruris, multiple oberflächliche Ulzera": ["Ulkus cruris", "Ulzera"],
+    "Ulkus cruris (nekrotisch-belegt)": ["Ulkus cruris"],
+    "Ulkus am Unterschenkel (Ätiologie unklar, Bild legt venöses Ulkus nahe)": ["Ulkus cruris venosum"],
+
+    # Ulkus / Ulzera / Fußulkus
+    "Chronisches Ulkus am Unterschenkel (oberflächlich)": ["Ulkus"],
+    "Fußulkus (V. a. neuropathisch/diabetisch), druckbedingt": ["Ulkus", "Diabetisches Fußulkus"],
+    "Großflächige oberflächliche Ulzeration": ["Ulkus"],
+    "Mehrere oberflächliche Hautdefekte/Ulzera am Fußrücken": ["Ulzera"],
+    "Mehrfache Fußulzera, teils nekrotisch": ["Ulzera"],
+    "Multiple Ulcera am lateralen Fuß": ["Ulzera"],
+    "Multiple oberflächliche Ulcera am Fuß": ["Ulzera"],
+    "Nekrotisch belegtes Fußulkus (Ätiologie unklar)": ["Ulkus"],
+    "Nekrotische Ulzeration": ["Ulkus"],
+    "Oberflächliche Ulzeration/traumatische Wunde mit Nekrose": ["Ulkus", "Traumatische Wunde"],
+    "Plantarer Fußulkus": ["Ulkus"],
+    "Ulkus (chronische Wunde), Ätiologie unklar": ["Ulkus"],
+    "Ulkus (oberflächliche chronische Wunde)": ["Ulkus"],
+    "Ulkus (Ätiologie unklar)": ["Ulkus"],
+    "Ulkus am Fuß (druck-/schuhbedingt möglich)": ["Ulkus"],
+    "Ulkus am Fußrücken": ["Ulkus"],
+    "Ulkus am Unterschenkel (Ätiologie unklar), infektverdächtig": ["Ulkus"],
+    "Ulkus am lateralen Fußrand (mehrere Läsionen) mit Belägen/Nekrose": ["Ulzera"],
+
+    # Ischämisch / Nekrose
+    "Ausgedehnte nekrotische Wunde am Fuß (gangränöser Aspekt)": ["Ischämisches Fußulkus (Gangrän)"],
+    "Ischämischer Fußulkus / nekrotische Wunde (Gangränverdacht)": ["Ischämisches Fußulkus (Gangrän)"],
+
+    # Verbrennung
+    "Thermische Verletzung – Verbrennung 2. Grades mit Blasenbildung": ["Verbrennungswunde"],
+    "Verbrennung/Verbrühung Grad 2 (oberflächlich-partiell), großflächig": ["Verbrennungswunde"],
+
+    # Postoperative / Traumatische / Sonstige
+    "Großflächige, oberflächliche traumatische Wunde / möglich Spalthaut-Entnahmestelle": ["Traumatische Wunde", "Postoperative Wunde"],
+    "Kleines Ulkus/Abszessöffnung (möglicher Fistelgang)": ["Ulkus", "Abszess"],
+    "Postoperative Wunddehiszenz, infiziert": ["Postoperative Wunde"],
+    "Reibungsblase / oberflächliche Hautläsion": ["Blasenbildung"],
+    "Traumatische Weichteilverletzung mit Blasenbildung/Hämatom am Fuß (geschlossene Hautschädigung)": ["Traumatische Wunde"],
+    "Traumatische/thermische Hautläsion mit ausgedehnter Nekrose": ["Traumatische Wunde", "Verbrennungswunde"],
 }
 
 # WUNDGRUND MAPPING
@@ -270,8 +336,73 @@ WUNDGRUND_GT_MAPPING = {
     "nekrotisch, feuchte nekrose": ["Nekrose"],
     "fleischige Wunde mit Taschenbildung nach Feststellung der Ausdehnung": ["Granulation", "Taschenbildung"],
     "gerötet, stark geschädigt, teilweise nekrotisch belegt": ["Rötung", "Nekrose", "Belag"],
-    
+
+    # ---- Neue Mappings aus wundgrund_mapping.md ----
+    "Tiefere Wunde mit dicken gelblichen fibrinösen Belägen/Detritus, kaum sichtbare Granulation; möglicherweise Wundtaschen.": ["Fibrinbelag", "Granulation", "Taschenbildung"],
+    "Oberflächliche, teils nässende Erosionen mit gerötetem Wundgrund; keine tiefe Nekrose sichtbar.": ["Rötung"],
+    "Kräftig rot, homogen granulierend, feucht-glänzend ohne sichtbare Nekrosen oder dicke Fibrinbeläge.": ["Rötung", "Granulation"],
+    "Zwei ulzerierende Läsionen mit dickem gelb-weißlichem Fibrinbelag/Detritus und viskösem Exsudat; kein freiliegender Knochen oder Sehne sichtbar.": ["Ulzeration", "Fibrinbelag", "Exsudat"],
+    "Ausgedehnte gelblich-fibrinöse Beläge mit schwarz-braunen Nekrosen, dazwischen rötliche granulierende Areale; feucht-glänzend.": ["Fibrinbelag", "Nekrose", "Rötung", "Granulation"],
+    "Oberflächliche, feuchte, rötliche Dermis mit erosiven Arealen; multiple intakte und rupturierte seröse Blasen; kein nekrotisches Gewebe sichtbar.": ["Rötung", "Blasenbildung"],
+    "Feucht glänzender, teils gelblich fibrinös belegter Wundgrund mit fragiler Granulation, oberflächlich, keine erkennbaren Taschen.": ["Fibrinbelag", "Granulation"],
+    "Livide bis schwärzliche Areale mit partiell intakten/rupturierten Blasen; oberflächliche Hautnekrosen, kein sichtbares Granulationsgewebe; flächige Beteiligung ohne erkennbare Taschen.": ["Blasenbildung", "Nekrose"],
+    "Großflächige trockene, schwarze Eschar lateral am Rückfuß/Ferse; kleinere nekrotische Läsion am lateralen Zehenbereich. Umgebung teils stark gerötet, glänzend, keine sichtbare Granulation.": ["Nekrose", "Rötung"],
+    "Gemischtes Wundbett mit schwarzen nekrotischen Arealen und gelb-grauem Fibrinbelag; zentral rötliches, feuchtes Granulationsgewebe; tiefe Ulzeration mit möglicher Unterminierung.": ["Nekrose", "Fibrinbelag", "Rötung", "Granulation", "Ulzeration", "Unterminierung"],
+    "Mehrere ulzerierende Läsionen, teils mit schwarzer Nekrose/Eschar, teils gelb-fibrinös belegt; randständig teils rötlich, vereinzelt feuchte Areale mit beginnender Granulation.": ["Ulzeration", "Nekrose", "Fibrinbelag", "Rötung", "Granulation"],
+    "Tiefer Defekt mit überwiegend vitalem, feuchtem Granulationsgewebe; randständig gelblich-fibrinöse Beläge.": ["Granulation", "Fibrinbelag"],
+    "Oberflächliche Ulzerationen mit gelblichen Fibrinbelägen und Anteilen von feuchtem rotem Granulationsgewebe; keine schwarze Nekrose sichtbar.": ["Ulzeration", "Fibrinbelag", "Rötung", "Granulation"],
+    "Gemischt: überwiegend rote Granulation mit teils gelblich-fibrinösen Belägen; feuchter Wundgrund.": ["Rötung", "Granulation", "Fibrinbelag"],
+    "Mehrere tiefe Ulzera mit gelblich-weißem Fibrinbelag und schwarzer Nekrose, feucht, teils mit Taschenbildung.": ["Ulzeration", "Fibrinbelag", "Nekrose", "Taschenbildung"],
+    "Weitgehend rötlich-granulierend mit teils fibrinösen Belägen; feucht glänzend, mehrere oberflächliche Läsionen im Cluster.": ["Rötung", "Granulation", "Fibrinbelag"],
+    "Mehrere flache, rundliche Ulzera mit gelblichen Fibrinbelägen, teils rötliche Granulationsinseln; feucht glänzend.": ["Ulzeration", "Fibrinbelag", "Rötung", "Granulation"],
+    "Zwei oberflächliche Ulzerationen mit gelblichen fibrinösen Belägen, teils rötlich granulierend, feucht; keine ausgedehnte trockene Nekrose sichtbar.": ["Ulzeration", "Fibrinbelag", "Rötung", "Granulation"],
+    "Oberflächlich bis mäßig tiefes Ulkus mit gelblich-fibrinösen Belägen und Anteilen rötlicher Granulation.": ["Ulzeration", "Fibrinbelag", "Rötung", "Granulation"],
+    "Zwei Ulzera mit gelb-grünlichen Fibrinbelägen und teils schwarzer Nekrose; feuchter Wundgrund mit randständiger Rötung.": ["Ulzeration", "Fibrinbelag", "Nekrose", "Rötung"],
+    "Ausgedehnte schwarz-braune Nekrose/Eschar mit feucht-glänzender Oberfläche, teils fibrinös belegt; keine Granulation sichtbar.": ["Nekrose", "Fibrinbelag"],
+    "Großflächige, trockene schwarze Eschar (nekrotisches Gewebe) am Fersenpolster, keine sichtbare Granulation oder Sickerblutung.": ["Nekrose"],
+    "Kleines rundes Ulkus mit gelblich-fibrinösem Belag; kein freiliegendes tieferes Gewebe sichtbar.": ["Ulzeration", "Fibrinbelag"],
+    "Überwiegend gelblich-weißlicher fibrinöser Belag mit Anteilen rötlicher Granulation; kein freiliegender Knochen sichtbar.": ["Fibrinbelag", "Rötung", "Granulation"],
+    "Gelblich-weißer, zäher fibrinöser Belag mit wenigen punktförmigen Blutungen; feucht, vereinzelte rötliche Areale.": ["Fibrinbelag", "Rötung"],
+    "Tiefes, rundes Ulkus mit zentral gelb-weißem Fibrin/nekrotischen Anteilen; feuchte Beläge, mehrere Läsionen sichtbar.": ["Ulzeration", "Fibrinbelag", "Nekrose"],
+    "Schwarze Nekrosenanteile mit dicken gelb-grünlichen fibrinösen Belägen, feucht; peripher teils gerötetes/angegriffenes Gewebe.": ["Nekrose", "Fibrinbelag", "Rötung"],
+    "Gemischter Wundgrund mit gelblichen fibrinösen Belägen/Slough und rötlichem Granulationsgewebe; feucht, mäßige Tiefe; kein freiliegender Knochen sichtbar.": ["Fibrinbelag", "Rötung", "Granulation"],
+    "Zentrale schwarz-gelbe Eschar mit fest anhaftenden Belägen; randständig livid-erythematös und leicht erhaben.": ["Nekrose"],
+    "Flaches, irreguläres Ulkus mit gelblich-fibrinösen Belägen und Anteilen von Granulationsgewebe; feucht.": ["Ulzeration", "Fibrinbelag", "Granulation"],
+    "Gelb-beiger, feuchter fibrinöser Belag/flächiger Slough, kaum Granulation sichtbar.": ["Fibrinbelag"],
+    "Feuchtes, teils granulierendes Wundbett mit ausgeprägten gelb-weißlichen Fibrinbelägen; keine trockene Nekrose erkennbar.": ["Granulation", "Fibrinbelag"],
+    "Runde Ulzeration mit zentral gelblich-fibrinösem Belag, mäßig feucht; peripher schmaler erythematöser Saum, kein freiliegender Knochen/Sehne sichtbar.": ["Ulzeration", "Fibrinbelag", "Rötung"],
+    "Feuchtes, gut durchblutetes granulierendes Wundbett mit kleinen, fest anhaftenden fibrinösen Inseln/Belägen; kein nekrotisches Gewebe sichtbar.": ["Granulation", "Fibrinbelag"],
+    "Oberflächliches Ulkus mit gelb-grünlichem Fibrin-/Belag, teils nekrotisch; feucht, unregelmäßiger Wundgrund.": ["Ulzeration", "Fibrinbelag", "Nekrose"],
+    "Fibrinös-gelblicher Belag mit Inseln rötlicher Granulation; feucht, keine trockene Nekrose sichtbar.": ["Fibrinbelag", "Rötung", "Granulation"],
+    "Gelb‑bräunlicher Fibrinbelag mit zentralen schwarz‑nekrotischen Arealen; kaum/keine sichtbare Granulation.": ["Fibrinbelag", "Nekrose"],
+    "Oberflächliches Ulkus mit ausgedehnten gelblichen Fibrinbelägen, teils rötlich granulierend; feucht glänzend.": ["Ulzeration", "Fibrinbelag", "Rötung", "Granulation"],
+    "Flache, ovale Ulzeration mit zentral gelblichen Fibrinbelägen; randständig rötliche, feuchte Granulation.": ["Ulzeration", "Fibrinbelag", "Granulation", "Rötung"],
+    "Kleiner runder Ulkus (~1.5–2 cm) mit gelblich-weißen fibrinösen Belägen, punktuell rötlich/blasende Areale; oberflächlich und feucht.": ["Ulzeration", "Fibrinbelag", "Rötung", "Blasenbildung"],
+    "Überwiegend gelblich-weißer Fibrinbelag/Biofilm, dazwischen kleine Inseln granulierenden, roten Gewebes; feucht glänzend.": ["Fibrinbelag", "Biofilm", "Granulation", "Rötung"],
+    "Ulzeration mit gelblich-fibrinösem Belag am Rand, zentral teils vitales rötliches Granulationsgewebe; mäßig tiefe Kavität, keine trockene Nekrose sichtbar.": ["Ulzeration", "Fibrinbelag", "Rötung", "Granulation"],
+    "Stark nässend; dicke gelb-grünliche Fibrin-/Beläge mit mutmaßlichem Biofilm, teils nekrotische Areale; kaum Granulation sichtbar.": ["Fibrinbelag", "Biofilm", "Nekrose"],
+    "Großflächiger gelb‑grünlicher Fibrinbelag/Slough mit einzelnen nekrotischen Arealen distal; feucht, kaum sichtbare Granulation.": ["Fibrinbelag", "Nekrose"],
+    "Oberflächlicher, größerer Defekt mit gelblich-fibrinösen Belägen und teils rötlicher Granulation; feucht glänzend, kein schwarzes Nekrosegewebe sichtbar.": ["Fibrinbelag", "Rötung", "Granulation"],
+    "Kleines, ovales Ulkus mit gelblich-fibrinösem Belag; feucht, keine freiliegenden Strukturen sichtbar.": ["Ulzeration", "Fibrinbelag"],
+    "Zentral schwarz-braune Nekrose, umgebend gelblich-fibrinöser Belag mit feuchtem Exsudatfilm; kein vitales Granulationsgewebe erkennbar.": ["Nekrose", "Fibrinbelag"],
+    "Gelblich-fibrinös belegter, feucht-glänzender Wundgrund mit teils rötlichen Arealen; kein trockener Nekroseanteil sichtbar.": ["Fibrinbelag", "Rötung"],
+    "Mehrere oberflächliche Ulzerationen mit gelblich-grünlichem fibrinösem Belag, feucht; teils rote Granulationsinseln.": ["Ulzeration", "Fibrinbelag", "Granulation", "Rötung"],
+    "Granulierender Wundgrund mit ausgeprägten gelblichen fibrinösen Belägen/Slough, teils adhärent; vereinzelt dunklere nekrotische Areale distal.": ["Granulation", "Fibrinbelag", "Nekrose"],
+    "Kleine rundliche Ulzeration mit gelblich-fibrinösem Belag, flach bis mäßig tief; kein sichtbares nekrotisches Gewebe.": ["Ulzeration", "Fibrinbelag"],
+    "Oberflächliches Ulkus mit gelblich-fibrinösen Belägen, randständig teils granulierend; kleine zweite Läsion lateral.": ["Ulzeration", "Fibrinbelag", "Granulation"],
+    "Kraterförmiges Ulkus mit gelblichen fibrinösen Belägen, teilweise rötlich-granulierende Areale; mäßig exsudierend.": ["Ulzeration", "Fibrinbelag", "Rötung", "Granulation"],
+    "Zwei Läsionen: kaudal ausgedehnte schwarze Nekrose (Eschar), kranial gelb-grünlicher fibrinöser Belag; feuchtes Milieu, kein sichtbares Granulationsgewebe.": ["Nekrose", "Fibrinbelag"],
+    "Tiefes Ulkus mit gelb- bis grünlichem Fibrin-/Belag, teils avital, Biofilm-verdächtig; Höhle mit möglicher Unterminierung; geringe Inseln von Granulation.": ["Ulzeration", "Fibrinbelag", "Biofilm", "Unterminierung", "Granulation"],
+    "Ovales Ulkus mit dicken gelb-weißlichen Fibrinbelägen, zentral teils grau-schwarze nekrotische Areale; kaum sichtbare Granulation.": ["Ulzeration", "Fibrinbelag", "Nekrose"],
+    "Tieferes Ulkus mit dicken gelb-gräulichen Fibrinbelägen, feucht; kaum sichtbares Granulationsgewebe.": ["Ulzeration", "Fibrinbelag"],
+    "Kleine punktförmige Öffnungen/Pusteln mit serösem bis seropurulentem Exsudat, umgebend entzündlich gerötet; kein sichtbarer Nekrosenbelag.": ["Rötung", "Exsudat"],
+    "Überwiegend vitales, feuchtes Granulationsgewebe mit geringen fibrinösen Belägen.": ["Granulation", "Fibrinbelag"],
+    "Mehrere sakrale Ulzera, teils tiefer liegend; gemischter Wundgrund mit rötlichem Granulationsgewebe und gelblichen Fibrinbelägen; feucht.": ["Ulzeration", "Granulation", "Fibrinbelag", "Rötung","Feucht"],
+    "starke Granulation, überschießendes Gewebe, infektfrei": ["Granulation", "Hypergranulation"],
+    "Hämangiome sind Neoplasien ( Neubildungen) , umschriebenes Hämangiom, klare Abgrenzung. segmentale Fehlbildung.\nBehandlung unbedingt notwendig.": ["Hämangiom"],
+    "Exsudation": ["Exsudat"],
 }
+
 
 # EXSUDAT MAPPING
 EXSUDAT_GT_MAPPING = {
@@ -484,7 +615,16 @@ PRODUKT_GT_MAPPING = {
     "Fixierbinde": ["Fixierbinde"],
     "Fixierbinden": ["Fixierbinde"],
     "Universalbinde": ["Universalbinde"],
-    "Universalbinden": ["Universalbinde"]
+    "Universalbinden": ["Universalbinde"],
+
+    # ---- Few-Shot Product Variant Mappings ----
+    "Vliwasorb sensitive border": ["Vliwasorb sensitive"],
+    "Vliwasorb sensitive border (sacrum)": ["Vliwasorb sensitive"],
+    "Vliwasorb sensitive border (sacrum)": ["Vliwasorb sensitive"],
+    "Suprasorb P sensitive (Heel, selbstklebend)": ["Suprasorb P Sensitive"],
+    "Suprasorb P sensitive (selbstklebend, sacrum)": ["Suprasorb P Sensitive"],
+    "Suprasorb P (Heel)": ["Suprasorb P"],
+    "tg grip": ["tg Schlauchverband"],
 }
 
 # DEBRIDEMENT MAPPING
@@ -494,14 +634,14 @@ DEBRIDEMENT_GT_MAPPING = {
 
 # LOKALISATION KEYWORDS
 LOKALISATION_KEYWORDS = {
-    "Abdomen": ["abdomen", "bauch"],
-    "Fuß": ["fuß", "fuss", "zehe", "ferse", "fußsohle", "fußrücken", "plantar", "vorfuß", "malleol", "achillessehne"],
-    "Bein": ["bein", "knöchel", "unterschenkel", "oberschenkel", "knie"],
-    "Hand": ["hand", "finger", "handgelenk"],
-    "Arm": ["arm", "ellenbogen", "oberarm", "unterarm", "bizeps"],
+    "Abdomen": ["abdomen", "bauch", "peristom", "stoma"],
+    "Fuß": ["fuß", "fuss", "zehe", "ferse", "fußsohle", "fußrücken", "plantar", "vorfuß", "rückfuß", "malleol", "achillessehne", "calcaneus", "hallux"],
+    "Bein": ["bein", "knöchel", "unterschenkel", "oberschenkel", "knie", "gaiter"],
+    "Hand": [r"\bhand\b", r"\bhände\b", "finger", "handgelenk", "handrücken"],
+    "Arm": ["arm", "ellenbogen", "oberarm", "unterarm", "bizeps", "axilla", "achsel"],
     "Gesäß": ["gesäß", "sakral", "kreuzbein", "steißbein", "os sacrum", "sacral",
-              "rima ani", "steiß", "trochanter"],
-    "Rücken": ["rücken"],
+              "rima ani", "steiß", "trochanter", "gluteal", "paraglutäal"],
+    "Rücken": [r"(?<!fuß)(?<!fuss)(?<!hand)(?<!händ)rücken"],
     "Flanke": ["flanke"],
     "Kopf": ["kopf", "hals", "nacken"],
     "Brust": ["brust", "thorax"]

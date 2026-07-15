@@ -82,7 +82,7 @@ def show_image(image_id, base_dir="data/wundbilder"):
             if not fallback_found:
                 print(f"Wundbild {file_name} in {resolved_dir} nicht gefunden.")
 
-def compare_wunden_interactive(normalised=False):
+def compare_wunden_interactive(normalised=False, path_llm_raw=None, path_llm_norm=None):
     """
     Erstellt ein interaktives Widget, das die Ground Truth von beiden Experten (Experte 1 & 2) 
     und die LLM-Ausgaben (jeweils roh oder normalisiert) für ein ausgewähltes Wundbild vergleicht.
@@ -92,8 +92,8 @@ def compare_wunden_interactive(normalised=False):
     path_gt1_norm = resolve_path("../../data/ground_truth/lohmann_rauscher/Experte1_LR_GroundTruth_normalised.csv")
     path_gt2_raw = resolve_path("../../data/ground_truth/lohmann_rauscher/Experte2_LR_GroundTruth.csv")
     path_gt2_norm = resolve_path("../../data/ground_truth/lohmann_rauscher/Experte2_LR_GroundTruth_normalised.csv")
-    path_llm_raw = resolve_path("../../data/llm_outputs/zero_shot_lr/zero_shot_lr_raw.csv")
-    path_llm_norm = resolve_path("../../data/llm_outputs/zero_shot_lr/zero_shot_lr_normalised.csv")
+    path_llm_raw = resolve_path(path_llm_raw) if path_llm_raw else resolve_path("../../data/llm_outputs/zero_shot_lr/zero_shot_lr_raw.csv")
+    path_llm_norm = resolve_path(path_llm_norm) if path_llm_norm else resolve_path("../../data/llm_outputs/zero_shot_lr/zero_shot_lr_normalised.csv")
     
     # Laden der DataFrames
     df_gt1_r = load_csv(path_gt1_raw)
@@ -140,7 +140,7 @@ def compare_wunden_interactive(normalised=False):
             ("Wundtyp", "wundtyp", "wundtyp", "Exact Match"),
             ("Lokalisation", "lokalisation", "lokalisation", "Exact Match"),
             ("Wundstadium", "wundstadium", "wundstadium", "F1 Checklist"),
-            ("Wundgrund", "wundgrund", "wundgrund", "Exact Match"),
+            ("Wundgrund", "wundgrund", "wundgrund", "F1 Checklist"),
             ("Wundrand", "wundrand", "wundrand", "F1 Checklist"),
             ("Wundumgebung", "wundumgebung", "wundumgebung", "F1 Checklist"),
             ("Exsudat", "exsudat", "exsudat_menge", "Ordinal Distance"),
@@ -341,7 +341,7 @@ def compare_wunden_interactive(normalised=False):
     display(widgets.VBox([image_out, wunde_select, table_out]))
 
 
-def compare_categories_interactive(normalised=False):
+def compare_categories_interactive(normalised=False, path_llm_raw=None, path_llm_norm=None):
     """
     Erstellt ein interaktives Widget mit einem Dropdown-Menü zur Auswahl einer Kategorie
     und vergleicht Ground Truth und LLM-Ausgaben (roh oder normalisiert) für alle Wundbilder side-by-side.
@@ -351,8 +351,8 @@ def compare_categories_interactive(normalised=False):
     path_gt1_norm = resolve_path("../../data/ground_truth/lohmann_rauscher/Experte1_LR_GroundTruth_normalised.csv")
     path_gt2_raw = resolve_path("../../data/ground_truth/lohmann_rauscher/Experte2_LR_GroundTruth.csv")
     path_gt2_norm = resolve_path("../../data/ground_truth/lohmann_rauscher/Experte2_LR_GroundTruth_normalised.csv")
-    path_llm_raw = resolve_path("../../data/llm_outputs/zero_shot_lr/zero_shot_lr_raw.csv")
-    path_llm_norm = resolve_path("../../data/llm_outputs/zero_shot_lr/zero_shot_lr_normalised.csv")
+    path_llm_raw = resolve_path(path_llm_raw) if path_llm_raw else resolve_path("../../data/llm_outputs/zero_shot_lr/zero_shot_lr_raw.csv")
+    path_llm_norm = resolve_path(path_llm_norm) if path_llm_norm else resolve_path("../../data/llm_outputs/zero_shot_lr/zero_shot_lr_normalised.csv")
     
     # Laden der DataFrames
     df_gt1_r = load_csv(path_gt1_raw)
@@ -379,7 +379,7 @@ def compare_categories_interactive(normalised=False):
         "Wundtyp": {"gt_key": "wundtyp", "llm_key": "wundtyp", "metric": "Exact Match"},
         "Lokalisation": {"gt_key": "lokalisation", "llm_key": "lokalisation", "metric": "Exact Match"},
         "Wundstadium": {"gt_key": "wundstadium", "llm_key": "wundstadium", "metric": "F1 Checklist"},
-        "Wundgrund": {"gt_key": "wundgrund", "llm_key": "wundgrund", "metric": "Exact Match"},
+        "Wundgrund": {"gt_key": "wundgrund", "llm_key": "wundgrund", "metric": "F1 Checklist"},
         "Wundrand": {"gt_key": "wundrand", "llm_key": "wundrand", "metric": "F1 Checklist"},
         "Wundumgebung": {"gt_key": "wundumgebung", "llm_key": "wundumgebung", "metric": "F1 Checklist"},
         "Exsudat": {"gt_key": "exsudat", "llm_key": "exsudat_menge", "metric": "Ordinal Distance"},
@@ -596,7 +596,7 @@ def compare_categories_interactive(normalised=False):
     display(widgets.VBox([cat_select, table_out]))
 
 
-def calculate_summary_LR(expert_id, normalised=False):
+def calculate_summary_LR(expert_id, normalised=False, path_llm_raw=None, path_llm_norm=None):
     """
     Berechnet die aggregierten Metriken (Mean Score und Exact-Match-Rate) über alle Wundbilder
     speziell für die Lohmann & Rauscher Kategorien im Vergleich zu einem bestimmten Experten.
@@ -604,8 +604,8 @@ def calculate_summary_LR(expert_id, normalised=False):
     # Pfade auflösen
     path_gt_raw = resolve_path(f"../../data/ground_truth/lohmann_rauscher/Experte{expert_id}_LR_GroundTruth.csv")
     path_gt_norm = resolve_path(f"../../data/ground_truth/lohmann_rauscher/Experte{expert_id}_LR_GroundTruth_normalised.csv")
-    path_llm_raw = resolve_path("../../data/llm_outputs/zero_shot_lr/zero_shot_lr_raw.csv")
-    path_llm_norm = resolve_path("../../data/llm_outputs/zero_shot_lr/zero_shot_lr_normalised.csv")
+    path_llm_raw = resolve_path(path_llm_raw) if path_llm_raw else resolve_path("../../data/llm_outputs/zero_shot_lr/zero_shot_lr_raw.csv")
+    path_llm_norm = resolve_path(path_llm_norm) if path_llm_norm else resolve_path("../../data/llm_outputs/zero_shot_lr/zero_shot_lr_normalised.csv")
     
     # Laden der DataFrames
     df_gt = load_csv(path_gt_norm if normalised else path_gt_raw)
@@ -627,7 +627,7 @@ def calculate_summary_LR(expert_id, normalised=False):
         "Wundtyp": {"gt_key": "wundtyp", "llm_key": "wundtyp", "metric_type": "exact"},
         "Lokalisation": {"gt_key": "lokalisation", "llm_key": "lokalisation", "metric_type": "exact"},
         "Wundstadium": {"gt_key": "wundstadium", "llm_key": "wundstadium", "metric_type": "checklist"},
-        "Wundgrund": {"gt_key": "wundgrund", "llm_key": "wundgrund", "metric_type": "exact"},
+        "Wundgrund": {"gt_key": "wundgrund", "llm_key": "wundgrund", "metric_type": "checklist"},
         "Wundrand": {"gt_key": "wundrand", "llm_key": "wundrand", "metric_type": "checklist"},
         "Wundumgebung": {"gt_key": "wundumgebung", "llm_key": "wundumgebung", "metric_type": "checklist"},
         "Exsudat": {"gt_key": "exsudat", "llm_key": "exsudat_menge", "metric_type": "ordinal"},
@@ -768,7 +768,7 @@ def calculate_experts_summary_LR(normalised=False):
         "Wundtyp": {"gt_key": "wundtyp", "metric_type": "exact"},
         "Lokalisation": {"gt_key": "lokalisation", "metric_type": "exact"},
         "Wundstadium": {"gt_key": "wundstadium", "metric_type": "checklist"},
-        "Wundgrund": {"gt_key": "wundgrund", "metric_type": "exact"},
+        "Wundgrund": {"gt_key": "wundgrund", "metric_type": "checklist"},
         "Wundrand": {"gt_key": "wundrand", "metric_type": "checklist"},
         "Wundumgebung": {"gt_key": "wundumgebung", "metric_type": "checklist"},
         "Exsudat": {"gt_key": "exsudat", "metric_type": "ordinal"},
@@ -851,7 +851,7 @@ def calculate_experts_summary_LR(normalised=False):
     return pd.DataFrame(summary_rows)
 
 
-def compare_wunden_trace_interactive():
+def compare_wunden_trace_interactive(path_llm_raw=None, path_llm_norm=None):
     """
     Erstellt ein interaktives Widget, mit dem man für ein ausgewähltes Wundbild 
     die Rohwerte und normalisierten Werte aller 3 Akteure (Experte 1, Experte 2, LLM) 
@@ -861,8 +861,8 @@ def compare_wunden_trace_interactive():
     path_gt1_norm = resolve_path("../../data/ground_truth/lohmann_rauscher/Experte1_LR_GroundTruth_normalised.csv")
     path_gt2_raw = resolve_path("../../data/ground_truth/lohmann_rauscher/Experte2_LR_GroundTruth.csv")
     path_gt2_norm = resolve_path("../../data/ground_truth/lohmann_rauscher/Experte2_LR_GroundTruth_normalised.csv")
-    path_llm_raw = resolve_path("../../data/llm_outputs/zero_shot_lr/zero_shot_lr_raw.csv")
-    path_llm_norm = resolve_path("../../data/llm_outputs/zero_shot_lr/zero_shot_lr_normalised.csv")
+    path_llm_raw = resolve_path(path_llm_raw) if path_llm_raw else resolve_path("../../data/llm_outputs/zero_shot_lr/zero_shot_lr_raw.csv")
+    path_llm_norm = resolve_path(path_llm_norm) if path_llm_norm else resolve_path("../../data/llm_outputs/zero_shot_lr/zero_shot_lr_normalised.csv")
     
     df_gt1_r = load_csv(path_gt1_raw)
     df_gt1_n = load_csv(path_gt1_norm)
@@ -1021,7 +1021,7 @@ def compare_wunden_trace_interactive():
     display(widgets.VBox([image_out, wunde_select, table_out]))
 
 
-def compare_categories_trace_interactive():
+def compare_categories_trace_interactive(path_llm_raw=None, path_llm_norm=None):
     """
     Erstellt ein interaktives Widget, mit dem man für eine ausgewählte Kategorie 
     die Rohwerte und normalisierten Werte aller Wundbilder nebeneinander 
@@ -1031,8 +1031,8 @@ def compare_categories_trace_interactive():
     path_gt1_norm = resolve_path("../../data/ground_truth/lohmann_rauscher/Experte1_LR_GroundTruth_normalised.csv")
     path_gt2_raw = resolve_path("../../data/ground_truth/lohmann_rauscher/Experte2_LR_GroundTruth.csv")
     path_gt2_norm = resolve_path("../../data/ground_truth/lohmann_rauscher/Experte2_LR_GroundTruth_normalised.csv")
-    path_llm_raw = resolve_path("../../data/llm_outputs/zero_shot_lr/zero_shot_lr_raw.csv")
-    path_llm_norm = resolve_path("../../data/llm_outputs/zero_shot_lr/zero_shot_lr_normalised.csv")
+    path_llm_raw = resolve_path(path_llm_raw) if path_llm_raw else resolve_path("../../data/llm_outputs/zero_shot_lr/zero_shot_lr_raw.csv")
+    path_llm_norm = resolve_path(path_llm_norm) if path_llm_norm else resolve_path("../../data/llm_outputs/zero_shot_lr/zero_shot_lr_normalised.csv")
     
     df_gt1_r = load_csv(path_gt1_raw)
     df_gt1_n = load_csv(path_gt1_norm)
@@ -1197,7 +1197,7 @@ def compare_categories_trace_interactive():
     display(widgets.VBox([cat_select, table_out]))
 
 
-def calculate_consensus_summary_LR(normalised=False):
+def calculate_consensus_summary_LR(normalised=False, path_llm_raw=None, path_llm_norm=None):
     """
     Berechnet die aggregierten Metriken (Mean Score und Exact-Match-Rate) über alle Wundbilder,
     wobei für jedes Wundbild und jede Kategorie der jeweils bessere Score (Maximum) 
@@ -1207,8 +1207,8 @@ def calculate_consensus_summary_LR(normalised=False):
     path_gt1_norm = resolve_path("../../data/ground_truth/lohmann_rauscher/Experte1_LR_GroundTruth_normalised.csv")
     path_gt2_raw = resolve_path("../../data/ground_truth/lohmann_rauscher/Experte2_LR_GroundTruth.csv")
     path_gt2_norm = resolve_path("../../data/ground_truth/lohmann_rauscher/Experte2_LR_GroundTruth_normalised.csv")
-    path_llm_raw = resolve_path("../../data/llm_outputs/zero_shot_lr/zero_shot_lr_raw.csv")
-    path_llm_norm = resolve_path("../../data/llm_outputs/zero_shot_lr/zero_shot_lr_normalised.csv")
+    path_llm_raw = resolve_path(path_llm_raw) if path_llm_raw else resolve_path("../../data/llm_outputs/zero_shot_lr/zero_shot_lr_raw.csv")
+    path_llm_norm = resolve_path(path_llm_norm) if path_llm_norm else resolve_path("../../data/llm_outputs/zero_shot_lr/zero_shot_lr_normalised.csv")
     
     df_gt1 = load_csv(path_gt1_norm if normalised else path_gt1_raw)
     df_gt2 = load_csv(path_gt2_norm if normalised else path_gt2_raw)
@@ -1228,7 +1228,7 @@ def calculate_consensus_summary_LR(normalised=False):
         "Wundtyp": {"gt_key": "wundtyp", "llm_key": "wundtyp", "metric_type": "exact"},
         "Lokalisation": {"gt_key": "lokalisation", "llm_key": "lokalisation", "metric_type": "exact"},
         "Wundstadium": {"gt_key": "wundstadium", "llm_key": "wundstadium", "metric_type": "checklist"},
-        "Wundgrund": {"gt_key": "wundgrund", "llm_key": "wundgrund", "metric_type": "exact"},
+        "Wundgrund": {"gt_key": "wundgrund", "llm_key": "wundgrund", "metric_type": "checklist"},
         "Wundrand": {"gt_key": "wundrand", "llm_key": "wundrand", "metric_type": "checklist"},
         "Wundumgebung": {"gt_key": "wundumgebung", "llm_key": "wundumgebung", "metric_type": "checklist"},
         "Exsudat": {"gt_key": "exsudat", "llm_key": "exsudat_menge", "metric_type": "ordinal"},

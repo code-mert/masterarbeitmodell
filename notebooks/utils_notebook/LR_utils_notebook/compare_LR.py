@@ -8,12 +8,15 @@ import ipywidgets as widgets
 from IPython.display import display, HTML, Image
 
 # Pfad anpassen, um utils_notebook und das eval-Modul zu importieren
-parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
-if parent_dir not in sys.path:
-    sys.path.insert(0, parent_dir)
+notebooks_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", ".."))
+for p in [notebooks_dir, root_dir]:
+    if p not in sys.path:
+        sys.path.insert(0, p)
 
 from utils_notebook import metrics, clean
 from utils_notebook.LR_utils_notebook.metrics_LR import format_val, parse_cell_value, get_score
+from eval.baselines import evaluate_baselines_dual, BaselineEvaluator, load_lr_catalog_pools
 
 def resolve_path(rel_path):
     """

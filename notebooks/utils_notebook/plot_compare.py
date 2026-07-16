@@ -178,3 +178,80 @@ def plot_sorted_norm_comparison(df_summary_norm: pd.DataFrame):
     plt.tight_layout()
     plt.show()
 
+
+def plot_combined_single_chart(df_experts_norm: pd.DataFrame, df_llm_norm: pd.DataFrame, expert_label: str = "Experte 1"):
+    """
+    Erstellt ein einzelnes gruppiertes Balkendiagramm, das für jede Kategorie 
+    die Experteneinigkeit (Experte 1 vs. 2) und den LLM-Score für einen spezifischen Experten gegenüberstellt.
+    Die Kategorien sind absteigend nach dem jeweiligen LLM-Experten-Score sortiert (höchste zuerst).
+    """
+    llm_col_name = f"LLM vs. {expert_label}"
+    exp_col_name = "Experteneinigkeit (Ex1 vs. Ex2)"
+
+    # 1. Mergen und Sortieren nach dem ausgewählten LLM-Score (höchste zuerst)
+    df_merged = pd.merge(
+        df_llm_norm[["Kategorie", "Score / F1-Score (Mean)"]].rename(columns={"Score / F1-Score (Mean)": llm_col_name}),
+        df_experts_norm[["Kategorie", "Score / F1-Score (Mean)"]].rename(columns={"Score / F1-Score (Mean)": exp_col_name}),
+        on="Kategorie"
+    )
+
+    df_sorted = df_merged.sort_values(
+        by=llm_col_name, 
+        ascending=False
+    ).copy()
+
+    # 2. Ins Long-Format bringen für Seaborn barplot
+    plot_data = []
+    for _, row in df_sorted.iterrows():
+        plot_data.append({
+            "Kategorie": row["Kategorie"],
+            "Metrik": llm_col_name,
+            "Wert": row[llm_col_name]
+        })
+        plot_data.append({
+            "Kategorie": row["Kategorie"],
+            "Metrik": exp_col_name,
+            "Wert": row[exp_col_name]
+        })
+        
+    df_plot = pd.DataFrame(plot_data)
+
+    # 3. Einzelnen Plot erstellen
+    sns.set_theme(style="whitegrid")
+    fig, ax = plt.subplots(figsize=(13, 8))
+
+    colors = {
+        llm_col_name: "#2a9d8f",          # Schönes Teal
+        exp_col_name: "#1d3557"           # Dunkelblau
+    }
+
+    sns.barplot(
+        data=df_plot,
+        x="Wert",
+        y="Kategorie",
+        hue="Metrik",
+        palette=colors,
+        ax=ax,
+        edgecolor="black",
+        linewidth=0.8
+    )
+
+    ax.set_title(f"Vergleich: Experteneinigkeit vs. {llm_col_name} (sortiert nach LLM-Score, höchste zuerst)", fontsize=14, fontweight="bold", pad=15)
+    ax.set_xlabel("Prozentualer Score / F1-Score", fontsize=11, labelpad=8)
+    ax.set_ylabel("Kategorie", fontsize=11)
+    ax.set_xlim(0.0, 1.08)
+    ax.xaxis.set_major_formatter(mtick.PercentFormatter(1.0))
+    ax.legend(loc="lower right", frameon=True, fontsize=10)
+
+    for container in ax.containers:
+        labels = [f"{v*100:.1f}%" if not pd.isna(v) and v > 0 else "0.0%" for v in container.datavalues]
+        ax.bar_label(container, labels=labels, padding=3, fontsize=9)
+
+    plt.tight_layout()
+    plt.show()
+
+
+
+
+
+

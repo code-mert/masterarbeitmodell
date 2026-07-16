@@ -20,6 +20,8 @@ SET_FIELDS: Set[str] = {
     "debridement",
     "praeferenz_produkt",
     "alternative_produkt",
+    "ergaenzende_produkte_praeferenz",
+    "ergaenzende_produkte_alternativ",
     "antimikrobielles_agens",
     "sekundaerverband",
     "hautschutz",
@@ -38,6 +40,12 @@ LLM_SET_FIELDS: Set[str] = {
     "sekundaerverband_fixierung",
     "wundrand_hautschutz",
     "kompression_art",
+    "praeferenz_wundauflage",
+    "alternativ_wundauflage",
+    "praeferenz_ergaenzung",
+    "alternativ_ergaenzung",
+    "kompression_produkt",
+    "kompression_produkte",
 }
 
 

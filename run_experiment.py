@@ -5,6 +5,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 from prompts.zero_shot_prompt import analyze_wound_image, load_catalog, get_system_prompt, MODEL, TEMPERATURE
 from prompts.few_shot_prompt import analyze_wound_image_few_shot, get_default_few_shot_examples, DEFAULT_FEW_SHOT_EXAMPLE_IDS
+from prompts.two_stage_prompt import analyze_wound_image_two_stage
 from core.storage import save_run, compute_hash
 
 # Lade den API-Key aus der .env Datei
@@ -33,13 +34,17 @@ def main():
     print("  2: Zero-Shot (Lohmann & Rauscher Produktkatalog)")
     print("  3: Few-Shot (Lohmann & Rauscher Produktkatalog, 2 Beispiele)")
     print("  4: Few-Shot (Generischer Produktkatalog, 2 Beispiele)")
+    print("  5: 2-Stage CoT (Lohmann & Rauscher Produktkatalog)")
+    print("  6: 2-Stage CoT (Generischer Produktkatalog)")
     
-    choice = input("Deine Auswahl (1, 2, 3 oder 4, Standard: 2): ").strip()
+    choice = input("Deine Auswahl (1-6, Standard: 2): ").strip()
+    is_few_shot = False
+    is_two_stage = False
+
     if choice == "1":
         mode = "standard"
         catalog_dir = Path("data/produktkatalog")
         prompt_approach = "zero_shot"
-        is_few_shot = False
         print("-> Modus: Zero-Shot mit Generischem Produktkatalog ausgewählt.")
     elif choice == "3":
         mode = "lr"
@@ -53,11 +58,22 @@ def main():
         prompt_approach = "few_shot"
         is_few_shot = True
         print("-> Modus: Few-Shot mit Generischem Produktkatalog (2 Beispiele) ausgewählt.")
+    elif choice == "5":
+        mode = "lr"
+        catalog_dir = Path("data/l&r_produktkatalog")
+        prompt_approach = "two_stage_lr"
+        is_two_stage = True
+        print("-> Modus: 2-Stage CoT mit L&R Produktkatalog ausgewählt.")
+    elif choice == "6":
+        mode = "standard"
+        catalog_dir = Path("data/produktkatalog")
+        prompt_approach = "two_stage"
+        is_two_stage = True
+        print("-> Modus: 2-Stage CoT mit Generischem Produktkatalog ausgewählt.")
     else:
         mode = "lr"
         catalog_dir = Path("data/l&r_produktkatalog")
         prompt_approach = "zero_shot_lr"
-        is_few_shot = False
         print("-> Modus: Zero-Shot mit L&R Produktkatalog ausgewählt.")
 
     # 1. Benötigte Ordner erstellen
@@ -118,35 +134,41 @@ def main():
     # 4. Gewählte(s) Bild(er) finden
     selected_images = []
     
-    if choice.lower() in ["all", "alle"]:
+    # Versuche Spanne wie "1-5" oder "01-05" zu parsen
+    range_match = re.match(r"^(\d+)\s*-\s*(\d+)$", choice)
+    
+    if choice.lower() == "all":
         selected_images = image_files
-    elif "-" in choice:
-        parts = choice.split("-")
-        if len(parts) == 2 and parts[0].strip().isdigit() and parts[1].strip().isdigit():
-            start_idx = int(parts[0].strip())
-            end_idx = int(parts[1].strip())
-            # 1-based range to 0-based slice
-            selected_images = image_files[start_idx-1:end_idx]
+    elif range_match:
+        start_idx = int(range_match.group(1))
+        end_idx = int(range_match.group(2))
+        if 1 <= start_idx <= end_idx <= len(image_files):
+            selected_images = image_files[start_idx - 1:end_idx]
+        else:
+            print(f"❌ Ungültiger Bereich! Bitte Wertzahlen zwischen 1 und {len(image_files)} eingeben.")
+            return
     elif choice.isdigit():
         idx = int(choice)
         if 1 <= idx <= len(image_files):
-            selected_images = [image_files[idx-1]]
+            selected_images = [image_files[idx - 1]]
+        else:
+            print(f"❌ Ungültige Bildnummer! Bitte eine Zahl zwischen 1 und {len(image_files)} eingeben.")
+            return
     else:
         for img in image_files:
             if img.stem.lower() == choice.lower() or img.name.lower() == choice.lower():
-                selected_images = [img]
+                selected_images.append(img)
                 break
-            
+                
     if not selected_images:
-        print(f"❌ Es wurden keine passenden Bilder für die Auswahl '{choice}' gefunden.")
+        print(f"❌ Bild/Spanne '{choice}' nicht gefunden.")
         return
-        
-    few_shot_examples = None
+
+    # Few-Shot Beispiele laden falls Few-Shot gewählt
+    few_shot_examples = []
     if is_few_shot:
-        print("Lade prägnante Few-Shot Beispiele (wunde_04 und wunde_18)...")
-        few_shot_examples = get_default_few_shot_examples(mode=mode)
-        print(f"-> {len(few_shot_examples)} Beispiele geladen.")
-        
+        few_shot_examples = get_default_few_shot_examples(mode)
+
     print(f"\nStarte Analyse für {len(selected_images)} Bild(er) im Modus '{prompt_approach}' ...")
     
     for img_idx, selected_image in enumerate(selected_images, 1):
@@ -164,7 +186,13 @@ def main():
 
         try:
             # KI aufrufen
-            if is_few_shot:
+            if is_two_stage:
+                result = analyze_wound_image_two_stage(
+                    image_path=str(selected_image),
+                    catalog=catalog_text,
+                    mode=mode
+                )
+            elif is_few_shot:
                 result = analyze_wound_image_few_shot(
                     image_path=str(selected_image),
                     catalog=catalog_text,
@@ -180,7 +208,7 @@ def main():
             
             raw_response = result["raw_response"]
             parsed_output = result["response"]
-            json_valid = result["metadata"]["json_valid"]
+            json_valid = result["metadata"].get("json_valid", True)
             
             errors = []
             if not json_valid:
@@ -188,11 +216,14 @@ def main():
                 
             meta_info = {
                 "model_version": MODEL,
-                "prompt_hash": compute_hash(get_system_prompt(mode)),
+                "prompt_hash": compute_hash(result.get("system_prompt", get_system_prompt(mode))),
                 "prompt_version": "v1.0",
                 "temperature": TEMPERATURE,
                 "catalog_hash": compute_hash(catalog_text)
             }
+            if is_two_stage:
+                meta_info["stage_1"] = result["metadata"]["stage_1"]
+                meta_info["stage_2"] = result["metadata"]["stage_2"]
             
             run_path = save_run(
                 model=MODEL,
@@ -202,7 +233,7 @@ def main():
                 parsed_output=parsed_output,
                 json_valid=json_valid,
                 parse_errors=errors,
-                latency_seconds=result["metadata"]["elapsed_seconds"],
+                latency_seconds=result["metadata"].get("elapsed_seconds", 0.0),
                 meta_info=meta_info,
                 base_dir=RUNS_DIR,
                 prompt_tokens=result["metadata"].get("prompt_tokens"),

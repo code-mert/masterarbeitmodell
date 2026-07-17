@@ -55,35 +55,53 @@ def align(gt_record: Dict[str, Any], llm_record: Dict[str, Any]) -> Dict[str, An
     Returns:
         A dictionary containing the aligned evaluation levels and categorical fields.
     """
-    is_lr = "praeferenz_wundauflage" in llm_record
+    is_lr = ("praeferenz_wundauflage" in llm_record) or ("praeferenz_produkt" in llm_record)
 
     if is_lr:
+        llm_p = llm_record.get("praeferenz_wundauflage") or llm_record.get("praeferenz_produkt") or []
+        llm_a = llm_record.get("alternativ_wundauflage") or llm_record.get("alternative_produkt") or []
+        gt_p = gt_record.get("praeferenz_produkt") or gt_record.get("praeferenz_wundauflage") or []
+        gt_a = gt_record.get("alternative_produkt") or gt_record.get("alternativ_wundauflage") or []
+
+        llm_deb = llm_record.get("debridement_methode") or llm_record.get("debridement") or []
+        gt_deb = gt_record.get("debridement") or gt_record.get("debridement_methode") or []
+
+        llm_sek_p = llm_record.get("praeferenz_ergaenzung") or llm_record.get("ergaenzende_produkte_praeferenz") or []
+        llm_sek_a = llm_record.get("alternativ_ergaenzung") or llm_record.get("ergaenzende_produkte_alternativ") or []
+        gt_sek_p = gt_record.get("ergaenzende_produkte_praeferenz") or gt_record.get("praeferenz_ergaenzung") or []
+        gt_sek_a = gt_record.get("ergaenzende_produkte_alternativ") or gt_record.get("alternativ_ergaenzung") or []
+
+        llm_komp = llm_record.get("kompression_product") or llm_record.get("kompression_produkt") or llm_record.get("kompression_produkte") or []
+        gt_komp = gt_record.get("kompression_produkte") or gt_record.get("kompression_produkt") or []
+
         return {
             "primaerverband": {
-                "llm_praef": filter_markers(llm_record.get("praeferenz_wundauflage") or []),
-                "llm_alt": filter_markers(llm_record.get("alternativ_wundauflage") or []),
-                "gt_praef": filter_markers(gt_record.get("praeferenz_produkt") or []),
-                "gt_alt": filter_markers(gt_record.get("alternative_produkt") or [])
+                "llm_praef": filter_markers(llm_p if isinstance(llm_p, list) else [llm_p]),
+                "llm_alt": filter_markers(llm_a if isinstance(llm_a, list) else [llm_a]),
+                "gt_praef": filter_markers(gt_p if isinstance(gt_p, list) else [gt_p]),
+                "gt_alt": filter_markers(gt_a if isinstance(gt_a, list) else [gt_a])
             },
             "debridement": {
-                "llm": filter_markers(llm_record.get("debridement_methode") or []),
-                "gt": filter_markers(gt_record.get("debridement") or [])
+                "llm": filter_markers(llm_deb if isinstance(llm_deb, list) else [llm_deb]),
+                "gt": filter_markers(gt_deb if isinstance(gt_deb, list) else [gt_deb])
             },
             "antimikrobielles_agens": {
                 "llm": [],
                 "gt": []
             },
             "sekundaerverband": {
-                "llm": filter_markers(llm_record.get("praeferenz_ergaenzung") or []),
-                "gt": filter_markers(gt_record.get("ergaenzende_produkte_praeferenz") or [])
+                "llm_praef": filter_markers(llm_sek_p if isinstance(llm_sek_p, list) else [llm_sek_p]),
+                "llm_alt": filter_markers(llm_sek_a if isinstance(llm_sek_a, list) else [llm_sek_a]),
+                "gt_praef": filter_markers(gt_sek_p if isinstance(gt_sek_p, list) else [gt_sek_p]),
+                "gt_alt": filter_markers(gt_sek_a if isinstance(gt_sek_a, list) else [gt_sek_a])
             },
             "hautschutz": {
                 "llm": [],
                 "gt": []
             },
             "kompression": {
-                "llm": filter_markers(llm_record.get("kompression_product") or llm_record.get("kompression_produkt") or []),
-                "gt": filter_markers(gt_record.get("kompression_produkte") or [])
+                "llm": filter_markers(llm_komp if isinstance(llm_komp, list) else [llm_komp]),
+                "gt": filter_markers(gt_komp if isinstance(gt_komp, list) else [gt_komp])
             },
             
             # Angeglichene kategoriale Felder

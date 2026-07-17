@@ -171,31 +171,15 @@ def calculate_f1(set_a, set_b):
 
 def best_path_f1(llm_p, llm_a, gt_p, gt_a):
     """
-    Ermittelt die beste F1-Score- und Exact-Match-Kombination 
-    zwischen Praeferenz und Alternative für den Primärverband.
+    Berechnet den F1-Score und Exact-Match für das vereinigte Produkt-Set
+    (llm_p ∪ llm_a) vs (gt_p ∪ gt_a).
     """
-    combinations = [
-        ("praef_praef", llm_p, gt_p),
-        ("praef_alt", llm_p, gt_a),
-        ("alt_praef", llm_a, gt_p),
-        ("alt_alt", llm_a, gt_a),
-    ]
+    pred_set = llm_p | llm_a
+    gt_set = gt_p | gt_a
     
-    best_f1 = -1.0
-    best_exact = 0.0
-    
-    for name, pred, gt in combinations:
-        f1 = calculate_f1(pred, gt)
-        exact = 1.0 if pred == gt else 0.0
-        
-        if f1 > best_f1:
-            best_f1 = f1
-            best_exact = exact
-        elif f1 == best_f1:
-            if exact > best_exact:
-                best_exact = exact
-                
-    return best_f1, best_exact
+    f1 = calculate_f1(pred_set, gt_set)
+    exact = 1.0 if pred_set == gt_set else 0.0
+    return f1, exact
 
 def score_exact(gt_val, llm_val):
     """

@@ -225,7 +225,14 @@ def load_llm_outputs(path: str) -> Dict[str, Dict[str, Any]]:
             run_id = data.get("run_id", 0)
             if normalized_id not in highest_runs or run_id > highest_runs[normalized_id]:
                 highest_runs[normalized_id] = run_id
-                outputs[normalized_id] = data["parsed_output"]
+                parsed = data["parsed_output"]
+                if isinstance(parsed, dict) and "properties" in parsed and isinstance(parsed["properties"], dict):
+                    flat = dict(parsed["properties"])
+                    for k, v in parsed.items():
+                        if k not in ("type", "properties", "required"):
+                            flat[k] = v
+                    parsed = flat
+                outputs[normalized_id] = parsed
 
     return outputs
 

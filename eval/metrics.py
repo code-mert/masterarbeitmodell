@@ -51,34 +51,18 @@ def best_path_f1(
     llm_praef: Set[str], llm_alt: Set[str], gt_praef: Set[str], gt_alt: Set[str]
 ) -> Tuple[float, bool, float, float]:
     """
-    Calculates the F1, Exact Match, Precision, and Recall for the best path out of the 
-    4 cross-combinations (LLM path x GT path) based on maximizing the F1 score.
-    Ties in F1 are broken by preferring exact matches.
-    
+    Calculates F1, Exact Match, Precision, and Recall for the combined union sets
+    S_LLM = (llm_praef ∪ llm_alt) vs S_GT = (gt_praef ∪ gt_alt).
+    This avoids empty-set matching artifacts on separate preference/alternative paths.
+
     Returns:
-        A tuple of (f1, exact_match_bool, precision, recall) for the best path.
+        A tuple of (f1, exact_match_bool, precision, recall) for the union sets.
     """
-    combinations = [
-        ("praef_praef", llm_praef, gt_praef),
-        ("praef_alt", llm_praef, gt_alt),
-        ("alt_praef", llm_alt, gt_praef),
-        ("alt_alt", llm_alt, gt_alt),
-    ]
-    
-    best_f1 = -1.0
-    best_metrics = (0.0, False, 0.0, 0.0)
-    
-    for name, pred, gt in combinations:
-        precision, recall = precision_recall(pred, gt)
-        f1 = set_f1(pred, gt)
-        exact = exact_match(pred, gt)
-        
-        if f1 > best_f1:
-            best_f1 = f1
-            best_metrics = (f1, exact, precision, recall)
-        elif f1 == best_f1:
-            # Tie breaker: if F1 is equal, choose the one with Exact Match
-            if exact and not best_metrics[1]:
-                best_metrics = (f1, exact, precision, recall)
-                
-    return best_metrics
+    pred_set = llm_praef | llm_alt
+    gt_set = gt_praef | gt_alt
+
+    precision, recall = precision_recall(pred_set, gt_set)
+    f1 = set_f1(pred_set, gt_set)
+    exact = exact_match(pred_set, gt_set)
+
+    return f1, exact, precision, recall

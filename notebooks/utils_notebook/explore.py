@@ -95,7 +95,8 @@ def explore_answers_interactive(df: pd.DataFrame, label: str = "Kategorie"):
         print("Das DataFrame ist leer.")
         return
         
-    categories = sorted([col for col in df.columns if col not in ['image_id', 'user_id', 'updated_at', 'ist_fertig']])
+    exclude_cols = {'image_id', 'user_id', 'updated_at', 'ist_fertig', 'type', 'properties', 'required'}
+    categories = sorted([col for col in df.columns if col not in exclude_cols])
     
     def show_answers(selected_category):
         if not selected_category:
@@ -158,7 +159,8 @@ def explore_distributions_interactive(df: pd.DataFrame, df_norm: pd.DataFrame = 
         print("Das DataFrame ist leer.")
         return
         
-    categories = sorted([col for col in df.columns if col not in ['image_id', 'user_id', 'updated_at', 'ist_fertig']])
+    exclude_cols = {'image_id', 'user_id', 'updated_at', 'ist_fertig', 'type', 'properties', 'required'}
+    categories = sorted([col for col in df.columns if col not in exclude_cols])
     
     def show_distribution(selected_category):
         if not selected_category:
@@ -425,5 +427,114 @@ def compare_gt_interactive(df_raw: pd.DataFrame, df_norm: pd.DataFrame):
     )
 
     return widgets.interactive(compare_single, image_id=wunde_select)
+
+
+def explore_normalization_mapping_interactive(df_raw: pd.DataFrame, df_norm: pd.DataFrame):
+    """
+    Displays an interactive dropdown widget to select a category and compare 
+    Raw LLM entries vs. Normalized LLM entries across all wounds.
+    Highlights entries that were modified during normalization.
+    """
+    if df_raw.empty or df_norm.empty:
+        print("Eines der DataFrames ist leer.")
+        return
+
+    exclude_cols = {'image_id', 'user_id', 'updated_at', 'ist_fertig', 'type', 'properties', 'required'}
+    all_cols = sorted(list((set(df_raw.columns) | set(df_norm.columns)) - exclude_cols))
+
+    from IPython.display import HTML, display
+
+    def show_mapping(selected_category):
+        if not selected_category:
+            print("Keine Kategorie ausgewählt.")
+            return
+
+        rows = []
+        n_changed = 0
+        n_total = 0
+
+        # Preserve natural sort order of image_ids
+        raw_ids = df_raw['image_id'].dropna().unique().tolist()
+        norm_ids = set(df_norm['image_id'].dropna().unique())
+        matched_ids = [img_id for img_id in raw_ids if img_id in norm_ids]
+
+        for img_id in matched_ids:
+            row_r = df_raw[df_raw['image_id'] == img_id]
+            row_n = df_norm[df_norm['image_id'] == img_id]
+
+            val_raw = clean_display_value(row_r.iloc[0].get(selected_category, None)) if not row_r.empty else "— (leer)"
+            val_norm = clean_display_value(row_n.iloc[0].get(selected_category, None)) if not row_n.empty else "— (leer)"
+
+            is_changed = str(val_raw).strip() != str(val_norm).strip()
+            if is_changed:
+                n_changed += 1
+            n_total += 1
+
+            rows.append({
+                "Wundbild": img_id,
+                "Roh-Eintrag (Raw)": val_raw,
+                "Normalisierter Eintrag (Norm)": val_norm,
+                "Status": "Gemappt" if is_changed else "Unverändert"
+            })
+
+        df_table = pd.DataFrame(rows)
+
+        def style_mapping_rows(row):
+            if row["Status"] == "Gemappt":
+                bg_color = "#e8f5e9"    # soft green
+                text_color = "#2e7d32"  # dark green
+                return [
+                    "",
+                    f"background-color: {bg_color}; color: {text_color}; font-weight: 500;",
+                    f"background-color: {bg_color}; color: {text_color}; font-weight: 600;",
+                    f"background-color: {bg_color}; color: {text_color}; font-weight: bold;"
+                ]
+            return ["", "", "", "color: #757575;"]
+
+        styled = df_table.style.apply(style_mapping_rows, axis=1).set_table_styles([
+            {"selector": "th", "props": [
+                ("background-color", "#1d3557"),
+                ("color", "white"),
+                ("font-family", "Segoe UI, Arial, sans-serif"),
+                ("font-size", "12px"),
+                ("font-weight", "bold"),
+                ("padding", "8px 10px"),
+                ("border", "1px solid #d3d3d3")
+            ]},
+            {"selector": "td", "props": [
+                ("font-family", "Segoe UI, Arial, sans-serif"),
+                ("font-size", "12px"),
+                ("padding", "8px 10px"),
+                ("border", "1px solid #e0e0e0")
+            ]},
+            {"selector": "table", "props": [
+                ("border-collapse", "collapse"),
+                ("width", "100%")
+            ]}
+        ]).hide(axis="index")
+
+        pct = (n_changed / n_total * 100.0) if n_total > 0 else 0.0
+        header_html = f"""
+        <div style="font-family: 'Segoe UI', Arial, sans-serif; margin-top: 15px; margin-bottom: 10px;">
+            <h3 style="color: #1d3557; margin-bottom: 4px;">Normalisierungs-Vergleich: <i>{selected_category}</i></h3>
+            <p style="font-size: 13px; color: #457b9d; margin: 0;">
+                <b>{n_changed} von {n_total}</b> Einträgen wurden gemappt/normalisiert (<b>{pct:.1f}%</b> geändert).
+            </p>
+        </div>
+        """
+        display(HTML(header_html))
+        display(styled)
+
+    category_select = widgets.Dropdown(
+        options=all_cols,
+        value='wundtyp' if 'wundtyp' in all_cols else (all_cols[0] if all_cols else None),
+        description='Kategorie:',
+        style={'description_width': 'initial'},
+        layout=widgets.Layout(width='320px'),
+        disabled=False,
+    )
+
+    return widgets.interactive(show_mapping, selected_category=category_select)
+
 
 

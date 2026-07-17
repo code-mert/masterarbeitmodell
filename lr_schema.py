@@ -151,19 +151,18 @@ OUTPUT_SCHEMA_LR = {
         "praeferenz_ergaenzung": {
             "type": "array",
             "items": {"type": "string"},
-            "minItems": 1,
             "description": (
-                "Präferierte ergänzende Produkte / Sekundärwundauflagen (z. B. Fixierung, Pflaster) "
-                "aus dem L&R2-Produktkatalog. Mehrfachauswahl möglich."
+                "Präferierte ergänzende Produkte / Sekundärwundauflagen (z. B. Fixierung, Binden, Pflaster) "
+                "aus den L&R-Produktkatalogen (lr2_produktkatalog und lr3_produktkatalog). WICHTIG: Entscheide zuerst, "
+                "ob ein Sekundärverband / ergänzendes Produkt notwendig ist. Wenn nicht notwendig, gib ein leeres Array [] an. Mehrfachauswahl möglich."
             )
         },
         "alternativ_ergaenzung": {
             "type": ["array", "null"],
             "items": {"type": "string"},
-            "minItems": 1,
             "description": (
-                "Alternative ergänzende Produkte / Sekundärwundauflagen aus dem L&R2-Produktkatalog. "
-                "Nur befüllen, wenn therapeutisch gleichwertig und mindestens ein Produkt sich unterscheidet, sonst null."
+                "Alternative ergänzende Produkte / Sekundärwundauflagen aus den L&R-Produktkatalogen (lr2_produktkatalog und lr3_produktkatalog). "
+                "Nur befüllen, wenn praeferenz_ergaenzung nicht leer ist und mindestens ein Produkt sich unterscheidet, sonst null oder leeres Array []."
             )
         },
 

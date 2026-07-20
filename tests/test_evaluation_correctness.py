@@ -58,9 +58,8 @@ def test_inter_rater_calculation():
     for img_id in common_ids:
         p1, a1 = extract_gt_field_value(gt1[img_id], "primaerverband")
         p2, a2 = extract_gt_field_value(gt2[img_id], "primaerverband")
-        set1 = set(filter_markers(p1)) | set(filter_markers(a1))
-        set2 = set(filter_markers(p2)) | set(filter_markers(a2))
-        direct_prim_f1.append(set_f1(set1, set2))
+        f1_val, _, _, _ = best_path_f1(set(filter_markers(p1)), set(filter_markers(a1)), set(filter_markers(p2)), set(filter_markers(a2)))
+        direct_prim_f1.append(f1_val)
         
     expected_prim_f1 = float(np.mean(direct_prim_f1))
     

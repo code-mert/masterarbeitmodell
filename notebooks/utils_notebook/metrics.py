@@ -171,15 +171,25 @@ def calculate_f1(set_a, set_b):
 
 def best_path_f1(llm_p, llm_a, gt_p, gt_a):
     """
-    Berechnet den F1-Score und Exact-Match für das vereinigte Produkt-Set
-    (llm_p ∪ llm_a) vs (gt_p ∪ gt_a).
+    Berechnet den True Max-Path F1-Score und Exact-Match (Best Match über alle 4 Kombinationen
+    von Präferenz- und Alternativprodukten, unter Ausschluss leerer Leermengen-Pfade).
     """
-    pred_set = llm_p | llm_a
-    gt_set = gt_p | gt_a
-    
-    f1 = calculate_f1(pred_set, gt_set)
-    exact = 1.0 if pred_set == gt_set else 0.0
-    return f1, exact
+    paths = [(llm_p, gt_p)]
+    if gt_a:
+        paths.append((llm_p, gt_a))
+    if llm_a:
+        paths.append((llm_a, gt_p))
+    if llm_a or gt_a:
+        paths.append((llm_a, gt_a))
+
+    best_f1 = 0.0
+    for p_set, g_set in paths:
+        f1_val = calculate_f1(p_set, g_set)
+        if f1_val > best_f1:
+            best_f1 = f1_val
+
+    exact = 1.0 if best_f1 == 1.0 else 0.0
+    return best_f1, exact
 
 def score_exact(gt_val, llm_val):
     """

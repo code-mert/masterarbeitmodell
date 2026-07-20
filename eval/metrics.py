@@ -51,18 +51,33 @@ def best_path_f1(
     llm_praef: Set[str], llm_alt: Set[str], gt_praef: Set[str], gt_alt: Set[str]
 ) -> Tuple[float, bool, float, float]:
     """
-    Calculates F1, Exact Match, Precision, and Recall for the combined union sets
-    S_LLM = (llm_praef ∪ llm_alt) vs S_GT = (gt_praef ∪ gt_alt).
-    This avoids empty-set matching artifacts on separate preference/alternative paths.
+    Calculates True Max-Path F1, Exact Match, Precision, and Recall across relevant path combinations.
 
     Returns:
-        A tuple of (f1, exact_match_bool, precision, recall) for the union sets.
+        A tuple of (f1, exact_match_bool, precision, recall) for the best matching path.
     """
-    pred_set = llm_praef | llm_alt
-    gt_set = gt_praef | gt_alt
+    paths = [(llm_praef, gt_praef)]
+    if gt_alt:
+        paths.append((llm_praef, gt_alt))
+    if llm_alt:
+        paths.append((llm_alt, gt_praef))
+    if llm_alt or gt_alt:
+        paths.append((llm_alt, gt_alt))
 
-    precision, recall = precision_recall(pred_set, gt_set)
-    f1 = set_f1(pred_set, gt_set)
-    exact = exact_match(pred_set, gt_set)
+    best_f1 = -1.0
+    best_exact = False
+    best_prec = 0.0
+    best_rec = 0.0
 
-    return f1, exact, precision, recall
+    for p_set, g_set in paths:
+        prec, rec = precision_recall(p_set, g_set)
+        f1_val = set_f1(p_set, g_set)
+        exact_val = exact_match(p_set, g_set)
+
+        if f1_val > best_f1:
+            best_f1 = f1_val
+            best_exact = exact_val
+            best_prec = prec
+            best_rec = rec
+
+    return max(0.0, best_f1), best_exact, best_prec, best_rec

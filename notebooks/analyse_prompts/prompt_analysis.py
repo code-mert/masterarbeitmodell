@@ -307,6 +307,52 @@ class PromptAnalysis:
     def plot_expert2(self, approach_name: str = 'Two-Stage'):
         self.plot_approach_expert(approach_name, 2)
 
+    def plot_consensus(self):
+        """
+        Plottet den Vergleich aller 3 Ansätze (Zero-Shot, Few-Shot, Two-Stage) 
+        gegen die Konsens-Ground-Truth (Best-of-Both Experten) sowie die Experteneinigkeit.
+        """
+        df_zero_c = self.df_zero_cons.set_index('Kategorie')['Score / F1-Score (Mean)']
+        df_few_c = self.df_few_cons.set_index('Kategorie')['Score / F1-Score (Mean)']
+        df_two_c = self.df_two_cons.set_index('Kategorie')['Score / F1-Score (Mean)']
+        df_exp_s = self.df_experts.set_index('Kategorie')['Score / F1-Score (Mean)']
+
+        plot_data = []
+        for cat in self.all_categories:
+            plot_data.append({'Kategorie': cat, 'Ansatz': 'Zero-Shot (Konsens)', 'Score': df_zero_c.get(cat, 0.0)})
+            plot_data.append({'Kategorie': cat, 'Ansatz': 'Few-Shot (Konsens)', 'Score': df_few_c.get(cat, 0.0)})
+            plot_data.append({'Kategorie': cat, 'Ansatz': 'Two-Stage (Konsens)', 'Score': df_two_c.get(cat, 0.0)})
+            plot_data.append({'Kategorie': cat, 'Ansatz': 'Experteneinigkeit (Ex1 vs Ex2)', 'Score': df_exp_s.get(cat, 0.0)})
+
+        df_plot = pd.DataFrame(plot_data)
+
+        plt.close('all')
+        sns.set_theme(style='whitegrid')
+        fig, ax = plt.subplots(figsize=(14, 11))
+
+        colors = {
+            'Zero-Shot (Konsens)': '#457b9d',
+            'Few-Shot (Konsens)': '#e76f51',
+            'Two-Stage (Konsens)': '#2a9d8f',
+            'Experteneinigkeit (Ex1 vs Ex2)': '#1d3557'
+        }
+
+        sns.barplot(data=df_plot, x='Score', y='Kategorie', hue='Ansatz', palette=colors, ax=ax, edgecolor='black', linewidth=0.7)
+        ax.axhline(9.5, color='#e76f51', linestyle='--', linewidth=1.5)
+        ax.set_title('Konsens-Evaluierung (Best-of-Both Experten)\n(Ein Modellvorschlag gilt als valide, wenn er zu mind. 1 Experten passt)', fontsize=13, fontweight='bold', pad=15)
+        ax.set_xlabel('Prozentualer Score / F1-Score', fontsize=11, labelpad=8)
+        ax.set_ylabel('')
+        ax.set_xlim(0.0, 1.08)
+        ax.xaxis.set_major_formatter(mtick.PercentFormatter(1.0))
+        ax.legend(loc='lower right', frameon=True, fontsize=10)
+
+        for container in ax.containers:
+            labels = [f'{v*100:.1f}%' if not pd.isna(v) and v > 0 else '0.0%' for v in container.datavalues]
+            ax.bar_label(container, labels=labels, padding=2, fontsize=7.5)
+
+        plt.tight_layout()
+        plt.show()
+
     def plot_overview_groups(self):
         """Plot: Gegenüberstellung Wundbeschreibung vs. Produktempfehlungen & Gesamtergebnis."""
         plt.close('all')

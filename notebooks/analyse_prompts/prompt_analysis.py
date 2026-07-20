@@ -300,6 +300,13 @@ class PromptAnalysis:
     def plot_two_stage_exp2(self):
         self.plot_approach_expert('Two-Stage', 2)
 
+    # Aliases for backwards compatibility
+    def plot_expert1(self, approach_name: str = 'Two-Stage'):
+        self.plot_approach_expert(approach_name, 1)
+
+    def plot_expert2(self, approach_name: str = 'Two-Stage'):
+        self.plot_approach_expert(approach_name, 2)
+
     def plot_overview_groups(self):
         """Plot: Gegenüberstellung Wundbeschreibung vs. Produktempfehlungen & Gesamtergebnis."""
         plt.close('all')

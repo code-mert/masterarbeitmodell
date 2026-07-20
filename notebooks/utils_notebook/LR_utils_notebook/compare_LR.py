@@ -782,7 +782,7 @@ def calculate_experts_summary_LR(normalised=False):
         "Primärverband": {"special": "Primärverband", "metric_type": "cross_match"},
         "Sekundärverband": {"special": "Sekundärverband", "metric_type": "cross_match"},
         "Kompression indiziert": {"gt_key": "kompression_indiziert", "metric_type": "exact"},
-        "Kompression Product": {"gt_key": "kompression_produkte", "metric_type": "checklist"}
+        "Kompression Produkt": {"gt_key": "kompression_produkte", "metric_type": "checklist"}
     }
     
     cat_scores = {cat: [] for cat in categories_config}

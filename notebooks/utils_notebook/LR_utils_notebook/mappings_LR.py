@@ -15,8 +15,8 @@ WUNDTYP_GT_MAPPING = {
     "Ulcus": ["Ulkus"],
     "Dekubtis": ["Dekubitus"],
     "Decubitus": ["Dekubitus"],
-    "Ulcera": ["Ulzera"],
-    "Ulcerationen": ["Ulzera"],
+    "Ulcera": ["Ulkus"],
+    "Ulcerationen": ["Ulkus"],
     "Ulcus decubitus": ["Dekubitus"],
     "Ulcus Dekubitus": ["Dekubitus"],
     "Ulcus dekubitus": ["Dekubitus"],
@@ -71,14 +71,14 @@ WUNDTYP_GT_MAPPING = {
     "Ulcus / warsch. Ulcus cruris, Ursache nicht klar, muss bestimmt werden": ["Ulkus cruris"],
 
 
-    # ---- Ulzera ----
-    "diffuse fibrinbelegte und teils infizierte Ulzera am rechten Fuß": ["Ulzera"],
-    "semizirkuläres Ulcus": ["Ulzera"],
-    "Ulcera rechter Fuß. könnte ursächlich diabetischer Fuß sein ( Neuropathie, Angiopathie) oder arterielles ulcus schäden auf Grund fehlender Durchblutung": ["Ulzera"],
-    "schwere Ulzerationen am Fuß- mehrere offene Stellen, freiliegende Sehen, teilweise nekrotisch, belegt": ["Ulzera"],
-    "superinfizierte Ulcration am rechen Fuß offene Ulcera": ["Ulzera"],
-    "Ulcerationen bedingt durch Vaskulitis- Form der rheumatischen Erkrankung ( Autoimmunerkrankung)": ["Ulzera"],
-    "offene ulcera": ["Ulzera"],
+    # ---- Ulkus ----
+    "diffuse fibrinbelegte und teils infizierte Ulzera am rechten Fuß": ["Ulkus"],
+    "semizirkuläres Ulcus": ["Ulkus"],
+    "Ulcera rechter Fuß. könnte ursächlich diabetischer Fuß sein ( Neuropathie, Angiopathie) oder arterielles ulcus schäden auf Grund fehlender Durchblutung": ["Ulkus"],
+    "schwere Ulzerationen am Fuß- mehrere offene Stellen, freiliegende Sehen, teilweise nekrotisch, belegt": ["Ulkus"],
+    "superinfizierte Ulcration am rechen Fuß offene Ulcera": ["Ulkus"],
+    "Ulcerationen bedingt durch Vaskulitis- Form der rheumatischen Erkrankung ( Autoimmunerkrankung)": ["Ulkus"],
+    "offene ulcera": ["Ulkus"],
 
     # ---- Dekubitus ----
     "nekrotischer Defekt / Dekubitus": ["Dekubitus"],
@@ -113,7 +113,7 @@ WUNDTYP_GT_MAPPING = {
     "Verbrennung Grad 1 bis 2 am rechten Fuß": ["Verbrennungswunde"],
     "Verbrennung 2 und 3 Grades nach 9 er Regel etwa 9 % Körperoberfläche": ["Verbrennungswunde"],
     "Verbrennungswunde am Arm Grad 2": ["Verbrennungswunde"],
-    "traumatologische Wunde ( thermische Schädigung / Verbrennung 3. und 4. Grades": ["Verbrennungwunde"],
+    "traumatologische Wunde ( thermische Schädigung / Verbrennung 3. und 4. Grades": ["Verbrennungswunde"],
     "Verbrennung 2. und teilweise 3. Grades Oberfläche ca 9 %": ["Verbrennungswunde"],
 
     # ── Nekrose ──
@@ -172,10 +172,10 @@ WUNDTYP_GT_MAPPING = {
     "Ulzeration, unklare Genese (oberflächlich, mit Nekrose/Fibrin)": ["Ulkus"],
     "Nekrotische Ulzeration (unklare Genese, möglich druck-/ischämiebedingt)": ["Ulkus"],
 
-    # ---- Ulzera ----
-    "Mehrere Ulzera am Fuß; Ätiologie im Bild nicht sicher (druck-/ischämisch möglich)": ["Ulzera"],
-    "Mehrere nekrotisch-belegte Ulzera am Fuß (druck-/ischämieassoziiert möglich)": ["Ulzera"],
-    "Multiple chronische Ulzera am Fuß (nur Bildbeurteilung)": ["Ulzera"],
+    # ---- Ulkus ----
+    "Mehrere Ulzera am Fuß; Ätiologie im Bild nicht sicher (druck-/ischämisch möglich)": ["Ulkus"],
+    "Mehrere nekrotisch-belegte Ulzera am Fuß (druck-/ischämieassoziiert möglich)": ["Ulkus"],
+    "Multiple chronische Ulzera am Fuß (nur Bildbeurteilung)": ["Ulkus"],
 
     # ---- Diabetisches Fußulkus ----
     "Diabetisches Fußulkus (mehrere flache Ulzera)": ["Diabetisches Fußulkus"],
@@ -205,19 +205,19 @@ WUNDTYP_GT_MAPPING = {
     # ---- 2-Stage CoT LLM Mappings ----
     'Postoperative Wunde (Wunddehiszenz) nahe Stoma': ['Postoperative Wunde'],
     'Oberflächliches Ulkus am Unterschenkel; Ätiologie unklar (bildbasierter Befund)': ['Ulkus cruris'],
-    'Hautulzeration (unklare Genese), zwei benachbarte Ulzera': ['Ulzera'],
+    'Hautulzeration (unklare Genese), zwei benachbarte Ulzera': ['Ulkus'],
     'Verbrennung (thermische Verletzung), großflächige Weichteilläsion': ['Verbrennungswunde'],
     'Verbrennungswunde (blasig, oberflächlich partiell)': ['Verbrennungswunde'],
     'Ulcus cruris, flächige oberflächliche Ulzeration': ['Ulkus cruris'],
     'Verbrennung (bullös, partielle Hautschädigung)': ['Verbrennungswunde'],
-    'Nekrotisches Fußulkus (mehrere Läsionen)': ['Ulzera'],
+    'Nekrotisches Fußulkus (mehrere Läsionen)': ['Ulkus'],
     'Fußulkus (ausgedehnter, nekrotischer Defekt)': ['Ulkus'],
-    'Druckulcus am Fuß (mehrere Ulzera)': ['Dekubitus', 'Ulzera'],
+    'Druckulcus am Fuß (mehrere Ulzera)': ['Dekubitus'],
     'Ulcus cruris venosum (venös-typisch)': ['Ulkus cruris venosum'],
     'Ulkus': ['Ulkus'],
-    'Mehrere Ulzera am lateralen Fuß mit Nekrose und Fibrinbelag': ['Ulzera'],
-    'Fußulkus (mehrere oberflächliche Ulzera, Ätiologie unklar)': ['Ulzera'],
-    'Mehrere oberflächliche Ulzera/Erosionen am Fuß (multifokal)': ['Ulzera'],
+    'Mehrere Ulzera am lateralen Fuß mit Nekrose und Fibrinbelag': ['Ulkus'],
+    'Fußulkus (mehrere oberflächliche Ulzera, Ätiologie unklar)': ['Ulkus'],
+    'Mehrere oberflächliche Ulzera/Erosionen am Fuß (multifokal)': ['Ulkus'],
     'Fußulkus (Ätiologie unklar)': ['Ulkus'],
     'Druckulkus am Fuß (druck-/neuropathisch möglich)': ['Dekubitus'],
     'Druckulcus (Zehenulkus)': ['Dekubitus'],
@@ -226,7 +226,7 @@ WUNDTYP_GT_MAPPING = {
     'Infizierte Hautläsion / kleiner Abszess': ['Abszess'],
     'Plantare Ulzeration (druckbedingt/neuropathisch, vereinbar mit diabetischem Fußulkus)': ['Diabetisches Fußulkus'],
     'Ulkus am Fußrücken (unklare Genese)': ['Ulkus'],
-    'Plantarer Druckulkus des Vorfußes (vereinbar mit diabetischem Fußulkus), multiple Ulcera': ['Diabetisches Fußulkus', 'Ulzera'],
+    'Plantarer Druckulkus des Vorfußes (vereinbar mit diabetischem Fußulkus), multiple Ulcera': ['Diabetisches Fußulkus'],
     'Dekubitus (Fersendruckulkus)': ['Dekubitus'],
     'Nekrotische Hautläsion / Ulkus': ['Ulkus'],
     'Ulcus cruris (Unterschenkelulkus)': ['Ulkus cruris'],
@@ -247,7 +247,7 @@ WUNDTYP_GT_MAPPING = {
     'Dekubitus (Druckulcus an der Ferse)': ['Dekubitus'],
     'Dekubitus (Druckulkus der Ferse)': ['Dekubitus'],
     'Pilonidalsinus (Sinus pilonidalis)': ['Sinus pilonidalis'],
-    'Dekubitus (mehrere Ulzera)': ['Dekubitus', 'Ulzera'],
+    'Dekubitus (mehrere Ulzera)': ['Dekubitus'],
 
     # ---- Few-Shot LLM Mappings ----
     # Dekubitus
@@ -276,18 +276,18 @@ WUNDTYP_GT_MAPPING = {
     "Ulcus cruris (vermutet), großflächig mit Belägen": ["Ulkus cruris"],
     "Ulcus cruris (vermutet), oberflächliche chronische Wunde": ["Ulkus cruris"],
     "Ulcus cruris (Ätiologie unklar)": ["Ulkus cruris"],
-    "Ulcus cruris, multiple oberflächliche Ulzera": ["Ulkus cruris", "Ulzera"],
+    "Ulcus cruris, multiple oberflächliche Ulzera": ["Ulkus cruris"],
     "Ulkus cruris (nekrotisch-belegt)": ["Ulkus cruris"],
     "Ulkus am Unterschenkel (Ätiologie unklar, Bild legt venöses Ulkus nahe)": ["Ulkus cruris venosum"],
 
-    # Ulkus / Ulzera / Fußulkus
+    # Ulkus / Fußulkus
     "Chronisches Ulkus am Unterschenkel (oberflächlich)": ["Ulkus"],
     "Fußulkus (V. a. neuropathisch/diabetisch), druckbedingt": ["Ulkus", "Diabetisches Fußulkus"],
     "Großflächige oberflächliche Ulzeration": ["Ulkus"],
-    "Mehrere oberflächliche Hautdefekte/Ulzera am Fußrücken": ["Ulzera"],
-    "Mehrfache Fußulzera, teils nekrotisch": ["Ulzera"],
-    "Multiple Ulcera am lateralen Fuß": ["Ulzera"],
-    "Multiple oberflächliche Ulcera am Fuß": ["Ulzera"],
+    "Mehrere oberflächliche Hautdefekte/Ulzera am Fußrücken": ["Ulkus"],
+    "Mehrfache Fußulzera, teils nekrotisch": ["Ulkus"],
+    "Multiple Ulcera am lateralen Fuß": ["Ulkus"],
+    "Multiple oberflächliche Ulcera am Fuß": ["Ulkus"],
     "Nekrotisch belegtes Fußulkus (Ätiologie unklar)": ["Ulkus"],
     "Nekrotische Ulzeration": ["Ulkus"],
     "Oberflächliche Ulzeration/traumatische Wunde mit Nekrose": ["Ulkus", "Traumatische Wunde"],
@@ -298,7 +298,7 @@ WUNDTYP_GT_MAPPING = {
     "Ulkus am Fuß (druck-/schuhbedingt möglich)": ["Ulkus"],
     "Ulkus am Fußrücken": ["Ulkus"],
     "Ulkus am Unterschenkel (Ätiologie unklar), infektverdächtig": ["Ulkus"],
-    "Ulkus am lateralen Fußrand (mehrere Läsionen) mit Belägen/Nekrose": ["Ulzera"],
+    "Ulkus am lateralen Fußrand (mehrere Läsionen) mit Belägen/Nekrose": ["Ulkus"],
 
     # Ischämisch / Nekrose
     "Ausgedehnte nekrotische Wunde am Fuß (gangränöser Aspekt)": ["Ischämisches Fußulkus (Gangrän)"],
@@ -654,7 +654,7 @@ PRODUKT_GT_MAPPING = {
     'Suprasorb P sensitive (finger/toe)': ['Suprasorb P Sensitive'],
     'Suprasorb P sensitive (sacrum)': ['Suprasorb P Sensitive'],
     'Suprasorb X + PHMB Tamponade': ['Suprasorb X + PHMB'],
-    'Vliwasorb sensitive border sacrum': ['Vliwasorb sensitive'],
+    'Vliwasorb sensitive border sacrum': ['Vliwasorb sensitive border'],
     'tg Fertigverbände': ['tg Fertigverbände'],
     'tg Fertigverbände (Hand-/Fußverband)': ['tg Fertigverbände'],
     'tg Fertigverbände Hand-/Fußverband': ['tg Fertigverbände'],

@@ -49,6 +49,7 @@ def plot_gt_comparison(df_summary_raw: pd.DataFrame, df_summary_norm: pd.DataFra
     df_plot_exact = pd.DataFrame(plot_data_exact)
     
     # 2. Design-Setup
+    plt.close('all')
     sns.set_theme(style="whitegrid")
     fig, axes = plt.subplots(1, 2, figsize=(18, 9), sharey=True)
     
@@ -108,6 +109,7 @@ def plot_gt_comparison(df_summary_raw: pd.DataFrame, df_summary_norm: pd.DataFra
     
     plt.tight_layout(rect=[0, 0, 1, 0.92])
     plt.show()
+    plt.close(fig)
 
 
 def plot_sorted_norm_comparison(df_summary_norm: pd.DataFrame):
@@ -139,6 +141,7 @@ def plot_sorted_norm_comparison(df_summary_norm: pd.DataFrame):
     df_plot = pd.DataFrame(plot_data)
     
     # 3. Design-Setup
+    plt.close('all')
     sns.set_theme(style="whitegrid")
     fig, ax = plt.subplots(figsize=(12, 8))
     
@@ -177,6 +180,7 @@ def plot_sorted_norm_comparison(df_summary_norm: pd.DataFrame):
         
     plt.tight_layout()
     plt.show()
+    plt.close(fig)
 
 
 def plot_combined_single_chart(df_experts_norm: pd.DataFrame, df_llm_norm: pd.DataFrame, expert_label: str = "Experte 1"):
@@ -217,6 +221,7 @@ def plot_combined_single_chart(df_experts_norm: pd.DataFrame, df_llm_norm: pd.Da
     df_plot = pd.DataFrame(plot_data)
 
     # 3. Einzelnen Plot erstellen
+    plt.close('all')
     sns.set_theme(style="whitegrid")
     fig, ax = plt.subplots(figsize=(13, 8))
 
@@ -249,6 +254,195 @@ def plot_combined_single_chart(df_experts_norm: pd.DataFrame, df_llm_norm: pd.Da
 
     plt.tight_layout()
     plt.show()
+    plt.close(fig)
+
+
+def plot_combined_stage_chart(df_experts_norm: pd.DataFrame, df_llm_norm: pd.DataFrame, expert_label: str = "Experte 1"):
+    """
+    Erstellt ein gruppiertes Balkendiagramm, das die Kategorien nach Stage 1 (Wundbeschreibung)
+    oben und Stage 2 (Wundbehandlung) unten unterteilt und für jede Kategorie die Experteneinigkeit 
+    sowie den LLM-Score vergleicht.
+    """
+    llm_col_name = f"LLM vs. {expert_label}"
+    exp_col_name = "Experteneinigkeit (Ex1 vs. Ex2)"
+
+    stage1_cats = ["Wundtyp", "Lokalisation", "Wundstadium", "Wundgrund", "Wundrand", "Wundumgebung", "Exsudat"]
+    stage2_cats = ["Debridement notwendig", "Debridement Methode", "Infektionsverdacht", "Spüllösung", "Primärverband", "Sekundärverband", "Kompression indiziert", "Kompression Produkt"]
+
+    df_merged = pd.merge(
+        df_llm_norm[["Kategorie", "Score / F1-Score (Mean)"]].rename(columns={"Score / F1-Score (Mean)": llm_col_name}),
+        df_experts_norm[["Kategorie", "Score / F1-Score (Mean)"]].rename(columns={"Score / F1-Score (Mean)": exp_col_name}),
+        on="Kategorie"
+    )
+
+    df_stage1 = df_merged[df_merged["Kategorie"].isin(stage1_cats)].sort_values(by=llm_col_name, ascending=False)
+    df_stage2 = df_merged[df_merged["Kategorie"].isin(stage2_cats)].sort_values(by=llm_col_name, ascending=False)
+
+    df_sorted = pd.concat([df_stage1, df_stage2]).copy()
+
+    plot_data = []
+    for _, row in df_sorted.iterrows():
+        plot_data.append({
+            "Kategorie": row["Kategorie"],
+            "Metrik": llm_col_name,
+            "Wert": row[llm_col_name]
+        })
+        plot_data.append({
+            "Kategorie": row["Kategorie"],
+            "Metrik": exp_col_name,
+            "Wert": row[exp_col_name]
+        })
+        
+    df_plot = pd.DataFrame(plot_data)
+
+    plt.close('all')
+    sns.set_theme(style="whitegrid")
+    fig, ax = plt.subplots(figsize=(13, 9))
+
+    colors = {
+        llm_col_name: "#2a9d8f",          # Teal
+        exp_col_name: "#1d3557"           # Dunkelblau
+    }
+
+    sns.barplot(
+        data=df_plot,
+        x="Wert",
+        y="Kategorie",
+        hue="Metrik",
+        palette=colors,
+        ax=ax,
+        edgecolor="black",
+        linewidth=0.8
+    )
+
+    # Trennlinie zwischen Stage 1 und Stage 2
+    n_stage1 = len(df_stage1)
+    if n_stage1 > 0 and len(df_stage2) > 0:
+        ax.axhline(n_stage1 - 0.5, color="#e76f51", linestyle="--", linewidth=1.5)
+
+    ax.set_title(f"2-Stage Vergleich: Experteneinigkeit vs. {llm_col_name}\n(Oben: Stage 1 Wundbeschreibung | Unten: Stage 2 Wundbehandlung)", fontsize=13, fontweight="bold", pad=15)
+    ax.set_xlabel("Prozentualer Score / F1-Score", fontsize=11, labelpad=8)
+    ax.set_ylabel("Kategorie", fontsize=11)
+    ax.set_xlim(0.0, 1.08)
+    ax.xaxis.set_major_formatter(mtick.PercentFormatter(1.0))
+    ax.legend(loc="lower right", frameon=True, fontsize=10)
+
+    for container in ax.containers:
+        labels = [f"{v*100:.1f}%" if not pd.isna(v) and v > 0 else "0.0%" for v in container.datavalues]
+        ax.bar_label(container, labels=labels, padding=3, fontsize=9)
+
+    plt.tight_layout()
+    plt.show()
+    plt.close(fig)
+
+
+def plot_all_prompts_comparison(
+    df_zero_norm: pd.DataFrame,
+    df_few_norm: pd.DataFrame,
+    df_two_norm: pd.DataFrame,
+    df_experts_norm: pd.DataFrame = None,
+    expert_label: str = "Experte 1",
+    by_stage: bool = True
+):
+    """
+    Erstellt ein gruppiertes Balkendiagramm, das die 3 Prompting-Ansätze (Zero-Shot, Few-Shot, 2-Stage CoT)
+    sowie optional die Experteneinigkeit für alle 15 Kategorien vergleicht.
+    """
+    label_zero = "Zero-Shot"
+    label_few = "Few-Shot"
+    label_two = "Two-Stage"
+    label_exp = "Experteneinigkeit (Ex1 vs. Ex2)"
+
+    df_merged = pd.merge(
+        df_zero_norm[["Kategorie", "Score / F1-Score (Mean)"]].rename(columns={"Score / F1-Score (Mean)": label_zero}),
+        df_few_norm[["Kategorie", "Score / F1-Score (Mean)"]].rename(columns={"Score / F1-Score (Mean)": label_few}),
+        on="Kategorie"
+    )
+    df_merged = pd.merge(
+        df_merged,
+        df_two_norm[["Kategorie", "Score / F1-Score (Mean)"]].rename(columns={"Score / F1-Score (Mean)": label_two}),
+        on="Kategorie"
+    )
+
+    if df_experts_norm is not None:
+        df_merged = pd.merge(
+            df_merged,
+            df_experts_norm[["Kategorie", "Score / F1-Score (Mean)"]].rename(columns={"Score / F1-Score (Mean)": label_exp}),
+            on="Kategorie"
+        )
+
+    stage1_cats = ["Wundtyp", "Lokalisation", "Wundstadium", "Wundgrund", "Wundrand", "Wundumgebung", "Exsudat"]
+    stage2_cats = ["Debridement notwendig", "Debridement Methode", "Infektionsverdacht", "Spüllösung", "Primärverband", "Sekundärverband", "Kompression indiziert", "Kompression Produkt"]
+
+    if by_stage:
+        df_stage1 = df_merged[df_merged["Kategorie"].isin(stage1_cats)].sort_values(by=label_two, ascending=False)
+        df_stage2 = df_merged[df_merged["Kategorie"].isin(stage2_cats)].sort_values(by=label_two, ascending=False)
+        df_sorted = pd.concat([df_stage1, df_stage2]).copy()
+    else:
+        df_sorted = df_merged.sort_values(by=label_two, ascending=False).copy()
+
+    plot_cols = [label_zero, label_few, label_two]
+    if df_experts_norm is not None:
+        plot_cols.append(label_exp)
+
+    plot_data = []
+    for _, row in df_sorted.iterrows():
+        for col in plot_cols:
+            plot_data.append({
+                "Kategorie": row["Kategorie"],
+                "Ansatz": col,
+                "Wert": row[col]
+            })
+
+    df_plot = pd.DataFrame(plot_data)
+
+    plt.close('all')
+    sns.set_theme(style="whitegrid")
+    fig, ax = plt.subplots(figsize=(14, 11))
+
+    colors = {
+        label_zero: "#e76f51",   # Orange/Terracotta
+        label_few: "#f4a261",    # Helles Orange/Gelb
+        label_two: "#2a9d8f",    # Teal/Grün
+        label_exp: "#1d3557"     # Dunkelblau
+    }
+
+    sns.barplot(
+        data=df_plot,
+        x="Wert",
+        y="Kategorie",
+        hue="Ansatz",
+        palette=colors,
+        ax=ax,
+        edgecolor="black",
+        linewidth=0.7
+    )
+
+    if by_stage:
+        n_stage1 = len(df_stage1)
+        if n_stage1 > 0 and len(df_stage2) > 0:
+            ax.axhline(n_stage1 - 0.5, color="#e76f51", linestyle="--", linewidth=1.5)
+
+    title_subtitle = f"Vergleich aller Prompt-Ansätze (Zero-Shot vs. Few-Shot vs. 2-Stage CoT) vs. {expert_label}"
+    if by_stage:
+        title_subtitle += "\n(Oben: Stage 1 Wundbeschreibung | Unten: Stage 2 Wundbehandlung)"
+
+    ax.set_title(title_subtitle, fontsize=13, fontweight="bold", pad=15)
+    ax.set_xlabel("Prozentualer Score / F1-Score", fontsize=11, labelpad=8)
+    ax.set_ylabel("Kategorie", fontsize=11)
+    ax.set_xlim(0.0, 1.08)
+    ax.xaxis.set_major_formatter(mtick.PercentFormatter(1.0))
+    ax.legend(loc="lower right", frameon=True, fontsize=10)
+
+    for container in ax.containers:
+        labels = [f"{v*100:.1f}%" if not pd.isna(v) and v > 0 else "0.0%" for v in container.datavalues]
+        ax.bar_label(container, labels=labels, padding=2, fontsize=8)
+
+    plt.tight_layout()
+    plt.show()
+    plt.close(fig)
+
+
 
 
 

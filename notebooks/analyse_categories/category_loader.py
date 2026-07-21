@@ -1,9 +1,13 @@
 import os
 import sys
 import re
+import random
 import pandas as pd
+import numpy as np
 import ipywidgets as widgets
 from IPython.display import display, Image, HTML
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # Paths setup relative to this directory
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
@@ -91,6 +95,77 @@ CATEGORY_MAPPING = {
     }
 }
 
+PRODUCT_FAMILY_MAP = {
+    "suprasorb a": "Suprasorb A (Alginat)",
+    "suprasorb a pro": "Suprasorb A (Alginat)",
+    "suprasorb a + ag": "Suprasorb A (Alginat)",
+
+    "suprasorb p": "Suprasorb P (Schaumstoff)",
+    "suprasorb p sensitive": "Suprasorb P (Schaumstoff)",
+    "suprasorb p sensiflex": "Suprasorb P (Schaumstoff)",
+    "suprasorb p + phmb": "Suprasorb P (Schaumstoff)",
+
+    "suprasorb x": "Suprasorb X (Hydrobalance)",
+    "suprasorb x pro": "Suprasorb X (Hydrobalance)",
+    "suprasorb x + phmb": "Suprasorb X (Hydrobalance)",
+
+    "suprasorb liquacel pro": "Suprasorb Liquacel (Hydrofiber)",
+    "suprasorb liquacel": "Suprasorb Liquacel (Hydrofiber)",
+
+    "vliwasorb pro": "Vliwasorb (Superabsorber)",
+    "vliwasorb sensitive": "Vliwasorb (Superabsorber)",
+    "vliwazell pro": "Vliwasorb (Superabsorber)",
+    "vliwazell": "Vliwasorb (Superabsorber)",
+
+    "solvaline n": "Solvaline / Lomatuell (Atraumatische Auflage)",
+    "solvaline": "Solvaline / Lomatuell (Atraumatische Auflage)",
+    "lomatuell pro": "Solvaline / Lomatuell (Atraumatische Auflage)",
+    "lomatuell": "Solvaline / Lomatuell (Atraumatische Auflage)",
+
+    "vliwaktiv": "Vliwaktiv (Aktivkohle)",
+    "vliwaktiv ag": "Vliwaktiv (Aktivkohle)",
+
+    "suprasorb cnp": "Suprasorb CNP (NPWT)",
+    "suprasorb f protect": "Suprasorb F (Folie)",
+    "suprasorb f": "Suprasorb F (Folie)",
+    "suprasorb g gel-kompresse": "Suprasorb G (Gel)",
+    "suprasorb g": "Suprasorb G (Gel)",
+    "amorphes gel": "Suprasorb G (Gel)",
+    "suprasorb h": "Suprasorb H (Hydrokolloid)",
+    "metalline kompresse": "Metalline",
+    "metalline": "Metalline",
+}
+
+
+def map_product_set(prod_set, group_by_family=True):
+    if not group_by_family or not prod_set:
+        return prod_set
+    mapped = set()
+    for item in prod_set:
+        item_lower = item.strip().lower()
+        if item_lower in PRODUCT_FAMILY_MAP:
+            mapped.add(PRODUCT_FAMILY_MAP[item_lower])
+        else:
+            if "suprasorb a" in item_lower:
+                mapped.add("Suprasorb A (Alginat)")
+            elif "suprasorb p" in item_lower:
+                mapped.add("Suprasorb P (Schaumstoff)")
+            elif "suprasorb x" in item_lower:
+                mapped.add("Suprasorb X (Hydrobalance)")
+            elif "suprasorb liquacel" in item_lower:
+                mapped.add("Suprasorb Liquacel (Hydrofiber)")
+            elif "vliwasorb" in item_lower or "vliwazell" in item_lower:
+                mapped.add("Vliwasorb (Superabsorber)")
+            elif "solvaline" in item_lower or "lomatuell" in item_lower:
+                mapped.add("Solvaline / Lomatuell (Atraumatische Auflage)")
+            elif "vliwaktiv" in item_lower:
+                mapped.add("Vliwaktiv (Aktivkohle)")
+            elif "cnp" in item_lower:
+                mapped.add("Suprasorb CNP (NPWT)")
+            else:
+                mapped.add(item)
+    return mapped
+
 
 def normalize_image_id(img_id):
     if not isinstance(img_id, str):
@@ -131,10 +206,6 @@ def to_clean_set(val):
 
 
 def get_category_tables(category_key):
-    """
-    Erstellt zwei DataFrames (df_raw und df_norm) für eine bestimmte Kategorie.
-    Spalten: ['image_id', 'Experte 1', 'Experte 2', 'Zero-Shot', 'Few-Shot', 'Two-Stage']
-    """
     key = category_key.lower().strip()
     if key not in CATEGORY_MAPPING:
         raise ValueError(f"Unbekannte Kategorie '{category_key}'. Verfügbar: {list(CATEGORY_MAPPING.keys())}")
@@ -219,25 +290,17 @@ def get_category_tables(category_key):
     return df_r, df_n
 
 
-def evaluate_product_match(pred_p, pred_a, gt_p, gt_a):
-    """
-    Nutzt best_path_f1 aus eval/metrics.py für Produkt-Sets.
-    Returns (f1_score, exact_match_bool).
-    """
-    p_set = to_clean_set(pred_p)
-    a_set = to_clean_set(pred_a)
-    gp_set = to_clean_set(gt_p)
-    ga_set = to_clean_set(gt_a)
+def evaluate_product_match(pred_p, pred_a, gt_p, gt_a, group_by_family=False):
+    p_set = map_product_set(to_clean_set(pred_p), group_by_family)
+    a_set = map_product_set(to_clean_set(pred_a), group_by_family)
+    gp_set = map_product_set(to_clean_set(gt_p), group_by_family)
+    ga_set = map_product_set(to_clean_set(gt_a), group_by_family)
 
     f1, exact, _, _ = best_path_f1(p_set, a_set, gp_set, ga_set)
     return f1, exact
 
 
-def classify_row_match(row, col_name, category_key):
-    """
-    Klassifiziert den Match-Status eines LLM-Ansatzes relativ zu Experte 1 und Experte 2
-    unter Verwendung der offiziellen eval/metrics.py Metriken.
-    """
+def classify_row_match(row, col_name, category_key, group_by_family=False):
     prefix_map = {
         "Zero-Shot": "Zero",
         "Few-Shot": "Few",
@@ -249,8 +312,8 @@ def classify_row_match(row, col_name, category_key):
     is_product = key in ["primaerverband", "primärverband", "sekundaerverband", "sekundärverband"]
 
     if is_product:
-        f1_1, exact_1 = evaluate_product_match(row[f"{pfx}_p"], row[f"{pfx}_a"], row["GT1_p"], row["GT1_a"])
-        f1_2, exact_2 = evaluate_product_match(row[f"{pfx}_p"], row[f"{pfx}_a"], row["GT2_p"], row["GT2_a"])
+        f1_1, exact_1 = evaluate_product_match(row[f"{pfx}_p"], row[f"{pfx}_a"], row["GT1_p"], row["GT1_a"], group_by_family)
+        f1_2, exact_2 = evaluate_product_match(row[f"{pfx}_p"], row[f"{pfx}_a"], row["GT2_p"], row["GT2_a"], group_by_family)
 
         if exact_1 and exact_2:
             return "both"
@@ -262,7 +325,6 @@ def classify_row_match(row, col_name, category_key):
             return "partial"
         return "none"
     else:
-        # Standard Single-String / Checklist Matching
         p_set = to_clean_set(row[col_name])
         g1_set = to_clean_set(row["Experte 1"])
         g2_set = to_clean_set(row["Experte 2"])
@@ -288,15 +350,7 @@ def classify_row_match(row, col_name, category_key):
         return "none"
 
 
-def style_category_table(df, category_key=None):
-    """
-    Färbt die Tabelle basierend auf Übereinstimmung unter Verwendung der eval/metrics.py Logik.
-    - Lila (#e2d9f3): Exakter Match (F1=1.0) mit BEIDEN Experten
-    - Grün (#c3fae8): Exakter Match (F1=1.0) mit Experte 1
-    - Blau (#d0ebff): Exakter Match (F1=1.0) mit Experte 2
-    - Orange (#fff3bf): Teilweiser Match (F1 > 0)
-    - Rot (#ffe3e3): Kein Match (F1 = 0)
-    """
+def style_category_table(df, category_key=None, group_by_family=False):
     if category_key is None:
         category_key = getattr(df, "_category_key", "wundtyp")
 
@@ -315,7 +369,7 @@ def style_category_table(df, category_key=None):
             elif col_name == "Experte 2":
                 styles[i] = "background-color: #d0ebff; color: #002b49; font-weight: bold; opacity: 1.0;"
             elif col_name in ["Zero-Shot", "Few-Shot", "Two-Stage"]:
-                status = classify_row_match(orig_row, col_name, category_key)
+                status = classify_row_match(orig_row, col_name, category_key, group_by_family)
                 if status == "both":
                     styles[i] = "background-color: #eebefa; color: #360745; font-weight: bold; opacity: 1.0;"
                 elif status == "gt1":
@@ -354,10 +408,360 @@ def display_legend():
     display(HTML(html))
 
 
+def evaluate_primaerverband_grouped():
+    _, df_norm = get_category_tables("primärverband")
+
+    all_gt_prods = []
+    for _, r in df_norm.iterrows():
+        p1 = to_clean_set(r["GT1_p"])
+        p2 = to_clean_set(r["GT2_p"])
+        all_gt_prods.extend(list(p1) + list(p2))
+
+    maj_prod = pd.Series(all_gt_prods).mode()[0] if all_gt_prods else "suprasorb p sensiflex"
+    maj_p, maj_a = maj_prod, ""
+
+    results = []
+
+    models = [
+        ("Baseline (Majority)", "majority"),
+        ("Zero-Shot", "Zero"),
+        ("Few-Shot", "Few"),
+        ("Two-Stage", "Two")
+    ]
+
+    for label, pfx in models:
+        f1_exp1_u, f1_exp2_u, f1_cons_u = [], [], []
+        f1_exp1_g, f1_exp2_g, f1_cons_g = [], [], []
+
+        for _, r in df_norm.iterrows():
+            if pfx == "majority":
+                pred_p, pred_a = maj_p, maj_a
+            else:
+                pred_p, pred_a = r[f"{pfx}_p"], r[f"{pfx}_a"]
+
+            score1_u, _ = evaluate_product_match(pred_p, pred_a, r["GT1_p"], r["GT1_a"], group_by_family=False)
+            score2_u, _ = evaluate_product_match(pred_p, pred_a, r["GT2_p"], r["GT2_a"], group_by_family=False)
+            f1_exp1_u.append(score1_u)
+            f1_exp2_u.append(score2_u)
+            f1_cons_u.append(max(score1_u, score2_u))
+
+            score1_g, _ = evaluate_product_match(pred_p, pred_a, r["GT1_p"], r["GT1_a"], group_by_family=True)
+            score2_g, _ = evaluate_product_match(pred_p, pred_a, r["GT2_p"], r["GT2_a"], group_by_family=True)
+            f1_exp1_g.append(score1_g)
+            f1_exp2_g.append(score2_g)
+            f1_cons_g.append(max(score1_g, score2_g))
+
+        m_exp1_u, m_exp2_u, m_cons_u = np.mean(f1_exp1_u), np.mean(f1_exp2_u), np.mean(f1_cons_u)
+        m_exp1_g, m_exp2_g, m_cons_g = np.mean(f1_exp1_g), np.mean(f1_exp2_g), np.mean(f1_cons_g)
+
+        results.append({
+            "Modell / Ansatz": label,
+            "Exp 1 (Ungruppiert)": m_exp1_u,
+            "Exp 1 (Produktfamilie)": m_exp1_g,
+            "Δ Exp 1": m_exp1_g - m_exp1_u,
+            "Exp 2 (Ungruppiert)": m_exp2_u,
+            "Exp 2 (Produktfamilie)": m_exp2_g,
+            "Δ Exp 2": m_exp2_g - m_exp2_u,
+            "Best-of-Both (Ungruppiert)": m_cons_u,
+            "Best-of-Both (Produktfamilie)": m_cons_g,
+            "Δ Best-of-Both": m_cons_g - m_cons_u,
+        })
+
+    f1_inter_u, f1_inter_g = [], []
+    for _, r in df_norm.iterrows():
+        s_u, _ = evaluate_product_match(r["GT1_p"], r["GT1_a"], r["GT2_p"], r["GT2_a"], group_by_family=False)
+        s_g, _ = evaluate_product_match(r["GT1_p"], r["GT1_a"], r["GT2_p"], r["GT2_a"], group_by_family=True)
+        f1_inter_u.append(s_u)
+        f1_inter_g.append(s_g)
+
+    m_inter_u = np.mean(f1_inter_u)
+    m_inter_g = np.mean(f1_inter_g)
+
+    results.append({
+        "Modell / Ansatz": "Experten-Übereinstimmung (Exp 1 vs Exp 2)",
+        "Exp 1 (Ungruppiert)": m_inter_u,
+        "Exp 1 (Produktfamilie)": m_inter_g,
+        "Δ Exp 1": m_inter_g - m_inter_u,
+        "Exp 2 (Ungruppiert)": m_inter_u,
+        "Exp 2 (Produktfamilie)": m_inter_g,
+        "Δ Exp 2": m_inter_g - m_inter_u,
+        "Best-of-Both (Ungruppiert)": m_inter_u,
+        "Best-of-Both (Produktfamilie)": m_inter_g,
+        "Δ Best-of-Both": m_inter_g - m_inter_u,
+    })
+
+    res_df = pd.DataFrame(results)
+
+    format_dict = {
+        "Exp 1 (Ungruppiert)": "{:.1%}",
+        "Exp 1 (Produktfamilie)": "{:.1%}",
+        "Δ Exp 1": "{:+.1%}",
+        "Exp 2 (Ungruppiert)": "{:.1%}",
+        "Exp 2 (Produktfamilie)": "{:.1%}",
+        "Δ Exp 2": "{:+.1%}",
+        "Best-of-Both (Ungruppiert)": "{:.1%}",
+        "Best-of-Both (Produktfamilie)": "{:.1%}",
+        "Δ Best-of-Both": "{:+.1%}",
+    }
+
+    styler = res_df.style.format(format_dict)
+    styler.set_table_styles([
+        {'selector': 'th', 'props': [('background-color', '#1e293b'), ('color', '#ffffff'), ('font-weight', 'bold'), ('text-align', 'center'), ('padding', '10px')]},
+        {'selector': 'td', 'props': [('padding', '8px 12px'), ('font-size', '13px'), ('text-align', 'center')]},
+        {'selector': 'table', 'props': [('border-collapse', 'collapse'), ('width', '100%')]}
+    ])
+    return styler
+
+
+def plot_primaerverband_bar_chart(evaluation_mode="best_of_both"):
+    """
+    Erstellt ein Balkendiagramm für die 3 LLM-Ansätze (Zero-Shot, Few-Shot, Two-Stage).
+    Für jeden der 3 Ansätze werden genau 5 Balken in folgender Reihenfolge angezeigt:
+      1. Baseline (Random)
+      2. Baseline (Majority)
+      3. Expertenkonsens (Inter-Rater Agreement Exp 1 vs Exp 2)
+      4. Score (ungruppiert)
+      5. Score (gruppiert)
+    Insgesamt 15 Balken (3 Gruppen x 5 Balken).
+    """
+    _, df_norm = get_category_tables("primärverband")
+
+    catalog_prods = [
+        "suprasorb a", "suprasorb a pro", "suprasorb a + ag",
+        "suprasorb p", "suprasorb p sensitive", "suprasorb p sensiflex", "suprasorb p + phmb",
+        "suprasorb x", "suprasorb x pro", "suprasorb x + phmb",
+        "suprasorb liquacel pro", "vliwasorb pro", "vliwasorb sensitive", "vliwazell pro",
+        "solvaline n", "lomatuell pro", "vliwaktiv", "vliwaktiv ag", "suprasorb cnp"
+    ]
+
+    rng = random.Random(42)
+    rand_f1_list = []
+    for _ in range(100):
+        run_scores = []
+        for _, r in df_norm.iterrows():
+            rand_p = [rng.choice(catalog_prods)]
+            rand_a = [rng.choice(catalog_prods)]
+            if evaluation_mode == "exp1":
+                s, _ = evaluate_product_match(rand_p, rand_a, r["GT1_p"], r["GT1_a"], False)
+            elif evaluation_mode == "exp2":
+                s, _ = evaluate_product_match(rand_p, rand_a, r["GT2_p"], r["GT2_a"], False)
+            else:
+                s1, _ = evaluate_product_match(rand_p, rand_a, r["GT1_p"], r["GT1_a"], False)
+                s2, _ = evaluate_product_match(rand_p, rand_a, r["GT2_p"], r["GT2_a"], False)
+                s = max(s1, s2)
+            run_scores.append(s)
+        rand_f1_list.append(np.mean(run_scores))
+    score_random = np.mean(rand_f1_list)
+
+    all_gt_prods = []
+    for _, r in df_norm.iterrows():
+        p1 = to_clean_set(r["GT1_p"])
+        p2 = to_clean_set(r["GT2_p"])
+        all_gt_prods.extend(list(p1) + list(p2))
+    maj_prod = pd.Series(all_gt_prods).mode()[0] if all_gt_prods else "suprasorb p sensiflex"
+
+    maj_scores = []
+    for _, r in df_norm.iterrows():
+        if evaluation_mode == "exp1":
+            s, _ = evaluate_product_match(maj_prod, "", r["GT1_p"], r["GT1_a"], False)
+        elif evaluation_mode == "exp2":
+            s, _ = evaluate_product_match(maj_prod, "", r["GT2_p"], r["GT2_a"], False)
+        else:
+            s1, _ = evaluate_product_match(maj_prod, "", r["GT1_p"], r["GT1_a"], False)
+            s2, _ = evaluate_product_match(maj_prod, "", r["GT2_p"], r["GT2_a"], False)
+            s = max(s1, s2)
+        maj_scores.append(s)
+    score_majority = np.mean(maj_scores)
+
+    inter_scores = []
+    for _, r in df_norm.iterrows():
+        s, _ = evaluate_product_match(r["GT1_p"], r["GT1_a"], r["GT2_p"], r["GT2_a"], False)
+        inter_scores.append(s)
+    score_exp_konsens = np.mean(inter_scores)
+
+    approaches = [
+        ("Zero-Shot", "Zero"),
+        ("Few-Shot", "Few"),
+        ("Two-Stage", "Two")
+    ]
+
+    plot_data = []
+
+    for label, pfx in approaches:
+        sc_u_list, sc_g_list = [], []
+        for _, r in df_norm.iterrows():
+            pred_p, pred_a = r[f"{pfx}_p"], r[f"{pfx}_a"]
+            if evaluation_mode == "exp1":
+                s_u, _ = evaluate_product_match(pred_p, pred_a, r["GT1_p"], r["GT1_a"], False)
+                s_g, _ = evaluate_product_match(pred_p, pred_a, r["GT1_p"], r["GT1_a"], True)
+            elif evaluation_mode == "exp2":
+                s_u, _ = evaluate_product_match(pred_p, pred_a, r["GT2_p"], r["GT2_a"], False)
+                s_g, _ = evaluate_product_match(pred_p, pred_a, r["GT2_p"], r["GT2_a"], True)
+            else:
+                s1_u, _ = evaluate_product_match(pred_p, pred_a, r["GT1_p"], r["GT1_a"], False)
+                s2_u, _ = evaluate_product_match(pred_p, pred_a, r["GT2_p"], r["GT2_a"], False)
+                s_u = max(s1_u, s2_u)
+
+                s1_g, _ = evaluate_product_match(pred_p, pred_a, r["GT1_p"], r["GT1_a"], True)
+                s2_g, _ = evaluate_product_match(pred_p, pred_a, r["GT2_p"], r["GT2_a"], True)
+                s_g = max(s1_g, s2_g)
+
+            sc_u_list.append(s_u)
+            sc_g_list.append(s_g)
+
+        s_u_mean = np.mean(sc_u_list)
+        s_g_mean = np.mean(sc_g_list)
+
+        plot_data.append({
+            "Ansatz": label,
+            "1. Baseline (Random)": score_random,
+            "2. Baseline (Majority)": score_majority,
+            "3. Expertenkonsens": score_exp_konsens,
+            "4. Score (ungruppiert)": s_u_mean,
+            "5. Score (gruppiert)": s_g_mean
+        })
+
+    sns.set_theme(style="whitegrid")
+    fig, ax = plt.subplots(figsize=(14, 7))
+
+    x_labels = ["Zero-Shot", "Few-Shot", "Two-Stage"]
+    bar_categories = [
+        "1. Baseline (Random)",
+        "2. Baseline (Majority)",
+        "3. Expertenkonsens",
+        "4. Score (ungruppiert)",
+        "5. Score (gruppiert)"
+    ]
+
+    colors = ["#94a3b8", "#475569", "#8b5cf6", "#f97316", "#10b981"]
+
+    x = np.arange(len(x_labels))
+    width = 0.15
+
+    for i, cat in enumerate(bar_categories):
+        values = [d[cat] for d in plot_data]
+        offset = (i - 2) * width
+        rects = ax.bar(x + offset, [v * 100 for v in values], width, label=cat, color=colors[i], edgecolor="black", linewidth=0.8)
+
+        for rect in rects:
+            height = rect.get_height()
+            ax.annotate(f"{height:.1f}%",
+                        xy=(rect.get_x() + rect.get_width() / 2, height),
+                        xytext=(0, 3),
+                        textcoords="offset points",
+                        ha='center', va='bottom', fontsize=9, fontfamily='sans-serif', fontweight='bold')
+
+    ax.set_ylabel("F1-Score (%)", fontsize=12, fontweight='bold')
+    title_mode = "Best-of-Both (Konsens)" if evaluation_mode == "best_of_both" else f"vs. {evaluation_mode.upper()}"
+    ax.set_title(f"Primärverband Evaluation: 15-Balken Vergleich pro LLM-Ansatz ({title_mode})", fontsize=14, fontweight='bold', pad=15)
+    ax.set_xticks(x)
+    ax.set_xticklabels(x_labels, fontsize=12, fontweight='bold')
+    ax.legend(title="Metriken / Balken", bbox_to_anchor=(1.02, 1), loc='upper left', frameon=True, fontsize=10)
+    ax.set_ylim(0, 85)
+
+    plt.tight_layout()
+    plt.show()
+
+
+def inspection_dropdown_primaerverband():
+    """
+    Interaktives Dropdown für Primärverband: Wundbild auswählen und gezielt
+    Präferenz- und Alternativ-Sets von Experte 1, Experte 2, Zero-Shot, Few-Shot und Two-Stage einsehen,
+    inklusive Farbcodierung (Lila, Grün, Blau, Orange, Rot) für Treffer / Abweichungen.
+    """
+    df_raw, df_norm = get_category_tables("primärverband")
+    image_ids = df_norm["image_id"].tolist()
+
+    dropdown = widgets.Dropdown(
+        options=image_ids,
+        value=image_ids[0],
+        description='Wundbild:',
+        style={'description_width': 'initial'},
+        layout=widgets.Layout(width='260px')
+    )
+
+    out = widgets.Output()
+
+    def on_change(change):
+        selected_id = change['new'] if isinstance(change, dict) else change
+        with out:
+            out.clear_output(wait=True)
+            print(f"=== PRIMÄRVERBAND EINZELINSPEKTION: {selected_id} ===")
+            show_wound_image(selected_id, width=380)
+
+            display_legend()
+
+            r_norm = df_norm[df_norm["image_id"] == selected_id].iloc[0]
+
+            inspect_rows = []
+            entries = [
+                ("Experte 1 (Ground Truth)", "GT1_p", "GT1_a", "gt1_exp"),
+                ("Experte 2 (Ground Truth)", "GT2_p", "GT2_a", "gt2_exp"),
+                ("Zero-Shot", "Zero_p", "Zero_a", "Zero-Shot"),
+                ("Few-Shot", "Few_p", "Few_a", "Few-Shot"),
+                ("Two-Stage", "Two_p", "Two_a", "Two-Stage"),
+            ]
+
+            row_colors = []
+
+            for label, p_key, a_key, mode in entries:
+                pref_val = r_norm.get(p_key, "")
+                alt_val = r_norm.get(a_key, "")
+                pref_set = to_clean_set(pref_val)
+                alt_set = to_clean_set(alt_val)
+
+                pref_fam = map_product_set(pref_set, group_by_family=True)
+                alt_fam = map_product_set(alt_set, group_by_family=True)
+
+                inspect_rows.append({
+                    "Akteur / Ansatz": label,
+                    "Präferenz-Produkt(e)": ", ".join(pref_set) if pref_set else "—",
+                    "Alternativ-Produkt(e)": ", ".join(alt_set) if alt_set else "—",
+                    "Produktfamilie (Präferenz)": ", ".join(pref_fam) if pref_fam else "—",
+                    "Produktfamilie (Alternativ)": ", ".join(alt_fam) if alt_fam else "—"
+                })
+
+                if mode == "gt1_exp":
+                    row_colors.append("background-color: #d3f9d8; color: #083e12; font-weight: bold;")
+                elif mode == "gt2_exp":
+                    row_colors.append("background-color: #d0ebff; color: #002b49; font-weight: bold;")
+                else:
+                    status = classify_row_match(r_norm, mode, "primärverband")
+                    if status == "both":
+                        row_colors.append("background-color: #eebefa; color: #360745; font-weight: bold;")
+                    elif status == "gt1":
+                        row_colors.append("background-color: #c3fae8; color: #044229; font-weight: bold;")
+                    elif status == "gt2":
+                        row_colors.append("background-color: #d0ebff; color: #002b49; font-weight: bold;")
+                    elif status == "partial":
+                        row_colors.append("background-color: #fff3bf; color: #594200; font-weight: bold;")
+                    else:
+                        row_colors.append("background-color: #ffe3e3; color: #7a0000; font-weight: bold;")
+
+            res_df = pd.DataFrame(inspect_rows)
+
+            def apply_row_styles(row):
+                idx = row.name
+                color_style = row_colors[idx]
+                return [color_style] * len(row)
+
+            styler = res_df.style.apply(apply_row_styles, axis=1)
+            styler.set_table_styles([
+                {'selector': 'th', 'props': [('background-color', '#1e293b'), ('color', '#ffffff'), ('font-weight', 'bold'), ('text-align', 'center'), ('padding', '8px')]},
+                {'selector': 'td', 'props': [('padding', '8px 12px'), ('font-size', '13px'), ('text-align', 'left')]},
+                {'selector': 'table', 'props': [('border-collapse', 'collapse'), ('width', '100%')]}
+            ])
+
+            display(HTML(styler.to_html()))
+
+    dropdown.observe(on_change, names='value')
+
+    display(dropdown)
+    display(out)
+    on_change(image_ids[0])
+
+
 def get_discrepancies(category_key=None):
-    """
-    Filtert alle Wundbeispiele heraus, bei denen mindestens ein LLM-Ansatz abweicht oder nur teilweise übereinstimmt.
-    """
     df_raw, df_norm = get_category_tables(category_key or "wundtyp")
     key = getattr(df_norm, "_category_key", category_key or "wundtyp")
     discrepant_rows = []
@@ -378,10 +782,6 @@ def get_discrepancies(category_key=None):
 
 
 def get_failed_cases(category_key=None):
-    """
-    Filtert die Wundbeispiele heraus, bei denen ALLE 3 LLM-Ansätze (Zero-Shot, Few-Shot, Two-Stage)
-    keine Übereinstimmung mit einem der Experten erzielen konnten (alle 3 auf 'none' / Rot).
-    """
     df_raw, df_norm = get_category_tables(category_key or "wundtyp")
     key = getattr(df_norm, "_category_key", category_key or "wundtyp")
     failed_rows = []

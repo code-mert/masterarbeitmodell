@@ -516,13 +516,15 @@ def evaluate_primaerverband_grouped():
 def plot_primaerverband_bar_chart(evaluation_mode="best_of_both"):
     """
     Erstellt ein Balkendiagramm für die 3 LLM-Ansätze (Zero-Shot, Few-Shot, Two-Stage).
-    Für jeden der 3 Ansätze werden genau 5 Balken in folgender Reihenfolge angezeigt:
+    Für jeden der 3 Ansätze werden 7 Balken in folgender Reihenfolge angezeigt:
       1. Baseline (Random)
       2. Baseline (Majority)
-      3. Expertenkonsens (Inter-Rater Agreement Exp 1 vs Exp 2)
-      4. Score (ungruppiert)
-      5. Score (gruppiert)
-    Insgesamt 15 Balken (3 Gruppen x 5 Balken).
+      3. Expertenkonsens (ungruppiert)
+      4. Expertenkonsens (gruppiert)
+      5. Score (ungruppiert)
+      6. Score (gruppiert)
+      7. Exact Match (gruppiert)
+    Insgesamt 21 Balken (3 Gruppen x 7 Balken).
     """
     _, df_norm = get_category_tables("primärverband")
 
@@ -573,11 +575,14 @@ def plot_primaerverband_bar_chart(evaluation_mode="best_of_both"):
         maj_scores.append(s)
     score_majority = np.mean(maj_scores)
 
-    inter_scores = []
+    inter_scores_u, inter_scores_g = [], []
     for _, r in df_norm.iterrows():
-        s, _ = evaluate_product_match(r["GT1_p"], r["GT1_a"], r["GT2_p"], r["GT2_a"], False)
-        inter_scores.append(s)
-    score_exp_konsens = np.mean(inter_scores)
+        s_u, _ = evaluate_product_match(r["GT1_p"], r["GT1_a"], r["GT2_p"], r["GT2_a"], False)
+        s_g, _ = evaluate_product_match(r["GT1_p"], r["GT1_a"], r["GT2_p"], r["GT2_a"], True)
+        inter_scores_u.append(s_u)
+        inter_scores_g.append(s_g)
+    score_exp_konsens_u = np.mean(inter_scores_u)
+    score_exp_konsens_g = np.mean(inter_scores_g)
 
     approaches = [
         ("Zero-Shot", "Zero"),
@@ -588,59 +593,66 @@ def plot_primaerverband_bar_chart(evaluation_mode="best_of_both"):
     plot_data = []
 
     for label, pfx in approaches:
-        sc_u_list, sc_g_list = [], []
+        sc_u_list, sc_g_list, ex_g_list = [], [], []
         for _, r in df_norm.iterrows():
             pred_p, pred_a = r[f"{pfx}_p"], r[f"{pfx}_a"]
             if evaluation_mode == "exp1":
                 s_u, _ = evaluate_product_match(pred_p, pred_a, r["GT1_p"], r["GT1_a"], False)
-                s_g, _ = evaluate_product_match(pred_p, pred_a, r["GT1_p"], r["GT1_a"], True)
+                s_g, ex_g = evaluate_product_match(pred_p, pred_a, r["GT1_p"], r["GT1_a"], True)
             elif evaluation_mode == "exp2":
                 s_u, _ = evaluate_product_match(pred_p, pred_a, r["GT2_p"], r["GT2_a"], False)
-                s_g, _ = evaluate_product_match(pred_p, pred_a, r["GT2_p"], r["GT2_a"], True)
+                s_g, ex_g = evaluate_product_match(pred_p, pred_a, r["GT2_p"], r["GT2_a"], True)
             else:
                 s1_u, _ = evaluate_product_match(pred_p, pred_a, r["GT1_p"], r["GT1_a"], False)
                 s2_u, _ = evaluate_product_match(pred_p, pred_a, r["GT2_p"], r["GT2_a"], False)
                 s_u = max(s1_u, s2_u)
 
-                s1_g, _ = evaluate_product_match(pred_p, pred_a, r["GT1_p"], r["GT1_a"], True)
-                s2_g, _ = evaluate_product_match(pred_p, pred_a, r["GT2_p"], r["GT2_a"], True)
+                s1_g, ex1_g = evaluate_product_match(pred_p, pred_a, r["GT1_p"], r["GT1_a"], True)
+                s2_g, ex2_g = evaluate_product_match(pred_p, pred_a, r["GT2_p"], r["GT2_a"], True)
                 s_g = max(s1_g, s2_g)
+                ex_g = max(ex1_g, ex2_g)
 
             sc_u_list.append(s_u)
             sc_g_list.append(s_g)
+            ex_g_list.append(ex_g)
 
         s_u_mean = np.mean(sc_u_list)
         s_g_mean = np.mean(sc_g_list)
+        ex_g_mean = np.mean(ex_g_list)
 
         plot_data.append({
             "Ansatz": label,
             "1. Baseline (Random)": score_random,
             "2. Baseline (Majority)": score_majority,
-            "3. Expertenkonsens": score_exp_konsens,
-            "4. Score (ungruppiert)": s_u_mean,
-            "5. Score (gruppiert)": s_g_mean
+            "3. Expertenkonsens (ungruppiert)": score_exp_konsens_u,
+            "4. Expertenkonsens (gruppiert)": score_exp_konsens_g,
+            "5. Score (ungruppiert)": s_u_mean,
+            "6. Score (gruppiert)": s_g_mean,
+            "7. Exact Match (gruppiert)": ex_g_mean
         })
 
     sns.set_theme(style="whitegrid")
-    fig, ax = plt.subplots(figsize=(14, 7))
+    fig, ax = plt.subplots(figsize=(17, 7))
 
     x_labels = ["Zero-Shot", "Few-Shot", "Two-Stage"]
     bar_categories = [
         "1. Baseline (Random)",
         "2. Baseline (Majority)",
-        "3. Expertenkonsens",
-        "4. Score (ungruppiert)",
-        "5. Score (gruppiert)"
+        "3. Expertenkonsens (ungruppiert)",
+        "4. Expertenkonsens (gruppiert)",
+        "5. Score (ungruppiert)",
+        "6. Score (gruppiert)",
+        "7. Exact Match (gruppiert)"
     ]
 
-    colors = ["#94a3b8", "#475569", "#8b5cf6", "#f97316", "#10b981"]
+    colors = ["#94a3b8", "#475569", "#8b5cf6", "#c084fc", "#f97316", "#10b981", "#06b6d4"]
 
     x = np.arange(len(x_labels))
-    width = 0.15
+    width = 0.115
 
     for i, cat in enumerate(bar_categories):
         values = [d[cat] for d in plot_data]
-        offset = (i - 2) * width
+        offset = (i - 3) * width
         rects = ax.bar(x + offset, [v * 100 for v in values], width, label=cat, color=colors[i], edgecolor="black", linewidth=0.8)
 
         for rect in rects:
@@ -649,14 +661,14 @@ def plot_primaerverband_bar_chart(evaluation_mode="best_of_both"):
                         xy=(rect.get_x() + rect.get_width() / 2, height),
                         xytext=(0, 3),
                         textcoords="offset points",
-                        ha='center', va='bottom', fontsize=9, fontfamily='sans-serif', fontweight='bold')
+                        ha='center', va='bottom', fontsize=8, fontfamily='sans-serif', fontweight='bold')
 
-    ax.set_ylabel("F1-Score (%)", fontsize=12, fontweight='bold')
+    ax.set_ylabel("Score / Rate (%)", fontsize=12, fontweight='bold')
     title_mode = "Best-of-Both (Konsens)" if evaluation_mode == "best_of_both" else f"vs. {evaluation_mode.upper()}"
-    ax.set_title(f"Primärverband Evaluation: 15-Balken Vergleich pro LLM-Ansatz ({title_mode})", fontsize=14, fontweight='bold', pad=15)
+    ax.set_title(f"Primärverband Evaluation: Metriken-Vergleich pro LLM-Ansatz ({title_mode})", fontsize=14, fontweight='bold', pad=15)
     ax.set_xticks(x)
     ax.set_xticklabels(x_labels, fontsize=12, fontweight='bold')
-    ax.legend(title="Metriken / Balken", bbox_to_anchor=(1.02, 1), loc='upper left', frameon=True, fontsize=10)
+    ax.legend(title="Metriken / Balken", bbox_to_anchor=(1.02, 1), loc='upper left', frameon=True, fontsize=9.5)
     ax.set_ylim(0, 85)
 
     plt.tight_layout()
@@ -688,8 +700,6 @@ def inspection_dropdown_primaerverband():
             out.clear_output(wait=True)
             print(f"=== PRIMÄRVERBAND EINZELINSPEKTION: {selected_id} ===")
             show_wound_image(selected_id, width=380)
-
-            display_legend()
 
             r_norm = df_norm[df_norm["image_id"] == selected_id].iloc[0]
 
@@ -859,3 +869,154 @@ def interactive_inspection(category_key=None):
 
     # Trigger initial view
     on_change(image_ids[0])
+
+
+def analyze_primaerverband_failed_cases():
+    """
+    Analysiert und visualisiert die 5 absoluten Härtefälle beim Primärverband,
+    bei denen alle 3 LLM-Ansätze (Zero-Shot, Few-Shot, Two-Stage) F1 = 0% erzielen.
+    """
+    df_raw, df_norm = get_category_tables("primärverband")
+
+    failed_ids = []
+    for _, r in df_norm.iterrows():
+        z_g1, _ = evaluate_product_match(r['Zero_p'], r['Zero_a'], r['GT1_p'], r['GT1_a'], True)
+        z_g2, _ = evaluate_product_match(r['Zero_p'], r['Zero_a'], r['GT2_p'], r['GT2_a'], True)
+        f_g1, _ = evaluate_product_match(r['Few_p'], r['Few_a'], r['GT1_p'], r['GT1_a'], True)
+        f_g2, _ = evaluate_product_match(r['Few_p'], r['Few_a'], r['GT2_p'], r['GT2_a'], True)
+        t_g1, _ = evaluate_product_match(r['Two_p'], r['Two_a'], r['GT1_p'], r['GT1_a'], True)
+        t_g2, _ = evaluate_product_match(r['Two_p'], r['Two_a'], r['GT2_p'], r['GT2_a'], True)
+
+        if max(z_g1, z_g2) == 0 and max(f_g1, f_g2) == 0 and max(t_g1, t_g2) == 0:
+            failed_ids.append(r['image_id'])
+
+    print(f"=== ABSOLUTE HÄRTEFÄLLE (PRIMÄRVERBAND): {len(failed_ids)} VON 60 WUNDBILDERN ({(len(failed_ids)/60)*100:.1f}%) ===")
+    print("Bei diesen 5 Wundbildern erzielt kein einziger LLM-Ansatz einen Treffer auf Produktfamilien-Ebene.\n")
+
+    dropdown = widgets.Dropdown(
+        options=failed_ids,
+        value=failed_ids[0],
+        description='Härtefall Wundbild:',
+        style={'description_width': 'initial'},
+        layout=widgets.Layout(width='280px')
+    )
+
+    out = widgets.Output()
+
+    def on_change(change):
+        selected_id = change['new'] if isinstance(change, dict) else change
+        with out:
+            out.clear_output(wait=True)
+            print(f"=== PRIMÄRVERBAND HÄRTEFALL: {selected_id} ===")
+            show_wound_image(selected_id, width=380)
+
+            r_norm = df_norm[df_norm["image_id"] == selected_id].iloc[0]
+
+            rows = []
+            entries = [
+                ("Experte 1 (Ground Truth)", "GT1_p", "GT1_a"),
+                ("Experte 2 (Ground Truth)", "GT2_p", "GT2_a"),
+                ("Zero-Shot", "Zero_p", "Zero_a"),
+                ("Few-Shot", "Few_p", "Few_a"),
+                ("Two-Stage", "Two_p", "Two_a"),
+            ]
+
+            for label, p_key, a_key in entries:
+                pref_set = to_clean_set(r_norm.get(p_key, ""))
+                alt_set = to_clean_set(r_norm.get(a_key, ""))
+                pref_fam = map_product_set(pref_set, group_by_family=True)
+                alt_fam = map_product_set(alt_set, group_by_family=True)
+
+                rows.append({
+                    "Akteur / Ansatz": label,
+                    "Präferenz-Produkt(e)": ", ".join(pref_set) if pref_set else "—",
+                    "Alternativ-Produkt(e)": ", ".join(alt_set) if alt_set else "—",
+                    "Produktfamilie (Präferenz)": ", ".join(pref_fam) if pref_fam else "—",
+                    "Produktfamilie (Alternativ)": ", ".join(alt_fam) if alt_fam else "—"
+                })
+
+            res_df = pd.DataFrame(rows)
+            styler = res_df.style.set_table_styles([
+                {'selector': 'th', 'props': [('background-color', '#7f1d1d'), ('color', '#ffffff'), ('font-weight', 'bold'), ('text-align', 'center'), ('padding', '8px')]},
+                {'selector': 'td', 'props': [('padding', '8px 12px'), ('font-size', '13px'), ('text-align', 'left')]},
+                {'selector': 'table', 'props': [('border-collapse', 'collapse'), ('width', '100%')]}
+            ])
+            display(HTML(styler.to_html()))
+
+    dropdown.observe(on_change, names='value')
+    display(dropdown)
+    display(out)
+    on_change(failed_ids[0])
+
+
+def plot_primaerverband_confusion_matrix(model_approach="Two-Stage", evaluation_mode="best_of_both"):
+    """
+    Erstellt eine Heatmap-Verwechslungsmatrix (Confusion Matrix) der Produktfamilien
+    zwischen den Experten-Empfehlungen und den Modell-Vorhersagen.
+    """
+    _, df_norm = get_category_tables("primärverband")
+
+    pfx_map = {"Zero-Shot": "Zero", "Few-Shot": "Few", "Two-Stage": "Two"}
+    pfx = pfx_map.get(model_approach, "Two")
+
+    main_labels = [
+        'Suprasorb P (Schaumstoff)',
+        'Suprasorb A (Alginat)',
+        'Suprasorb Liquacel (Hydrofiber)',
+        'Vliwasorb (Superabsorber)',
+        'Suprasorb X (Hydrobalance)',
+        'Solvaline / Lomatuell (Atraumatische Auflage)',
+        'Suprasorb G (Gel)',
+        'Suprasorb CNP (NPWT)'
+    ]
+
+    gt_list, pred_list = [], []
+
+    for _, r in df_norm.iterrows():
+        p_set = to_clean_set(r[f"{pfx}_p"])
+        p_fam = list(map_product_set(p_set, group_by_family=True))
+
+        g1_set = to_clean_set(r["GT1_p"])
+        g2_set = to_clean_set(r["GT2_p"])
+
+        if evaluation_mode == "exp1":
+            g_fam = list(map_product_set(g1_set, group_by_family=True))
+        elif evaluation_mode == "exp2":
+            g_fam = list(map_product_set(g2_set, group_by_family=True))
+        else:
+            g_fam = list(set(list(map_product_set(g1_set, True)) + list(map_product_set(g2_set, True))))
+
+        if not g_fam: g_fam = ["Sonstige / Keine"]
+        if not p_fam: p_fam = ["Sonstige / Keine"]
+
+        for g in g_fam:
+            g_clean = g if g in main_labels else "Sonstige / Keine"
+            for p in p_fam:
+                p_clean = p if p in main_labels else "Sonstige / Keine"
+                gt_list.append(g_clean)
+                pred_list.append(p_clean)
+
+    labels_order = [l for l in main_labels if l in gt_list or l in pred_list] + ["Sonstige / Keine"]
+
+    cm = pd.crosstab(
+        pd.Series(gt_list, name='Ground Truth (Experten)'),
+        pd.Series(pred_list, name=f'Modell ({model_approach})')
+    ).reindex(index=labels_order, columns=labels_order, fill_value=0)
+
+    sns.set_theme(style="white")
+    fig, ax = plt.subplots(figsize=(11, 8.5))
+
+    sns.heatmap(cm, annot=True, fmt='d', cmap='YlGnBu', cbar=True, ax=ax, linewidths=0.5, linecolor='gray')
+
+    title_mode = "Best-of-Both Konsens" if evaluation_mode == "best_of_both" else f"vs. {evaluation_mode.upper()}"
+    ax.set_title(f"Verwechslungsmatrix Produktfamilien (Primärverband): {model_approach} ({title_mode})", fontsize=13, fontweight='bold', pad=15)
+    ax.set_xlabel(f"Modell-Vorhersage ({model_approach})", fontsize=11, fontweight='bold')
+    ax.set_ylabel("Ground Truth (Experten-Empfehlung)", fontsize=11, fontweight='bold')
+
+    plt.xticks(rotation=45, ha='right', fontsize=9.5)
+    plt.yticks(rotation=0, fontsize=9.5)
+
+    plt.tight_layout()
+    plt.show()
+
+

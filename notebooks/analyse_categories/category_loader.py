@@ -562,18 +562,25 @@ def plot_primaerverband_bar_chart(evaluation_mode="best_of_both"):
         all_gt_prods.extend(list(p1) + list(p2))
     maj_prod = pd.Series(all_gt_prods).mode()[0] if all_gt_prods else "suprasorb p sensiflex"
 
-    maj_scores = []
+    maj_scores_u, maj_scores_g = [], []
     for _, r in df_norm.iterrows():
         if evaluation_mode == "exp1":
-            s, _ = evaluate_product_match(maj_prod, "", r["GT1_p"], r["GT1_a"], False)
+            su, _ = evaluate_product_match(maj_prod, "", r["GT1_p"], r["GT1_a"], False)
+            sg, _ = evaluate_product_match(maj_prod, "", r["GT1_p"], r["GT1_a"], True)
         elif evaluation_mode == "exp2":
-            s, _ = evaluate_product_match(maj_prod, "", r["GT2_p"], r["GT2_a"], False)
+            su, _ = evaluate_product_match(maj_prod, "", r["GT2_p"], r["GT2_a"], False)
+            sg, _ = evaluate_product_match(maj_prod, "", r["GT2_p"], r["GT2_a"], True)
         else:
-            s1, _ = evaluate_product_match(maj_prod, "", r["GT1_p"], r["GT1_a"], False)
-            s2, _ = evaluate_product_match(maj_prod, "", r["GT2_p"], r["GT2_a"], False)
-            s = max(s1, s2)
-        maj_scores.append(s)
-    score_majority = np.mean(maj_scores)
+            s1_u, _ = evaluate_product_match(maj_prod, "", r["GT1_p"], r["GT1_a"], False)
+            s2_u, _ = evaluate_product_match(maj_prod, "", r["GT2_p"], r["GT2_a"], False)
+            su = max(s1_u, s2_u)
+            s1_g, _ = evaluate_product_match(maj_prod, "", r["GT1_p"], r["GT1_a"], True)
+            s2_g, _ = evaluate_product_match(maj_prod, "", r["GT2_p"], r["GT2_a"], True)
+            sg = max(s1_g, s2_g)
+        maj_scores_u.append(su)
+        maj_scores_g.append(sg)
+    score_majority = np.mean(maj_scores_u)
+    score_majority_g = np.mean(maj_scores_g)
 
     inter_scores_u, inter_scores_g = [], []
     for _, r in df_norm.iterrows():

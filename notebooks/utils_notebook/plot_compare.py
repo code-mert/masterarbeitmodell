@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib.ticker as mtick
 
-def plot_gt_comparison(df_summary_raw: pd.DataFrame, df_summary_norm: pd.DataFrame):
+def plot_gt_comparison(df_summary_raw: pd.DataFrame, df_summary_norm: pd.DataFrame, expert_label: str = "Experte 1"):
     """
     Erstellt ein zweigeteiltes, gruppiertes Balkendiagramm, das den F1-Score/Haupt-Score 
     und die Exact-Match-Rate zwischen Phase 0 (Roh) und Phase 1 (Normalisiert) vergleicht.
@@ -105,7 +105,9 @@ def plot_gt_comparison(df_summary_raw: pd.DataFrame, df_summary_norm: pd.DataFra
     # Globale Legende und Titel
     handles, labels = axes[0].get_legend_handles_labels()
     fig.legend(handles, labels, loc="upper center", bbox_to_anchor=(0.5, 0.95), ncol=2, frameon=True, fontsize=11)
-    fig.suptitle("Visualisierter Vergleich des Gewinns: Phase 0 (Roh) vs. Phase 1 (Normalisiert)", fontsize=16, fontweight="bold", y=0.99)
+    
+    title_text = f"Visualisierter Vergleich des Gewinns ({expert_label}): Phase 0 (Roh) vs. Phase 1 (Normalisiert)" if expert_label else "Visualisierter Vergleich des Gewinns: Phase 0 (Roh) vs. Phase 1 (Normalisiert)"
+    fig.suptitle(title_text, fontsize=16, fontweight="bold", y=0.99)
     
     plt.tight_layout(rect=[0, 0, 1, 0.92])
     plt.show()

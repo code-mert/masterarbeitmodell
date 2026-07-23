@@ -83,6 +83,14 @@ class PromptAnalysis:
         maj_dict = {}
         rand_dict = {}
         
+        catalog_prods = [
+            "suprasorb a", "suprasorb a pro", "suprasorb a + ag",
+            "suprasorb p", "suprasorb p sensitive", "suprasorb p sensiflex", "suprasorb p + phmb",
+            "suprasorb x", "suprasorb x pro", "suprasorb x + phmb",
+            "suprasorb liquacel pro", "vliwasorb pro", "vliwasorb sensitive", "vliwazell pro",
+            "solvaline n", "lomatuell pro", "vliwaktiv", "vliwaktiv ag", "suprasorb cnp"
+        ]
+        
         for cat_name, gt_k, mtype in categories_config:
             if mtype == 'best_path':
                 g_p = 'praeferenz_produkt' if cat_name == 'Primärverband' else 'ergaenzende_produkte_praeferenz'
@@ -101,14 +109,15 @@ class PromptAnalysis:
                     m_scores.append(f1)
                 maj_dict[cat_name] = float(np.mean(m_scores))
                 
-                # Random
+                # Random (Gleichverteilung aus dem gesamten Produktkatalog)
                 r_runs = []
                 for _ in range(n_runs):
                     r_scores = []
                     for _, r in exp_df.iterrows():
                         gt_p = metrics.to_clean_set(r.get(g_p, ''))
                         gt_a = metrics.to_clean_set(r.get(g_a, ''))
-                        f1, _ = metrics.best_path_f1(metrics.to_clean_set(random.choice(pool)), set(), gt_p, gt_a)
+                        rand_p = random.choice(catalog_prods)
+                        f1, _ = metrics.best_path_f1(metrics.to_clean_set(rand_p), set(), gt_p, gt_a)
                         r_scores.append(f1)
                     r_runs.append(float(np.mean(r_scores)))
                 rand_dict[cat_name] = float(np.mean(r_runs))
@@ -345,7 +354,6 @@ class PromptAnalysis:
         ax.set_xlim(0.0, 1.08)
         ax.xaxis.set_major_formatter(mtick.PercentFormatter(1.0))
         ax.legend(loc='lower right', frameon=True, fontsize=10)
-
         for container in ax.containers:
             labels = [f'{v*100:.1f}%' if not pd.isna(v) and v > 0 else '0.0%' for v in container.datavalues]
             ax.bar_label(container, labels=labels, padding=2, fontsize=7.5)
@@ -353,8 +361,34 @@ class PromptAnalysis:
         plt.tight_layout()
         plt.show()
 
-    def plot_overview_groups(self):
+    def get_consensus_df(self):
+        """Erstellt den DataFrame mit Best-of-Both (Konsens) Scores aller 3 Ansätze."""
+        return pd.DataFrame({
+            'Zero-Shot': self.df_zero_cons.set_index('Kategorie')['Score / F1-Score (Mean)'],
+            'Few-Shot': self.df_few_cons.set_index('Kategorie')['Score / F1-Score (Mean)'],
+            'Two-Stage': self.df_two_cons.set_index('Kategorie')['Score / F1-Score (Mean)'],
+        })
+
+    def get_expert_df(self, expert_id: int):
+        """Erstellt den DataFrame für einen bestimmten Experten (1 oder 2) aller 3 Ansätze."""
+        if expert_id == 1:
+            return pd.DataFrame({
+                'Zero-Shot': self.df_zero_exp1.set_index('Kategorie')['Score / F1-Score (Mean)'],
+                'Few-Shot': self.df_few_exp1.set_index('Kategorie')['Score / F1-Score (Mean)'],
+                'Two-Stage': self.df_two_exp1.set_index('Kategorie')['Score / F1-Score (Mean)'],
+            })
+        else:
+            return pd.DataFrame({
+                'Zero-Shot': self.df_zero_exp2.set_index('Kategorie')['Score / F1-Score (Mean)'],
+                'Few-Shot': self.df_few_exp2.set_index('Kategorie')['Score / F1-Score (Mean)'],
+                'Two-Stage': self.df_two_exp2.set_index('Kategorie')['Score / F1-Score (Mean)'],
+            })
+
+    def plot_overview_groups(self, df_source=None, title_suffix=""):
         """Plot: Gegenüberstellung Wundbeschreibung vs. Produktempfehlungen & Gesamtergebnis."""
+        if df_source is None:
+            df_source = self.df_avg
+
         plt.close('all')
         sns.set_theme(style='whitegrid', font_scale=1.0)
         fig, axes = plt.subplots(1, 2, figsize=(20, 9), gridspec_kw={'width_ratios': [1.4, 1]})
@@ -362,8 +396,8 @@ class PromptAnalysis:
         colors = {'Zero-Shot': '#457b9d', 'Few-Shot': '#e76f51', 'Two-Stage': '#2a9d8f'}
 
         # Subplot 1: Wundbeschreibung
-        df_wund = self.df_avg.loc[self.wund_beschr_cats].copy()
-        df_wund.loc['--> Ø WUNDBESCHREIBUNG'] = self.df_avg.loc[self.wund_beschr_cats].mean()
+        df_wund = df_source.loc[self.wund_beschr_cats].copy()
+        df_wund.loc['--> Ø WUNDBESCHREIBUNG'] = df_source.loc[self.wund_beschr_cats].mean()
         df_wund_reset = df_wund.reset_index()
         idx_c = df_wund_reset.columns[0]
         df_wund_m = df_wund_reset.melt(id_vars=idx_c, var_name='Ansatz', value_name='Score').rename(columns={idx_c: 'Kategorie'})
@@ -378,9 +412,9 @@ class PromptAnalysis:
             axes[0].bar_label(c, labels=[f'{v*100:.1f}%' for v in c.datavalues], padding=3, fontsize=8.5, fontweight='bold')
 
         # Subplot 2: Produktempfehlungen & Gesamt
-        df_prod = self.df_avg.loc[self.produkt_cats].copy()
-        df_prod.loc['--> Ø PRODUKTEMPFEHLUNGEN'] = self.df_avg.loc[self.produkt_cats].mean()
-        df_prod.loc['===> Ø GESAMT (14 KAT.)'] = self.df_avg.loc[self.wund_beschr_cats + self.produkt_cats].mean()
+        df_prod = df_source.loc[self.produkt_cats].copy()
+        df_prod.loc['--> Ø PRODUKTEMPFEHLUNGEN'] = df_source.loc[self.produkt_cats].mean()
+        df_prod.loc['===> Ø GESAMT (14 KAT.)'] = df_source.loc[self.wund_beschr_cats + self.produkt_cats].mean()
         df_prod_reset = df_prod.reset_index()
         idx_cp = df_prod_reset.columns[0]
         df_prod_m = df_prod_reset.melt(id_vars=idx_cp, var_name='Ansatz', value_name='Score').rename(columns={idx_cp: 'Kategorie'})
@@ -396,10 +430,23 @@ class PromptAnalysis:
 
         axes[0].get_legend().remove()
         axes[1].legend(title='LLM Ansatz', frameon=True, facecolor='white', framealpha=0.9, fontsize=11)
-        fig.suptitle('Performance-Vergleich der 3 LLM-Ansätze (Lohmann & Rauscher Evaluierung)', fontsize=16, fontweight='bold', y=0.98)
+        
+        main_title = 'Performance-Vergleich der 3 LLM-Ansätze (Lohmann & Rauscher Evaluierung)'
+        if title_suffix:
+            main_title += f' – {title_suffix}'
+        fig.suptitle(main_title, fontsize=16, fontweight='bold', y=0.98)
 
         plt.tight_layout(rect=[0, 0, 1, 0.95])
         plt.show()
+        plt.close(fig)
+
+    def plot_overview_groups_consensus(self):
+        """Plot: Gegenüberstellung mit Best-of-Both (Konsens) Daten."""
+        self.plot_overview_groups(df_source=self.get_consensus_df(), title_suffix="Best-of-Both (Konsens)")
+
+    def plot_overview_groups_expert(self, expert_id: int):
+        """Plot: Gegenüberstellung spezifisch für Experte 1 oder Experte 2."""
+        self.plot_overview_groups(df_source=self.get_expert_df(expert_id), title_suffix=f"Experte {expert_id}")
 
     def show_summary_table(self):
         """Zeigt die Übersichtstabelle mit Prozentwerten für alle Kategorien & Gruppen an."""

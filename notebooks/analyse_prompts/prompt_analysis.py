@@ -431,7 +431,8 @@ class PromptAnalysis:
         axes[0].get_legend().remove()
         axes[1].legend(title='LLM Ansatz', frameon=True, facecolor='white', framealpha=0.9, fontsize=11)
         
-        main_title = 'Performance-Vergleich der 3 LLM-Ansätze (Lohmann & Rauscher Evaluierung)'
+        phase_str = "Phase 1: Normalisiert" if self.normalised else "Phase 0: Roh"
+        main_title = f'Performance-Vergleich der 3 LLM-Ansätze ({phase_str})'
         if title_suffix:
             main_title += f' – {title_suffix}'
         fig.suptitle(main_title, fontsize=16, fontweight='bold', y=0.98)
@@ -455,3 +456,113 @@ class PromptAnalysis:
         df_summary.loc['--- Ø PRODUKTEMPFEHLUNGEN ---'] = self.df_avg.loc[self.produkt_cats].mean()
         df_summary.loc['=== Ø GESAMTDURCHSCHNITT ==='] = self.df_avg.loc[self.wund_beschr_cats + self.produkt_cats].mean()
         display(df_summary.map(lambda x: f"{x*100:.1f}%"))
+
+    def plot_word_count_analysis(self):
+        """
+        Analysiert und visualisiert die Textlänge (Wortanzahl) und Token-Effizienz
+        der 3 Prompting-Ansätze (Zero-Shot, Few-Shot, Two-Stage CoT).
+        """
+        raw_files = {
+            'Zero-Shot': load_csv(ZERO_RAW),
+            'Few-Shot': load_csv(FEW_RAW),
+            'Two-Stage': load_csv(TWO_RAW)
+        }
+
+        # 1. Wortanzahl pro Zeile (Wundbild) berechnen
+        word_counts = {}
+        for ansatz, df in raw_files.items():
+            if df.empty:
+                continue
+            
+            # Alle Spalten außer image_id für Wortzählung verwenden
+            cols = [c for c in df.columns if c != 'image_id']
+            
+            # Gesamtwortanzahl pro Wundbild
+            total_words_per_row = df[cols].apply(
+                lambda row: sum(len(str(val).split()) for val in row if str(val).strip() not in ['', '[]', '—', 'nan', 'None']),
+                axis=1
+            )
+            word_counts[ansatz] = total_words_per_row
+
+        # Durchschnittliche Wortanzahl pro Wundbild
+        avg_words_per_image = {ansatz: word_counts[ansatz].mean() for ansatz in word_counts}
+        
+        # 2. Design Setup
+        plt.close('all')
+        sns.set_theme(style='whitegrid', font_scale=1.0)
+        fig, axes = plt.subplots(1, 2, figsize=(18, 7), gridspec_kw={'width_ratios': [1.2, 1.0]})
+
+        colors = {'Zero-Shot': '#457b9d', 'Few-Shot': '#e76f51', 'Two-Stage': '#2a9d8f'}
+
+        # Subplot 1: Durchschnittliche Wortanzahl pro Wundbild
+        df_words_img = pd.DataFrame({
+            'Ansatz': list(avg_words_per_image.keys()),
+            'Ø Wörter pro Wundbild': list(avg_words_per_image.values())
+        })
+
+        sns.barplot(
+            data=df_words_img,
+            x='Ansatz',
+            y='Ø Wörter pro Wundbild',
+            palette=colors,
+            ax=axes[0],
+            edgecolor='black',
+            linewidth=0.8
+        )
+        axes[0].set_title('Durchschnittliche Textlänge (Wortanzahl pro Wundbild)', fontsize=13, fontweight='bold', pad=12)
+        axes[0].set_xlabel('Prompting-Ansatz', fontsize=11, labelpad=8)
+        axes[0].set_ylabel('Ø Anzahl Wörter', fontsize=11)
+        
+        max_words = max(avg_words_per_image.values()) if avg_words_per_image else 100
+        axes[0].set_ylim(0, max_words * 1.2)
+
+        for container in axes[0].containers:
+            labels = [f'{v:.1f} Wörter' for v in container.datavalues]
+            axes[0].bar_label(container, labels=labels, padding=4, fontsize=10, fontweight='bold')
+
+        # Subplot 2: Effizienz-Index (Score / Wortanzahl)
+        cons_df = self.get_consensus_df()
+        overall_scores = {
+            'Zero-Shot': cons_df['Zero-Shot'].mean() * 100,
+            'Few-Shot': cons_df['Few-Shot'].mean() * 100,
+            'Two-Stage': cons_df['Two-Stage'].mean() * 100
+        }
+
+        efficiency_data = []
+        for ansatz in avg_words_per_image:
+            score = overall_scores.get(ansatz, 0.0)
+            words = avg_words_per_image.get(ansatz, 1.0)
+            eff_idx = (score / words) if words > 0 else 0
+            efficiency_data.append({
+                'Ansatz': ansatz,
+                'F1-Score (%)': score,
+                'Ø Wörter': words,
+                'Effizienz (Score / Wörter)': eff_idx
+            })
+
+        df_eff = pd.DataFrame(efficiency_data)
+
+        sns.barplot(
+            data=df_eff,
+            x='Ansatz',
+            y='Effizienz (Score / Wörter)',
+            palette=colors,
+            ax=axes[1],
+            edgecolor='black',
+            linewidth=0.8
+        )
+        axes[1].set_title('Token-Effizienz (F1-Score % dividiert durch Wortanzahl)', fontsize=13, fontweight='bold', pad=12)
+        axes[1].set_xlabel('Prompting-Ansatz', fontsize=11, labelpad=8)
+        axes[1].set_ylabel('Effizienz-Index (F1% / Wort)', fontsize=11)
+
+        max_eff = df_eff['Effizienz (Score / Wörter)'].max() if not df_eff.empty else 1.0
+        axes[1].set_ylim(0, max_eff * 1.25)
+
+        for container in axes[1].containers:
+            labels = [f'{v:.2f}' for v in container.datavalues]
+            axes[1].bar_label(container, labels=labels, padding=4, fontsize=10, fontweight='bold')
+
+        fig.suptitle('Textlängen- & Effizienzanalyse der 3 Prompting-Ansätze', fontsize=16, fontweight='bold', y=0.98)
+        plt.tight_layout(rect=[0, 0, 1, 0.95])
+        plt.show()
+        plt.close(fig)

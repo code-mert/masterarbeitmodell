@@ -710,3 +710,133 @@ def evaluate_baselines_dual(
         evaluator.gt2 = gt2_path_or_dict if isinstance(gt2_path_or_dict, dict) else None
         
     return evaluator.run_evaluation(llm_path_or_dict, n_runs=n_runs, seed=seed, filter_non_catalog=filter_non_catalog)
+
+
+def calc_baselines_with_exact(exp_df: pd.DataFrame, n_runs: int = 100, seed: int = 42, return_dicts: bool = False) -> Any:
+    """
+    Berechnet Macro-F1 und Exact Match für Random- und Majority-Baselines über alle 15 Kategorien.
+    
+    Returns:
+        Wenn return_dicts=False: (rand_f1_mean, rand_exact_mean, maj_f1_mean, maj_exact_mean)
+        Wenn return_dicts=True:  (rand_f1_dict, rand_ex_dict, maj_f1_dict, maj_ex_dict)
+    """
+    from utils_notebook import metrics as nb_metrics
+    
+    random.seed(seed)
+    np.random.seed(seed)
+    
+    categories_config = [
+        ('Wundtyp', 'wundtyp', 'exact'),
+        ('Lokalisation', 'lokalisation', 'exact'),
+        ('Wundstadium', 'wundstadium', 'checklist'),
+        ('Wundgrund', 'wundgrund', 'checklist'),
+        ('Wundrand', 'wundrand', 'checklist'),
+        ('Wundumgebung', 'wundumgebung', 'checklist'),
+        ('Exsudat', 'exsudat', 'ordinal'),
+        ('Infektionsverdacht', 'infektion', 'exact'),
+        ('Spüllösung', 'spuelloesung', 'exact'),
+        ('Debridement notwendig', 'debridement_notwendig', 'exact'),
+        ('Debridement Methode', 'debridement', 'checklist'),
+        ('Primärverband', 'primaerverband', 'best_path'),
+        ('Sekundärverband', 'sekundaerverband', 'best_path'),
+        ('Kompression indiziert', 'kompression_indiziert', 'exact'),
+        ('Kompression Produkt', 'kompression_produkte', 'checklist')
+    ]
+    
+    catalog_prods = [
+        "suprasorb a", "suprasorb a pro", "suprasorb a + ag",
+        "suprasorb p", "suprasorb p sensitive", "suprasorb p sensiflex", "suprasorb p + phmb",
+        "suprasorb x", "suprasorb x pro", "suprasorb x + phmb",
+        "suprasorb liquacel pro", "vliwasorb pro", "vliwasorb sensitive", "vliwazell pro",
+        "solvaline n", "lomatuell pro", "vliwaktiv", "vliwaktiv ag", "suprasorb cnp"
+    ]
+    
+    maj_f1_dict, maj_ex_dict = {}, {}
+    rand_f1_dict, rand_ex_dict = {}, {}
+    
+    for cat_name, gt_k, mtype in categories_config:
+        if mtype == 'best_path':
+            g_p = 'praeferenz_produkt' if cat_name == 'Primärverband' else 'ergaenzende_produkte_praeferenz'
+            g_a = 'alternative_produkt' if cat_name == 'Primärverband' else 'ergaenzende_produkte_alternativ'
+            
+            pool = [x for x in exp_df[g_p].dropna().tolist() if str(x).strip() not in ['', '[]', '—']]
+            if not pool: pool = ['suprasorb p']
+            maj_pref = pd.Series(pool).value_counts().index[0] if len(pool) > 0 else ''
+            
+            # Majority
+            m_scores, m_exacts = [], []
+            for _, r in exp_df.iterrows():
+                gt_p = nb_metrics.to_clean_set(r.get(g_p, ''))
+                gt_a = nb_metrics.to_clean_set(r.get(g_a, ''))
+                f1, exact = nb_metrics.best_path_f1(nb_metrics.to_clean_set(maj_pref), set(), gt_p, gt_a)
+                m_scores.append(f1)
+                m_exacts.append(1.0 if exact else 0.0)
+            maj_f1_dict[cat_name] = float(np.mean(m_scores))
+            maj_ex_dict[cat_name] = float(np.mean(m_exacts))
+            
+            # Random
+            r_f1_runs, r_ex_runs = [], []
+            for _ in range(n_runs):
+                r_scores, r_exacts = [], []
+                for _, r in exp_df.iterrows():
+                    gt_p = nb_metrics.to_clean_set(r.get(g_p, ''))
+                    gt_a = nb_metrics.to_clean_set(r.get(g_a, ''))
+                    rand_p = random.choice(catalog_prods)
+                    f1, exact = nb_metrics.best_path_f1(nb_metrics.to_clean_set(rand_p), set(), gt_p, gt_a)
+                    r_scores.append(f1)
+                    r_exacts.append(1.0 if exact else 0.0)
+                r_f1_runs.append(float(np.mean(r_scores)))
+                r_ex_runs.append(float(np.mean(r_exacts)))
+            rand_f1_dict[cat_name] = float(np.mean(r_f1_runs))
+            rand_ex_dict[cat_name] = float(np.mean(r_ex_runs))
+        else:
+            pool = [x for x in exp_df[gt_k].dropna().tolist() if str(x).strip() not in ['', '[]', '—']]
+            if not pool: pool = ['nein']
+            maj_val = pd.Series(pool).value_counts().index[0] if len(pool) > 0 else ''
+            
+            # Majority
+            m_scores, m_exacts = [], []
+            for _, r in exp_df.iterrows():
+                gt_v = r.get(gt_k, '')
+                if mtype == 'exact':
+                    s = nb_metrics.score_exact(gt_v, maj_val)
+                    e = s
+                elif mtype == 'ordinal':
+                    s, e = nb_metrics.score_ordinal('exsudat', gt_v, maj_val)
+                elif mtype == 'checklist':
+                    s, e = nb_metrics.evaluate_checklist(gt_v, maj_val)
+                m_scores.append(s)
+                m_exacts.append(e)
+            maj_f1_dict[cat_name] = float(np.mean(m_scores))
+            maj_ex_dict[cat_name] = float(np.mean(m_exacts))
+            
+            # Random
+            r_f1_runs, r_ex_runs = [], []
+            for _ in range(n_runs):
+                r_scores, r_exacts = [], []
+                for _, r in exp_df.iterrows():
+                    gt_v = r.get(gt_k, '')
+                    rand_v = random.choice(pool)
+                    if mtype == 'exact':
+                        s = nb_metrics.score_exact(gt_v, rand_v)
+                        e = s
+                    elif mtype == 'ordinal':
+                        s, e = nb_metrics.score_ordinal('exsudat', gt_v, rand_v)
+                    elif mtype == 'checklist':
+                        s, e = nb_metrics.evaluate_checklist(gt_v, rand_v)
+                    r_scores.append(s)
+                    r_exacts.append(e)
+                r_f1_runs.append(float(np.mean(r_scores)))
+                r_ex_runs.append(float(np.mean(r_exacts)))
+            rand_f1_dict[cat_name] = float(np.mean(r_f1_runs))
+            rand_ex_dict[cat_name] = float(np.mean(r_ex_runs))
+
+    if return_dicts:
+        return rand_f1_dict, rand_ex_dict, maj_f1_dict, maj_ex_dict
+
+    return (
+        float(pd.Series(rand_f1_dict).mean()), float(pd.Series(rand_ex_dict).mean()),
+        float(pd.Series(maj_f1_dict).mean()), float(pd.Series(maj_ex_dict).mean())
+    )
+
+

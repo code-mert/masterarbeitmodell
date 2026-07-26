@@ -729,7 +729,6 @@ def calc_baselines_with_exact(exp_df: pd.DataFrame, n_runs: int = 100, seed: int
         ('Wundtyp', 'wundtyp', 'exact'),
         ('Lokalisation', 'lokalisation', 'exact'),
         ('Wundstadium', 'wundstadium', 'checklist'),
-        ('Wundgrund', 'wundgrund', 'checklist'),
         ('Wundrand', 'wundrand', 'checklist'),
         ('Wundumgebung', 'wundumgebung', 'checklist'),
         ('Exsudat', 'exsudat', 'ordinal'),

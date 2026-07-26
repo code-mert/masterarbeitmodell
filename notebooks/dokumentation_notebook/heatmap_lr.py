@@ -42,7 +42,7 @@ def plot_results_heatmap_LR(
     
     # 1. Clusters & Kategorien definieren
     clusters = [
-        ("Wundcharakterisierung", ["Wundtyp", "Lokalisation", "Wundstadium", "Wundgrund", "Wundrand", "Wundumgebung", "Exsudat"]),
+        ("Wundcharakterisierung", ["Wundtyp", "Lokalisation", "Wundstadium", "Wundrand", "Wundumgebung", "Exsudat"]),
         ("Debridement & Reinigung", ["Debridement notwendig", "Debridement Methode", "Infektionsverdacht", "Spüllösung"]),
         ("Verband", ["Primärverband", "Sekundärverband"]),
         ("Kompression", ["Kompression indiziert", "Kompression Produkt"])
@@ -184,8 +184,8 @@ def plot_results_heatmap_LR(
         
     # Y-Achsen Labels nur links (ax_base) anzeigen, bei den anderen ausblenden
     ax_base.set_yticklabels(row_labels + ["Macro-Ø"], rotation=0, fontsize=10)
-    ax_base.get_yticklabels()[15].set_weight("bold")
-    ax_base.get_yticklabels()[15].set_color("#1d3557")
+    ax_base.get_yticklabels()[14].set_weight("bold")
+    ax_base.get_yticklabels()[14].set_color("#1d3557")
     
     ax_llm.yaxis.set_visible(False)
     ax_ref.yaxis.set_visible(False)
@@ -195,11 +195,11 @@ def plot_results_heatmap_LR(
     
     for ax_sub, num_cols in [(ax_base, 2), (ax_llm, 3), (ax_ref, 1)]:
         # Trennlinie über Macro-Ø
-        ax_sub.axhline(15, color="#111111", linewidth=1.8)
+        ax_sub.axhline(14, color="#111111", linewidth=1.8)
         
         # Cluster-Trennlinien
         for c_name, (start_idx, end_idx) in cluster_ranges.items():
-            if end_idx < 15:
+            if end_idx < 14:
                 ax_sub.axhline(end_idx, color="#888888", linestyle="-", linewidth=0.8)
 
         # Highlight-Rahmen für Verband-Cluster

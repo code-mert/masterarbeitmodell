@@ -66,7 +66,6 @@ class PromptAnalysis:
             ('Wundtyp', 'wundtyp', 'exact'),
             ('Lokalisation', 'lokalisation', 'exact'),
             ('Wundstadium', 'wundstadium', 'checklist'),
-            ('Wundgrund', 'wundgrund', 'checklist'),
             ('Wundrand', 'wundrand', 'checklist'),
             ('Wundumgebung', 'wundumgebung', 'checklist'),
             ('Exsudat', 'exsudat', 'ordinal'),
@@ -566,3 +565,126 @@ class PromptAnalysis:
         plt.tight_layout(rect=[0, 0, 1, 0.95])
         plt.show()
         plt.close(fig)
+
+    def plot_description_treatment_correlation(self, expert_id: int = 2):
+        """
+        Berechnet und visualisiert die Spearman-Korrelation zwischen Wundbeschreibung
+        und Wundbehandlung für die 3 Prompting-Ansätze (Referenz: Experte 2).
+        Wundbehandlung wird ohne Sekundärverband und Kompression Produkt berechnet.
+        """
+        from scipy.stats import spearmanr
+        from utils_notebook.LR_utils_notebook.metrics_LR import get_score
+        from utils_notebook.LR_utils_notebook.compare_LR import parse_cell_value
+        from utils_notebook import metrics, clean
+        
+        path_gt = GT2_PATH if expert_id == 2 else GT1_PATH
+
+        df_gt = load_csv(path_gt)
+        df_zero = load_csv(ZERO_NORM if self.normalised else ZERO_RAW)
+        df_few = load_csv(FEW_NORM if self.normalised else FEW_RAW)
+        df_two = load_csv(TWO_NORM if self.normalised else TWO_RAW)
+
+        for df in [df_gt, df_zero, df_few, df_two]:
+            if not df.empty and "image_id" in df.columns:
+                df["image_id"] = df["image_id"].apply(normalize_image_id)
+
+        all_ids = sorted(df_gt["image_id"].dropna().unique().tolist())
+        wb_cats = self.wund_beschr_cats
+        bh_cats = [c for c in self.produkt_cats if c not in ['Sekundärverband', 'Kompression Produkt']]
+
+        def _get_image_scores(df_llm):
+            x_list, y_list = [], []
+            for img_id in all_ids:
+                gt_sub = df_gt[df_gt["image_id"] == img_id]
+                llm_sub = df_llm[df_llm["image_id"] == img_id]
+                if gt_sub.empty or llm_sub.empty:
+                    continue
+                gt_row = gt_sub.iloc[0].to_dict()
+                llm_row = llm_sub.iloc[0].to_dict()
+
+                s_wb = []
+                for cat in wb_cats:
+                    if cat == "Wundtyp":
+                        s = get_score(cat, parse_cell_value(gt_row.get("wundtyp")), parse_cell_value(llm_row.get("wundtyp")), raw_flag=(not self.normalised))
+                    elif cat == "Lokalisation":
+                        s = get_score(cat, parse_cell_value(gt_row.get("lokalisation")), parse_cell_value(llm_row.get("lokalisation")), raw_flag=(not self.normalised))
+                    elif cat == "Wundstadium":
+                        s = get_score(cat, parse_cell_value(gt_row.get("wundstadium")), parse_cell_value(llm_row.get("wundstadium")), raw_flag=(not self.normalised))
+                    elif cat == "Wundrand":
+                        s = get_score(cat, parse_cell_value(gt_row.get("wundrand")), parse_cell_value(llm_row.get("wundrand")), raw_flag=(not self.normalised))
+                    elif cat == "Wundumgebung":
+                        s = get_score(cat, parse_cell_value(gt_row.get("wundumgebung")), parse_cell_value(llm_row.get("wundumgebung")), raw_flag=(not self.normalised))
+                    elif cat == "Exsudat":
+                        s = get_score(cat, parse_cell_value(gt_row.get("exsudat")), parse_cell_value(llm_row.get("exsudat_menge")), raw_flag=(not self.normalised))
+                    elif cat == "Debridement notwendig":
+                        s = get_score(cat, parse_cell_value(gt_row.get("debridement_notwendig")), parse_cell_value(llm_row.get("debridement_notwendig")), raw_flag=(not self.normalised))
+                    elif cat == "Infektionsverdacht":
+                        s = get_score(cat, parse_cell_value(gt_row.get("infektion")), parse_cell_value(llm_row.get("infektion_vorhanden")), raw_flag=(not self.normalised))
+                    elif cat == "Spüllösung":
+                        s = get_score(cat, parse_cell_value(gt_row.get("spuelloesung")), parse_cell_value(llm_row.get("spuelloesung")), raw_flag=(not self.normalised))
+                    elif cat == "Kompression indiziert":
+                        s = get_score(cat, parse_cell_value(gt_row.get("kompression_indiziert")), parse_cell_value(llm_row.get("kompression_indiziert")), raw_flag=(not self.normalised))
+                    s_wb.append(s)
+
+                s_bh = []
+                for cat in bh_cats:
+                    if cat == "Debridement Methode":
+                        s = get_score(cat, parse_cell_value(gt_row.get("debridement")), parse_cell_value(llm_row.get("debridement_methode")), raw_flag=(not self.normalised))
+                    elif cat == "Primärverband":
+                        gt_p, gt_a = parse_cell_value(gt_row.get("praeferenz_produkt")), parse_cell_value(gt_row.get("alternative_produkt"))
+                        llm_p, llm_a = parse_cell_value(llm_row.get("praeferenz_wundauflage")), parse_cell_value(llm_row.get("alternativ_wundauflage"))
+                        s, _ = metrics.best_path_f1(metrics.to_clean_set(clean.clean_whitespace(llm_p)), metrics.to_clean_set(clean.clean_whitespace(llm_a)), metrics.to_clean_set(clean.clean_whitespace(gt_p)), metrics.to_clean_set(clean.clean_whitespace(gt_a)))
+                    s_bh.append(s)
+
+                x_list.append(np.mean(s_wb))
+                y_list.append(np.mean(s_bh))
+
+            return np.array(x_list), np.array(y_list)
+
+        approaches = [
+            ("Zero-Shot", df_zero, '#457b9d'),
+            ("Few-Shot", df_few, '#e76f51'),
+            ("Two-Stage", df_two, '#2a9d8f')
+        ]
+
+        table_rows = []
+        scores_dict = {}
+
+        for name, df_m, color in approaches:
+            x, y = _get_image_scores(df_m)
+            rho, p = spearmanr(x, y)
+            table_rows.append({
+                "Ansatz": name if name != "Two-Stage" else "2-Stage CoT",
+                "ρ": f"{rho:.3f}",
+                "p": f"{p:.3f}"
+            })
+            scores_dict[name] = (x, y, rho, p)
+
+        df_table = pd.DataFrame(table_rows)
+        display(df_table)
+
+        sns.set_theme(style="whitegrid")
+        fig, axes = plt.subplots(1, 3, figsize=(18, 5.5), dpi=300)
+
+        for idx, (name, df_m, color) in enumerate(approaches):
+            ax = axes[idx]
+            x, y, rho, p = scores_dict[name]
+            label_name = name if name != "Two-Stage" else "2-Stage CoT"
+
+            ax.scatter(x, y, color=color, alpha=0.75, s=50, edgecolors='black', linewidth=0.5)
+            sns.regplot(x=x, y=y, ax=ax, scatter=False, color='#264653', line_kws={'linewidth': 1.8, 'linestyle': '--'})
+
+            ax.set_xlim(0.0, 1.0)
+            ax.set_ylim(0.0, 1.0)
+            ax.set_title(f"{label_name} (Experte {expert_id})", fontsize=13, fontweight='bold', pad=12)
+            ax.set_xlabel("beschreibung_score", fontsize=11)
+            ax.set_ylabel("behandlung_score", fontsize=11)
+
+            ax.text(0.05, 0.88, f"$\\rho = {rho:.3f}$\n$p = {p:.3f}$", transform=ax.transAxes,
+                    fontsize=11, fontweight='bold', bbox=dict(boxstyle='round,pad=0.5', facecolor='white', alpha=0.9, edgecolor='gray'))
+
+        plt.tight_layout()
+        plt.show()
+        plt.close(fig)
+        return df_table
+

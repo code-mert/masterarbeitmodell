@@ -113,8 +113,8 @@ OUTPUT_SCHEMA = {
         "spuelloesung": {
             "type": "string",
             "enum": [
-                "Neutrale Spüllösung (NaCl, Ringer)",
-                "Antimikrobielle Spüllösung (PHMB, Octenisept)",
+                "Neutrale Spüllösung (NaCl 0,9 % / Ringer-Lösung)",
+                "Antimikrobielle Spüllösung (PHMB / Octenidin / Hypochlorit)",
                 ""
             ],
             "description": "Empfohlene Spüllösung. Leer lassen wenn nicht indiziert."
@@ -141,7 +141,7 @@ OUTPUT_SCHEMA = {
                     "Wähle nur so viele Verbandsklassen aus wie für das Behandlungsset nötig sind. "
                     "WICHTIG – diese Felder NICHT hier eintragen (sie haben eigene Felder im Schema): "
                     "Antimikrobielle Agenzien (Silber, PHMB, Manuka etc.) → 'antimikrobielles_agens' "
-                    "Sekundärverband / Fixierung (Fixiervlies, Binden) → 'sekundaerverband_fixierung' "
+                    "Sekundärverband / Fixierung (Fixiervlies, Binden, Saugkompressen/Polsterung) → 'sekundaerverband_fixierung' "
                     "Hautschutz (Barrierespray, Zinksalbe) → 'wundrand_hautschutz'. "
                     "Wähle die passende(n) Klasse(n) als exakte(n) String(s) aus den im bereitgestellten Wundversorgungs-Katalog (<product_catalog>) unter 'Primärverbände' aufgelisteten Optionen. "
                     "Nutze exakt die Schreibweise aus dem Katalog. Falls keine passt: konkreten Freitext direkt als String eintragen."

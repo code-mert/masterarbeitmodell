@@ -216,11 +216,11 @@ def map_csv_to_schema(gt_record: dict, mode: str = "standard") -> dict:
         }
 
 
-DEFAULT_FEW_SHOT_EXAMPLE_IDS = ["wunde_04", "wunde_18"]
+DEFAULT_FEW_SHOT_EXAMPLE_IDS = ["wunde_18", "wunde_28"]
 
 
 def find_image_path(image_id: str, image_dir: Path = Path("data/wundbilder")) -> Path:
-    """Findet die Bilddatei für eine gegebenen Image ID (z.B. wunde_04 -> Bild4.jpg)."""
+    """Findet die Bilddatei für eine gegebenen Image ID (z.B. wunde_18 -> Bild18.jpg)."""
     import re
     match = re.search(r"\d+", image_id)
     if match:
@@ -234,7 +234,7 @@ def find_image_path(image_id: str, image_dir: Path = Path("data/wundbilder")) ->
 
 def get_default_few_shot_examples(mode: str = "standard", example_ids: list = None) -> list:
     """
-    Lädt automatisch die 2 prägnanten Few-Shot-Beispiele (wunde_04 und wunde_18)
+    Lädt automatisch die 2 prägnanten Few-Shot-Beispiele (wunde_18 und wunde_28)
     inklusive ihrer Ground-Truth-Daten und Bildpfade.
     """
     from eval.loaders import load_ground_truth

@@ -1,6 +1,6 @@
 # Generischer Wundversorgungs-Produktkatalog – Produktliste
 
-**Anzahl Produktklassen:** 31
+**Anzahl Produktklassen:** 32
 
 ---
 
@@ -9,24 +9,25 @@
 2. Antimikrobielle Spüllösung (PHMB / Octenidin / Hypochlorit)
 
 ## Débridement-Methoden
-3. Autolytisches Débridement – Hydrogel
-4. Mechanisches Débridement – Monofilament-Pad / feuchte Kompresse
-5. Chirurgisches / Scharfes Débridement
+3. Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)
+4. Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)
+5. Chirurgisch/Scharf (Skalpell, Kürette)
+6. Enzymatisch (Kollagenase)
 
 ## Primärverbände
-6. Schaumstoffverbände (Foam)
-7. Alginate
-8. Hydrofaser / Hydrofiber
-9. Hydrokolloide
-10. Hydrogele (Kompresse)
-11. Semipermeable Filme
-12. Wundkontaktschichten (Silikon/Paraffin)
-13. Superabsorber
-14. Aktivkohleverband
+7. Schaumstoffverbände (Foam)
+8. Alginate
+9. Hydrofaser / Hydrofiber
+10. Hydrokolloide
+11. Hydrogele (Kompresse)
+12. Semipermeable Filme
+13. Wundkontaktschichten (Silikon/Paraffin)
+14. Superabsorber
+15. Aktivkohleverband
 
 ## Antimikrobielle Verbände
-15. Silber (Ag+)
-16. PHMB (Polyhexanid)
+16. Silber (Ag+)
+17. PHMB (Polyhexanid)
 18. Octenidin
 19. Medizinischer Honig (Manuka)
 20. Aktivkohle mit Silber
@@ -35,15 +36,16 @@
 21. Fixiervlies / -pflaster
 22. Elastische Fixierbinden
 23. Schlauchverbände
+24. Sterile Saugkompressen / Polsterung
 
 ## Wundrand- / Hautschutz
-24. Hautschutzfilm / Barrierespray
-25. Zinksalbe / Zinkpaste
-26. Wundrandschutzpaste
+25. Hautschutzfilm / Barrierespray
+26. Zinksalbe / Zinkpaste
+27. Wundrandschutzpaste
 
 ## Kompressionstherapie
-27. Kurzzugbinden
-28. Langzugbinden
-29. Mehrkomponentensysteme (2- / 4-Lagen)
-30. Kompressionsstrümpfe (Klasse I–IV)
-31. Adaptive Kompressionsbandage (Wrap)
+28. Kurzzugbinden
+29. Langzugbinden
+30. Mehrkomponentensysteme (2- / 4-Lagen)
+31. Kompressionsstrümpfe (Klasse I–IV)
+32. Adaptive Kompressionsbandage (Wrap)

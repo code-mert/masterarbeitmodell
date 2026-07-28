@@ -16,6 +16,10 @@ try:
         SEKUNDAERVERBAND_GT_MAPPING,
         PRODUKT_GT_MAPPING,
         DEBRIDEMENT_GT_MAPPING,
+        SPUELLOESUNG_GT_MAPPING,
+        ANTIMIKROBIELL_GT_MAPPING,
+        HAUTSCHUTZ_GT_MAPPING,
+        KOMPRESSION_GT_MAPPING,
         LOKALISATION_KEYWORDS
     )
 except ImportError:
@@ -27,6 +31,10 @@ except ImportError:
         SEKUNDAERVERBAND_GT_MAPPING,
         PRODUKT_GT_MAPPING,
         DEBRIDEMENT_GT_MAPPING,
+        SPUELLOESUNG_GT_MAPPING,
+        ANTIMIKROBIELL_GT_MAPPING,
+        HAUTSCHUTZ_GT_MAPPING,
+        KOMPRESSION_GT_MAPPING,
         LOKALISATION_KEYWORDS
     )
 
@@ -226,10 +234,7 @@ def normalise_by_mapping(val, mapping_dict):
             flat.extend([clean_whitespace(p) for p in split_by_delimiters_outside_parentheses(x)])
         return flat
 
-    if is_json:
-        items_flat = items
-    else:
-        items_flat = flatten_items(items)
+    items_flat = flatten_items(items)
     
     # Check if the entire group of items matches a key in mapping_dict (case-insensitive, order-independent)
     for k, v in mapping_dict.items():
@@ -308,6 +313,34 @@ def normalise_debridement(val):
     Normalisiert Débridement basierend auf DEBRIDEMENT_GT_MAPPING.
     """
     return normalise_by_mapping(val, DEBRIDEMENT_GT_MAPPING)
+
+
+def normalise_spuelloesung(val):
+    """
+    Normalisiert Spüllösungen basierend auf SPUELLOESUNG_GT_MAPPING.
+    """
+    return normalise_by_mapping(val, SPUELLOESUNG_GT_MAPPING)
+
+
+def normalise_antimikrobiell(val):
+    """
+    Normalisiert antimikrobielle Agenzien basierend auf ANTIMIKROBIELL_GT_MAPPING.
+    """
+    return normalise_by_mapping(val, ANTIMIKROBIELL_GT_MAPPING)
+
+
+def normalise_hautschutz(val):
+    """
+    Normalisiert Hautschutz basierend auf HAUTSCHUTZ_GT_MAPPING.
+    """
+    return normalise_by_mapping(val, HAUTSCHUTZ_GT_MAPPING)
+
+
+def normalise_kompression(val):
+    """
+    Normalisiert Kompressionsprodukte basierend auf KOMPRESSION_GT_MAPPING.
+    """
+    return normalise_by_mapping(val, KOMPRESSION_GT_MAPPING)
 
 
 def merge_wundtyp_sonstiges(wundtyp_val, sonstiges_val):
@@ -419,6 +452,18 @@ def normalize_gt_file(input_path: str, output_path: str):
         
     if 'debridement' in df_cleaned.columns:
         df_cleaned['debridement'] = df_cleaned['debridement'].apply(normalise_debridement)
+
+    if 'spuelloesung' in df_cleaned.columns:
+        df_cleaned['spuelloesung'] = df_cleaned['spuelloesung'].apply(normalise_spuelloesung)
+
+    if 'antimikrobielles_agens' in df_cleaned.columns:
+        df_cleaned['antimikrobielles_agens'] = df_cleaned['antimikrobielles_agens'].apply(normalise_antimikrobiell)
+
+    if 'hautschutz' in df_cleaned.columns:
+        df_cleaned['hautschutz'] = df_cleaned['hautschutz'].apply(normalise_hautschutz)
+
+    if 'kompression_produkte' in df_cleaned.columns:
+        df_cleaned['kompression_produkte'] = df_cleaned['kompression_produkte'].apply(normalise_kompression)
         
     output_file.parent.mkdir(parents=True, exist_ok=True)
     df_cleaned.to_csv(output_file, index=False)

@@ -110,7 +110,10 @@ def plot_gt_comparison(df_summary_raw: pd.DataFrame, df_summary_norm: pd.DataFra
     fig.suptitle(title_text, fontsize=16, fontweight="bold", y=0.99)
     
     plt.tight_layout(rect=[0, 0, 1, 0.92])
-    plt.show()
+    try:
+        plt.show()
+    except Exception:
+        pass
     plt.close(fig)
 
 

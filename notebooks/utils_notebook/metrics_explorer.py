@@ -37,9 +37,6 @@ COLUMN_MAPPING = {
     "wundtyp_spezifikation": "wundtyp_spezifizierung",
     "auffaelligkeiten": "weitere_auffaelligkeiten",
     "einschraenkungen": "einschraenkungen_annahmen",
-    "ergaenzende_produkte_praeferenz": "praeferenz_ergaenzung",
-    "ergaenzende_produkte_alternativ": "alternativ_ergaenzung",
-    "wundgrund": "wundgrund",
 }
 
 CATEGORY_TYPES = {
@@ -47,8 +44,7 @@ CATEGORY_TYPES = {
     "ordinal": ["exsudat", "infektion"],
     "decode": ["lokalisation"],
     "checklist": ["spuelloesung", "wundstadium", "wundrand", "wundumgebung", "debridement", "praeferenz_produkt", 
-                  "alternative_produkt", "antimikrobielles_agens", "sekundaerverband", "hautschutz", "kompression_produkte",
-                  "ergaenzende_produkte_praeferenz", "ergaenzende_produkte_alternativ", "wundgrund"],
+                  "alternative_produkt", "antimikrobielles_agens", "sekundaerverband", "hautschutz", "kompression_produkte"],
     "skip": ["wundtyp_spezifikation", "auffaelligkeiten", "einschraenkungen"]
 }
 

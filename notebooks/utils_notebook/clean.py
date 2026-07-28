@@ -203,10 +203,12 @@ def normalise_lokalisation(text):
 
 def normalise_by_mapping(val, mapping_dict):
     """
-    Normalisiert einen Feldwert (kommagetrennt oder JSON-Liste) basierend auf einer Mapping-Tabelle.
+    Normalisiert einen Feldwert (kommagetrennt, JSON-Liste oder Python-Liste/Set) basierend auf einer Mapping-Tabelle.
     Prüft zuerst Kombinationen (case-insensitiv, reihenfolgeunabhängig), dann einzelne Werte.
     """
-    if not isinstance(val, str):
+    if isinstance(val, (list, set, tuple)):
+        val = json.dumps(list(val), ensure_ascii=False)
+    elif not isinstance(val, str):
         return val
     
     val_stripped = val.strip()

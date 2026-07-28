@@ -304,6 +304,6 @@ LOKALISATION_KEYWORDS = {
     "Hand": ["hand", "handgelenk"],
     "Abdomen": ["abdomen", "bauch", "bauchdecke", "abdominal"],
     "Gesäß/Steiß": ["gesäß", "gesaess", "sakral", "steiß", "steiss", "perianal", "sakrogluteal",
-                    "gluteal", "intergluteal"],
+                    "gluteal", "intergluteal", "leiste", "leistenregion", "inguinal"],
 }
 

@@ -174,6 +174,31 @@ def calculate_scores(csv_path: str, json_dir: str, raw: bool = False) -> pd.Data
                 row_scores[f"{gt_col}_exact"] = exact
                 
             elif gt_col in CATEGORY_TYPES["checklist"]:
+                if not raw:
+                    if gt_col == "spuelloesung":
+                        gt_val_c = clean.normalise_spuelloesung(gt_val_c)
+                        llm_val_c = clean.normalise_spuelloesung(llm_val_c)
+                    elif gt_col == "debridement":
+                        gt_val_c = clean.normalise_debridement(gt_val_c)
+                        llm_val_c = clean.normalise_debridement(llm_val_c)
+                    elif gt_col == "antimikrobielles_agens":
+                        gt_val_c = clean.normalise_antimikrobiell(gt_val_c)
+                        llm_val_c = clean.normalise_antimikrobiell(llm_val_c)
+                    elif gt_col == "hautschutz":
+                        gt_val_c = clean.normalise_hautschutz(gt_val_c)
+                        llm_val_c = clean.normalise_hautschutz(llm_val_c)
+                    elif gt_col == "kompression_produkte":
+                        gt_val_c = clean.normalise_kompression(gt_val_c)
+                        llm_val_c = clean.normalise_kompression(llm_val_c)
+                    elif gt_col == "wundumgebung":
+                        gt_val_c = clean.normalise_wundumgebung(gt_val_c)
+                        llm_val_c = clean.normalise_wundumgebung(llm_val_c)
+                    elif gt_col == "wundrand":
+                        gt_val_c = clean.normalise_wundrand(gt_val_c)
+                        llm_val_c = clean.normalise_wundrand(llm_val_c)
+                    elif gt_col == "sekundaerverband":
+                        gt_val_c = clean.normalise_sekundaerverband(gt_val_c)
+                        llm_val_c = clean.normalise_sekundaerverband(llm_val_c)
                 score, exact = metrics.evaluate_checklist(gt_val_c, llm_val_c)
                 row_scores[f"{gt_col}_f1"] = score
                 row_scores[f"{gt_col}_exact"] = exact

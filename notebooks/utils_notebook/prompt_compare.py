@@ -1,3 +1,4 @@
+from typing import Tuple, Dict, Any, List
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mtick
@@ -618,4 +619,402 @@ def display_word_count_table(
     </div>
     """
     display(HTML(table_html))
+
+
+def calculate_baselines_summary(csv_path: str) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    """
+    Berechnet die Leave-One-Out Majority Baseline und die Random Baseline 
+    für alle 17 Kategorien der allgemeinen Verbandsklassen 100% deterministisch.
+    
+    Returns:
+        (sum_majority, sum_random) als DataFrames von calculate_summary()
+    """
+    import random, json, tempfile, os
+    from eval.loaders import load_ground_truth
+    from utils_notebook.metrics_explorer import calculate_scores, calculate_summary, COLUMN_MAPPING
+
+    gt_data = load_ground_truth(csv_path)
+    image_ids = sorted(list(gt_data.keys()))
+
+    # 1. Leave-One-Out Majority Baseline
+    majority_preds = {}
+    for target_id in image_ids:
+        train_ids = [i for i in image_ids if i != target_id]
+        col_counts = {}
+        for col in sorted(COLUMN_MAPPING.keys()):
+            col_counts[col] = {}
+            for tr_id in train_ids:
+                gt_val = gt_data[tr_id].get(col)
+                if gt_val is not None:
+                    val_str = str(gt_val).strip()
+                    if val_str and val_str not in ["[]", "nan", "None"]:
+                        col_counts[col][val_str] = col_counts[col].get(val_str, 0) + 1
+
+        fake_rec = {"image_id": target_id}
+        for col in sorted(col_counts.keys()):
+            counts = col_counts[col]
+            if counts:
+                top_val = sorted(counts.items(), key=lambda x: (-x[1], x[0]))[0][0]
+                fake_rec[COLUMN_MAPPING[col]] = top_val
+            else:
+                fake_rec[COLUMN_MAPPING[col]] = ""
+        majority_preds[target_id] = fake_rec
+
+    # 2. Random Baseline (Deterministischer lokaler RNG)
+    candidate_pools = {}
+    for col in sorted(COLUMN_MAPPING.keys()):
+        vals = set()
+        for img_id in image_ids:
+            v = gt_data[img_id].get(col)
+            if v is not None:
+                v_str = str(v).strip()
+                if v_str and v_str not in ["[]", "nan", "None"]:
+                    vals.add(v_str)
+        candidate_pools[col] = sorted(list(vals))
+
+    rng = random.Random(42)
+    random_preds = {}
+    for target_id in image_ids:
+        fake_rec = {"image_id": target_id}
+        for col in sorted(candidate_pools.keys()):
+            pool = candidate_pools[col]
+            if pool:
+                fake_rec[COLUMN_MAPPING[col]] = rng.choice(pool)
+            else:
+                fake_rec[COLUMN_MAPPING[col]] = ""
+        random_preds[target_id] = fake_rec
+
+    def _eval_fake_dict(pred_dict):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            for img_id, rec in pred_dict.items():
+                b_dir = os.path.join(tmp_dir, img_id.replace("wunde_", "Bild"))
+                os.makedirs(b_dir, exist_ok=True)
+                with open(os.path.join(b_dir, "run_001.json"), "w", encoding="utf-8") as f:
+                    json.dump({"image_id": img_id, "parsed_output": rec}, f, ensure_ascii=False)
+            df_sc = calculate_scores(csv_path, tmp_dir, raw=False)
+            return calculate_summary(df_sc)
+
+    sum_maj = _eval_fake_dict(majority_preds)
+    sum_rnd = _eval_fake_dict(random_preds)
+    return sum_maj, sum_rnd
+
+
+def plot_overall_scores_with_baselines(
+    csv_path: str,
+    json_dir_zs: str,
+    json_dir_fs: str,
+    json_dir_2s: str,
+    title: str = "Gesamtdurchschnitt aller 17 Kategorien im Vergleich mit Baselines"
+):
+    """
+    Plottet den Gesamtdurchschnitts-Score aller 17 Kategorien für die 3 LLM-Ansätze 
+    (Zero-Shot, Few-Shot, 2-Stage CoT) sowie Majority Baseline (LOO) und Random Baseline.
+    """
+    from utils_notebook.metrics_explorer import calculate_scores, calculate_summary
+
+    sum_zs = calculate_summary(calculate_scores(csv_path, json_dir_zs, raw=False))
+    sum_fs = calculate_summary(calculate_scores(csv_path, json_dir_fs, raw=False))
+    sum_2s = calculate_summary(calculate_scores(csv_path, json_dir_2s, raw=False))
+    sum_maj, sum_rnd = calculate_baselines_summary(csv_path)
+
+    df_bar = pd.DataFrame([
+        {"Ansatz": "Zero-Shot", "Score": sum_zs["Score / F1-Score (Mean)"].mean(), "Typ": "LLM Modell"},
+        {"Ansatz": "Few-Shot", "Score": sum_fs["Score / F1-Score (Mean)"].mean(), "Typ": "LLM Modell"},
+        {"Ansatz": "2-Stage CoT", "Score": sum_2s["Score / F1-Score (Mean)"].mean(), "Typ": "LLM Modell"},
+        {"Ansatz": "Majority Baseline", "Score": sum_maj["Score / F1-Score (Mean)"].mean(), "Typ": "Baseline"},
+        {"Ansatz": "Random Baseline", "Score": sum_rnd["Score / F1-Score (Mean)"].mean(), "Typ": "Baseline"}
+    ])
+
+    colors_5 = {
+        "Zero-Shot": "#2a9d8f",
+        "Few-Shot": "#e76f51",
+        "2-Stage CoT": "#e9c46a",
+        "Majority Baseline": "#457b9d",
+        "Random Baseline": "#8d99ae"
+    }
+
+    sns.set_theme(style="whitegrid")
+    fig, ax = plt.subplots(figsize=(10, 6))
+
+    sns.barplot(
+        data=df_bar,
+        x="Ansatz",
+        y="Score",
+        hue="Ansatz",
+        legend=False,
+        palette=colors_5,
+        ax=ax,
+        edgecolor="black",
+        linewidth=0.8
+    )
+
+    ax.set_title(title, fontsize=14, fontweight="bold", pad=15)
+    ax.set_xlabel("Ansatz / Baseline-Modell", fontsize=12)
+    ax.set_ylabel("Gesamtdurchschnitt Score (Mean)", fontsize=12)
+    ax.set_ylim(0, 0.7)
+    ax.yaxis.set_major_formatter(mtick.PercentFormatter(1.0))
+
+    # Reference lines for baselines
+    maj_val = df_bar[df_bar["Ansatz"] == "Majority Baseline"]["Score"].values[0]
+    rnd_val = df_bar[df_bar["Ansatz"] == "Random Baseline"]["Score"].values[0]
+    ax.axhline(maj_val, color="#457b9d", linestyle="--", linewidth=1.2, label=f"Majority Baseline ({maj_val*100:.1f}%)")
+    ax.axhline(rnd_val, color="#8d99ae", linestyle=":", linewidth=1.2, label=f"Random Baseline ({rnd_val*100:.1f}%)")
+
+    for container in ax.containers:
+        labels = [f"{v*100:.2f}%" for v in container.datavalues]
+        ax.bar_label(container, labels=labels, padding=4, fontsize=10, fontweight="bold")
+
+    ax.legend(loc="lower right", fontsize=10)
+    plt.tight_layout()
+    try:
+        plt.show()
+    except Exception:
+        pass
+
+
+def plot_exact_match_overall_comparison(
+    csv_path: str,
+    json_dir_zs: str,
+    json_dir_fs: str,
+    json_dir_2s: str,
+    title: str = "Aggregierter Exact Match (Macro-Ø) aller 17 Kategorien im Vergleich mit Baselines"
+):
+    """
+    Plottet die aggregierte Macro-Ø Exact-Match-Rate aller 17 Kategorien für die 3 LLM-Ansätze 
+    (Zero-Shot, Few-Shot, 2-Stage CoT) sowie Majority Baseline (LOO) und Random Baseline.
+    """
+    from utils_notebook.metrics_explorer import calculate_scores, calculate_summary
+
+    sum_zs = calculate_summary(calculate_scores(csv_path, json_dir_zs, raw=False))
+    sum_fs = calculate_summary(calculate_scores(csv_path, json_dir_fs, raw=False))
+    sum_2s = calculate_summary(calculate_scores(csv_path, json_dir_2s, raw=False))
+    sum_maj, sum_rnd = calculate_baselines_summary(csv_path)
+
+    df_bar = pd.DataFrame([
+        {"Ansatz": "Zero-Shot", "Exact Match": sum_zs["Exact-Match-Rate"].mean(), "Typ": "LLM Modell"},
+        {"Ansatz": "Few-Shot", "Exact Match": sum_fs["Exact-Match-Rate"].mean(), "Typ": "LLM Modell"},
+        {"Ansatz": "2-Stage CoT", "Exact Match": sum_2s["Exact-Match-Rate"].mean(), "Typ": "LLM Modell"},
+        {"Ansatz": "Majority Baseline", "Exact Match": sum_maj["Exact-Match-Rate"].mean(), "Typ": "Baseline"},
+        {"Ansatz": "Random Baseline", "Exact Match": sum_rnd["Exact-Match-Rate"].mean(), "Typ": "Baseline"}
+    ])
+
+    colors_5 = {
+        "Zero-Shot": "#2a9d8f",
+        "Few-Shot": "#e76f51",
+        "2-Stage CoT": "#e9c46a",
+        "Majority Baseline": "#457b9d",
+        "Random Baseline": "#8d99ae"
+    }
+
+    sns.set_theme(style="whitegrid")
+    fig, ax = plt.subplots(figsize=(10, 6))
+
+    sns.barplot(
+        data=df_bar,
+        x="Ansatz",
+        y="Exact Match",
+        hue="Ansatz",
+        legend=False,
+        palette=colors_5,
+        ax=ax,
+        edgecolor="black",
+        linewidth=0.8
+    )
+
+    ax.set_title(title, fontsize=14, fontweight="bold", pad=15)
+    ax.set_xlabel("Ansatz / Baseline-Modell", fontsize=12)
+    ax.set_ylabel("Macro-Ø Exact-Match-Rate", fontsize=12)
+    ax.set_ylim(0, 0.6)
+    ax.yaxis.set_major_formatter(mtick.PercentFormatter(1.0))
+
+    # Reference lines for baselines
+    maj_val = df_bar[df_bar["Ansatz"] == "Majority Baseline"]["Exact Match"].values[0]
+    rnd_val = df_bar[df_bar["Ansatz"] == "Random Baseline"]["Exact Match"].values[0]
+    ax.axhline(maj_val, color="#457b9d", linestyle="--", linewidth=1.2, label=f"Majority Baseline ({maj_val*100:.1f}%)")
+    ax.axhline(rnd_val, color="#8d99ae", linestyle=":", linewidth=1.2, label=f"Random Baseline ({rnd_val*100:.1f}%)")
+
+    for container in ax.containers:
+        labels = [f"{v*100:.2f}%" for v in container.datavalues]
+        ax.bar_label(container, labels=labels, padding=4, fontsize=10, fontweight="bold")
+
+    ax.legend(loc="upper right", fontsize=10)
+    plt.tight_layout()
+    try:
+        plt.show()
+    except Exception:
+        pass
+
+
+def plot_results_heatmap_general(
+    csv_path: str,
+    json_dir_zs: str,
+    json_dir_fs: str,
+    json_dir_2s: str,
+    metric_type: str = "exact",
+    raw: bool = False,
+    cmap: str = "Blues"
+):
+    """
+    Erstellt eine zweigeteilte wissenschaftliche Ergebnis-Heatmap (Baselines | LLM-Ansätze)
+    für alle 17 Kategorien der allgemeinen Verbandsklassen analog zu heatmap_lr.py, 
+    inklusive klinischen Clustern und Macro-Ø Fußzeile.
+    
+    Arguments:
+        metric_type: "exact" (Exact-Match-Rate) oder "f1" (Score / F1-Score (Mean))
+        raw: False für normalisierte Daten (Phase 1), True für rohe Daten (Phase 0)
+        cmap: Seaborn Colormap Name (Default: "Blues")
+    """
+    import matplotlib.gridspec as gridspec
+    from utils_notebook.metrics_explorer import calculate_scores, calculate_summary
+
+    sum_zs = calculate_summary(calculate_scores(csv_path, json_dir_zs, raw=raw))
+    sum_fs = calculate_summary(calculate_scores(csv_path, json_dir_fs, raw=raw))
+    sum_2s = calculate_summary(calculate_scores(csv_path, json_dir_2s, raw=raw))
+    sum_maj, sum_rnd = calculate_baselines_summary(csv_path)
+
+    clusters = [
+        ("Wundcharakterisierung", [
+            ("lokalisation", "Lokalisation"),
+            ("wundtyp", "Wundtyp"),
+            ("wundstadium", "Wundstadium"),
+            ("wundrand", "Wundrand"),
+            ("wundumgebung", "Wundumgebung"),
+            ("exsudat", "Exsudatmenge")
+        ]),
+        ("Infektion, Spüllösung & Debridement", [
+            ("infektion", "Infektionsverdacht"),
+            ("antimikrobiell_notwendig", "Antimikrobiell indiziert"),
+            ("antimikrobielles_agens", "Antimikrobielles Agens"),
+            ("spuelloesung", "Spüllösung"),
+            ("debridement_notwendig", "Debridement notwendig"),
+            ("debridement", "Debridement Methode")
+        ]),
+        ("Verband & Hautschutz", [
+            ("primaerverband", "Primärverband"),
+            ("sekundaerverband", "Sekundärverband"),
+            ("hautschutz", "Wundrand / Hautschutz")
+        ]),
+        ("Kompression", [
+            ("kompression_indiziert", "Kompression indiziert"),
+            ("kompression_produkte", "Kompression Produkte")
+        ])
+    ]
+
+    cat_order = []
+    cluster_ranges = {}
+    idx = 0
+    for c_name, c_cats in clusters:
+        start_idx = idx
+        for k, lab in c_cats:
+            cat_order.append((k, lab, c_name))
+            idx += 1
+        end_idx = idx
+        cluster_ranges[c_name] = (start_idx, end_idx)
+
+    val_col = "Exact-Match-Rate" if metric_type == "exact" else "Score / F1-Score (Mean)"
+
+    s_maj = sum_maj.set_index("Kategorie")[val_col]
+    s_rnd = sum_rnd.set_index("Kategorie")[val_col]
+    s_zs = sum_zs.set_index("Kategorie")[val_col]
+    s_fs = sum_fs.set_index("Kategorie")[val_col]
+    s_2s = sum_2s.set_index("Kategorie")[val_col]
+
+    row_labels = [lab for _, lab, _ in cat_order]
+    base_rows, llm_rows = [], []
+    for k, lab, _ in cat_order:
+        base_rows.append({
+            "Random": s_rnd.get(k, 0.0),
+            "Majority": s_maj.get(k, 0.0)
+        })
+        llm_rows.append({
+            "Zero-Shot": s_zs.get(k, 0.0),
+            "Few-Shot": s_fs.get(k, 0.0),
+            "2-Stage CoT": s_2s.get(k, 0.0)
+        })
+
+    df_base = pd.DataFrame(base_rows, index=row_labels)
+    df_llm = pd.DataFrame(llm_rows, index=row_labels)
+
+    df_base.loc["Macro-Ø"] = df_base.mean(axis=0)
+    df_llm.loc["Macro-Ø"] = df_llm.mean(axis=0)
+
+    sns.set_theme(style="white")
+    fig = plt.figure(figsize=(10, 13), dpi=300)
+
+    gs = gridspec.GridSpec(
+        1, 3,
+        width_ratios=[2, 3, 0.15],
+        wspace=0.12
+    )
+
+    ax_base = fig.add_subplot(gs[0, 0])
+    ax_llm = fig.add_subplot(gs[0, 1], sharey=ax_base)
+    cbar_ax = fig.add_subplot(gs[0, 2])
+
+    norm_kwargs = dict(
+        annot=True,
+        fmt=".1f",
+        annot_kws={"size": 9.5, "weight": "normal"},
+        cmap=cmap,
+        linewidths=0.5,
+        linecolor="white",
+        vmin=0.0,
+        vmax=100.0
+    )
+
+    metric_label = "Exact Match Rate in %" if metric_type == "exact" else "Macro F1 / Mean Score in %"
+
+    sns.heatmap(df_base * 100.0, ax=ax_base, cbar=False, **norm_kwargs)
+    sns.heatmap(
+        df_llm * 100.0,
+        ax=ax_llm,
+        cbar=True,
+        cbar_ax=cbar_ax,
+        cbar_kws={"label": metric_label, "orientation": "vertical", "shrink": 0.8},
+        **norm_kwargs
+    )
+
+    # Luminance styling
+    for ax in [ax_base, ax_llm]:
+        for text in ax.texts:
+            val_str = text.get_text()
+            try:
+                val = float(val_str)
+                text.set_text(f"{val:.1f}")
+                if val >= 55.0:
+                    text.set_color("#ffffff")
+                else:
+                    text.set_color("#222222")
+                text.set_weight("normal")
+                text.set_fontsize(9.5)
+            except ValueError:
+                pass
+
+    ax_base.set_title("Baselines", fontsize=11, fontweight="bold", color="#666666", pad=12)
+    ax_llm.set_title("LLM-Ansätze", fontsize=12, fontweight="bold", color="#1d3557", pad=12)
+
+    for t in ax_base.get_xticklabels():
+        t.set_color("#666666")
+        t.set_fontsize(9.5)
+    for t in ax_llm.get_xticklabels():
+        t.set_color("#1d3557")
+        t.set_fontweight("bold")
+        t.set_fontsize(10.5)
+
+    ax_base.set_yticklabels(row_labels + ["Macro-Ø"], rotation=0, fontsize=10)
+    ax_base.get_yticklabels()[17].set_weight("bold")
+    ax_base.get_yticklabels()[17].set_color("#1d3557")
+    ax_llm.yaxis.set_visible(False)
+
+    for ax_sub in [ax_base, ax_llm]:
+        ax_sub.axhline(17, color="#111111", linewidth=1.8)
+        for c_name, (start, end) in cluster_ranges.items():
+            if end < len(row_labels):
+                ax_sub.axhline(end, color="#666666", linewidth=1.0, linestyle="--")
+
+    try:
+        plt.show()
+    except Exception:
+        pass
+
 

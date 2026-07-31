@@ -566,11 +566,21 @@ class PromptAnalysis:
         plt.show()
         plt.close(fig)
 
-    def plot_description_treatment_correlation(self, expert_id: int = 2):
+    def plot_description_treatment_correlation(self, expert_id: int = 2, common_only: bool = True, core_wb_cats: bool = True, primaerverband_only: bool = True):
         """
         Berechnet und visualisiert die Spearman-Korrelation zwischen Wundbeschreibung
-        und Wundbehandlung für die 3 Prompting-Ansätze (Referenz: Experte 2).
-        Wundbehandlung wird ohne Sekundärverband und Kompression Produkt berechnet.
+        und Wundbehandlung / Primärverband für die 3 Prompting-Ansätze (Referenz: Experte 2 oder 1).
+        
+        Parameters:
+        -----------
+        expert_id : int (1 oder 2)
+            Referenz-Experte (Experte 1 oder Experte 2).
+        common_only : bool (default True)
+            Wenn True, wird auf der gemeinsamen Schnittmenge von 58 Wundbildern ausgewertet.
+        core_wb_cats : bool (default True)
+            Wenn True, werden nur die 8 Kern-Beschreibungskategorien genutzt (ohne Spüllösung & Kompression indiziert).
+        primaerverband_only : bool (default True)
+            Wenn True, wird als Behandlungsscore (y-Achse) ausschließlich der Primärverband evaluiert.
         """
         from scipy.stats import spearmanr
         from utils_notebook.LR_utils_notebook.metrics_LR import get_score
@@ -588,9 +598,25 @@ class PromptAnalysis:
             if not df.empty and "image_id" in df.columns:
                 df["image_id"] = df["image_id"].apply(normalize_image_id)
 
-        all_ids = sorted(df_gt["image_id"].dropna().unique().tolist())
-        wb_cats = self.wund_beschr_cats
-        bh_cats = [c for c in self.produkt_cats if c not in ['Sekundärverband', 'Kompression Produkt']]
+        if common_only:
+            all_ids = sorted(list(
+                set(df_gt["image_id"].dropna())
+                .intersection(set(df_zero["image_id"].dropna()))
+                .intersection(set(df_few["image_id"].dropna()))
+                .intersection(set(df_two["image_id"].dropna()))
+            ))
+        else:
+            all_ids = sorted(df_gt["image_id"].dropna().unique().tolist())
+
+        if core_wb_cats:
+            wb_cats = ['Wundtyp', 'Lokalisation', 'Wundstadium', 'Wundrand', 'Wundumgebung', 'Exsudat', 'Debridement notwendig', 'Infektionsverdacht']
+        else:
+            wb_cats = self.wund_beschr_cats
+
+        if primaerverband_only:
+            bh_cats = ['Primärverband']
+        else:
+            bh_cats = [c for c in self.produkt_cats if c not in ['Sekundärverband', 'Kompression Produkt']]
 
         def _get_image_scores(df_llm):
             x_list, y_list = [], []
@@ -676,9 +702,13 @@ class PromptAnalysis:
 
             ax.set_xlim(0.0, 1.0)
             ax.set_ylim(0.0, 1.0)
-            ax.set_title(f"{label_name} (Experte {expert_id})", fontsize=13, fontweight='bold', pad=12)
+            sub_title = f"{label_name} (Experte {expert_id})"
+            if common_only:
+                sub_title += " [N=58]"
+            ax.set_title(sub_title, fontsize=13, fontweight='bold', pad=12)
             ax.set_xlabel("beschreibung_score", fontsize=11)
-            ax.set_ylabel("behandlung_score", fontsize=11)
+            y_label_str = "primaerverband_score" if primaerverband_only else "behandlung_score"
+            ax.set_ylabel(y_label_str, fontsize=11)
 
             ax.text(0.05, 0.88, f"$\\rho = {rho:.3f}$\n$p = {p:.3f}$", transform=ax.transAxes,
                     fontsize=11, fontweight='bold', bbox=dict(boxstyle='round,pad=0.5', facecolor='white', alpha=0.9, edgecolor='gray'))

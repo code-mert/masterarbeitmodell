@@ -56,7 +56,8 @@ def plot_single_bar_category_comparison(title, data, save_path=None):
                         textcoords="offset points",
                         ha="center", va="bottom", fontsize=9.5, fontweight="bold")
 
-        ax.set_ylabel("Durchschnittlicher Ordinal Score (%)", fontsize=12, fontweight="bold")
+        y_lbl = data.get("y_label", "Durchschnittlicher F1-Score (%)" if ("F1-Score" in title or data.get("is_f1", False)) else "Durchschnittlicher Ordinal Score (%)")
+        ax.set_ylabel(y_lbl, fontsize=12, fontweight="bold")
         ax.set_ylim(0, 120)
         y_pos = 112
     else:
@@ -164,7 +165,8 @@ def plot_consensus_category_comparison(title, data, save_path=None):
                         textcoords="offset points",
                         ha="center", va="bottom", fontsize=9.5, fontweight="bold")
 
-        ax.set_ylabel("Durchschnittlicher Ordinal Score (%)", fontsize=12, fontweight="bold")
+        y_lbl = data.get("y_label", "Durchschnittlicher F1-Score (%)" if ("F1-Score" in title or data.get("is_f1", False)) else "Durchschnittlicher Ordinal Score (%)")
+        ax.set_ylabel(y_lbl, fontsize=12, fontweight="bold")
         ax.set_ylim(0, 120)
         y_pos = 112
     else:

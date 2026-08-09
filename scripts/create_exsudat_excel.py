@@ -6,7 +6,7 @@ import openpyxl
 from openpyxl.styles import PatternFill, Font, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
-from wundtyp_mapping_dictionary import map_wundtyp_explicit, EXPLICIT_WUNDTYP_RULES
+from exsudat_mapping_dictionary import map_exsudat_explicit, calculate_ordinal_score, EXPLICIT_EXSUDAT_RULES
 
 BASE_DIR = "/Users/mertakdemir/Developer/uni/Modell"
 
@@ -22,7 +22,7 @@ def parse_val_str(val):
         except: pass
     return val_str
 
-def load_ki_wundtyp(sd_name):
+def load_ki_exsudat(sd_name):
     sd_path = os.path.join(BASE_DIR, "runs/gpt-5", sd_name)
     results = {}
     for i in range(1, 61):
@@ -42,8 +42,8 @@ def load_ki_wundtyp(sd_name):
         if not po or not isinstance(po, dict):
             results[img_id] = "N/A"
             continue
-        wt = po.get("wundtyp")
-        results[img_id] = parse_val_str(wt)
+        val = po.get("exsudat_menge")
+        results[img_id] = parse_val_str(val)
     return results
 
 def get_agreement_info(v1, v2, v3):
@@ -73,13 +73,13 @@ def main():
     gt2_norm = pd.read_csv(os.path.join(BASE_DIR, "data/ground_truth/lohmann_rauscher/Experte2_LR_GroundTruth_normalised.csv"), sep=";")
     gtn_norm = pd.read_csv(os.path.join(BASE_DIR, "data/ground_truth/allgemeine_verbandsklassen_normalised.csv"))
 
-    ki_zero_n = load_ki_wundtyp("zero_shot")
-    ki_few_n = load_ki_wundtyp("few_shot")
-    ki_two_n = load_ki_wundtyp("two_stage")
+    ki_zero_n = load_ki_exsudat("zero_shot")
+    ki_few_n = load_ki_exsudat("few_shot")
+    ki_two_n = load_ki_exsudat("two_stage")
 
-    ki_zero_lr = load_ki_wundtyp("zero_shot_lr")
-    ki_few_lr = load_ki_wundtyp("few_shot_lr")
-    ki_two_lr = load_ki_wundtyp("two_stage_lr")
+    ki_zero_lr = load_ki_exsudat("zero_shot_lr")
+    ki_few_lr = load_ki_exsudat("few_shot_lr")
+    ki_two_lr = load_ki_exsudat("two_stage_lr")
 
     # Prompt example wounds to exclude from Few-Shot evaluation
     fs_lr_prompt_ex = ["wunde_04", "wunde_18"]
@@ -99,8 +99,8 @@ def main():
     bold_font = Font(name="Calibri", size=10, bold=True)
     summary_header_font = Font(name="Calibri", size=11, bold=True, color="1F4E78")
 
-    fill_green = PatternFill(start_color="C8E6C9", end_color="C8E6C9", fill_type="solid") # Expert Match / Agreement
-    fill_orange = PatternFill(start_color="FFE0B2", end_color="FFE0B2", fill_type="solid") # Partial Agreement
+    fill_green = PatternFill(start_color="C8E6C9", end_color="C8E6C9", fill_type="solid")
+    fill_orange = PatternFill(start_color="FFE0B2", end_color="FFE0B2", fill_type="solid")
     fill_white = PatternFill(start_color="FFFFFF", end_color="FFFFFF", fill_type="solid")
 
     thin_border = Border(
@@ -115,7 +115,7 @@ def main():
     # -------------------------------------------------------------
     # TAB 1: ROHDATEN
     # -------------------------------------------------------------
-    ws1 = wb.create_sheet(title="Wundtyp (Rohdaten)")
+    ws1 = wb.create_sheet(title="Exsudat (Rohdaten)")
     headers1 = ["Wunde ID", "Experte 1 (L&R Raw)", "Experte 2 (L&R Raw)", "Experte 3 (NursIT Raw)"]
     ws1.append(headers1)
 
@@ -131,13 +131,11 @@ def main():
         r2 = gt2_raw[gt2_raw["image_id"] == img_id]
         rn = gtn_raw[gtn_raw["image_id"] == img_id]
 
-        v1 = parse_val_str(r1["wundtyp"].values[0]) if len(r1) > 0 else "keine Angabe"
-        v2 = parse_val_str(r2["wundtyp"].values[0]) if len(r2) > 0 else "keine Angabe"
-        vn_spec = parse_val_str(rn["wundtyp_spezifikation"].values[0]) if len(rn) > 0 and "wundtyp_spezifikation" in rn.columns and pd.notna(rn["wundtyp_spezifikation"].values[0]) else ""
-        vn_cat = parse_val_str(rn["wundtyp"].values[0]) if len(rn) > 0 else "keine Angabe"
-        vn_full = f"{vn_cat} ({vn_spec})" if vn_spec else vn_cat
+        v1 = parse_val_str(r1["exsudat"].values[0]) if len(r1) > 0 and "exsudat" in r1.columns else "keine Angabe"
+        v2 = parse_val_str(r2["exsudat"].values[0]) if len(r2) > 0 and "exsudat" in r2.columns else "keine Angabe"
+        vn = parse_val_str(rn["exsudat"].values[0]) if len(rn) > 0 and "exsudat" in rn.columns else "keine Angabe"
 
-        row_vals = [img_id, v1, v2, vn_full]
+        row_vals = [img_id, v1, v2, vn]
         ws1.append(row_vals)
         r_idx = ws1.max_row
         for c_idx in range(1, len(row_vals)+1):
@@ -148,14 +146,14 @@ def main():
             if c_idx == 1:
                 c.alignment = Alignment(horizontal="center", vertical="center")
 
-        if v1 != "keine Angabe": mapping_reference.append((v1, map_wundtyp_explicit(v1), "Experte 1 (L&R Raw)"))
-        if v2 != "keine Angabe": mapping_reference.append((v2, map_wundtyp_explicit(v2), "Experte 2 (L&R Raw)"))
-        if vn_full != "keine Angabe": mapping_reference.append((vn_full, map_wundtyp_explicit(vn_full), "Experte 3 (NursIT Raw)"))
+        if v1 != "keine Angabe": mapping_reference.append((v1, map_exsudat_explicit(v1), "Experte 1 (L&R Raw)"))
+        if v2 != "keine Angabe": mapping_reference.append((v2, map_exsudat_explicit(v2), "Experte 2 (L&R Raw)"))
+        if vn != "keine Angabe": mapping_reference.append((vn, map_exsudat_explicit(vn), "Experte 3 (NursIT Raw)"))
 
     # -------------------------------------------------------------
     # TAB 2: GEMAPPT & KI
     # -------------------------------------------------------------
-    ws2 = wb.create_sheet(title="Wundtyp (Gemappt & KI)")
+    ws2 = wb.create_sheet(title="Exsudat (Gemappt & KI)")
     headers2 = [
         "Wunde ID",
         "Experte 1 (L&R Mapped)",
@@ -185,13 +183,13 @@ def main():
         r2 = gt2_norm[gt2_norm["image_id"] == img_id]
         rn = gtn_norm[gtn_norm["image_id"] == img_id]
 
-        v1_raw = parse_val_str(r1["wundtyp"].values[0]) if len(r1) > 0 else ""
-        v2_raw = parse_val_str(r2["wundtyp"].values[0]) if len(r2) > 0 else ""
-        vn_raw = parse_val_str(rn["wundtyp"].values[0]) if len(rn) > 0 else ""
+        v1_raw = parse_val_str(r1["exsudat"].values[0]) if len(r1) > 0 and "exsudat" in r1.columns else ""
+        v2_raw = parse_val_str(r2["exsudat"].values[0]) if len(r2) > 0 and "exsudat" in r2.columns else ""
+        vn_raw = parse_val_str(rn["exsudat"].values[0]) if len(rn) > 0 and "exsudat" in rn.columns else ""
 
-        m1 = map_wundtyp_explicit(v1_raw)
-        m2 = map_wundtyp_explicit(v2_raw)
-        mn = map_wundtyp_explicit(vn_raw)
+        m1 = map_exsudat_explicit(v1_raw)
+        m2 = map_exsudat_explicit(v2_raw)
+        mn = map_exsudat_explicit(vn_raw)
         exp_status, maj_val = get_agreement_info(m1, m2, mn)
 
         # KI NursIT
@@ -199,9 +197,9 @@ def main():
         r_fn = ki_few_n.get(img_id, "")
         r_tn = ki_two_n.get(img_id, "")
 
-        m_zn = map_wundtyp_explicit(r_zn)
-        m_fn = map_wundtyp_explicit(r_fn) if img_id not in fs_nurs_prompt_ex else "Prompt-Beispiel (Nicht bewertet)"
-        m_tn = map_wundtyp_explicit(r_tn)
+        m_zn = map_exsudat_explicit(r_zn)
+        m_fn = map_exsudat_explicit(r_fn) if img_id not in fs_nurs_prompt_ex else "Prompt-Beispiel (Nicht bewertet)"
+        m_tn = map_exsudat_explicit(r_tn)
         nursit_status = get_agreement_info(m_zn, m_fn, m_tn)[0]
 
         # KI L&R
@@ -209,9 +207,9 @@ def main():
         r_flr = ki_few_lr.get(img_id, "")
         r_tlr = ki_two_lr.get(img_id, "")
 
-        m_zlr = map_wundtyp_explicit(r_zlr)
-        m_flr = map_wundtyp_explicit(r_flr) if img_id not in fs_lr_prompt_ex else "Prompt-Beispiel (Nicht bewertet)"
-        m_tlr = map_wundtyp_explicit(r_tlr)
+        m_zlr = map_exsudat_explicit(r_zlr)
+        m_flr = map_exsudat_explicit(r_flr) if img_id not in fs_lr_prompt_ex else "Prompt-Beispiel (Nicht bewertet)"
+        m_tlr = map_exsudat_explicit(r_tlr)
         lr_status = get_agreement_info(m_zlr, m_flr, m_tlr)[0]
 
         # Check Expert Matches
@@ -249,14 +247,12 @@ def main():
             if c_idx == 1:
                 c.alignment = Alignment(horizontal="center", vertical="center")
 
-            # EXPERTS HIGHLIGHTING (Cols 2-5)
             elif 2 <= c_idx <= 5:
                 if "3/3" in exp_status: c.fill = fill_green
                 elif "2/3" in exp_status or "2/2" in exp_status: c.fill = fill_orange
                 else: c.fill = fill_white
                 if c_idx == 5: c.font = bold_font; c.alignment = Alignment(horizontal="center", vertical="center")
 
-            # NURSIT KI HIGHLIGHTING
             elif c_idx == 6:
                 if hit_zn: c.fill = fill_green
             elif c_idx == 7:
@@ -267,7 +263,6 @@ def main():
             elif c_idx == 9:
                 c.alignment = Alignment(horizontal="center", vertical="center")
 
-            # L&R KI HIGHLIGHTING
             elif c_idx == 10:
                 if hit_zlr: c.fill = fill_green
             elif c_idx == 11:
@@ -279,12 +274,11 @@ def main():
                 c.alignment = Alignment(horizontal="center", vertical="center")
 
     # -------------------------------------------------------------
-    # ADD SUMMARY BLOCK AT THE BOTTOM
+    # ADD SUMMARY BLOCK AT THE BOTTOM (EXCLUSIVELY ORDINAL SCORES)
     # -------------------------------------------------------------
     ws2.append([]) # Empty row 62
 
-    # Row 63: Summary Section Title
-    ws2.append(["STATISTIK & KI-TREFFERQUOTE BEI EXPERTEN (GESAMT 60 WUNDEN, TEILEINIGKEIT & KONSENS-WUNDEN)", "", "", "", "", "", "", "", "", "", "", "", ""])
+    ws2.append(["DURCHSCHNITTLICHER ORDINAL SCORE (%) DIE EXSUDATMENGE", "", "", "", "", "", "", "", "", "", "", "", ""])
     r_hdr = ws2.max_row
     ws2.merge_cells(start_row=r_hdr, start_column=1, end_row=r_hdr, end_column=13)
     hdr_c = ws2.cell(row=r_hdr, column=1)
@@ -292,7 +286,6 @@ def main():
     hdr_c.fill = summary_fill
     hdr_c.alignment = Alignment(horizontal="left", vertical="center")
 
-    # Models dict helper: (mdict, prompt_ex_list, model_type)
     models_config = {
         6: (ki_zero_n, [], "nursit"),
         7: (ki_few_n, fs_nurs_prompt_ex, "nursit"),
@@ -302,14 +295,12 @@ def main():
         12: (ki_two_lr, [], "lr")
     }
 
-    # Row 64: KI Absolute Hits & Percentage across all 60 Wounds (excl. Prompt Examples for Few-Shot)
-    row_64 = ["KI-Trefferquote Gesamt (vs. jeweilige Experten)", "", "", "", ""]
-
+    # Row 64: Ordinal Score Gesamt (Alle auswertbaren Wunden)
+    row_64 = ["Durchschnittlicher Ordinal Score Gesamt (Alle Wunden)", "", "", "", ""]
     for col_i in range(6, 14):
         if col_i in models_config:
             mdict, p_ex, mtype = models_config[col_i]
-            hits = 0
-            tot = 0
+            scores = []
             for i in range(1, 61):
                 img_id = f"wunde_{i:02d}"
                 if img_id in p_ex: continue
@@ -317,18 +308,22 @@ def main():
                 r2 = gt2_norm[gt2_norm["image_id"] == img_id]
                 rn = gtn_norm[gtn_norm["image_id"] == img_id]
 
-                m1 = map_wundtyp_explicit(parse_val_str(r1["wundtyp"].values[0])) if len(r1)>0 else ""
-                m2 = map_wundtyp_explicit(parse_val_str(r2["wundtyp"].values[0])) if len(r2)>0 else ""
-                mn = map_wundtyp_explicit(parse_val_str(rn["wundtyp"].values[0])) if len(rn)>0 else ""
+                m1 = map_exsudat_explicit(parse_val_str(r1["exsudat"].values[0])) if len(r1)>0 and "exsudat" in r1.columns else ""
+                m2 = map_exsudat_explicit(parse_val_str(r2["exsudat"].values[0])) if len(r2)>0 and "exsudat" in r2.columns else ""
+                mn = map_exsudat_explicit(parse_val_str(rn["exsudat"].values[0])) if len(rn)>0 and "exsudat" in rn.columns else ""
 
-                ki_mapped = map_wundtyp_explicit(mdict.get(img_id, ""))
-                tot += 1
+                ki_mapped = map_exsudat_explicit(mdict.get(img_id, ""))
                 if mtype == "nursit":
-                    if ki_mapped == mn: hits += 1
+                    sc = calculate_ordinal_score(ki_mapped, mn)
                 else:
-                    if ki_mapped == m1 or ki_mapped == m2: hits += 1
-            pct = (hits / tot) * 100
-            row_64.append(f"{hits} / {tot} ({pct:.1f}%)")
+                    sc1 = calculate_ordinal_score(ki_mapped, m1)
+                    sc2 = calculate_ordinal_score(ki_mapped, m2)
+                    valid_sc = [s for s in [sc1, sc2] if s is not None]
+                    sc = max(valid_sc) if valid_sc else None
+
+                if sc is not None: scores.append(sc)
+            avg_pct = (sum(scores) / len(scores)) * 100 if scores else 0.0
+            row_64.append(f"{avg_pct:.1f}% ({len(scores)} Wunden)")
         else:
             row_64.append("-")
 
@@ -342,14 +337,12 @@ def main():
         c.alignment = Alignment(horizontal="center", vertical="center")
         if c_idx in models_config: c.fill = fill_green
 
-    # Row 65: KI Trefferquote bei Teileinigkeit / Mehrheits-Konsens (2/3 + 3/3)
-    row_65 = ["KI-Trefferquote bei Teileinigkeit / Mehrheit (2/3 & 3/3)", "", "", "", ""]
-
+    # Row 65: Ordinal Score bei Mehrheits-Konsens (2/3 & 3/3 Wunden)
+    row_65 = ["Durchschnittlicher Ordinal Score bei Mehrheits-Konsens (33 Wunden)", "", "", "", ""]
     for col_i in range(6, 14):
         if col_i in models_config:
             mdict, p_ex, mtype = models_config[col_i]
-            hits = 0
-            tot = 0
+            scores = []
             for i in range(1, 61):
                 img_id = f"wunde_{i:02d}"
                 if img_id in p_ex: continue
@@ -357,17 +350,17 @@ def main():
                 r2 = gt2_norm[gt2_norm["image_id"] == img_id]
                 rn = gtn_norm[gtn_norm["image_id"] == img_id]
 
-                m1 = map_wundtyp_explicit(parse_val_str(r1["wundtyp"].values[0])) if len(r1)>0 else ""
-                m2 = map_wundtyp_explicit(parse_val_str(r2["wundtyp"].values[0])) if len(r2)>0 else ""
-                mn = map_wundtyp_explicit(parse_val_str(rn["wundtyp"].values[0])) if len(rn)>0 else ""
+                m1 = map_exsudat_explicit(parse_val_str(r1["exsudat"].values[0])) if len(r1)>0 and "exsudat" in r1.columns else ""
+                m2 = map_exsudat_explicit(parse_val_str(r2["exsudat"].values[0])) if len(r2)>0 and "exsudat" in r2.columns else ""
+                mn = map_exsudat_explicit(parse_val_str(rn["exsudat"].values[0])) if len(rn)>0 and "exsudat" in rn.columns else ""
 
                 status, maj_val = get_agreement_info(m1, m2, mn)
                 if ("3/3" in status or "2/3" in status or "2/2" in status) and maj_val:
-                    tot += 1
-                    ki_mapped = map_wundtyp_explicit(mdict.get(img_id, ""))
-                    if ki_mapped == maj_val: hits += 1
-            pct = (hits / tot) * 100 if tot > 0 else 0
-            row_65.append(f"{hits} / {tot} ({pct:.1f}%)")
+                    ki_mapped = map_exsudat_explicit(mdict.get(img_id, ""))
+                    sc = calculate_ordinal_score(ki_mapped, maj_val)
+                    if sc is not None: scores.append(sc)
+            avg_pct = (sum(scores) / len(scores)) * 100 if scores else 0.0
+            row_65.append(f"{avg_pct:.1f}% ({len(scores)} Wunden)")
         else:
             row_65.append("-")
 
@@ -381,14 +374,12 @@ def main():
         c.alignment = Alignment(horizontal="center", vertical="center")
         if c_idx in models_config: c.fill = fill_green
 
-    # Row 66: KI Trefferquote bei 100% Einigkeit (3/3 Konsens)
-    row_66 = ["KI-Trefferquote bei 100% Einigkeit (3/3 Konsens)", "", "", "", ""]
-
+    # Row 66: Ordinal Score bei 100% Einigkeit (3/3 Konsens-Wunden)
+    row_66 = ["Durchschnittlicher Ordinal Score bei 100% Einigkeit (6 Konsens-Wunden)", "", "", "", ""]
     for col_i in range(6, 14):
         if col_i in models_config:
             mdict, p_ex, mtype = models_config[col_i]
-            hits = 0
-            tot = 0
+            scores = []
             for i in range(1, 61):
                 img_id = f"wunde_{i:02d}"
                 if img_id in p_ex: continue
@@ -396,17 +387,17 @@ def main():
                 r2 = gt2_norm[gt2_norm["image_id"] == img_id]
                 rn = gtn_norm[gtn_norm["image_id"] == img_id]
 
-                m1 = map_wundtyp_explicit(parse_val_str(r1["wundtyp"].values[0])) if len(r1)>0 else ""
-                m2 = map_wundtyp_explicit(parse_val_str(r2["wundtyp"].values[0])) if len(r2)>0 else ""
-                mn = map_wundtyp_explicit(parse_val_str(rn["wundtyp"].values[0])) if len(rn)>0 else ""
+                m1 = map_exsudat_explicit(parse_val_str(r1["exsudat"].values[0])) if len(r1)>0 and "exsudat" in r1.columns else ""
+                m2 = map_exsudat_explicit(parse_val_str(r2["exsudat"].values[0])) if len(r2)>0 and "exsudat" in r2.columns else ""
+                mn = map_exsudat_explicit(parse_val_str(rn["exsudat"].values[0])) if len(rn)>0 and "exsudat" in rn.columns else ""
 
                 status, maj_val = get_agreement_info(m1, m2, mn)
                 if "3/3" in status and maj_val:
-                    tot += 1
-                    ki_mapped = map_wundtyp_explicit(mdict.get(img_id, ""))
-                    if ki_mapped == maj_val: hits += 1
-            pct = (hits / tot) * 100 if tot > 0 else 0
-            row_66.append(f"{hits} / {tot} ({pct:.1f}%)")
+                    ki_mapped = map_exsudat_explicit(mdict.get(img_id, ""))
+                    sc = calculate_ordinal_score(ki_mapped, maj_val)
+                    if sc is not None: scores.append(sc)
+            avg_pct = (sum(scores) / len(scores)) * 100 if scores else 0.0
+            row_66.append(f"{avg_pct:.1f}% ({len(scores)} Wunden)")
         else:
             row_66.append("-")
 
@@ -428,7 +419,7 @@ def main():
     # TAB 3: MAPPING-TABELLE (REFERENZ)
     # -------------------------------------------------------------
     ws3 = wb.create_sheet(title="Mapping-Tabelle (Referenz)")
-    headers3 = ["Ziel-Kategorie (Wundtyp-Schema)", "Roh-Eingabe / Originaler Freitext", "Herkunft", "Mapping-Regel / Status"]
+    headers3 = ["Ziel-Kategorie (Exsudatmenge)", "Roh-Eingabe / Originaler Freitext", "Herkunft", "Mapping-Regel / Status"]
     ws3.append(headers3)
 
     for col_idx in range(1, len(headers3)+1):
@@ -442,27 +433,17 @@ def main():
         if raw_str not in unique_ref:
             unique_ref[raw_str] = (mapped_str, src)
 
-    standard_categories = {
-        "Postoperative Wunde / Dehiszenz",
-        "Dekubitus",
-        "Diabetisches Fußsyndrom (DFS)",
-        "Verbrennungswunde",
-        "Ulcus cruris mixtum",
-        "Ulcus cruris venosum",
-        "Ulcus cruris arteriosum / Ischämisches Ulkus",
-        "Ulkus (Ätiologie unspezifisch)",
-        "Traumatische Wunde"
-    }
+    standard_categories = {"Keine", "Leicht", "Mäßig", "Stark", "Keine, Leicht", "Leicht, Mäßig", "Mäßig, Stark"}
 
     sorted_ref = sorted(unique_ref.items(), key=lambda x: (x[1][0], x[0]))
 
     for raw_str, (mapped_str, src) in sorted_ref:
         if mapped_str == "Enthaltung / keine Angabe":
             status_str = "Enthaltung / keine Angabe"
-        elif raw_str in EXPLICIT_WUNDTYP_RULES:
-            status_str = "1:1 Wörterbuch-Regel (Hauptkategorie)"
+        elif raw_str in EXPLICIT_EXSUDAT_RULES:
+            status_str = "1:1 Wörterbuch-Regel (Exsudat-Stufe)"
         elif mapped_str in standard_categories:
-            status_str = "Textbasierte Regel (Hauptkategorie)"
+            status_str = "Textbasierte Regel (Exsudat-Stufe)"
         else:
             status_str = "Freitext belassen (Kein Matching)"
 
@@ -491,7 +472,7 @@ def main():
             ws.column_dimensions[col_letter].width = min(max(max_len + 3, 14), 52)
 
     os.makedirs(os.path.join(BASE_DIR, "exports"), exist_ok=True)
-    output_file = os.path.join(BASE_DIR, "exports/Wundtyp_Vergleich_Experten_KI.xlsx")
+    output_file = os.path.join(BASE_DIR, "exports/Exsudat_Vergleich_Experten_KI.xlsx")
     wb.save(output_file)
     print(f"Erfolgreich aktualisiert: {output_file}")
 

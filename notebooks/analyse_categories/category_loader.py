@@ -114,13 +114,19 @@ PRODUCT_FAMILY_MAP = {
 
     "vliwasorb pro": "Vliwasorb (Superabsorber)",
     "vliwasorb sensitive": "Vliwasorb (Superabsorber)",
-    "vliwazell pro": "Vliwasorb (Superabsorber)",
-    "vliwazell": "Vliwasorb (Superabsorber)",
+    "vliwasorb sensitive border": "Vliwasorb (Superabsorber)",
+    "vliwasorb adhesive": "Vliwasorb (Superabsorber)",
+    "vliwasorb": "Vliwasorb (Superabsorber)",
 
-    "solvaline n": "Solvaline / Lomatuell (Atraumatische Auflage)",
-    "solvaline": "Solvaline / Lomatuell (Atraumatische Auflage)",
-    "lomatuell pro": "Solvaline / Lomatuell (Atraumatische Auflage)",
-    "lomatuell": "Solvaline / Lomatuell (Atraumatische Auflage)",
+    "vliwazell pro": "Vliwazell (Saugkompresse)",
+    "vliwazell": "Vliwazell (Saugkompresse)",
+
+    "solvaline n": "Solvaline (Folien-Saugkompresse)",
+    "solvaline": "Solvaline (Folien-Saugkompresse)",
+
+    "lomatuell pro": "Lomatuell (Gittertüll)",
+    "lomatuell h": "Lomatuell (Gittertüll)",
+    "lomatuell": "Lomatuell (Gittertüll)",
 
     "vliwaktiv": "Vliwaktiv (Aktivkohle)",
     "vliwaktiv ag": "Vliwaktiv (Aktivkohle)",
@@ -154,14 +160,26 @@ def map_product_set(prod_set, group_by_family=True):
                 mapped.add("Suprasorb X (Hydrobalance)")
             elif "suprasorb liquacel" in item_lower:
                 mapped.add("Suprasorb Liquacel (Hydrofiber)")
-            elif "vliwasorb" in item_lower or "vliwazell" in item_lower:
+            elif "vliwasorb" in item_lower:
                 mapped.add("Vliwasorb (Superabsorber)")
-            elif "solvaline" in item_lower or "lomatuell" in item_lower:
-                mapped.add("Solvaline / Lomatuell (Atraumatische Auflage)")
+            elif "vliwazell" in item_lower:
+                mapped.add("Vliwazell (Saugkompresse)")
+            elif "solvaline" in item_lower:
+                mapped.add("Solvaline (Folien-Saugkompresse)")
+            elif "lomatuell" in item_lower:
+                mapped.add("Lomatuell (Gittertüll)")
             elif "vliwaktiv" in item_lower:
                 mapped.add("Vliwaktiv (Aktivkohle)")
+            elif "suprasorb g" in item_lower or "gel-kompresse" in item_lower or "amorphes gel" in item_lower:
+                mapped.add("Suprasorb G (Gel)")
+            elif "suprasorb h" in item_lower:
+                mapped.add("Suprasorb H (Hydrokolloid)")
+            elif "suprasorb f" in item_lower:
+                mapped.add("Suprasorb F (Folie)")
             elif "cnp" in item_lower:
                 mapped.add("Suprasorb CNP (NPWT)")
+            elif "metalline" in item_lower:
+                mapped.add("Metalline")
             else:
                 mapped.add(item)
     return mapped

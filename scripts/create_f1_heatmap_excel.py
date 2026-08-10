@@ -83,10 +83,14 @@ def map_level_2(prod_set):
                 mapped.add("Suprasorb X (Hydrobalance)")
             elif "suprasorb liquacel" in item_lower:
                 mapped.add("Suprasorb Liquacel (Hydrofiber)")
-            elif "vliwasorb" in item_lower or "vliwazell" in item_lower:
+            elif "vliwasorb" in item_lower:
                 mapped.add("Vliwasorb (Superabsorber)")
-            elif "solvaline" in item_lower or "lomatuell" in item_lower:
-                mapped.add("Solvaline / Lomatuell (Atraumatische Auflage)")
+            elif "vliwazell" in item_lower:
+                mapped.add("Vliwazell (Saugkompresse)")
+            elif "solvaline" in item_lower:
+                mapped.add("Solvaline (Folien-Saugkompresse)")
+            elif "lomatuell" in item_lower:
+                mapped.add("Lomatuell (Gittertüll)")
             elif "vliwaktiv" in item_lower:
                 mapped.add("Vliwaktiv (Aktivkohle)")
             elif "suprasorb g" in item_lower or "gel-kompresse" in item_lower or "amorphes gel" in item_lower:

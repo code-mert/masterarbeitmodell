@@ -11,6 +11,7 @@ try:
     from .mappings_LR import (
         SPELLING_MAPPING,
         WUNDTYP_GT_MAPPING,
+        LOKALISATION_GT_MAPPING,
         WUNDGRUND_GT_MAPPING,
         EXSUDAT_GT_MAPPING,
         WUNDUMGEBUNG_GT_MAPPING,
@@ -23,6 +24,7 @@ except ImportError:
     from mappings_LR import (
         SPELLING_MAPPING,
         WUNDTYP_GT_MAPPING,
+        LOKALISATION_GT_MAPPING,
         WUNDGRUND_GT_MAPPING,
         EXSUDAT_GT_MAPPING,
         WUNDUMGEBUNG_GT_MAPPING,
@@ -177,23 +179,11 @@ def normalise_lokalisation(text):
     """
     Decodiert Lokalisations-Keywords in standardisierte Körperteil-Bezeichnungen.
     """
-    if not isinstance(text, str):
-        return text
-    
-    text_lower = text.lower()
-    found_parts = []
-    
-    for body_part, keywords in LOKALISATION_KEYWORDS.items():
-        for keyword in keywords:
-            if re.search(rf'{keyword}', text_lower):
-                found_parts.append(body_part)
-                break
-                
-    found_parts = sorted(list(set(found_parts)))
-    
-    if not found_parts:
-        return text
-    return ", ".join(found_parts)
+def normalise_lokalisation(text):
+    """
+    Normalisiert Lokalisationsangaben auf die 6 Standard-Kategorien.
+    """
+    return normalise_by_mapping(text, LOKALISATION_GT_MAPPING)
 
 def normalise_by_mapping(val, mapping_dict):
     """
@@ -305,6 +295,9 @@ def normalise_debridement(val):
     return normalise_by_mapping(val, DEBRIDEMENT_GT_MAPPING)
 
 def normalise_wundtyp(val):
+    """
+    Normalisiert Wundtypen auf die 10 medizinischen Hauptkategorien.
+    """
     return normalise_by_mapping(val, WUNDTYP_GT_MAPPING)
 
 
@@ -326,6 +319,8 @@ def clean_ground_truth(input_path: str, output_path: str):
     df_cleaned = df.copy()
     
     for col in df_cleaned.columns:
+        if col in ['image_id', 'user_id', 'updated_at', 'ist_fertig', 'id']:
+            continue
         df_cleaned[col] = df_cleaned[col].apply(clean_whitespace)
         
     if 'lokalisation' in df_cleaned.columns:

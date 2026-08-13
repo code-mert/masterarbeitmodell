@@ -6,7 +6,19 @@ import openpyxl
 from openpyxl.styles import PatternFill, Font, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
-from wundtyp_mapping_dictionary import map_wundtyp_explicit, EXPLICIT_WUNDTYP_RULES
+try:
+    from notebooks.utils_notebook.clean import normalise_by_mapping
+    from notebooks.utils_notebook.mappings import WUNDTYP_GT_MAPPING
+except ImportError:
+    import sys
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../notebooks/utils_notebook")))
+    from clean import normalise_by_mapping
+    from mappings import WUNDTYP_GT_MAPPING
+
+def map_wundtyp_explicit(val):
+    return normalise_by_mapping(val, WUNDTYP_GT_MAPPING)
+
+EXPLICIT_WUNDTYP_RULES = {k: v[0] for k, v in WUNDTYP_GT_MAPPING.items()}
 
 BASE_DIR = "/Users/mertakdemir/Developer/uni/Modell"
 

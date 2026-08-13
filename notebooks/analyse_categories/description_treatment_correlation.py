@@ -19,9 +19,9 @@ from scripts.create_f1_heatmap_excel import (
     GT1_PATH, GT2_PATH, ZERO_PATH, FEW_PATH, TWO_PATH,
     set_f1, best_path_f1, map_level_2, map_level_3
 )
-from wundtyp_mapping_dictionary import map_wundtyp_explicit
-from lokalisation_mapping_dictionary import map_lokalisation_explicit
-from exsudat_mapping_dictionary import map_exsudat_explicit
+from wundtyp_calc import map_wundtyp_explicit
+from lokalisation_calc import map_lokalisation_explicit
+from exsudat_calc import map_exsudat_explicit
 from primaerverband_calc import safe_parse_set
 
 IMAGE_IDS = [f"wunde_{i+1:02d}" for i in range(60)]

@@ -30,15 +30,33 @@ gtn = pd.read_csv(GTN_PATH).fillna("")
 IMAGE_IDS = [f"wunde_{i+1:02d}" for i in range(60)]
 
 # L&R helper calculations
-def calc_exact_lr(gt_col, llm_col=None):
+def calc_exact_lr(gt_col, llm_col=None, num_options=2):
     if llm_col is None: llm_col = gt_col
-    s_ir, s_z, s_f, s_t = [], [], [], []
+    
+    # Determine most frequent value across all expert votes
+    all_vals = []
+    for img_id in IMAGE_IDS:
+        r1 = df_gt1[df_gt1["image_id"] == img_id]
+        r2 = df_gt2[df_gt2["image_id"] == img_id]
+        if len(r1) > 0 and gt_col in r1.columns:
+            v1 = str(r1[gt_col].values[0]).strip().lower()
+            if v1 and v1 != "nan": all_vals.append(v1)
+        if len(r2) > 0 and gt_col in r2.columns:
+            v2 = str(r2[gt_col].values[0]).strip().lower()
+            if v2 and v2 != "nan": all_vals.append(v2)
+            
+    val_counts = pd.Series(all_vals).value_counts()
+    most_frequent = val_counts.index[0] if len(val_counts) > 0 else ""
+
+    s_ir, s_z, s_f, s_t, s_maj = [], [], [], [], []
     for img_id in IMAGE_IDS:
         r1 = df_gt1[df_gt1["image_id"] == img_id]
         r2 = df_gt2[df_gt2["image_id"] == img_id]
         if len(r1) == 0 or len(r2) == 0: continue
         g1 = str(r1[gt_col].values[0]).strip().lower() if gt_col in r1.columns else ""
         g2 = str(r2[gt_col].values[0]).strip().lower() if gt_col in r2.columns else ""
+        if g1 == "nan": g1 = ""
+        if g2 == "nan": g2 = ""
         
         rz = df_zero[df_zero["image_id"] == img_id]
         rf = df_few[df_few["image_id"] == img_id]
@@ -49,11 +67,15 @@ def calc_exact_lr(gt_col, llm_col=None):
         t = str(rt[llm_col].values[0]).strip().lower() if llm_col in df_two.columns and len(rt) > 0 else ""
         
         if g1 and g2: s_ir.append(1.0 if g1 == g2 else 0.0)
+        if (g1 or g2):
+            s_maj.append(max(1.0 if most_frequent == g1 else 0.0, 1.0 if most_frequent == g2 else 0.0))
         if z and (g1 or g2): s_z.append(max(1.0 if z == g1 else 0.0, 1.0 if z == g2 else 0.0))
         if f and (g1 or g2): s_f.append(max(1.0 if f == g1 else 0.0, 1.0 if f == g2 else 0.0))
         if t and (g1 or g2): s_t.append(max(1.0 if t == g1 else 0.0, 1.0 if t == g2 else 0.0))
         
-    return 50.0, 50.0, np.mean(s_z)*100, np.mean(s_f)*100, np.mean(s_t)*100, np.mean(s_ir)*100
+    rand_pct = 100.0 / num_options if num_options > 0 else 50.0
+    maj_pct = np.mean(s_maj)*100 if s_maj else 50.0
+    return rand_pct, maj_pct, np.mean(s_z)*100, np.mean(s_f)*100, np.mean(s_t)*100, np.mean(s_ir)*100
 
 def calc_checklist_lr(gt_col, llm_col=None, num_options=5):
     if llm_col is None: llm_col = gt_col
@@ -214,15 +236,19 @@ def build_master_heatmap_dataframe():
 
     hs_nu_r, hs_nu_m, hs_nu_z, hs_nu_f, hs_nu_t = eval_nursit_checklist("hautschutz", "wundrand_hautschutz", num_options=4)
 
-    kom_i_lr_r, kom_i_lr_m, kom_i_lr_z, kom_i_lr_f, kom_i_lr_t, kom_i_lr_ir = calc_exact_lr("kompression_indiziert")
+    kom_i_lr_r, kom_i_lr_m, kom_i_lr_z, kom_i_lr_f, kom_i_lr_t, kom_i_lr_ir = calc_exact_lr("kompression_indiziert", num_options=3)
     kom_i_nu_r, kom_i_nu_m, kom_i_nu_z, kom_i_nu_f, kom_i_nu_t = eval_nursit_exact("kompression_indiziert", "kompression_indiziert", num_options=2)
 
     kom_p_lr_r, kom_p_lr_m, kom_p_lr_z, kom_p_lr_f, kom_p_lr_t, kom_p_lr_ir = calc_checklist_lr("kompression_produkte", "kompression_produkt", num_options=6)
     kom_p_nu_r, kom_p_nu_m, kom_p_nu_z, kom_p_nu_f, kom_p_nu_t = eval_nursit_checklist("kompression_produkte", "kompression_art", num_options=6)
 
+    header_nan = {c: np.nan for c in ["nurs_R", "nurs_M", "nurs_ZS", "nurs_FS", "nurs_2S", "lr_R", "lr_M", "lr_ZS", "lr_FS", "lr_2S", "lr_IR"]}
+
     rows_data = [
+        # === GRUPPE 1: WUNDBESCHREIBUNG ===
+        {"row_label": "WUNDBESCHREIBUNG", **header_nan},
         {
-            "row_label": "Wundtyp (6/8)",
+            "row_label": "  Wundtyp (10/10)",
             "nurs_R": wt_nu["left_values"][0], "nurs_M": wt_nu["left_values"][1],
             "nurs_ZS": wt_nu["right_values"][0], "nurs_FS": wt_nu["right_values"][1], "nurs_2S": wt_nu["right_values"][2],
             "lr_R": wt_lr["left_values"][0], "lr_M": wt_lr["left_values"][1],
@@ -230,7 +256,7 @@ def build_master_heatmap_dataframe():
             "lr_IR": wt_lr["left_values"][2]
         },
         {
-            "row_label": "Lokalisation (5/6)",
+            "row_label": "  Lokalisation (6/6)",
             "nurs_R": lok_nu["left_values"][0], "nurs_M": lok_nu["left_values"][1],
             "nurs_ZS": lok_nu["right_values"][0], "nurs_FS": lok_nu["right_values"][1], "nurs_2S": lok_nu["right_values"][2],
             "lr_R": lok_lr["left_values"][0], "lr_M": lok_lr["left_values"][1],
@@ -238,7 +264,7 @@ def build_master_heatmap_dataframe():
             "lr_IR": lok_lr["left_values"][2]
         },
         {
-            "row_label": "Exsudatmenge (4/4)",
+            "row_label": "  Exsudatmenge (4/4)",
             "nurs_R": ex_nu["left_values"][0], "nurs_M": ex_nu["left_values"][1],
             "nurs_ZS": ex_nu["right_values"][0], "nurs_FS": ex_nu["right_values"][1], "nurs_2S": ex_nu["right_values"][2],
             "lr_R": ex_lr["left_values"][0], "lr_M": ex_lr["left_values"][1],
@@ -246,7 +272,7 @@ def build_master_heatmap_dataframe():
             "lr_IR": ex_lr["left_values"][2]
         },
         {
-            "row_label": "Infektionsstatus (2/2)",
+            "row_label": "  Infektionsstatus (2/2)",
             "nurs_R": inf_nu["left_values"][0], "nurs_M": inf_nu["left_values"][1],
             "nurs_ZS": inf_nu["right_values"][0], "nurs_FS": inf_nu["right_values"][1], "nurs_2S": inf_nu["right_values"][2],
             "lr_R": inf_lr["left_values"][0], "lr_M": inf_lr["left_values"][1],
@@ -254,12 +280,7 @@ def build_master_heatmap_dataframe():
             "lr_IR": inf_lr["left_values"][2]
         },
         {
-            "row_label": "Spüllösung (3/3)",
-            "nurs_R": sp_nu_r, "nurs_M": 81.7, "nurs_ZS": sp_nu_z, "nurs_FS": sp_nu_f, "nurs_2S": sp_nu_t,
-            "lr_R": sp_lr_r, "lr_M": 83.3, "lr_ZS": sp_lr_z, "lr_FS": sp_lr_f, "lr_2S": sp_lr_t, "lr_IR": sp_lr_ir
-        },
-        {
-            "row_label": "Wundstadium (4/4)",
+            "row_label": "  Wundstadium (5/7)",
             "nurs_R": st_nu["left_values"][0], "nurs_M": st_nu["left_values"][1],
             "nurs_ZS": st_nu["right_values"][0], "nurs_FS": st_nu["right_values"][1], "nurs_2S": st_nu["right_values"][2],
             "lr_R": st_lr["left_values"][0], "lr_M": st_lr["left_values"][1],
@@ -267,7 +288,7 @@ def build_master_heatmap_dataframe():
             "lr_IR": st_lr["left_values"][2]
         },
         {
-            "row_label": "Wundrand (6/6)",
+            "row_label": "  Wundrand (7/7)",
             "nurs_R": ra_nu["left_values"][0], "nurs_M": ra_nu["left_values"][1],
             "nurs_ZS": ra_nu["right_values"][0], "nurs_FS": ra_nu["right_values"][1], "nurs_2S": ra_nu["right_values"][2],
             "lr_R": ra_lr["left_values"][0], "lr_M": ra_lr["left_values"][1],
@@ -275,35 +296,46 @@ def build_master_heatmap_dataframe():
             "lr_IR": ra_lr["left_values"][2]
         },
         {
-            "row_label": "Wundumgebung (7/7)",
+            "row_label": "  Wundumgebung (7/7)",
             "nurs_R": um_nu["left_values"][0], "nurs_M": um_nu["left_values"][1],
             "nurs_ZS": um_nu["right_values"][0], "nurs_FS": um_nu["right_values"][1], "nurs_2S": um_nu["right_values"][2],
             "lr_R": um_lr["left_values"][0], "lr_M": um_lr["left_values"][1],
             "lr_ZS": um_lr["right_values"][0], "lr_FS": um_lr["right_values"][1], "lr_2S": um_lr["right_values"][2],
             "lr_IR": um_lr["left_values"][2]
         },
+
+        # === GRUPPE 2: WUNDBETTVORBEREITUNG ===
+        {"row_label": "WUNDBETTVORBEREITUNG", **header_nan},
         {
-            "row_label": "Antimikrobiell notwendig? (2/-)",
-            "nurs_R": am_n_nu_r, "nurs_M": 58.3, "nurs_ZS": am_n_nu_z, "nurs_FS": am_n_nu_f, "nurs_2S": am_n_nu_t,
-            "lr_R": np.nan, "lr_M": np.nan, "lr_ZS": np.nan, "lr_FS": np.nan, "lr_2S": np.nan, "lr_IR": np.nan
-        },
-        {
-            "row_label": "Antimikrobielles Agens (5/-)",
-            "nurs_R": am_a_nu_r, "nurs_M": 58.3, "nurs_ZS": am_a_nu_z, "nurs_FS": am_a_nu_f, "nurs_2S": am_a_nu_t,
-            "lr_R": np.nan, "lr_M": np.nan, "lr_ZS": np.nan, "lr_FS": np.nan, "lr_2S": np.nan, "lr_IR": np.nan
-        },
-        {
-            "row_label": "Debridement notwendig (2/2)",
+            "row_label": "  Debridement notwendig (2/2)",
             "nurs_R": deb_n_nu_r, "nurs_M": 75.0, "nurs_ZS": deb_n_nu_z, "nurs_FS": deb_n_nu_f, "nurs_2S": deb_n_nu_t,
             "lr_R": deb_n_lr_r, "lr_M": 78.3, "lr_ZS": deb_n_lr_z, "lr_FS": deb_n_lr_f, "lr_2S": deb_n_lr_t, "lr_IR": deb_n_lr_ir
         },
         {
-            "row_label": "Debridement Methode (5/5)",
+            "row_label": "  Spüllösung (3/2)",
+            "nurs_R": sp_nu_r, "nurs_M": 81.7, "nurs_ZS": sp_nu_z, "nurs_FS": sp_nu_f, "nurs_2S": sp_nu_t,
+            "lr_R": sp_lr_r, "lr_M": 83.3, "lr_ZS": sp_lr_z, "lr_FS": sp_lr_f, "lr_2S": sp_lr_t, "lr_IR": sp_lr_ir
+        },
+        {
+            "row_label": "  Debridement Methode (5/8)",
             "nurs_R": deb_m_nu_r, "nurs_M": 75.0, "nurs_ZS": deb_m_nu_z, "nurs_FS": deb_m_nu_f, "nurs_2S": deb_m_nu_t,
             "lr_R": deb_m_lr_r, "lr_M": 78.3, "lr_ZS": deb_m_lr_z, "lr_FS": deb_m_lr_f, "lr_2S": deb_m_lr_t, "lr_IR": deb_m_lr_ir
         },
         {
-            "row_label": "Primärverband (13/14)",
+            "row_label": "  Antimikrobiell notwendig? (2/-)",
+            "nurs_R": am_n_nu_r, "nurs_M": 58.3, "nurs_ZS": am_n_nu_z, "nurs_FS": am_n_nu_f, "nurs_2S": am_n_nu_t,
+            "lr_R": np.nan, "lr_M": np.nan, "lr_ZS": np.nan, "lr_FS": np.nan, "lr_2S": np.nan, "lr_IR": np.nan
+        },
+        {
+            "row_label": "  Antimikrobielles Agens (5/-)",
+            "nurs_R": am_a_nu_r, "nurs_M": 58.3, "nurs_ZS": am_a_nu_z, "nurs_FS": am_a_nu_f, "nurs_2S": am_a_nu_t,
+            "lr_R": np.nan, "lr_M": np.nan, "lr_ZS": np.nan, "lr_FS": np.nan, "lr_2S": np.nan, "lr_IR": np.nan
+        },
+
+        # === GRUPPE 3: WUNDBEHANDLUNG & VERSORGUNG ===
+        {"row_label": "WUNDBEHANDLUNG & VERSORGUNG", **header_nan},
+        {
+            "row_label": "  Primärverband (9/16)",
             "nurs_R": pv_nu["left_values"][0], "nurs_M": pv_nu["left_values"][1],
             "nurs_ZS": pv_nu["right_values"][0], "nurs_FS": pv_nu["right_values"][1], "nurs_2S": pv_nu["right_values"][2],
             "lr_R": pv_lr["left_values"][0], "lr_M": pv_lr["left_values"][1],
@@ -311,22 +343,22 @@ def build_master_heatmap_dataframe():
             "lr_IR": pv_lr["left_values"][2]
         },
         {
-            "row_label": "Sekundärverband (16/7)",
+            "row_label": "  Sekundärverband (4/12)",
             "nurs_R": sek_nu_r, "nurs_M": 7.8, "nurs_ZS": sek_nu_z, "nurs_FS": sek_nu_f, "nurs_2S": sek_nu_t,
             "lr_R": sek_lr_r, "lr_M": 5.0, "lr_ZS": sek_lr_z, "lr_FS": sek_lr_f, "lr_2S": sek_lr_t, "lr_IR": sek_lr_ir
         },
         {
-            "row_label": "Hautschutz (4/-)",
+            "row_label": "  Hautschutz (3/-)",
             "nurs_R": hs_nu_r, "nurs_M": 51.1, "nurs_ZS": hs_nu_z, "nurs_FS": hs_nu_f, "nurs_2S": hs_nu_t,
             "lr_R": np.nan, "lr_M": np.nan, "lr_ZS": np.nan, "lr_FS": np.nan, "lr_2S": np.nan, "lr_IR": np.nan
         },
         {
-            "row_label": "Kompressionsindikation (2/2)",
+            "row_label": "  Kompressionsindikation (2/3)",
             "nurs_R": kom_i_nu_r, "nurs_M": 70.0, "nurs_ZS": kom_i_nu_z, "nurs_FS": kom_i_nu_f, "nurs_2S": kom_i_nu_t,
             "lr_R": kom_i_lr_r, "lr_M": 50.0, "lr_ZS": kom_i_lr_z, "lr_FS": kom_i_lr_f, "lr_2S": kom_i_lr_t, "lr_IR": kom_i_lr_ir
         },
         {
-            "row_label": "Kompressionsprodukte (6/6)",
+            "row_label": "  Kompressionsprodukte (5/37)",
             "nurs_R": kom_p_nu_r, "nurs_M": 17.3, "nurs_ZS": kom_p_nu_z, "nurs_FS": kom_p_nu_f, "nurs_2S": kom_p_nu_t,
             "lr_R": kom_p_lr_r, "lr_M": 23.1, "lr_ZS": kom_p_lr_z, "lr_FS": kom_p_lr_f, "lr_2S": kom_p_lr_t, "lr_IR": kom_p_lr_ir
         }
@@ -344,7 +376,7 @@ def build_master_heatmap_dataframe():
 
 def plot_master_heatmap(save_path=None):
     """
-    Renders the Master Heatmap with explicit sub-categories and real calculated values.
+    Renders the Master Heatmap with explicit sub-categories, section header rows, and real calculated values.
     """
     df = build_master_heatmap_dataframe()
 
@@ -352,20 +384,26 @@ def plot_master_heatmap(save_path=None):
     plt.rcParams["font.family"] = "DejaVu Sans"
     plt.rcParams["font.size"] = 10
 
-    fig, ax = plt.subplots(figsize=(14, 11), dpi=300)
+    fig, ax = plt.subplots(figsize=(15, 13), dpi=300)
+
+    # List of header row labels
+    header_labels = ["WUNDBESCHREIBUNG", "WUNDBETTVORBEREITUNG", "WUNDBEHANDLUNG & VERSORGUNG"]
 
     annot_matrix = []
-    for row in df.itertuples(index=False):
+    for idx, row in zip(df.index, df.itertuples(index=False)):
         row_annot = []
+        is_header = idx in header_labels
         for val in row:
-            if pd.isna(val):
+            if is_header:
+                row_annot.append("")  # Clean blank for header rows
+            elif pd.isna(val):
                 row_annot.append("-")
             else:
                 formatted_val = f"{val:.1f}".replace(".", ",")
                 row_annot.append(formatted_val)
         annot_matrix.append(row_annot)
 
-    ax.set_facecolor("#EBEBEB")
+    ax.set_facecolor("#FFFFFF")
     cmap = sns.color_palette("YlGnBu", as_cmap=True)
     
     sns.heatmap(
@@ -382,7 +420,10 @@ def plot_master_heatmap(save_path=None):
         mask=df.isna()
     )
 
-    for i in range(len(df)):
+    # Render hyphens only for valid category NaN cells, not header rows
+    for i, idx in enumerate(df.index):
+        if idx in header_labels:
+            continue
         for j in range(len(df.columns)):
             val = df.iloc[i, j]
             if pd.isna(val):
@@ -392,22 +433,66 @@ def plot_master_heatmap(save_path=None):
     ax.set_xticks(np.arange(len(x_labels)) + 0.5)
     ax.set_xticklabels(x_labels, fontsize=11, fontweight="bold", rotation=0)
 
-    ax.set_yticklabels(df.index, fontsize=10.5, fontweight="normal", rotation=0)
+    # Format y-tick labels (Bold headers in dark blue)
+    yticklabels = []
+    for idx in df.index:
+        yticklabels.append(idx)
+    ax.set_yticklabels(yticklabels, fontsize=10.5, rotation=0)
+
+    # Customize font weights and colors of Y-axis labels
+    for tick_label in ax.get_yticklabels():
+        txt = tick_label.get_text()
+        if txt in header_labels:
+            tick_label.set_fontweight("bold")
+            tick_label.set_fontsize(11.5)
+            tick_label.set_color("#1E3A5F")
+        else:
+            tick_label.set_fontweight("normal")
+            tick_label.set_fontsize(10.2)
+            tick_label.set_color("#333333")
+
     ax.set_ylabel("", fontsize=12)
 
-    ax.axvline(x=5, color="black", linewidth=2.5, linestyle="-")
+    # --- Vertical Separator Lines (White Gaps) ---
+    ax.axvline(x=2, color="white", linewidth=5.5, linestyle="-")
+    ax.axvline(x=5, color="white", linewidth=8.0, linestyle="-")
+    ax.axvline(x=7, color="white", linewidth=5.5, linestyle="-")
+    ax.axvline(x=10, color="white", linewidth=8.0, linestyle="-")
 
-    box_style_nurs = dict(boxstyle="round,pad=0.5", facecolor="#F0F4F8", edgecolor="#888888", linewidth=1.2, alpha=0.95)
-    box_style_lr   = dict(boxstyle="round,pad=0.5", facecolor="#F0F4F8", edgecolor="#888888", linewidth=1.2, alpha=0.95)
+    # --- Horizontal Separator Lines (White Gaps) ---
+    # Separate sections cleanly with thick white lines
+    header_indices = [i for i, idx in enumerate(df.index) if idx in header_labels]
+    for h_idx in header_indices:
+        ax.axhline(y=h_idx, color="white", linewidth=8.0, linestyle="-")
 
-    ax.text(2.5, -0.6, "NursIT Fragebogen (1 Experte)", ha="center", va="center", fontsize=12, fontweight="bold",
-            color="black", bbox=box_style_nurs)
+    # Isolate Primärverband (Row index of Primärverband)
+    pv_row_idx = list(df.index).index("  Primärverband (9/16)")
+    ax.axhline(y=pv_row_idx, color="white", linewidth=6.0, linestyle="-")
+    ax.axhline(y=pv_row_idx + 1, color="white", linewidth=6.0, linestyle="-")
+
+    # --- Banners & Sub-Headers ---
+    box_nurs = dict(boxstyle="round,pad=0.4", facecolor="#E6EFF7", edgecolor="#4A7BB0", linewidth=1.5)
+    box_lr   = dict(boxstyle="round,pad=0.4", facecolor="#EBF5EE", edgecolor="#4A9060", linewidth=1.5)
+    box_ir   = dict(boxstyle="round,pad=0.4", facecolor="#FFF4E6", edgecolor="#D9822B", linewidth=1.5)
+
+    ax.text(2.5, -0.6, "NursIT Fragebogen (1 Experte)", ha="center", va="center", fontsize=11.5, fontweight="bold",
+            color="#1E3A5F", bbox=box_nurs)
     
-    ax.text(8.0, -0.6, "Lohmann & Rauscher Fragebogen (2 Experten)", ha="center", va="center", fontsize=12, fontweight="bold",
-            color="black", bbox=box_style_lr)
+    ax.text(7.5, -0.6, "Lohmann & Rauscher (2 Experten)", ha="center", va="center", fontsize=11.5, fontweight="bold",
+            color="#1A4A28", bbox=box_lr)
+
+    ax.text(10.5, -0.6, "Inter-Rater", ha="center", va="center", fontsize=11.5, fontweight="bold",
+            color="#7A4100", bbox=box_ir)
+
+    # Sub-header labels (Base vs KI) positioned at y=0.5 on the exact height of WUNDBESCHREIBUNG
+    ax.text(1.0, 0.5, "Baselines", ha="center", va="center", fontsize=10.0, fontweight="bold", color="#1E3A5F")
+    ax.text(3.5, 0.5, "KI-Modelle", ha="center", va="center", fontsize=10.0, fontweight="bold", color="#1E3A5F")
+    ax.text(6.0, 0.5, "Baselines", ha="center", va="center", fontsize=10.0, fontweight="bold", color="#1A4A28")
+    ax.text(8.5, 0.5, "KI-Modelle", ha="center", va="center", fontsize=10.0, fontweight="bold", color="#1A4A28")
+    ax.text(10.5, 0.5, "IR", ha="center", va="center", fontsize=10.0, fontweight="bold", color="#7A4100")
 
     ax.set_title("Master-Ergebnis-Heatmap über alle Wundkategorien\nVergleich NursIT (Allgemein) vs. Lohmann & Rauscher (L&R)",
-                 fontsize=14, fontweight="bold", pad=45)
+                 fontsize=13.5, fontweight="bold", pad=55)
 
     plt.tight_layout()
 

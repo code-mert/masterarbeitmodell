@@ -9,7 +9,36 @@ if SCRIPT_DIR not in sys.path:
 
 from create_wundtyp_excel import parse_val_str
 from create_lokalisation_excel import load_ki_lokalisation
-from lokalisation_mapping_dictionary import map_lokalisation_explicit
+try:
+    from notebooks.utils_notebook.clean import normalise_by_mapping
+    from notebooks.utils_notebook.mappings import LOKALISATION_GT_MAPPING
+except ImportError:
+    import sys
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../utils_notebook")))
+    from clean import normalise_by_mapping
+    from mappings import LOKALISATION_GT_MAPPING
+
+def map_lokalisation_explicit(val):
+    if not val or str(val).strip() in ["keine Angabe", "nan", "?", "???", "keine Angabe möglich", "nicht beurteilbar", "nicht genau definierbar", "lokalisation nicht genau zu definieren", "N/A"]:
+        return "Enthaltung / keine Angabe"
+    clean_val = str(val).strip()
+    if clean_val in LOKALISATION_GT_MAPPING:
+        return LOKALISATION_GT_MAPPING[clean_val][0]
+    for k, v in LOKALISATION_GT_MAPPING.items():
+        if k.lower() == clean_val.lower():
+            return v[0]
+    v = clean_val.lower()
+    if "abdomen" in v or "bauch" in v or "stoma" in v or "peristoma" in v or "unterbauch" in v:
+        return "Abdomen"
+    if "gesäß" in v or "sakral" in v or "sacral" in v or "steiß" in v or "sacrum" in v or "glutä" in v or "paraglutäal" in v or "os sacrum" in v or "intergluteal" in v or "sakrokokzygeal" in v:
+        return "Gesäß / Sakral"
+    if "fuß" in v or "fuss" in v or "fers" in v or "zeh" in v or "plantar" in v or "malleol" in v or "vorfuß" in v or "außenknöchel" in v or "innenknöchel" in v or "mittfuß" in v or "zehe" in v or "knöchel" in v:
+        return "Fuß"
+    if "bein" in v or "unterschenkel" in v or "oberschenkel" in v or "knie" in v or "femur" in v or "schienbein" in v or "wade" in v or "untere extremität" in v or "untere extremitaet" in v:
+        return "Bein"
+    if "arm" in v or "hand" in v or "oberarm" in v or "unterarm" in v or "ellenbeug" in v or "finger" in v or "handrücken" in v or "obere extremität" in v or "obere extremitaet" in v:
+        return "Arm / Hand"
+    return "Enthaltung / keine Angabe"
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
 

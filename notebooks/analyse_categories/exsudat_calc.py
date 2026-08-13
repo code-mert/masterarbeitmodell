@@ -8,8 +8,54 @@ if SCRIPT_DIR not in sys.path:
     sys.path.insert(0, SCRIPT_DIR)
 
 from create_wundtyp_excel import parse_val_str
-from create_exsudat_excel import load_ki_exsudat
-from exsudat_mapping_dictionary import map_exsudat_explicit, calculate_ordinal_score
+
+try:
+    from notebooks.utils_notebook.clean import normalise_by_mapping
+    from notebooks.utils_notebook.mappings import EXSUDAT_GT_MAPPING
+except ImportError:
+    import sys
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../utils_notebook")))
+    from clean import normalise_by_mapping
+    from mappings import EXSUDAT_GT_MAPPING
+
+def map_exsudat_explicit(val):
+    if not val or str(val).strip() in ["keine Angabe", "nan", "?", "???", "Enthaltung / keine Angabe"]:
+        return "Enthaltung / keine Angabe"
+    clean_val = str(val).strip()
+    if clean_val in EXSUDAT_GT_MAPPING:
+        res = EXSUDAT_GT_MAPPING[clean_val]
+        return ", ".join(res) if isinstance(res, list) else str(res)
+    for k, v in EXSUDAT_GT_MAPPING.items():
+        if k.lower() == clean_val.lower():
+            return ", ".join(v) if isinstance(v, list) else str(v)
+    v = clean_val.lower()
+    if "stark" in v or "hoch" in v:
+        return "Stark"
+    if "mäßig" in v or "mässig" in v or "mittel" in v:
+        return "Mäßig"
+    if "leicht" in v or "gering" in v or "schwach" in v or "wenig" in v:
+        return "Leicht"
+    if "kein" in v or "trocken" in v or "kaum" in v:
+        return "Keine"
+    return "Enthaltung / keine Angabe"
+
+def get_exsudat_ranks(mapped_val):
+    if mapped_val == "Keine": return {0}
+    if mapped_val == "Leicht": return {1}
+    if mapped_val == "Mäßig": return {2}
+    if mapped_val == "Stark": return {3}
+    if mapped_val == "Keine, Leicht": return {0, 1}
+    if mapped_val == "Leicht, Mäßig": return {1, 2}
+    if mapped_val == "Mäßig, Stark": return {2, 3}
+    return set()
+
+def calculate_ordinal_score(ki_mapped, exp_mapped):
+    ki_ranks = get_exsudat_ranks(ki_mapped)
+    exp_ranks = get_exsudat_ranks(exp_mapped)
+    if not ki_ranks or not exp_ranks:
+        return None
+    min_dist = min(abs(r_ki - r_exp) for r_ki in ki_ranks for r_exp in exp_ranks)
+    return 1.0 - (min_dist / 3.0)
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
 
@@ -39,6 +85,7 @@ def calculate_exsudat_lr_ordinal_scores():
     """
     Calculates L&R Baselines, Inter-Rater Agreement, and KI Model Scores for Exsudat (Ordinal Score %).
     """
+    from create_exsudat_excel import load_ki_exsudat
     gt1_norm = pd.read_csv(os.path.join(BASE_DIR, "data/ground_truth/lohmann_rauscher/Experte1_LR_GroundTruth_normalised.csv"), sep=";")
     gt2_norm = pd.read_csv(os.path.join(BASE_DIR, "data/ground_truth/lohmann_rauscher/Experte2_LR_GroundTruth_normalised.csv"), sep=";")
 
@@ -120,6 +167,7 @@ def calculate_exsudat_nursit_ordinal_scores():
     """
     Calculates NursIT Baselines and KI Model Scores for Exsudat (Experte 3, Ordinal Score %).
     """
+    from create_exsudat_excel import load_ki_exsudat
     gtn_norm = pd.read_csv(os.path.join(BASE_DIR, "data/ground_truth/allgemeine_verbandsklassen_normalised.csv"))
 
     z_nurs = load_ki_exsudat("zero_shot")

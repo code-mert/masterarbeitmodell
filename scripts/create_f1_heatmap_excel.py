@@ -118,12 +118,12 @@ def map_level_3(prod_set):
         elif "suprasorb p" in item_lower:
             mapped.add("Schaumstoffverbände (Foam)")
         elif "suprasorb x" in item_lower:
-            mapped.add("Wundkontaktschichten (Silikon/Paraffin)")
+            mapped.add("HydroBalance / Biozellulose")
         elif "suprasorb liquacel" in item_lower:
             mapped.add("Hydrofaser / Hydrofiber")
-        elif "vliwasorb" in item_lower or "vliwazell" in item_lower:
+        elif "vliwasorb" in item_lower or "vliwazell" in item_lower or "zemuko" in item_lower:
             mapped.add("Superabsorber")
-        elif "solvaline" in item_lower or "lomatuell" in item_lower:
+        elif "solvaline" in item_lower or "lomatuell" in item_lower or "metalline" in item_lower:
             mapped.add("Wundkontaktschichten (Silikon/Paraffin)")
         elif "vliwaktiv" in item_lower:
             mapped.add("Aktivkohleverband")
@@ -135,8 +135,10 @@ def map_level_3(prod_set):
             mapped.add("Semipermeable Filme")
         elif "cnp" in item_lower:
             mapped.add("NPWT / Unterdrucktherapie")
-        elif "metalline" in item_lower:
-            mapped.add("Wundkontaktschichten (Silikon/Paraffin)")
+        elif "gazin" in item_lower or "vliwasoft" in item_lower:
+            mapped.add("Mull-/Vlieskompresse")
+        elif "opraclean" in item_lower:
+            mapped.add("Tamponade")
         else:
             mapped.add("Sonstige Primärverbände")
     return mapped

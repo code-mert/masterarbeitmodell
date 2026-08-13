@@ -8,7 +8,46 @@ if SCRIPT_DIR not in sys.path:
     sys.path.insert(0, SCRIPT_DIR)
 
 from create_wundtyp_excel import parse_val_str, load_ki_wundtyp
-from wundtyp_mapping_dictionary import map_wundtyp_explicit
+try:
+    from notebooks.utils_notebook.clean import normalise_by_mapping
+    from notebooks.utils_notebook.mappings import WUNDTYP_GT_MAPPING
+except ImportError:
+    import sys
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../utils_notebook")))
+    from clean import normalise_by_mapping
+    from mappings import WUNDTYP_GT_MAPPING
+
+def map_wundtyp_explicit(val):
+    if not val or str(val).strip() in ["keine Angabe", "nan", "?", "???", "Sonstiges"]:
+        return "Enthaltung / keine Angabe"
+    clean_val = str(val).strip()
+    if clean_val in WUNDTYP_GT_MAPPING:
+        return WUNDTYP_GT_MAPPING[clean_val][0]
+    for k, v in WUNDTYP_GT_MAPPING.items():
+        if k.lower() == clean_val.lower():
+            return v[0]
+    v = clean_val.lower()
+    if "nehme hier keine beurteilung vor" in v: return "Enthaltung / keine Angabe"
+    if "gleiche beurteilung" in v: return "Dekubitus"
+    if "platzbauch" in v or "dehiszen" in v or "postop" in v or "op-wunde" in v or "spalthaut" in v or "meshgraft" in v:
+        return "Postoperative Wunde / Dehiszenz"
+    if "diabet" in v or "dfs" in v or "neuropathisch" in v:
+        return "Diabetisches Fußsyndrom (DFS)"
+    if "dekubitus" in v or "dekubtal" in v or "dekubtis" in v or "druckul" in v or "druckgeschwür" in v or "epuap" in v or "fersendekubitus" in v or "fersenulkus" in v:
+        return "Dekubitus"
+    if "verbrenn" in v or "verbrüh" in v or "thermi" in v:
+        return "Verbrennungswunde"
+    if "mixtum" in v or "mischul" in v:
+        return "Ulcus cruris mixtum"
+    if "venö" in v or "venosum" in v or "cvi" in v:
+        return "Ulcus cruris venosum"
+    if "arteriel" in v or "arteriosum" in v or "ischäm" in v or "gangrän" in v or "pavk" in v or "mumifizier" in v:
+        return "Ulcus cruris arteriosum / Ischämisches Ulkus"
+    if "trauma" in v or "stich" in v or "insek" in v or "biss" in v or "schnitt" in v:
+        return "Traumatische Wunde"
+    if "ulcus" in v or "ulkus" in v or "ulzerat" in v or "ulcera" in v or "ulzera" in v:
+        return "Ulkus (Ätiologie unspezifisch)"
+    return clean_val
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
 

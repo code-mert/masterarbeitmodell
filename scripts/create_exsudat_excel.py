@@ -6,7 +6,17 @@ import openpyxl
 from openpyxl.styles import PatternFill, Font, Alignment, Border, Side
 from openpyxl.utils import get_column_letter
 
-from exsudat_mapping_dictionary import map_exsudat_explicit, calculate_ordinal_score, EXPLICIT_EXSUDAT_RULES
+try:
+    from notebooks.analyse_categories.exsudat_calc import map_exsudat_explicit, calculate_ordinal_score
+    from notebooks.utils_notebook.mappings import EXSUDAT_GT_MAPPING
+except ImportError:
+    import sys
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../notebooks/analyse_categories")))
+    sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../notebooks/utils_notebook")))
+    from exsudat_calc import map_exsudat_explicit, calculate_ordinal_score
+    from mappings import EXSUDAT_GT_MAPPING
+
+EXPLICIT_EXSUDAT_RULES = {k: (", ".join(v) if isinstance(v, list) else str(v)) for k, v in EXSUDAT_GT_MAPPING.items()}
 
 BASE_DIR = "/Users/mertakdemir/Developer/uni/Modell"
 

@@ -11,6 +11,8 @@ try:
     from .mappings import (
         SPELLING_MAPPING,
         WUNDTYP_GT_MAPPING,
+        LOKALISATION_GT_MAPPING,
+        EXSUDAT_GT_MAPPING,
         WUNDUMGEBUNG_GT_MAPPING,
         WUNDRAND_GT_MAPPING,
         SEKUNDAERVERBAND_GT_MAPPING,
@@ -26,6 +28,8 @@ except ImportError:
     from mappings import (
         SPELLING_MAPPING,
         WUNDTYP_GT_MAPPING,
+        LOKALISATION_GT_MAPPING,
+        EXSUDAT_GT_MAPPING,
         WUNDUMGEBUNG_GT_MAPPING,
         WUNDRAND_GT_MAPPING,
         SEKUNDAERVERBAND_GT_MAPPING,
@@ -179,27 +183,12 @@ def clean_whitespace(val):
     val_stripped = re.sub(r'\r?\n', ' ', val_stripped)
     return re.sub(r'[ \t]+', ' ', val_stripped).strip()
 
+
 def normalise_lokalisation(text):
     """
-    Decodiert Lokalisations-Keywords in standardisierte Körperteil-Bezeichnungen.
+    Normalisiert Lokalisationsangaben auf die 6 Standard-Kategorien.
     """
-    if not isinstance(text, str):
-        return text
-    
-    text_lower = text.lower()
-    found_parts = []
-    
-    for body_part, keywords in LOKALISATION_KEYWORDS.items():
-        for keyword in keywords:
-            if re.search(rf'{keyword}', text_lower):
-                found_parts.append(body_part)
-                break
-                
-    found_parts = sorted(list(set(found_parts)))
-    
-    if not found_parts:
-        return text
-    return ", ".join(found_parts)
+    return normalise_by_mapping(text, LOKALISATION_GT_MAPPING)
 
 def normalise_by_mapping(val, mapping_dict):
     """
@@ -236,12 +225,13 @@ def normalise_by_mapping(val, mapping_dict):
             flat.extend([clean_whitespace(p) for p in split_by_delimiters_outside_parentheses(x)])
         return flat
 
-    items_flat = flatten_items(items)
+    items_flat = [str(x) for x in flatten_items(items) if x is not None and str(x).strip()]
     
     # Check if the entire group of items matches a key in mapping_dict (case-insensitive, order-independent)
     for k, v in mapping_dict.items():
         cleaned_key = clean_whitespace(k)
-        key_items = [clean_whitespace(x) for x in split_by_delimiters_outside_parentheses(cleaned_key)]
+        if cleaned_key is None: continue
+        key_items = [str(x) for x in [clean_whitespace(x) for x in split_by_delimiters_outside_parentheses(cleaned_key)] if x is not None]
         if {x.lower() for x in items_flat} == {x.lower() for x in key_items}:
             v_flat = flatten_items(v)
             if is_json:
@@ -254,7 +244,8 @@ def normalise_by_mapping(val, mapping_dict):
         matched = False
         for k, v in mapping_dict.items():
             cleaned_key = clean_whitespace(k)
-            key_items = [clean_whitespace(x) for x in split_by_delimiters_outside_parentheses(cleaned_key)]
+            if cleaned_key is None: continue
+            key_items = [str(x) for x in [clean_whitespace(x) for x in split_by_delimiters_outside_parentheses(cleaned_key)] if x is not None]
             # Only match single items here to avoid partial match with multi-item keys
             if len(key_items) == 1:
                 if item.lower() == key_items[0].lower():
@@ -277,7 +268,7 @@ def normalise_by_mapping(val, mapping_dict):
 
 def normalise_wundtyp(val):
     """
-    Normalisiert Wundtypen basierend auf WUNDTYP_GT_MAPPING.
+    Normalisiert Wundtypen auf die 10 medizinischen Hauptkategorien.
     """
     return normalise_by_mapping(val, WUNDTYP_GT_MAPPING)
 
@@ -429,6 +420,8 @@ def normalize_gt_file(input_path: str, output_path: str):
         )
         
     for col in df_cleaned.columns:
+        if col in ['image_id', 'user_id', 'updated_at', 'ist_fertig']:
+            continue
         df_cleaned[col] = df_cleaned[col].apply(clean_whitespace)
         
     if 'lokalisation' in df_cleaned.columns:

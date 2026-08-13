@@ -207,6 +207,43 @@ def load_csv(path):
     return df
 
 
+def map_level_3(prod_set):
+    if not prod_set:
+        return set()
+    mapped = set()
+    for item in prod_set:
+        item_lower = item.strip().lower()
+        if "suprasorb a" in item_lower:
+            mapped.add("Alginate")
+        elif "suprasorb p" in item_lower:
+            mapped.add("Schaumstoffverbände (Foam)")
+        elif "suprasorb x" in item_lower:
+            mapped.add("HydroBalance / Biozellulose")
+        elif "suprasorb liquacel" in item_lower:
+            mapped.add("Hydrofaser / Hydrofiber")
+        elif "vliwasorb" in item_lower or "vliwazell" in item_lower or "zemuko" in item_lower:
+            mapped.add("Superabsorber")
+        elif "solvaline" in item_lower or "lomatuell" in item_lower or "metalline" in item_lower:
+            mapped.add("Wundkontaktschichten (Silikon/Paraffin)")
+        elif "vliwaktiv" in item_lower:
+            mapped.add("Aktivkohleverband")
+        elif "suprasorb g" in item_lower or "gel-kompresse" in item_lower or "amorphes gel" in item_lower:
+            mapped.add("Hydrogele (Kompresse)")
+        elif "suprasorb h" in item_lower:
+            mapped.add("Hydrokolloide")
+        elif "suprasorb f" in item_lower:
+            mapped.add("Semipermeable Filme")
+        elif "cnp" in item_lower:
+            mapped.add("NPWT / Unterdrucktherapie")
+        elif "gazin" in item_lower or "vliwasoft" in item_lower:
+            mapped.add("Mull-/Vlieskompresse")
+        elif "opraclean" in item_lower:
+            mapped.add("Tamponade")
+        else:
+            mapped.add("Sonstige Primärverbände")
+    return mapped
+
+
 def to_clean_set(val):
     if not val:
         return set()

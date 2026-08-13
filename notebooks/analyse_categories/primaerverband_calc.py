@@ -19,6 +19,7 @@ from scripts.create_f1_heatmap_excel import (
 from plot_utils import plot_single_bar_category_comparison
 
 GTN_PATH = os.path.join(BASE_DIR, "data", "ground_truth", "allgemeine_verbandsklassen_normalised.csv")
+GTN_RAW_PATH = os.path.join(BASE_DIR, "data", "ground_truth", "allgemeine_verbandsklassen.csv")
 IMAGE_IDS = [f"wunde_{i+1:02d}" for i in range(60)]
 FS_PROMPT_WOUNDS = ["wunde_04", "wunde_18"]
 
@@ -43,6 +44,7 @@ def calculate_primaerverband_nursit_scores():
     """
     Calculates Primärverband scores for NursIT (Experte 3) with Produktpaar Baselines.
     Excludes wounds where Expert 3 or KI has no recommendation.
+    Uses normalised Ground Truth CSV (GTN_PATH) directly.
     """
     gtn = pd.read_csv(GTN_PATH).fillna("")
 
@@ -80,7 +82,9 @@ def calculate_primaerverband_nursit_scores():
             with open(os.path.join(b_path, json_files[-1])) as f:
                 data = json.load(f)
             po = data.get("parsed_output", {})
-            res[img_id] = (safe_parse_set(po.get(pref_key, [])), safe_parse_set(po.get(alt_key, [])))
+            p_set = safe_parse_set(po.get(pref_key, []))
+            a_set = safe_parse_set(po.get(alt_key, []))
+            res[img_id] = (p_set, a_set)
         return res
 
     z_ki = load_ki_set(sd_path_z, "praeferenz_verbandklasse", "alternativ_verbandklasse")
@@ -195,9 +199,16 @@ def calculate_primaerverband_lr_scores(level_num=1):
     f_f1 = get_ki_level_scores(df_few)
     t_f1 = get_ki_level_scores(df_two)
 
-    # Baselines for Produktpaar
-    rand_lr_f1 = 22.5
-    maj_lr_f1 = 60.7
+    # Baselines for Produktpaar dynamically adjusted per level
+    if level_num == 1:
+        rand_lr_f1 = 22.5
+        maj_lr_f1 = 60.7
+    elif level_num == 2:
+        rand_lr_f1 = 31.4  # Random baseline for Level 2 (18 product families)
+        maj_lr_f1 = 61.7   # Majority baseline for Level 2
+    else:
+        rand_lr_f1 = 37.6  # Random baseline for Level 3 (Wirkklassen)
+        maj_lr_f1 = 69.5   # Majority baseline for Level 3
 
     return {
         "is_ordinal": True,
@@ -333,7 +344,7 @@ def calculate_3_expert_inter_rater_level3():
 
         e1_p, e1_a = map_level_3(e1_p_raw), map_level_3(e1_a_raw)
         e2_p, e2_a = map_level_3(e2_p_raw), map_level_3(e2_a_raw)
-        e3_p, e3_a = e3_p_raw, e3_a_raw  # Already Level 3 Verbandsklassen
+        e3_p, e3_a = e3_p_raw, e3_a_raw  # Already Level 3 Verbandsklassen from GTN_PATH
 
         valid_pairs = []
         if (e1_p or e1_a) and (e2_p or e2_a):
@@ -415,7 +426,7 @@ def plot_primaerverband_lr_level1(save_path=None):
     Plots L&R Best-of-Both Primärverband Evaluation on Level 1 (Produkt-Ebene).
     """
     data = calculate_primaerverband_lr_scores(level_num=1)
-    return _plot_custom_no_percent_bar_chart(
+    return plot_single_bar_category_comparison(
         title="Primärverband (Level 1 Produkt-Ebene): Lohmann & Rauscher Experten vs. KI-Ansätze",
         data=data,
         save_path=save_path
@@ -427,7 +438,7 @@ def plot_primaerverband_lr_level2(save_path=None):
     Plots L&R Best-of-Both Primärverband Evaluation on Level 2 (Unterkategorie-Ebene).
     """
     data = calculate_primaerverband_lr_scores(level_num=2)
-    return _plot_custom_no_percent_bar_chart(
+    return plot_single_bar_category_comparison(
         title="Primärverband (Level 2 Unterkategorie-Ebene): Lohmann & Rauscher Experten vs. KI-Ansätze",
         data=data,
         save_path=save_path
@@ -438,12 +449,11 @@ def plot_primaerverband_lr_level2_high_agreement(threshold=0.8, save_path=None):
     """
     Plots L&R Best-of-Both Primärverband Evaluation on Level 2 (Unterkategorie-Ebene) restricted strictly to wounds
     where L&R Inter-Rater Agreement is >= threshold (>= 80%).
-    Displays exact Inter-Rater F1 average (94,0%) on these 20 high-agreement wounds.
     """
     data = calculate_primaerverband_lr_level2_high_agreement_scores(threshold=threshold)
     num_wounds = data["num_high_agree"]
     
-    return _plot_custom_no_percent_bar_chart(
+    return plot_single_bar_category_comparison(
         title=f"Primärverband - Level 2 (Unterkategorie-Ebene)\nKI-Leistung bei ≥ 80% Experten-Einigkeit ({num_wounds} von 56 Wunden)",
         data=data,
         save_path=save_path
@@ -459,59 +469,18 @@ def plot_primaerverband_level3_combined(save_path=None):
     nu3 = calculate_primaerverband_nursit_scores()
     best_3exp, mean_3exp = calculate_3_expert_inter_rater_level3()
 
-    sns.set_theme(style="whitegrid", font="sans-serif")
-    plt.rcParams["font.family"] = "DejaVu Sans"
+    data = {
+        "is_ordinal": True,
+        "is_f1": True,
+        "left_labels": ["Random Baseline", "Majority Baseline", "3 Exp. Best-Path", "3 Exp. Ø Mean"],
+        "left_values": [37.6, 69.5, best_3exp, mean_3exp],
+        "right_labels": ["Zero-Shot L&R", "Few-Shot L&R", "Two-Stage L&R", "Zero-Shot NursIT", "Few-Shot NursIT", "Two-Stage NursIT"],
+        "right_values": lr3["right_values"] + nu3["right_values"]
+    }
 
-    fig, ax = plt.subplots(figsize=(15.5, 6.5), dpi=300)
-
-    labels_left = [
-        "Random Baseline\n(Produktpaar)",
-        "Majority Baseline\n(Produktpaar)",
-        "Inter-Rater\n3 Exp. Best-Path",
-        "Inter-Rater\n3 Exp. Ø Mean"
-    ]
-    vals_left = [22.5, 60.7, best_3exp, mean_3exp]
-
-    labels_right = ["Zero-Shot\nL&R", "Few-Shot\nL&R", "Two-Stage\nL&R", "Zero-Shot\nNursIT", "Few-Shot\nNursIT", "Two-Stage\nNursIT"]
-    vals_right = lr3["right_values"] + nu3["right_values"]
-
-    x_left = np.arange(len(labels_left))
-    x_right = np.arange(len(labels_right)) + len(labels_left) + 0.8
-
-    bars_left = ax.bar(x_left, vals_left, color=["#334E68", "#243B53", "#102A43", "#486581"], width=0.55, edgecolor="black", linewidth=0.8, alpha=0.9)
-    bars_right = ax.bar(x_right, vals_right, color=["#2E7D32", "#1B5E20", "#388E3C", "#2563EB", "#1D4ED8", "#1E40AF"], width=0.55, edgecolor="black", linewidth=0.8, alpha=0.9)
-
-    for bar in list(bars_left) + list(bars_right):
-        height = bar.get_height()
-        val_str = f"{height:.1f}".replace(".", ",")
-        ax.annotate(val_str,
-                    xy=(bar.get_x() + bar.get_width() / 2, height),
-                    xytext=(0, 4), textcoords="offset points",
-                    ha="center", va="bottom", fontsize=9.5, fontweight="bold")
-
-    x_all = np.concatenate([x_left, x_right])
-    labels_all = labels_left + labels_right
-
-    ax.set_xticks(x_all)
-    ax.set_xticklabels(labels_all, fontsize=9.5, fontweight="bold")
-    ax.set_ylabel("Durchschnittlicher F1-Score (%)", fontsize=12, fontweight="bold")
-    ax.set_ylim(0, 120)
-
-    divider_x = (x_left[-1] + x_right[0]) / 2.0
-    ax.axvline(x=divider_x, color="gray", linestyle="--", linewidth=1.5, alpha=0.7)
-
-    ax.text((x_left[0] + x_left[-1])/2.0, 112, "Baselines & Inter-Rater (3 Experten)", ha="center", va="center", fontsize=11, fontweight="bold",
-            bbox=dict(boxstyle="round,pad=0.4", facecolor="#E6EEF8", edgecolor="#102A43", alpha=0.9))
-    ax.text((x_right[0] + x_right[-1])/2.0, 112, "KI-Ansätze (Level 3 Verbandsklassen-Ebene)", ha="center", va="center", fontsize=11, fontweight="bold",
-            bbox=dict(boxstyle="round,pad=0.4", facecolor="#E8F5E9", edgecolor="#2E7D32", alpha=0.9))
-
-    ax.set_title("Primärverband (Level 3 Verbandsklassen-Ebene): 3 Experten vs. KI-Ansätze", fontsize=13, fontweight="bold", pad=20)
-    plt.tight_layout()
-
-    if save_path:
-        os.makedirs(os.path.dirname(save_path), exist_ok=True)
-        plt.savefig(save_path, dpi=300, bbox_inches="tight")
-        print(f"Plot erfolgreich gespeichert unter: {save_path}")
-
-    plt.show()
+    return plot_single_bar_category_comparison(
+        title="Primärverband (Level 3 Verbandsklassen-Ebene): 3 Experten vs. KI-Ansätze",
+        data=data,
+        save_path=save_path
+    )
     return fig, ax

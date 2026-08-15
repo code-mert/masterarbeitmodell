@@ -22,6 +22,8 @@ GTN_PATH = os.path.join(BASE_DIR, "data", "ground_truth", "allgemeine_verbandskl
 GTN_RAW_PATH = os.path.join(BASE_DIR, "data", "ground_truth", "allgemeine_verbandsklassen.csv")
 IMAGE_IDS = [f"wunde_{i+1:02d}" for i in range(60)]
 FS_PROMPT_WOUNDS = ["wunde_04", "wunde_18"]
+FS_LR_PROMPT_EX = ["wunde_04", "wunde_18"]
+FS_NURS_PROMPT_EX = ["wunde_18", "wunde_28"]
 
 
 def safe_parse_set(val):
@@ -156,9 +158,10 @@ def calculate_primaerverband_lr_scores(level_num=1):
     ir_f1 = sum(ir_scores) / len(ir_scores) * 100 if ir_scores else 0.0
 
     # KI Scores Best of Both (matching Excel filtering)
-    def get_ki_level_scores(df_ki):
+    def get_ki_level_scores(df_ki, is_fs=False):
         scores = []
         for img_id in IMAGE_IDS:
+            if is_fs and img_id in FS_LR_PROMPT_EX: continue
             if img_id not in df_ki["image_id"].values: continue
             ki_p_raw = safe_parse_set(df_ki[df_ki["image_id"] == img_id]["praeferenz_wundauflage"].values[0] if "praeferenz_wundauflage" in df_ki.columns else "")
             ki_a_raw = safe_parse_set(df_ki[df_ki["image_id"] == img_id]["alternativ_wundauflage"].values[0] if "alternativ_wundauflage" in df_ki.columns else "")
@@ -195,9 +198,9 @@ def calculate_primaerverband_lr_scores(level_num=1):
 
         return sum(scores) / len(scores) * 100 if scores else 0.0
 
-    z_f1 = get_ki_level_scores(df_zero)
-    f_f1 = get_ki_level_scores(df_few)
-    t_f1 = get_ki_level_scores(df_two)
+    z_f1 = get_ki_level_scores(df_zero, is_fs=False)
+    f_f1 = get_ki_level_scores(df_few, is_fs=True)
+    t_f1 = get_ki_level_scores(df_two, is_fs=False)
 
     # Baselines for Produktpaar dynamically adjusted per level
     if level_num == 1:

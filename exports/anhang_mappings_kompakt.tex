@@ -1,0 +1,38 @@
+\section*{Anhang B: Medizinisches Normalisierungsschema (Mapping-Übersicht)}
+\addcontentsline{toc}{section}{Anhang B: Medizinisches Normalisierungsschema (Mapping-Übersicht)}
+Zur objektivierten Evaluation der Sprachmodell-Generierungen (GPT-5) gegenüber den Experten-Ground-Truths (Lohmann \& Rauscher sowie NursIT) wurden freie Textangaben und synonyme Bezeichnungen über ein regelbasiertes Normalisierungsschema auf diskrete Zielkategorien gemappt.\\[1em]
+Das vollständige Mappings-Register umfasst insgesamt \textbf{1.564 Einzelregeln}. Um den gedruckten Umfang der Masterarbeit angemessen kurz zu halten, zeigt Tabelle~\ref{tab:mapping_uebersicht} die Übersicht aller Mapping-Module mit Regelanzahlen. Das vollständige tabellarische Register ist der Arbeit im digitalen Anhang (\texttt{anhang\_mappings.csv}) beigefügt.\\[1.5em]
+\begin{table}[h!]
+\centering
+\caption{Übersicht aller 14 Mapping-Modulgruppen zur Freitext-Normalisierung}
+\label{tab:mapping_uebersicht}
+\begin{tabular}{|l|l|c|p{6cm}|}
+\hline
+\textbf{Quelle} & \textbf{Kategorie / Modul} & \textbf{Anzahl} & \textbf{Repräsentative Beispiel-Eingaben} \\ \hline
+\texttt{mappings.py} & \texttt{ANTIMIKROBIELL\_GT\_MAPPING} & 6 & \small{Silber (Ag⁺), Silber (Ag+)} \\ \hline
+\texttt{mappings.py} & \texttt{DEBRIDEMENT\_GT\_MAPPING} & 23 & \small{Autolytisch (Hydrogele, Hydrokolloide, Folienverbände), Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)} \\ \hline
+\texttt{mappings.py} & \texttt{EXSUDAT\_GT\_MAPPING} & 62 & \small{Annahme stark, Große Wunde: stark, da Mazerationen am Wundrand
+Kleine Nekrose: trocken} \\ \hline
+\texttt{mappings.py} & \texttt{HAUTSCHUTZ\_GT\_MAPPING} & 4 & \small{Hautschutzfilm / Barrierespray, Zinksalbe / Zinkpaste} \\ \hline
+\texttt{mappings.py} & \texttt{KOMPRESSION\_GT\_MAPPING} & 5 & \small{Mehrkomponentensysteme (2-/4-Lagen), Kurzzugbinden} \\ \hline
+\texttt{mappings.py} & \texttt{LOKALISATION\_GT\_MAPPING} & 134 & \small{...stark exsudierendes, nekrotisch belegtes Ulcus mit grünlicher Verfärbung typisch für Pseudomonas aeruginosa., ?} \\ \hline
+\texttt{mappings.py} & \texttt{LOKALISATION\_KEYWORDS} & 6 & \small{Fuß, Bein} \\ \hline
+\texttt{mappings.py} & \texttt{PRODUKT\_GT\_MAPPING} & 43 & \small{Schaumstoffverbände (Foam), Schaumstoffverbände} \\ \hline
+\texttt{mappings.py} & \texttt{SEKUNDAERVERBAND\_GT\_MAPPING} & 53 & \small{Schaumstoffverbände (Foam), Schaumstoffverbände} \\ \hline
+\texttt{mappings.py} & \texttt{SPELLING\_MAPPING} & 2 & \small{ulcus, decubitus} \\ \hline
+\texttt{mappings.py} & \texttt{SPUELLOESUNG\_GT\_MAPPING} & 10 & \small{Neutrale Spüllösung (NaCl 0,9 \% / Ringer-Lösung), Antimikrobielle Spüllösung (PHMB / Octenidin / Hypochlorit)} \\ \hline
+\texttt{mappings.py} & \texttt{WUNDRAND\_GT\_MAPPING} & 33 & \small{["Epibolie (eingerollter Wundrand)","Gerötet / entzündlich","Mazeriert"], ["Epibolie (eingerollter Wundrand)","Gerötet / entzündlich"]} \\ \hline
+\texttt{mappings.py} & \texttt{WUNDTYP\_GT\_MAPPING} & 143 & \small{Ausgedehnte feuchte Nekrose, Ausgetrtenes Blut oder Lymphe aus den entsprechenden Gefäßen mit Verteilung an der betroffenen Extremität} \\ \hline
+\texttt{mappings.py} & \texttt{WUNDUMGEBUNG\_GT\_MAPPING} & 38 & \small{["CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)","Erythem / Rötung"], ["CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)"]} \\ \hline
+\texttt{mappings\_LR.py} & \texttt{DEBRIDEMENT\_GT\_MAPPING} & 6 & \small{Autolytisches Debridement, Chirurgisches Debridement} \\ \hline
+\texttt{mappings\_LR.py} & \texttt{EXSUDAT\_GT\_MAPPING} & 62 & \small{Annahme stark, Große Wunde: stark, da Mazerationen am Wundrand
+Kleine Nekrose: trocken} \\ \hline
+\texttt{mappings\_LR.py} & \texttt{LOKALISATION\_GT\_MAPPING} & 134 & \small{...stark exsudierendes, nekrotisch belegtes Ulcus mit grünlicher Verfärbung typisch für Pseudomonas aeruginosa., ?} \\ \hline
+\texttt{mappings\_LR.py} & \texttt{LOKALISATION\_KEYWORDS} & 10 & \small{Abdomen, Fuß} \\ \hline
+\texttt{mappings\_LR.py} & \texttt{PRODUKT\_GT\_MAPPING} & 95 & \small{Actico UlcerSys System, ReadyWrap Untere Extremität} \\ \hline
+\texttt{mappings\_LR.py} & \texttt{WUNDGRUND\_GT\_MAPPING} & 266 & \small{nekrotisch, Fibrinbelegt} \\ \hline
+\texttt{mappings\_LR.py} & \texttt{WUNDRAND\_GT\_MAPPING} & 33 & \small{["Epibolie (eingerollter Wundrand)","Gerötet / entzündlich","Mazeriert"], ["Epibolie (eingerollter Wundrand)","Gerötet / entzündlich"]} \\ \hline
+\texttt{mappings\_LR.py} & \texttt{WUNDTYP\_GT\_MAPPING} & 143 & \small{Ausgedehnte feuchte Nekrose, Ausgetrtenes Blut oder Lymphe aus den entsprechenden Gefäßen mit Verteilung an der betroffenen Extremität} \\ \hline
+\texttt{mappings\_LR.py} & \texttt{WUNDUMGEBUNG\_GT\_MAPPING} & 38 & \small{["CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)","Erythem / Rötung"], ["CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)"]} \\ \hline
+\end{tabular}
+\end{table}

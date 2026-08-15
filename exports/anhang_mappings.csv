@@ -1,0 +1,1400 @@
+﻿Quelle;Kategorie;Eingabe_Rohbegriff;Zielbegriff_Normalisiert
+mappings.py;ANTIMIKROBIELL_GT_MAPPING;Silber (Ag⁺);Silber (Ag+)
+mappings.py;ANTIMIKROBIELL_GT_MAPPING;Silber (Ag+);Silber (Ag+)
+mappings.py;ANTIMIKROBIELL_GT_MAPPING;PHMB;PHMB
+mappings.py;ANTIMIKROBIELL_GT_MAPPING;Octenidin;Octenidin
+mappings.py;ANTIMIKROBIELL_GT_MAPPING;Cadexomer-Iod;Cadexomer-Iod
+mappings.py;ANTIMIKROBIELL_GT_MAPPING;Honig (Medihoney);Honig (Medihoney)
+mappings.py;DEBRIDEMENT_GT_MAPPING;Autolytisch (Hydrogele, Hydrokolloide, Folienverbände);Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)
+mappings.py;DEBRIDEMENT_GT_MAPPING;Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung);Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)
+mappings.py;DEBRIDEMENT_GT_MAPPING;Chirurgisch/Scharf (Skalpell, Kürette);Chirurgisch/Scharf (Skalpell, Kürette)
+mappings.py;DEBRIDEMENT_GT_MAPPING;Enzymatisch (Kollagenase);Enzymatisch (Kollagenase)
+mappings.py;DEBRIDEMENT_GT_MAPPING;Kein Débridement erforderlich;Kein Débridement erforderlich
+mappings.py;DEBRIDEMENT_GT_MAPPING;Autolytisch (Hydrogele, Hydrokolloide, Folienverbände), vorsichtige mechanische Reinigung lockerer Beläge;Autolytisch (Hydrogele, Hydrokolloide, Folienverbände), Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)
+mappings.py;DEBRIDEMENT_GT_MAPPING;Autolytisch (Hydrogele, Hydrokolloide, Folienverbände), vorsichtig mechanisches Debridement;Autolytisch (Hydrogele, Hydrokolloide, Folienverbände), Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)
+mappings.py;DEBRIDEMENT_GT_MAPPING;vorsichtig mechanisches Debridement;Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)
+mappings.py;DEBRIDEMENT_GT_MAPPING;vorsichtige mechanische Reinigung lockerer Beläge;Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)
+mappings.py;DEBRIDEMENT_GT_MAPPING;nicht aggressiv entfernen, solange keine Revaskularisation erfolgt ist, Chirurgisch/Scharf (Skalpell, Kürette);Chirurgisch/Scharf (Skalpell, Kürette)
+mappings.py;DEBRIDEMENT_GT_MAPPING;Autolytisch (Hydrogele, Hydrokolloide, Folienverbände), chirurgisches Debridement erst nach Perfusionsverbesserung, sofern möglich;Autolytisch (Hydrogele, Hydrokolloide, Folienverbände), Chirurgisch/Scharf (Skalpell, Kürette)
+mappings.py;DEBRIDEMENT_GT_MAPPING;chirurgisches Debridement erst nach Perfusionsverbesserung, sofern möglich;Chirurgisch/Scharf (Skalpell, Kürette)
+mappings.py;DEBRIDEMENT_GT_MAPPING;Chirurgisch/Scharf (Skalpell, Kürette), autolytisches Debridement, enzymatisches Debridement - ergänzend;Autolytisch (Hydrogele, Hydrokolloide, Folienverbände), Chirurgisch/Scharf (Skalpell, Kürette), Enzymatisch (Kollagenase)
+mappings.py;DEBRIDEMENT_GT_MAPPING;autolytisches Debridement, enzymatisches Debridement - ergänzend;Autolytisch (Hydrogele, Hydrokolloide, Folienverbände), Enzymatisch (Kollagenase)
+mappings.py;DEBRIDEMENT_GT_MAPPING;konservatives Abwarten bei unklarer Demarkation, selektives chirurgisches Débridement, enzymatisch/autolytisch ergänzend;Autolytisch (Hydrogele, Hydrokolloide, Folienverbände), Chirurgisch/Scharf (Skalpell, Kürette), Enzymatisch (Kollagenase)
+mappings.py;DEBRIDEMENT_GT_MAPPING;kein aggressives Debridement ohne Gefäßstatus, trockene stabile Nekrosen ggf. belassen, Bei infizierten/fibrinösen Belägen: zurückhaltendes scharfes Debridement, autolytische Verfahren möglich;Autolytisch (Hydrogele, Hydrokolloide, Folienverbände), Chirurgisch/Scharf (Skalpell, Kürette)
+mappings.py;DEBRIDEMENT_GT_MAPPING;Autolytisch (Hydrogele, Folienverbände), Hydrokolloide;Autolytisch (Hydrogele, Hydrokolloide, Folienverbände)
+mappings.py;DEBRIDEMENT_GT_MAPPING;Autolytisch (Hydrogele, Folienverbände), Hydrokolloide, Mechanisch (Monofilament-Pad, Wundspülung), feuchte Kompressen;Autolytisch (Hydrogele, Hydrokolloide, Folienverbände), Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)
+mappings.py;DEBRIDEMENT_GT_MAPPING;Autolytisch (Hydrogele, Chirurgisch/Scharf (Skalpell, Folienverbände), Hydrokolloide, Kürette), Mechanisch (Monofilament-Pad, Wundspülung), feuchte Kompressen;Autolytisch (Hydrogele, Hydrokolloide, Folienverbände), Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung), Chirurgisch/Scharf (Skalpell, Kürette)
+mappings.py;DEBRIDEMENT_GT_MAPPING;Chirurgisch/Scharf (Skalpell, Kürette), Mechanisch (Monofilament-Pad, Wundspülung), feuchte Kompressen;Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung), Chirurgisch/Scharf (Skalpell, Kürette)
+mappings.py;DEBRIDEMENT_GT_MAPPING;Autolytisch (Hydrogele, Hydrokolloide, Folienverbände), Chirurgisch/Scharf (Skalpell, Kürette), Enzymatisch;Autolytisch (Hydrogele, Hydrokolloide, Folienverbände), Chirurgisch/Scharf (Skalpell, Kürette), Enzymatisch (Kollagenase)
+mappings.py;DEBRIDEMENT_GT_MAPPING;Mechanisch (Monofilament-Pad, Wundspülung), feuchte Kompressen;Mechanisch (Monofilament-Pad, feuchte Kompressen, Wundspülung)
+mappings.py;DEBRIDEMENT_GT_MAPPING;Autolytisch (Hydrogele, Chirurgisch/Scharf (Skalpell, Folienverbände), Hydrokolloide, Kürette);Autolytisch (Hydrogele, Hydrokolloide, Folienverbände), Chirurgisch/Scharf (Skalpell, Kürette)
+mappings.py;EXSUDAT_GT_MAPPING;Annahme stark;Stark
+mappings.py;EXSUDAT_GT_MAPPING;"Große Wunde: stark, da Mazerationen am Wundrand
+Kleine Nekrose: trocken";Stark
+mappings.py;EXSUDAT_GT_MAPPING;Keine;Keine
+mappings.py;EXSUDAT_GT_MAPPING;Leicht;Leicht
+mappings.py;EXSUDAT_GT_MAPPING;Mässig;Mäßig
+mappings.py;EXSUDAT_GT_MAPPING;Mäßig;Mäßig
+mappings.py;EXSUDAT_GT_MAPPING;Nekrosen: kein Exsudat. Unterschenkel mäßig;Mäßig
+mappings.py;EXSUDAT_GT_MAPPING;Stark;Stark
+mappings.py;EXSUDAT_GT_MAPPING;blutig bis serös teilweise vorhanden dann eher mäßig;Mäßig
+mappings.py;EXSUDAT_GT_MAPPING;eher schwach b is mäßig;Leicht, Mäßig
+mappings.py;EXSUDAT_GT_MAPPING;eher wenig;Leicht
+mappings.py;EXSUDAT_GT_MAPPING;eher weniger;Leicht
+mappings.py;EXSUDAT_GT_MAPPING;gering bis gar nicht;Keine, Leicht
+mappings.py;EXSUDAT_GT_MAPPING;kein;Keine
+mappings.py;EXSUDAT_GT_MAPPING;keine;Keine
+mappings.py;EXSUDAT_GT_MAPPING;keine Angabe möglich;Enthaltung / keine Angabe
+mappings.py;EXSUDAT_GT_MAPPING;keine Angabe möglich / eher wenig;Leicht
+mappings.py;EXSUDAT_GT_MAPPING;keine Angabe möglich / vermutlich mässig;Mäßig
+mappings.py;EXSUDAT_GT_MAPPING;keine Angabe möglich / vermutlich wenig;Leicht
+mappings.py;EXSUDAT_GT_MAPPING;keine Angabe möglich, vermutlich gering;Leicht
+mappings.py;EXSUDAT_GT_MAPPING;keine Angabe möglich, vermutlich trocken;Keine
+mappings.py;EXSUDAT_GT_MAPPING;keine Einschätzung möglich;Enthaltung / keine Angabe
+mappings.py;EXSUDAT_GT_MAPPING;keine genaue Angabe möglich, sieht eher trocken bis leicht exsudierend aus;Keine, Leicht
+mappings.py;EXSUDAT_GT_MAPPING;könnte eher schwach sein;Leicht
+mappings.py;EXSUDAT_GT_MAPPING;leicht;Leicht
+mappings.py;EXSUDAT_GT_MAPPING;leicht bis mittel;Leicht, Mäßig
+mappings.py;EXSUDAT_GT_MAPPING;leicht bis mäßig;Leicht, Mäßig
+mappings.py;EXSUDAT_GT_MAPPING;leichte bis mäßige exsudation;Leicht, Mäßig
+mappings.py;EXSUDAT_GT_MAPPING;mittel;Mäßig
+mappings.py;EXSUDAT_GT_MAPPING;mittel bis stark;Mäßig, Stark
+mappings.py;EXSUDAT_GT_MAPPING;mittelstark;Mäßig
+mappings.py;EXSUDAT_GT_MAPPING;mäfig;Mäßig
+mappings.py;EXSUDAT_GT_MAPPING;mäßig;Mäßig
+mappings.py;EXSUDAT_GT_MAPPING;mäßig bis stark;Mäßig, Stark
+mappings.py;EXSUDAT_GT_MAPPING;mäßig bis stark, sicher ist eine Geruchsbildung süßlich aromatisch teilweise beschrieben als traubenartig;Mäßig, Stark
+mappings.py;EXSUDAT_GT_MAPPING;nicht beurteilbar;Enthaltung / keine Angabe
+mappings.py;EXSUDAT_GT_MAPPING;nicht beurteilbar, vermutlich stark;Stark
+mappings.py;EXSUDAT_GT_MAPPING;nicht genau definierbar, aus der Erfahrung heraus mäßige Exsudation;Mäßig
+mappings.py;EXSUDAT_GT_MAPPING;nicht klar, eher trübe Wunde könnte Geruch abgeben;Enthaltung / keine Angabe
+mappings.py;EXSUDAT_GT_MAPPING;nicht zu beschreiben;Enthaltung / keine Angabe
+mappings.py;EXSUDAT_GT_MAPPING;offenen stelle mäßig, geschlossene stelle kein bis wenig exsudat;Keine, Leicht
+mappings.py;EXSUDAT_GT_MAPPING;scheint mäßig zu sein;Mäßig
+mappings.py;EXSUDAT_GT_MAPPING;schwach;Leicht
+mappings.py;EXSUDAT_GT_MAPPING;schwach bin mäßig;Leicht, Mäßig
+mappings.py;EXSUDAT_GT_MAPPING;schwach bis mäßig;Leicht, Mäßig
+mappings.py;EXSUDAT_GT_MAPPING;schwach bis nicht vorhanden;Keine, Leicht
+mappings.py;EXSUDAT_GT_MAPPING;sehr gering;Leicht
+mappings.py;EXSUDAT_GT_MAPPING;stark;Stark
+mappings.py;EXSUDAT_GT_MAPPING;vermutlich gering;Leicht
+mappings.py;EXSUDAT_GT_MAPPING;vermutlich hoch;Stark
+mappings.py;EXSUDAT_GT_MAPPING;vermutlich hohe Exsudation;Stark
+mappings.py;EXSUDAT_GT_MAPPING;vermutlich kaum;Keine
+mappings.py;EXSUDAT_GT_MAPPING;vermutlich mittel;Mäßig
+mappings.py;EXSUDAT_GT_MAPPING;vermutlich mittelmässig;Mäßig
+mappings.py;EXSUDAT_GT_MAPPING;vermutlich mittelmäßig;Mäßig
+mappings.py;EXSUDAT_GT_MAPPING;vermutlich mässig;Mäßig
+mappings.py;EXSUDAT_GT_MAPPING;vermutlich mäßig;Mäßig
+mappings.py;EXSUDAT_GT_MAPPING;vermutlich starke Exsudation;Stark
+mappings.py;EXSUDAT_GT_MAPPING;vermutlich vorhanden, in welcher Menge ist nicht zu beurteilen;Enthaltung / keine Angabe
+mappings.py;EXSUDAT_GT_MAPPING;vermutlich wenig;Leicht
+mappings.py;EXSUDAT_GT_MAPPING;wahrscheinlich mittelmäßig vorhanden;Mäßig
+mappings.py;EXSUDAT_GT_MAPPING;warsch hoch bis sehr hoch,  klare exsudation;Stark
+mappings.py;HAUTSCHUTZ_GT_MAPPING;Hautschutzfilm / Barrierespray;Hautschutzfilm / Barrierespray
+mappings.py;HAUTSCHUTZ_GT_MAPPING;Zinksalbe / Zinkpaste;Zinksalbe / Zinkpaste
+mappings.py;HAUTSCHUTZ_GT_MAPPING;Wundrandschutzpaste;Wundrandschutzpaste
+mappings.py;HAUTSCHUTZ_GT_MAPPING;Nicht erforderlich;Kein Hautschutz erforderlich
+mappings.py;KOMPRESSION_GT_MAPPING;Mehrkomponentensysteme (2-/4-Lagen);Mehrkomponentensysteme (2-/4-Lagen)
+mappings.py;KOMPRESSION_GT_MAPPING;Kurzzugbinden;Kurzzugbinden
+mappings.py;KOMPRESSION_GT_MAPPING;Adaptive Kompressionsbandagen (Wrap);Adaptive Kompressionsbandagen (Wrap)
+mappings.py;KOMPRESSION_GT_MAPPING;Medizinische Kompressionsstrümpfe (MKS);Medizinische Kompressionsstrümpfe (MKS)
+mappings.py;KOMPRESSION_GT_MAPPING;medizinische Kompressionssysteme;Medizinische Kompressionsstrümpfe (MKS)
+mappings.py;LOKALISATION_GT_MAPPING;...stark exsudierendes, nekrotisch belegtes Ulcus mit grünlicher Verfärbung typisch für Pseudomonas aeruginosa.;Enthaltung / keine Angabe
+mappings.py;LOKALISATION_GT_MAPPING;?;Enthaltung / keine Angabe
+mappings.py;LOKALISATION_GT_MAPPING;???;Enthaltung / keine Angabe
+mappings.py;LOKALISATION_GT_MAPPING;Abdomen;Abdomen
+mappings.py;LOKALISATION_GT_MAPPING;Abdomen, links;Abdomen
+mappings.py;LOKALISATION_GT_MAPPING;Arm;Arm / Hand
+mappings.py;LOKALISATION_GT_MAPPING;Arm oder Bein??;Enthaltung / keine Angabe
+mappings.py;LOKALISATION_GT_MAPPING;Aussenseitig linke Fußsohle;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;Außenknöchel links;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;Bein;Bein
+mappings.py;LOKALISATION_GT_MAPPING;Bein nicht genau definierbar;Bein
+mappings.py;LOKALISATION_GT_MAPPING;Bein wo genau fraglich;Bein
+mappings.py;LOKALISATION_GT_MAPPING;Bein, Unterschenkel Richtung Fuß;Bein
+mappings.py;LOKALISATION_GT_MAPPING;Bein, evtl. links, Unterschenkel;Bein
+mappings.py;LOKALISATION_GT_MAPPING;Bein, evtl. rechts, Unterschenkel;Bein
+mappings.py;LOKALISATION_GT_MAPPING;Bein, genaue Definition nicht möglich;Bein
+mappings.py;LOKALISATION_GT_MAPPING;Bein, genauere Lokalisation nicht genau definierbar;Bein
+mappings.py;LOKALISATION_GT_MAPPING;Bein, wo genau nicht definierbar;Bein
+mappings.py;LOKALISATION_GT_MAPPING;Das Bild zeigt ein großflächiges venöses Ulcus cruris bei ausgeprägter chronisch venöser Stauung und Adipositas-assoziierter Belastung. Möglich, Oberschenkel links, Unterschenkel;Bein
+mappings.py;LOKALISATION_GT_MAPPING;Ferse;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;Ferse, Achillessehne;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;Ferse, linker Fuß;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;Ferse, rechter Fuß;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;"Ferse, scheint links zu sein:
+gelblich-fibrinösem Belag
+mäßiger Exsudation
+gerötetem Wundrand";Fuß
+mappings.py;LOKALISATION_GT_MAPPING;Fuß lateral links;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;Fuß links plantar;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;Fuß links plantar  lateral;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;Fuß rechts;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;Fuß, Ferse links;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;Fußrücken;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;Fußrücken linker Fuß;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;Fußrücken rechter Fuß;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;Fußsohle Ferse;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;Gesäß-/Sakralregion;Gesäß / Sakral
+mappings.py;LOKALISATION_GT_MAPPING;Gesäß-/perianale Region eines Säuglings;Gesäß / Sakral
+mappings.py;LOKALISATION_GT_MAPPING;Knöchelinnenseite;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;Lokalisation: Fußrücken, lateraler Vorfuß sowie Zehenbereiche;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;Lokalisation: Unterschenkelbereich;Bein
+mappings.py;LOKALISATION_GT_MAPPING;Lokalisation: Unterschenkelregion;Bein
+mappings.py;LOKALISATION_GT_MAPPING;Lokalisation: lateraler Mittelfuß/Knöchelbereich;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;Lokalisation: lateraler Vor-/Mittelfuß;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;Lokalisation: sakrogluteale/perianale Region beidseits;Gesäß / Sakral
+mappings.py;LOKALISATION_GT_MAPPING;Lokalisation: vermutlich Sakral-/Gesäßregion;Gesäß / Sakral
+mappings.py;LOKALISATION_GT_MAPPING;Oberarb Muskulus bizeps;Arm / Hand
+mappings.py;LOKALISATION_GT_MAPPING;Os Sacrum;Gesäß / Sakral
+mappings.py;LOKALISATION_GT_MAPPING;Rima Ani;Gesäß / Sakral
+mappings.py;LOKALISATION_GT_MAPPING;Sakralbereich;Gesäß / Sakral
+mappings.py;LOKALISATION_GT_MAPPING;Sakralbereich linke hälfte;Gesäß / Sakral
+mappings.py;LOKALISATION_GT_MAPPING;Sakraler Bereich;Gesäß / Sakral
+mappings.py;LOKALISATION_GT_MAPPING;Steiß;Gesäß / Sakral
+mappings.py;LOKALISATION_GT_MAPPING;Unterarm;Arm / Hand
+mappings.py;LOKALISATION_GT_MAPPING;Unterschenkel;Bein
+mappings.py;LOKALISATION_GT_MAPPING;Unterschenkel  medial;Bein
+mappings.py;LOKALISATION_GT_MAPPING;Unterschenkel warsch. gamaschenartig / bereits zirkulierend;Bein
+mappings.py;LOKALISATION_GT_MAPPING;Unterschenkel weit umfassend;Bein
+mappings.py;LOKALISATION_GT_MAPPING;Unterschenkel, Außenseite auf Knie Höhe;Bein
+mappings.py;LOKALISATION_GT_MAPPING;Unterschenkel, rechts, Innenseite;Bein
+mappings.py;LOKALISATION_GT_MAPPING;Unterschenkel/Knöchelregion, zirkumferenziell ausgedehnt;Bein
+mappings.py;LOKALISATION_GT_MAPPING;Unterschenkel?;Bein
+mappings.py;LOKALISATION_GT_MAPPING;"chronisches Ulkus im Bereich der Achillessehne
+dorsaler Unterschenkel / Achillessehnenregion";Bein
+mappings.py;LOKALISATION_GT_MAPPING;ferse, fußsohle;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;"fibrinösem gelblich-weißem Belag,
+mäßiger Exsudation,
+gerötetem Wundrand,
+--> vermutlich entzündlicher bzw. kritisch kolonisierter Situation,";Enthaltung / keine Angabe
+mappings.py;LOKALISATION_GT_MAPPING;größeres, flächiges Ulcus am Unterschenkel (Wade) bei ausgeprägtem Ödem und Adipositas-assoziierter Hautveränderung.;Bein
+mappings.py;LOKALISATION_GT_MAPPING;keine Angabe möglich;Enthaltung / keine Angabe
+mappings.py;LOKALISATION_GT_MAPPING;könnte Innenseite linker Fuß sein;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;könnte Unterschenkel oder Handgelenk sein;Enthaltung / keine Angabe
+mappings.py;LOKALISATION_GT_MAPPING;könnte am linken Fuß sein... Knöchelbereich;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;könnte der Unterschenkel sein, rechts;Bein
+mappings.py;LOKALISATION_GT_MAPPING;könnte oberhalb des os sacrum liegen;Gesäß / Sakral
+mappings.py;LOKALISATION_GT_MAPPING;könnte sich im Bereich des Steißes befinden;Gesäß / Sakral
+mappings.py;LOKALISATION_GT_MAPPING;lateral linker Fuß;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;li lateraler Malleolus;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;li. Fußrücken;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;linke Ferse;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;linker Fuss;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;linker Fussrücken;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;linker Fuß;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;"linker Fuß
+Lokalisation: dorsaler und lateraler Vorfuß mit Beteiligung der Zehenbasis";Fuß
+mappings.py;LOKALISATION_GT_MAPPING;linker Fuß - dorsaler Vorfuß/Fußrücken;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;linker Fuß außen;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;linker Fuß lateratl;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;linker Fuß medial, malleolär;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;"linker Fuß medial-lateral 
+kleine Nekrose an der Ferse außen plantar";Fuß
+mappings.py;LOKALISATION_GT_MAPPING;linker Fuß, Außenseite;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;linker Fuß, Ferse;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;linker Fuß, Innenseite;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;linker Fuß, Mittelfußsohle, Ferse;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;linker Fuß, Spann, Fußrücken;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;linker Fuß, außenseite;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;linker Fuß, seite;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;linker Fußrücken;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;linker Oberarm, Innenseite;Arm / Hand
+mappings.py;LOKALISATION_GT_MAPPING;linker Oberarm/ Innenseitig;Arm / Hand
+mappings.py;LOKALISATION_GT_MAPPING;linker proximaler Unterschenkel lateral;Bein
+mappings.py;LOKALISATION_GT_MAPPING;linkes Bein unterhalb Knie lateral;Bein
+mappings.py;LOKALISATION_GT_MAPPING;lokalisation nicht genau zu definieren;Enthaltung / keine Angabe
+mappings.py;LOKALISATION_GT_MAPPING;mediale Fußseite linker Fuß;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;mehrere kleine bis mittelgroße Ulzerationen am Unterschenkel (Wade, rechts?) mit entzündlich wirkender Umgebungshaut.;Bein
+mappings.py;LOKALISATION_GT_MAPPING;multiple Schädigung gesamter Gesäßbereich;Gesäß / Sakral
+mappings.py;LOKALISATION_GT_MAPPING;nicht beurteilbar;Enthaltung / keine Angabe
+mappings.py;LOKALISATION_GT_MAPPING;nicht genau definierbar;Enthaltung / keine Angabe
+mappings.py;LOKALISATION_GT_MAPPING;nicht genau definierbar könnte Sakralbereich sein;Gesäß / Sakral
+mappings.py;LOKALISATION_GT_MAPPING;nicht genau definierbar sieht für mich aus wie am Vorfuß;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;nicht genau definierbar, Vermutung Unterschenkel;Bein
+mappings.py;LOKALISATION_GT_MAPPING;nicht genau definierbar, meist am Unterschenkel;Bein
+mappings.py;LOKALISATION_GT_MAPPING;oberhalb der Achillessehne;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;plantarseitig rechter Fuß;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;re Fuß;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;rechte Ferse;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;rechte Hand;Arm / Hand
+mappings.py;LOKALISATION_GT_MAPPING;rechte Hand und Arm;Arm / Hand
+mappings.py;LOKALISATION_GT_MAPPING;rechter Fuß;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;rechter Fuß - lateraler und plantarer Fußbereich/Ferse;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;rechter Fuß Fußrücken und lateral;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;rechter Fuß medial, Richtung plantar.;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;rechter Fuß plantar;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;rechter Fuß, Ferse;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;rechter Fuß, Ferse, Mittelfuß - Fußsohle;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;rechter Fuß, Fußsohle;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;rechter Fuß, Innenseite, Knöchel;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;rechter Fuß, Spann;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;rechter Fuß, in Höhe der großen Zehe, unterhalb der medialen Malleolen;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;rechter Unterarm, rechtes Handgelenk, rechte Hand;Arm / Hand
+mappings.py;LOKALISATION_GT_MAPPING;rechter Unterschenkel;Bein
+mappings.py;LOKALISATION_GT_MAPPING;rechtes Bein, Kniebereich, Unterschenkel;Bein
+mappings.py;LOKALISATION_GT_MAPPING;rechtes Bein, höhe der Knöchel;Bein
+mappings.py;LOKALISATION_GT_MAPPING;sacralbereich;Gesäß / Sakral
+mappings.py;LOKALISATION_GT_MAPPING;sakrales Dekubitalulkus;Gesäß / Sakral
+mappings.py;LOKALISATION_GT_MAPPING;schwer zu beurteilen, Vermutung am Trochanter major;Bein
+mappings.py;LOKALISATION_GT_MAPPING;"schwer zu beurteilen, keine genaue Angabe möglich,
+eventuell Rücken Richtung Oberarm /";Enthaltung / keine Angabe
+mappings.py;LOKALISATION_GT_MAPPING;schwierig zu beantworten... könnte die Wade sein, evtl. rechts;Bein
+mappings.py;LOKALISATION_GT_MAPPING;unterschenkel;Bein
+mappings.py;LOKALISATION_GT_MAPPING;vermutlich am Außenknöchel;Fuß
+mappings.py;LOKALISATION_GT_MAPPING;vermutlich am Unterschenkel;Bein
+mappings.py;LOKALISATION_KEYWORDS;Fuß;fuß, fus, ferse, knöchel, zehe, spann, sohle, plantar, vorfuß, mittelfuß, fußrücken, sprunggelenk, malleolar, malleol, dorsolateral, dorsalseitig, rückfuß, großzehe, calcaneus, außenknöchel
+mappings.py;LOKALISATION_KEYWORDS;Bein;bein, schenkel, wade, knie, achilles, knöchelregion, unterschenkel, gaiter
+mappings.py;LOKALISATION_KEYWORDS;Arm;arm, oberarm, unterarm
+mappings.py;LOKALISATION_KEYWORDS;Hand;hand, handgelenk
+mappings.py;LOKALISATION_KEYWORDS;Abdomen;abdomen, bauch, bauchdecke, abdominal
+mappings.py;LOKALISATION_KEYWORDS;Gesäß/Steiß;gesäß, gesaess, sakral, steiß, steiss, perianal, sakrogluteal, gluteal, intergluteal, leiste, leistenregion, inguinal
+mappings.py;PRODUKT_GT_MAPPING;Schaumstoffverbände (Foam);Schaumstoffverbände (Foam)
+mappings.py;PRODUKT_GT_MAPPING;Schaumstoffverbände;Schaumstoffverbände (Foam)
+mappings.py;PRODUKT_GT_MAPPING;Hydrofaser / Hydrofiber;Hydrofaser / Hydrofiber
+mappings.py;PRODUKT_GT_MAPPING;Alginate;Alginate
+mappings.py;PRODUKT_GT_MAPPING;Hydrogele (Kompresse);Hydrogele (Kompresse)
+mappings.py;PRODUKT_GT_MAPPING;Hydrokolloide;Hydrokolloide
+mappings.py;PRODUKT_GT_MAPPING;Superabsorber;Superabsorber
+mappings.py;PRODUKT_GT_MAPPING;Wundkontaktschichten (Silikon/Paraffin);Wundkontaktschichten (Silikon/Paraffin)
+mappings.py;PRODUKT_GT_MAPPING;Lipidokolloid-Auflagen;Wundkontaktschichten (Silikon/Paraffin)
+mappings.py;PRODUKT_GT_MAPPING;Hydropolymerverbände;Schaumstoffverbände (Foam)
+mappings.py;PRODUKT_GT_MAPPING;Silberhydrofaser;Hydrofaser / Hydrofiber
+mappings.py;PRODUKT_GT_MAPPING;Silberalginat;Alginate
+mappings.py;PRODUKT_GT_MAPPING;Silber-Schaumverbände;Schaumstoffverbände (Foam)
+mappings.py;PRODUKT_GT_MAPPING;antimikrobielle Alginate;Alginate
+mappings.py;PRODUKT_GT_MAPPING;Hydrofaser / Hydrofiber, silberhaltige Varianten bei bakterieller Belastung;Hydrofaser / Hydrofiber
+mappings.py;PRODUKT_GT_MAPPING;Hydrofaser / Hydrofiber, Wundkontaktschichten (Silikon/Paraffin), Bei bakterieller Belastung: silberhaltige Varianten kurzfristig;Hydrofaser / Hydrofiber, Wundkontaktschichten (Silikon/Paraffin)
+mappings.py;PRODUKT_GT_MAPPING;Alginate, Hydrofaser / Hydrofiber, bei kritischer Kolonisation silberhaltige Varianten erwägen;Hydrofaser / Hydrofiber, Alginate
+mappings.py;PRODUKT_GT_MAPPING;Hydrofaser / Hydrofiber, Schaumstoffverbände (Foam), Silber-Schaumverbände;Hydrofaser / Hydrofiber, Schaumstoffverbände (Foam)
+mappings.py;PRODUKT_GT_MAPPING;Hydrofaser / Hydrofiber, Bei Infektionsverdacht silberhaltige Varianten, Schaumstoffverbände (Foam);Hydrofaser / Hydrofiber, Schaumstoffverbände (Foam)
+mappings.py;PRODUKT_GT_MAPPING;Schaumstoffverbände (Foam), silberhaltige Verbrennungsauflagen;Schaumstoffverbände (Foam)
+mappings.py;PRODUKT_GT_MAPPING;antiseptische Wundauflagen --> Silber PHMB-haltige Produkte;PHMB-haltige Wundauflagen
+mappings.py;PRODUKT_GT_MAPPING;Silberhydrofaser oder Silberalginat;Hydrofaser / Hydrofiber, Alginate
+mappings.py;PRODUKT_GT_MAPPING;Silberalginate, Silberhydrofaser;Hydrofaser / Hydrofiber, Alginate
+mappings.py;PRODUKT_GT_MAPPING;Silberhydrofaser, Silberalginat;Hydrofaser / Hydrofiber, Alginate
+mappings.py;PRODUKT_GT_MAPPING;Silberhydrofaser, antimikrobielle Alginate;Hydrofaser / Hydrofiber, Alginate
+mappings.py;PRODUKT_GT_MAPPING;silberhydrofaser/Silberalginat bei kritischer Kolonisation;Hydrofaser / Hydrofiber, Alginate
+mappings.py;PRODUKT_GT_MAPPING;Silberalginat, antimikrobielle Alginate ggf. PHMB-haltige Wundauflagen;Alginate, PHMB-haltige Wundauflagen
+mappings.py;PRODUKT_GT_MAPPING;Bei feuchten/infizierten Bereichen: Silberhydrofaser Silberalginat antimikrobielle Wundauflagen.;Hydrofaser / Hydrofiber, Alginate
+mappings.py;PRODUKT_GT_MAPPING;Bei feuchten/infizierten Bereichen: Silberhydrofaser Silberalginat antimikrobielle Wundauflagen;Hydrofaser / Hydrofiber, Alginate
+mappings.py;PRODUKT_GT_MAPPING;Bei kritischer Kolonisation: Silberhydrofaser kurzfristig, Hydrogele (Kompresse);Hydrofaser / Hydrofiber, Hydrogele (Kompresse)
+mappings.py;PRODUKT_GT_MAPPING;Bei kritischer Kolonisation: Silberhydrofaser kurzfristig;Hydrofaser / Hydrofiber
+mappings.py;PRODUKT_GT_MAPPING;Alginate bei stärker exsudierend;Alginate
+mappings.py;PRODUKT_GT_MAPPING;ggf. Hydrogel bei trockeneren Belägen;Hydrogele (Kompresse)
+mappings.py;PRODUKT_GT_MAPPING;Alginate, Hydrofaser / Hydrofiber, Superabsorber, ggf. Unterdrucktherapie (NPWT/VAC) nach Nekrosensanierung;Alginate, Hydrofaser / Hydrofiber, Superabsorber
+mappings.py;PRODUKT_GT_MAPPING;PHMB-haltige Auflagen;PHMB-haltige Wundauflagen
+mappings.py;PRODUKT_GT_MAPPING;PHMB-haltige Wundauflagen;PHMB-haltige Wundauflagen
+mappings.py;PRODUKT_GT_MAPPING;antimikrobielle Alginate ggf. PHMB-haltige Wundauflagen;Alginate, PHMB-haltige Wundauflagen
+mappings.py;PRODUKT_GT_MAPPING;trockene sterile Schutzverbände, atraumatische Kontaktlagen, keine aggressive Befeuchtung der stabilen Nekrose;trockene sterile Schutzverbände, Wundkontaktschichten (Silikon/Paraffin)
+mappings.py;PRODUKT_GT_MAPPING;Bei trockener Nekrose: trockener Schutzverband atraumatische Kontaktlagen.;trockene sterile Schutzverbände, Wundkontaktschichten (Silikon/Paraffin)
+mappings.py;PRODUKT_GT_MAPPING;Bei trockenen Nekrosen: atraumatische trockene Schutzverbände;trockene sterile Schutzverbände
+mappings.py;PRODUKT_GT_MAPPING;trockene sterile Abdeckung, atraumatische Schutzverbände, keine aggressive Befeuchtung;trockene sterile Schutzverbände
+mappings.py;PRODUKT_GT_MAPPING;Bei trockenen Nekrosen: atraumatische trockene Schutzverbände, Bei feuchten/infizierten Bereichen: Silberhydrofaser Silberalginat antimikrobielle Wundauflagen;trockene sterile Schutzverbände, Hydrofaser / Hydrofiber, Alginate
+mappings.py;PRODUKT_GT_MAPPING;Hydrogel bei trockenen Nekroseanteilen, Hydrofaser oder Alginat bei Exsudat;Hydrogele (Kompresse), Hydrofaser / Hydrofiber, Alginate
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;Schaumstoffverbände (Foam);Schaumstoffverbände (Foam)
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;Schaumstoffverbände;Schaumstoffverbände (Foam)
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;Schaumverband;Schaumstoffverbände (Foam)
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;PU-Schaumverband;Schaumstoffverbände (Foam)
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;dünner PU-Schaumverband;Schaumstoffverbände (Foam)
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;atraumatische Schaumverbände;Schaumstoffverbände (Foam)
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;saugfähiger Schaumverband;Schaumstoffverbände (Foam)
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;atraumatischer Schaumverband;Schaumstoffverbände (Foam)
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;absorbierender Schaumverband;Schaumstoffverbände (Foam)
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;Superabsorber;Superabsorber
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;Superabsorber-Verband;Superabsorber
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;stark saugfähige Superabsorber;Superabsorber
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;Superabsorber bei stärkerer Sekretion;Superabsorber
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;Fixiervlies / -pflaster;Fixiervlies / -pflaster
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;Elastische Fixierbinden;Elastische Fixierbinden
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;Fixierbinden / kohäsive Binden;Fixierbinden / kohäsive Binden
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;Nicht erforderlich (selbsthaftender Primärverband);Kein Sekundärverband erforderlich
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;saugfähiger Schaumverband, atraumatische Fixierung;Schaumstoffverbände (Foam)
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;absorbierender Schaumverband, atraumatische Fixierung;Schaumstoffverbände (Foam)
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;atraumatische Schaumverbände, ggf. Unterdrucktherapie (VAC) nach Débridement;Schaumstoffverbände (Foam)
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;PU-Schaumverband, Atraumatische Fixierung;Schaumstoffverbände (Foam)
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;weicher PU-Schaumverband, weicher PU-Schaumverband;Schaumstoffverbände (Foam)
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;Elastische Fixierbinden, dünner PU-Schaumverband;Schaumstoffverbände (Foam), Elastische Fixierbinden
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;Superabsorber, hochabsorbierender PU-Schaumverband;Superabsorber, Schaumstoffverbände (Foam)
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;Superabsorber oder PU-Schaumverband;Superabsorber, Schaumstoffverbände (Foam)
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;Superabsorber weicher PU-Schaumverband;Superabsorber, Schaumstoffverbände (Foam)
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;Superabsorber, hochabsorbierende Schaumverbände;Superabsorber, Schaumstoffverbände (Foam)
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;PU-Schaumverband oder Superabsorber;Superabsorber, Schaumstoffverbände (Foam)
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;absorbierender Schaumverband, Superabsorber bei stärkerer Sekretion;Schaumstoffverbände (Foam), Superabsorber
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;weicher PU-Schaumverband Superabsorber bei stärkerem Exsudat;Schaumstoffverbände (Foam), Superabsorber
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;PU-Schaumverband oder Superabsorber bei stärkerer Exsudation;Schaumstoffverbände (Foam), Superabsorber
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;PU-Schaumverband, bei stärkerem Exsudat: Superabsorber;Schaumstoffverbände (Foam), Superabsorber
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;PU-Schaumverband oder kleiner Superabsorber bei stärkerer Sekretion;Schaumstoffverbände (Foam), Superabsorber
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;PU-Schaumverband, Superabsorber bei stärkerer Sekretion;Schaumstoffverbände (Foam), Superabsorber
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;kleiner PU-Schaumverband oder weicher Superabsorber bei stärkerer Exsudation;Schaumstoffverbände (Foam), Superabsorber
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;Superabsorber ergänzen;Superabsorber
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;Sterile Saugkompressen / Polsterung;Sterile Saugkompressen / Polsterung
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;weicher PU-Schaumverband,absorbierende sterile Sekundärauflagen;Schaumstoffverbände (Foam), Sterile Saugkompressen / Polsterung
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;silikonisierter Schaumverband, absorbierende sterile Auflagen;Schaumstoffverbände (Foam), Sterile Saugkompressen / Polsterung
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;weicher absorbierender Schaumverband sterile Saugkompressen;Schaumstoffverbände (Foam), Sterile Saugkompressen / Polsterung
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;weicher PU-Schaumverband, sterile Polsterung;Schaumstoffverbände (Foam), Sterile Saugkompressen / Polsterung
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;silikonisierter Schaumverband, absorbierender PU-Schaumverband;Schaumstoffverbände (Foam)
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;weicher PU-Schaumverband, druckentlastende Polsterung;Schaumstoffverbände (Foam)
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;weicher PU-Schaumverband druckreduzierende Polsterung;Schaumstoffverbände (Foam)
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;weicher PU-Schaumverband, druckreduzierende Polsterung, ggf. Superabsorber;Schaumstoffverbände (Foam), Superabsorber
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;Sekundär: Superabsorber + Fixier-/Kompressionssystem;Superabsorber
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;abhängig von der Kompressionstherapie;abhängig von Kompressionstherapie
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;abhängig von Kompressionstherapie;abhängig von Kompressionstherapie
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;über Kompression;abhängig von Kompressionstherapie
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;Kompressionstherapie;abhängig von Kompressionstherapie
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;kommt auf die Kompression an;abhängig von Kompressionstherapie
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;abhängig von Druckentlastung;abhängig von Druckentlastung
+mappings.py;SEKUNDAERVERBAND_GT_MAPPING;abhängig von der Druckentlastung;abhängig von Druckentlastung
+mappings.py;SPELLING_MAPPING;ulcus;ulkus
+mappings.py;SPELLING_MAPPING;decubitus;dekubitus
+mappings.py;SPUELLOESUNG_GT_MAPPING;Neutrale Spüllösung (NaCl 0,9 % / Ringer-Lösung);Neutrale Spüllösung (NaCl 0,9 % / Ringer-Lösung)
+mappings.py;SPUELLOESUNG_GT_MAPPING;Antimikrobielle Spüllösung (PHMB / Octenidin / Hypochlorit);Antimikrobielle Spüllösung (PHMB / Octenidin / Hypochlorit)
+mappings.py;SPUELLOESUNG_GT_MAPPING;Neutrale Spüllösung (NaCl, Ringer);Neutrale Spüllösung (NaCl 0,9 % / Ringer-Lösung)
+mappings.py;SPUELLOESUNG_GT_MAPPING;Antimikrobielle Spüllösung (PHMB, Octenisept);Antimikrobielle Spüllösung (PHMB / Octenidin / Hypochlorit)
+mappings.py;SPUELLOESUNG_GT_MAPPING;PHMB oder Octenidin zeitlich begrenzt;Antimikrobielle Spüllösung (PHMB / Octenidin / Hypochlorit)
+mappings.py;SPUELLOESUNG_GT_MAPPING;Bei kritischer Kolonisation: PHMB oder Octenidin zeitlich begrenzt;Antimikrobielle Spüllösung (PHMB / Octenidin / Hypochlorit)
+mappings.py;SPUELLOESUNG_GT_MAPPING;bei kritischer Kolonisation: PHMB oder Octenidin zeitlich begrenzt;Antimikrobielle Spüllösung (PHMB / Octenidin / Hypochlorit)
+mappings.py;SPUELLOESUNG_GT_MAPPING;bei kritischer Kolonisation: PHMB/Octenidin;Antimikrobielle Spüllösung (PHMB / Octenidin / Hypochlorit)
+mappings.py;SPUELLOESUNG_GT_MAPPING;bei kritischer Kolonisation: mit PHMB/Octenidin;Antimikrobielle Spüllösung (PHMB / Octenidin / Hypochlorit)
+mappings.py;SPUELLOESUNG_GT_MAPPING;Antiseptika nur gezielt bei: Infektionszeichen, kritischer Kolonisation;Antimikrobielle Spüllösung (PHMB / Octenidin / Hypochlorit)
+mappings.py;WUNDRAND_GT_MAPPING;"[""Epibolie (eingerollter Wundrand)"",""Gerötet / entzündlich"",""Mazeriert""]";Epibolie (eingerollter Wundrand), Gerötet / entzündlich, Mazeriert
+mappings.py;WUNDRAND_GT_MAPPING;"[""Epibolie (eingerollter Wundrand)"",""Gerötet / entzündlich""]";Epibolie (eingerollter Wundrand), Gerötet / entzündlich
+mappings.py;WUNDRAND_GT_MAPPING;"[""Epibolie (eingerollter Wundrand)"",""Mazeriert""]";Epibolie (eingerollter Wundrand), Mazeriert
+mappings.py;WUNDRAND_GT_MAPPING;"[""Epibolie (eingerollter Wundrand)""]";Epibolie (eingerollter Wundrand)
+mappings.py;WUNDRAND_GT_MAPPING;"[""Gelbliche fibrinöse Randbeläge""]";
+mappings.py;WUNDRAND_GT_MAPPING;"[""Gerötet / entzündlich"",""Epibolie (eingerollter Wundrand)""]";Epibolie (eingerollter Wundrand), Gerötet / entzündlich
+mappings.py;WUNDRAND_GT_MAPPING;"[""Gerötet / entzündlich"",""Mazeriert"",""Unterminiert (Wundtaschen)""]";Gerötet / entzündlich, Mazeriert, Unterminiert (Wundtaschen)
+mappings.py;WUNDRAND_GT_MAPPING;"[""Gerötet / entzündlich"",""Mazeriert""]";Gerötet / entzündlich, Mazeriert
+mappings.py;WUNDRAND_GT_MAPPING;"[""Gerötet / entzündlich"",""Taschenbildung möglich""]";Gerötet / entzündlich, Unterminiert (Wundtaschen)
+mappings.py;WUNDRAND_GT_MAPPING;"[""Gerötet / entzündlich"",""Unterminiert (Wundtaschen)""]";Gerötet / entzündlich, Unterminiert (Wundtaschen)
+mappings.py;WUNDRAND_GT_MAPPING;"[""Gerötet / entzündlich"",""glänzende, ödematöse Haut""]";Gerötet / entzündlich
+mappings.py;WUNDRAND_GT_MAPPING;"[""Gerötet / entzündlich"",""livid-erythematöse Hautveränderungen""]";Gerötet / entzündlich
+mappings.py;WUNDRAND_GT_MAPPING;"[""Gerötet / entzündlich"",""relativ scharf begrenzte Wundränder""]";Gerötet / entzündlich
+mappings.py;WUNDRAND_GT_MAPPING;"[""Gerötet / entzündlich"",""unregelmäßige Wundränder""]";Gerötet / entzündlich
+mappings.py;WUNDRAND_GT_MAPPING;"[""Gerötet / entzündlich"",""unregelmäßigen Rändern""]";Gerötet / entzündlich
+mappings.py;WUNDRAND_GT_MAPPING;"[""Gerötet / entzündlich""]";Gerötet / entzündlich
+mappings.py;WUNDRAND_GT_MAPPING;"[""Hyperkeratotisch"",""Gerötet / entzündlich""]";Gerötet / entzündlich, Hyperkeratotisch
+mappings.py;WUNDRAND_GT_MAPPING;"[""Hyperkeratotisch""]";Hyperkeratotisch
+mappings.py;WUNDRAND_GT_MAPPING;"[""Mazeriert"",""Epibolie (eingerollter Wundrand)"",""Gerötet / entzündlich""]";Epibolie (eingerollter Wundrand), Gerötet / entzündlich, Mazeriert
+mappings.py;WUNDRAND_GT_MAPPING;"[""Mazeriert"",""Epibolie (eingerollter Wundrand)""]";Epibolie (eingerollter Wundrand), Mazeriert
+mappings.py;WUNDRAND_GT_MAPPING;"[""Mazeriert"",""Gerötet / entzündlich"",""Epibolie (eingerollter Wundrand)""]";Epibolie (eingerollter Wundrand), Gerötet / entzündlich, Mazeriert
+mappings.py;WUNDRAND_GT_MAPPING;"[""Mazeriert"",""Gerötet / entzündlich"",""Unterminiert (Wundtaschen)""]";Gerötet / entzündlich, Mazeriert, Unterminiert (Wundtaschen)
+mappings.py;WUNDRAND_GT_MAPPING;"[""Mazeriert"",""Gerötet / entzündlich""]";Gerötet / entzündlich, Mazeriert
+mappings.py;WUNDRAND_GT_MAPPING;"[""Mazeriert"",""Unterminiert (Wundtaschen)"",""Gerötet / entzündlich""]";Gerötet / entzündlich, Mazeriert, Unterminiert (Wundtaschen)
+mappings.py;WUNDRAND_GT_MAPPING;"[""Mazeriert"",""Unterminiert (Wundtaschen)""]";Mazeriert, Unterminiert (Wundtaschen)
+mappings.py;WUNDRAND_GT_MAPPING;"[""Mazeriert"",""teilweise aufgequollen""]";Mazeriert
+mappings.py;WUNDRAND_GT_MAPPING;"[""Mazeriert""]";Mazeriert
+mappings.py;WUNDRAND_GT_MAPPING;"[""Reizlos / unauffällig""]";Reizlos / unauffällig
+mappings.py;WUNDRAND_GT_MAPPING;"[""Unterminiert (Wundtaschen)"",""Epibolie (eingerollter Wundrand)""]";Epibolie (eingerollter Wundrand), Unterminiert (Wundtaschen)
+mappings.py;WUNDRAND_GT_MAPPING;"[""Unterminiert (Wundtaschen)"",""Gerötet / entzündlich""]";Gerötet / entzündlich, Unterminiert (Wundtaschen)
+mappings.py;WUNDRAND_GT_MAPPING;"[""Unterminiert (Wundtaschen)"",""Mazeriert""]";Mazeriert, Unterminiert (Wundtaschen)
+mappings.py;WUNDRAND_GT_MAPPING;"[""Unterminiert (Wundtaschen)""]";Unterminiert (Wundtaschen)
+mappings.py;WUNDRAND_GT_MAPPING;"[""scharf begrenzt, teils livide/verfärbt, ischämietypisch""]";Reizlos / unauffällig
+mappings.py;WUNDTYP_GT_MAPPING;Ausgedehnte feuchte Nekrose;Ausgedehnte feuchte Nekrose
+mappings.py;WUNDTYP_GT_MAPPING;Ausgetrtenes Blut oder Lymphe aus den entsprechenden Gefäßen mit Verteilung an der betroffenen Extremität;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Dekubitus;Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;"Dekubitus Grad 2 oder 3 nach EPUAP.
+Nicht genau zu definieren, ob sich Unterminierungen vorhanden sind.";Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;Dekubitus an der Ferse;Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;Dekubitus epuap Stadium 3 / 4;Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;Dekubitus mit Nekrose;Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;Dekubitus mit Taschenbildung;Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;Dekubitus sacralbereich;Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;Dekubitus, vermutlich am Außenknöchel;Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;Dekubtis im Sakralbereich, großflächig;Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;Fersendekubitus;Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;Fersenulcus / eventuell Mischulcus;Ulcus cruris mixtum
+mappings.py;WUNDTYP_GT_MAPPING;Fibrinbelegtes Ulcus;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Fibringbelegtes Ulcus;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Hypergranulation nach Verbrennung;Verbrennungswunde
+mappings.py;WUNDTYP_GT_MAPPING;"Hämangiom ist ein Spezialgebiet. In der Regel ist dieses innerhalb des ersten Lebensjahres rückläufig.
+Deshalb nehme ich hier keine Beurteilung vor.";"Hämangiom ist ein Spezialgebiet. In der Regel ist dieses innerhalb des ersten Lebensjahres rückläufig.
+Deshalb nehme ich hier keine Beurteilung vor."
+mappings.py;WUNDTYP_GT_MAPPING;Infizierte Wunden am linken Oberarm / Innenseitig;Infizierte Wunden am linken Oberarm / Innenseitig
+mappings.py;WUNDTYP_GT_MAPPING;Infiziertes Ulcus mit freiliegender Sehne;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Oberflächliches Ulcus;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Oberflächliches Ulcus (diffuse Defekte);Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Plantares Ulcus linker Fuß, Ursachen Klärung notwendig, bei Diabetiker Prüfung ob Neuropathisch oder Angiopathische Ursache;Plantares Ulcus linker Fuß, Ursachen Klärung notwendig, bei Diabetiker Prüfung ob Neuropathisch oder Angiopathische Ursache
+mappings.py;WUNDTYP_GT_MAPPING;Platzbauch nach möglichem chirurgischen Eingriff;Postoperative Wunde / Dehiszenz
+mappings.py;WUNDTYP_GT_MAPPING;Postoperative Wunde abdominal;Postoperative Wunde / Dehiszenz
+mappings.py;WUNDTYP_GT_MAPPING;Taschenbildendes Ulcus am linken Fußrücken;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"Teils nekrotisches Ulcus an der linken Ferse.
+plantares Ulcus belegt mit Infektionszeichen";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Ulcera rechter Fuß. könnte ursächlich diabetischer Fuß sein ( Neuropathie, Angiopathie) oder arterielles ulcus schäden auf Grund fehlender Durchblutung;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Ulcerationen bedingt durch Vaskulitis- Form der rheumatischen Erkrankung ( Autoimmunerkrankung);Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus / warsch. Ulcus cruris, Ursache nicht klar, muss bestimmt werden;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus Dekubitus;Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus Dekubitus Bereich OS Sacrum;Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus Dekubitus Epuap Grad 3 / 4;Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus Dekubitus nach Epuap Grad 2 bis 3;Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus Ursache nicht genau definierbar;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus am Fussrücken;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus am Unterschenkel medial;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus an der Achillessehne;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus auf Grund von Mangeldurchblutung. Könnte diabetischer Fuß sein / angiopathisch bedingt.;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus auf Grund von Mangelernährung des Gewebes, Druckschäden in Kombination mit Gefäßschäden;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus cruris;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus cruris  unklarer Ursache;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus cruris /  Gravitationsulcus: Ulcus cruris venosum;Ulcus cruris venosum
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus cruris li lateraler Malleolus;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus cruris möglich arteriell oder mixtum;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus cruris venosum;Ulcus cruris venosum
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus decubitus;Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus decubitus Nach Epuap Grad 2 bis 3;Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus dekubitus;Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus dekubitus Ferse,  Stadium 3 / 4;Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus lokal abgegrenzt. belegt könnte ebenso nekrotisch sein;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus mit Stauung;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus mit scheinender Hypergranulation oberhalb der Achillessehne;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus nach Meshgraft (zumindest lässt die Struktur darauf schließen), eventuell ist die Struktur aber einer Unterdrucktherapie geschuldet;Postoperative Wunde / Dehiszenz
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus nach Stich;Traumatische Wunde
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus unbekannter Herkunft, könnte traumatologisch bedingte Wunde sein, durch die Wunde bei unsachgemäßer Versorgung entstehen ulcerationen ebenfalls, nicht immer Krankheitsbedingt;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus unklarer Genese;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus unklarer Genese am Bein genaue Lokalisation nicht beurteilbar;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"Ulcus unklarer Genese, könnte Venös oder arteriell oder mixum sein.
+Beachte kleine Nekrose an der Ferse plantar";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus unklarer Genese, könnte diabet. Ulcus sein, möglich ebenso durch traumatologische Ursachen;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus, Lokalisation am Bein nicht genau definierbar;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus, bei vermutetem Diabetes;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Ulcus, durch die Mangelernährung ( keine Durchblutung) im Wundgebiet  könnte es sich um einen Dekubitus oder ulcus cruris handeln.;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"Ulcus. Ursache klären sollte es ein diabet. Fuß sein dann Prüfung ob angiopathisch oder neuropathisch,
+Druckentlastung und Ursachenbeseitigung.";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;Ulkus Dekubitus am Os sacrum  nach Epuap Grad 2 / 3;Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;Ulkus an der Ferse, warsch. Dekubitus nach EPUAP  Stadium 3;Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;Verbrennung 2 und 3 Grades nach 9 er Regel etwa 9 % Körperoberfläche;Verbrennungswunde
+mappings.py;WUNDTYP_GT_MAPPING;Verbrennung 2. Grades am Bein;Verbrennungswunde
+mappings.py;WUNDTYP_GT_MAPPING;Verbrennung 2. und teilweise 3. Grades Oberfläche ca 9 %;Verbrennungswunde
+mappings.py;WUNDTYP_GT_MAPPING;Verbrennung Grad 1 bis 2 am rechten Fuß;Verbrennungswunde
+mappings.py;WUNDTYP_GT_MAPPING;Verbrennungswunde 1. bis 2. Grades;Verbrennungswunde
+mappings.py;WUNDTYP_GT_MAPPING;Verbrennungswunde am Arm Grad 2;Verbrennungswunde
+mappings.py;WUNDTYP_GT_MAPPING;Wunde am li Fußrücken mit Sehnenfreilegung;Wunde am li Fußrücken mit Sehnenfreilegung
+mappings.py;WUNDTYP_GT_MAPPING;Wunde aufgrund einer Infusion, welche ins umliegende Gewebe ausgetreten ist;Wunde aufgrund einer Infusion, welche ins umliegende Gewebe ausgetreten ist
+mappings.py;WUNDTYP_GT_MAPPING;"[""Dekubitus"",""Diabetisches Fußulkus""]";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"[""Dekubitus"",""Ulcus""]";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"[""Dekubitus""]";Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;"[""Diabetisches Fußulkus"",""hochgradig destruierende Fußwunde""]";Diabetisches Fußsyndrom (DFS)
+mappings.py;WUNDTYP_GT_MAPPING;"[""Diabetisches Fußulkus"",""ischämisches Ulkus""]";Diabetisches Fußsyndrom (DFS)
+mappings.py;WUNDTYP_GT_MAPPING;"[""Diabetisches Fußulkus"",""mit deutlichen Zeichen einer lokalen Infektion und chronisch entzündlicher Hautveränderungen""]";Diabetisches Fußsyndrom (DFS)
+mappings.py;WUNDTYP_GT_MAPPING;"[""Diabetisches Fußulkus""]";Diabetisches Fußsyndrom (DFS)
+mappings.py;WUNDTYP_GT_MAPPING;"[""Extravasationsverletzung""]";Extravasationsverletzung
+mappings.py;WUNDTYP_GT_MAPPING;"[""Gravitationsulzera/Druckulzera""]";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"[""Postoperative Wunde""]";Postoperative Wunde / Dehiszenz
+mappings.py;WUNDTYP_GT_MAPPING;"[""Traumatische Wunde"",""durch Insektenstich""]";Traumatische Wunde
+mappings.py;WUNDTYP_GT_MAPPING;"[""Ulcus Fußrücken mit deutlicher Gewebedestruktion und freiliegender Sehnenstruktur""]";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"[""Ulcus cruris venosum"",""Adipositas-assoziiert""]";Ulcus cruris venosum
+mappings.py;WUNDTYP_GT_MAPPING;"[""Ulcus cruris venosum"",""venös-lymphatischem Ulcus""]";Ulcus cruris venosum
+mappings.py;WUNDTYP_GT_MAPPING;"[""Ulcus cruris venosum""]";Ulcus cruris venosum
+mappings.py;WUNDTYP_GT_MAPPING;"[""Ulcus""]";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"[""Ulkus cruris""]";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"[""Ulkus""]";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"[""Verbrennungswunde""]";Verbrennungswunde
+mappings.py;WUNDTYP_GT_MAPPING;"[""ausgedehnte, tiefe, nekrotische Ulzeration""]";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"[""ausgedehntes, tiefes chronisches Ulcus""]";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"[""ausgeprägtes infiziertes Ulcus cruris"",""Ulcus cruris venosum""]";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"[""chronische Fußwunde / Ulkus""]";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"[""chronisches Ulkus cruris""]";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"[""chronisches Ulkus""]";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"[""großflächiges, flaches chronisches Ulkus""]";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"[""kleines, oberflächliches Ulcus""]";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"[""multiple infizierte chronische Fußulzera""]";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"[""multiple kleine Ulzera""]";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"[""nekrotische Fersenwunde"",""Dekubitus""]";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"[""nekrotische ischämische Fußwunde / Gangrän""]";Ulcus cruris arteriosum / Ischämisches Ulkus
+mappings.py;WUNDTYP_GT_MAPPING;"[""neuroischämisches bzw. arterielles Fußulkus""]";Ulcus cruris arteriosum / Ischämisches Ulkus
+mappings.py;WUNDTYP_GT_MAPPING;"[""rundlich-ovales Ulcus""]";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"[""tiefer reichende Ulzerationen am Unterschenkel mit chronisch entzündlicher Umgebung""]";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"[""ulzeriertes infantiles Hämangiom mit zentraler Nekrose""]";ulzeriertes infantiles Hämangiom mit zentraler Nekrose
+mappings.py;WUNDTYP_GT_MAPPING;"[""vaskulitischen Ulzera"",""möglicher kutaner Vaskulitis""]";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;arterielles Ulcus;Ulcus cruris arteriosum / Ischämisches Ulkus
+mappings.py;WUNDTYP_GT_MAPPING;belegter Ulcus;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;diffuse fibrinbelegte und teils infizierte Ulzera am rechten Fuß;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;fibrinbelegtes Ulcus;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;gleiche Beurteilung wie Wunde 53;Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;infantiles Hämangiom,;infantiles Hämangiom,
+mappings.py;WUNDTYP_GT_MAPPING;könnte arterieller Ulcus oder diabetischer Ulcus ( Angiopathie) auf Grund der Mangeldurchblutung  sein.;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;könnte diabetischer ulcus sein auf grund einer neuropathie;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"könnte ein diabetischer Fuß sein, Ulcus  nicht möglich,
+traumatologische Indikation ebenso nicht ausgeschlossen";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;laterales Ulcus linker Fuß;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;massives Ulcus dekubitus;Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;mumifizierte Zehen (D4 und D5), gleichzeitig Nekrose an der rechten Ferse;Ulcus cruris arteriosum / Ischämisches Ulkus
+mappings.py;WUNDTYP_GT_MAPPING;möglicherweise ein feuchtes Gangrän;Ulcus cruris arteriosum / Ischämisches Ulkus
+mappings.py;WUNDTYP_GT_MAPPING;nekrotischen Wunden am Fuß;nekrotischen Wunden am Fuß
+mappings.py;WUNDTYP_GT_MAPPING;nekrotischer Defekt / Dekubitus;Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;nekrotischer Dekubitus li Ferse;Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;oberflächlicher Dekubitus ( 2 Stück);Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;oberflächliches Ulcus;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;offene ulcera;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;plantares ulcus;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"pseudomas besiedeltes teils nekrotisches Ulcus.
+Semizirkulär";Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;rechter Fuß lateral/ malleolär;rechter Fuß lateral/ malleolär
+mappings.py;WUNDTYP_GT_MAPPING;"schwere Nekrose am Fuß rechts lateral und plantar, offene Geschwüre über den Malleolen lateral
+deutet auf arterielles Ulcus hin";Ulcus cruris arteriosum / Ischämisches Ulkus
+mappings.py;WUNDTYP_GT_MAPPING;schwere Ulzerationen am Fuß- mehrere offene Stellen, freiliegende Sehen, teilweise nekrotisch, belegt;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;semizirkuläres Ulcus;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;semizirkuläres Ulcus re Fuß;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;superinfizierte Ulcration am rechen Fuß offene Ulcera;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;tiefer Dekubitus;Dekubitus
+mappings.py;WUNDTYP_GT_MAPPING;tiefes Ulcus im Fersenbereich;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;traumatologische Wunde ( thermische Schädigung / Verbrennung 3. und 4. Grades;Verbrennungswunde
+mappings.py;WUNDTYP_GT_MAPPING;ulcus cruris;Ulkus (Ätiologie unspezifisch)
+mappings.py;WUNDTYP_GT_MAPPING;"vermutlich Mischulcus am rechten Bein, höhe der Knöchel.
+Semizirkulär";Ulcus cruris mixtum
+mappings.py;WUNDTYP_GT_MAPPING;zirkuläres Ulcus Unterschenkel (vermutlich Mischulcus);Ulcus cruris mixtum
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)"",""Erythem / Rötung""]";CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose), Erythem / Rötung
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)""]";CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Ekzem / Dermatitis"",""Erythem / Rötung""]";Ekzem / Dermatitis, Erythem / Rötung
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Ekzem / Dermatitis""]";Ekzem / Dermatitis
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung"",""CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)""]";CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose), Erythem / Rötung
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung"",""Ekzem / Dermatitis"",""CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)""]";CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose), Ekzem / Dermatitis, Erythem / Rötung
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung"",""Ekzem / Dermatitis""]";Ekzem / Dermatitis, Erythem / Rötung
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung"",""Mazeration"",""CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)""]";CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose), Erythem / Rötung, Mazeration
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung"",""Mazeration""]";Erythem / Rötung, Mazeration
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung"",""Weichteilreizung""]";Erythem / Rötung
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung"",""deutliche entzündliche Rötung der Umgebung""]";Erythem / Rötung
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung"",""eher trocken wirkende Umgebung""]";Erythem / Rötung
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung"",""entzündliche Umgebungshaut""]";Erythem / Rötung
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung"",""leicht gerötete, glänzende Umgebungshaut""]";Erythem / Rötung
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung"",""Ödem"",""CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)""]";CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose), Erythem / Rötung, Ödem
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung"",""Ödem""]";Erythem / Rötung, Ödem
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung""]";Erythem / Rötung
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Keratosen""]";Sonstiges
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Mazeration"",""Erythem / Rötung"",""trockener wirkende Areale mit verminderter Durchblutung""]";Erythem / Rötung, Mazeration
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Mazeration"",""Erythem / Rötung""]";Erythem / Rötung, Mazeration
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Mazeration"",""glänzend""]";Mazeration
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Mazeration"",""glänzende, gespannte Umgebungshaut""]";Mazeration
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Mazeration""]";Mazeration
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Reizlos / intakt"",""Erythem / Rötung""]";Erythem / Rötung, Reizlos / intakt
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Reizlos / intakt""]";Reizlos / intakt
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""atrophisch-trockene Haut mit trophischen Störungen"",""CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)""]";CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""empfindliche Säuglingshaut mit hoher Feuchtigkeits- und Reibungsbelastung""]";Sonstiges
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""fragile, atrophe Haut""]";Sonstiges
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""gerötet-glänzende Haut, Hinweis auf chronische venöse Stauung/Ödemneigung""]";Erythem / Rötung, Ödem
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""gerötet-glänzende, ödematöse Haut"",""Erythem / Rötung""]";Erythem / Rötung, Ödem
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""gut durchbluteter, überwiegend roter Wundgrund""]";Reizlos / intakt
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""rocken, teils schuppig, gespannt""]";Sonstiges
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""zahlreiche erythematöse Makulae/Papeln, livid-entzündliche Hautveränderungen, Hinweis auf entzündlich-vaskulären Prozess""]";Ekzem / Dermatitis, Erythem / Rötung
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Ödem"",""CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)""]";CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose), Ödem
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Ödem"",""Erythem / Rötung""]";Erythem / Rötung, Ödem
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Ödem"",""gespannte, trophisch veränderte Haut""]";Ödem
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;"[""Ödem""]";Ödem
+mappings.py;WUNDUMGEBUNG_GT_MAPPING;[];
+mappings_LR.py;DEBRIDEMENT_GT_MAPPING;Autolytisches Debridement;Autolytisches Debridement
+mappings_LR.py;DEBRIDEMENT_GT_MAPPING;Chirurgisches Debridement;Chirurgisches Debridement
+mappings_LR.py;DEBRIDEMENT_GT_MAPPING;Debrisoft Duo;Debrisoft Duo
+mappings_LR.py;DEBRIDEMENT_GT_MAPPING;Debrisoft Lolly;Debrisoft Lolly
+mappings_LR.py;DEBRIDEMENT_GT_MAPPING;Debrisoft Pad;Debrisoft Pad
+mappings_LR.py;DEBRIDEMENT_GT_MAPPING;Ultraschall-assistiertes Debridement (UAW);Ultraschall-assistiertes Debridement (UAW)
+mappings_LR.py;EXSUDAT_GT_MAPPING;Annahme stark;Stark
+mappings_LR.py;EXSUDAT_GT_MAPPING;"Große Wunde: stark, da Mazerationen am Wundrand
+Kleine Nekrose: trocken";Stark
+mappings_LR.py;EXSUDAT_GT_MAPPING;Keine;Keine
+mappings_LR.py;EXSUDAT_GT_MAPPING;Leicht;Leicht
+mappings_LR.py;EXSUDAT_GT_MAPPING;Mässig;Mäßig
+mappings_LR.py;EXSUDAT_GT_MAPPING;Mäßig;Mäßig
+mappings_LR.py;EXSUDAT_GT_MAPPING;Nekrosen: kein Exsudat. Unterschenkel mäßig;Mäßig
+mappings_LR.py;EXSUDAT_GT_MAPPING;Stark;Stark
+mappings_LR.py;EXSUDAT_GT_MAPPING;blutig bis serös teilweise vorhanden dann eher mäßig;Mäßig
+mappings_LR.py;EXSUDAT_GT_MAPPING;eher schwach b is mäßig;Leicht, Mäßig
+mappings_LR.py;EXSUDAT_GT_MAPPING;eher wenig;Leicht
+mappings_LR.py;EXSUDAT_GT_MAPPING;eher weniger;Leicht
+mappings_LR.py;EXSUDAT_GT_MAPPING;gering bis gar nicht;Keine, Leicht
+mappings_LR.py;EXSUDAT_GT_MAPPING;kein;Keine
+mappings_LR.py;EXSUDAT_GT_MAPPING;keine;Keine
+mappings_LR.py;EXSUDAT_GT_MAPPING;keine Angabe möglich;Enthaltung / keine Angabe
+mappings_LR.py;EXSUDAT_GT_MAPPING;keine Angabe möglich / eher wenig;Leicht
+mappings_LR.py;EXSUDAT_GT_MAPPING;keine Angabe möglich / vermutlich mässig;Mäßig
+mappings_LR.py;EXSUDAT_GT_MAPPING;keine Angabe möglich / vermutlich wenig;Leicht
+mappings_LR.py;EXSUDAT_GT_MAPPING;keine Angabe möglich, vermutlich gering;Leicht
+mappings_LR.py;EXSUDAT_GT_MAPPING;keine Angabe möglich, vermutlich trocken;Keine
+mappings_LR.py;EXSUDAT_GT_MAPPING;keine Einschätzung möglich;Enthaltung / keine Angabe
+mappings_LR.py;EXSUDAT_GT_MAPPING;keine genaue Angabe möglich, sieht eher trocken bis leicht exsudierend aus;Keine, Leicht
+mappings_LR.py;EXSUDAT_GT_MAPPING;könnte eher schwach sein;Leicht
+mappings_LR.py;EXSUDAT_GT_MAPPING;leicht;Leicht
+mappings_LR.py;EXSUDAT_GT_MAPPING;leicht bis mittel;Leicht, Mäßig
+mappings_LR.py;EXSUDAT_GT_MAPPING;leicht bis mäßig;Leicht, Mäßig
+mappings_LR.py;EXSUDAT_GT_MAPPING;leichte bis mäßige exsudation;Leicht, Mäßig
+mappings_LR.py;EXSUDAT_GT_MAPPING;mittel;Mäßig
+mappings_LR.py;EXSUDAT_GT_MAPPING;mittel bis stark;Mäßig, Stark
+mappings_LR.py;EXSUDAT_GT_MAPPING;mittelstark;Mäßig
+mappings_LR.py;EXSUDAT_GT_MAPPING;mäfig;Mäßig
+mappings_LR.py;EXSUDAT_GT_MAPPING;mäßig;Mäßig
+mappings_LR.py;EXSUDAT_GT_MAPPING;mäßig bis stark;Mäßig, Stark
+mappings_LR.py;EXSUDAT_GT_MAPPING;mäßig bis stark, sicher ist eine Geruchsbildung süßlich aromatisch teilweise beschrieben als traubenartig;Mäßig, Stark
+mappings_LR.py;EXSUDAT_GT_MAPPING;nicht beurteilbar;Enthaltung / keine Angabe
+mappings_LR.py;EXSUDAT_GT_MAPPING;nicht beurteilbar, vermutlich stark;Stark
+mappings_LR.py;EXSUDAT_GT_MAPPING;nicht genau definierbar, aus der Erfahrung heraus mäßige Exsudation;Mäßig
+mappings_LR.py;EXSUDAT_GT_MAPPING;nicht klar, eher trübe Wunde könnte Geruch abgeben;Enthaltung / keine Angabe
+mappings_LR.py;EXSUDAT_GT_MAPPING;nicht zu beschreiben;Enthaltung / keine Angabe
+mappings_LR.py;EXSUDAT_GT_MAPPING;offenen stelle mäßig, geschlossene stelle kein bis wenig exsudat;Keine, Leicht
+mappings_LR.py;EXSUDAT_GT_MAPPING;scheint mäßig zu sein;Mäßig
+mappings_LR.py;EXSUDAT_GT_MAPPING;schwach;Leicht
+mappings_LR.py;EXSUDAT_GT_MAPPING;schwach bin mäßig;Leicht, Mäßig
+mappings_LR.py;EXSUDAT_GT_MAPPING;schwach bis mäßig;Leicht, Mäßig
+mappings_LR.py;EXSUDAT_GT_MAPPING;schwach bis nicht vorhanden;Keine, Leicht
+mappings_LR.py;EXSUDAT_GT_MAPPING;sehr gering;Leicht
+mappings_LR.py;EXSUDAT_GT_MAPPING;stark;Stark
+mappings_LR.py;EXSUDAT_GT_MAPPING;vermutlich gering;Leicht
+mappings_LR.py;EXSUDAT_GT_MAPPING;vermutlich hoch;Stark
+mappings_LR.py;EXSUDAT_GT_MAPPING;vermutlich hohe Exsudation;Stark
+mappings_LR.py;EXSUDAT_GT_MAPPING;vermutlich kaum;Keine
+mappings_LR.py;EXSUDAT_GT_MAPPING;vermutlich mittel;Mäßig
+mappings_LR.py;EXSUDAT_GT_MAPPING;vermutlich mittelmässig;Mäßig
+mappings_LR.py;EXSUDAT_GT_MAPPING;vermutlich mittelmäßig;Mäßig
+mappings_LR.py;EXSUDAT_GT_MAPPING;vermutlich mässig;Mäßig
+mappings_LR.py;EXSUDAT_GT_MAPPING;vermutlich mäßig;Mäßig
+mappings_LR.py;EXSUDAT_GT_MAPPING;vermutlich starke Exsudation;Stark
+mappings_LR.py;EXSUDAT_GT_MAPPING;vermutlich vorhanden, in welcher Menge ist nicht zu beurteilen;Enthaltung / keine Angabe
+mappings_LR.py;EXSUDAT_GT_MAPPING;vermutlich wenig;Leicht
+mappings_LR.py;EXSUDAT_GT_MAPPING;wahrscheinlich mittelmäßig vorhanden;Mäßig
+mappings_LR.py;EXSUDAT_GT_MAPPING;warsch hoch bis sehr hoch,  klare exsudation;Stark
+mappings_LR.py;LOKALISATION_GT_MAPPING;...stark exsudierendes, nekrotisch belegtes Ulcus mit grünlicher Verfärbung typisch für Pseudomonas aeruginosa.;Enthaltung / keine Angabe
+mappings_LR.py;LOKALISATION_GT_MAPPING;?;Enthaltung / keine Angabe
+mappings_LR.py;LOKALISATION_GT_MAPPING;???;Enthaltung / keine Angabe
+mappings_LR.py;LOKALISATION_GT_MAPPING;Abdomen;Abdomen
+mappings_LR.py;LOKALISATION_GT_MAPPING;Abdomen, links;Abdomen
+mappings_LR.py;LOKALISATION_GT_MAPPING;Arm;Arm / Hand
+mappings_LR.py;LOKALISATION_GT_MAPPING;Arm oder Bein??;Enthaltung / keine Angabe
+mappings_LR.py;LOKALISATION_GT_MAPPING;Aussenseitig linke Fußsohle;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;Außenknöchel links;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;Bein;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;Bein nicht genau definierbar;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;Bein wo genau fraglich;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;Bein, Unterschenkel Richtung Fuß;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;Bein, evtl. links, Unterschenkel;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;Bein, evtl. rechts, Unterschenkel;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;Bein, genaue Definition nicht möglich;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;Bein, genauere Lokalisation nicht genau definierbar;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;Bein, wo genau nicht definierbar;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;Das Bild zeigt ein großflächiges venöses Ulcus cruris bei ausgeprägter chronisch venöser Stauung und Adipositas-assoziierter Belastung. Möglich, Oberschenkel links, Unterschenkel;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;Ferse;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;Ferse, Achillessehne;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;Ferse, linker Fuß;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;Ferse, rechter Fuß;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;"Ferse, scheint links zu sein:
+gelblich-fibrinösem Belag
+mäßiger Exsudation
+gerötetem Wundrand";Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;Fuß lateral links;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;Fuß links plantar;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;Fuß links plantar  lateral;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;Fuß rechts;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;Fuß, Ferse links;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;Fußrücken;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;Fußrücken linker Fuß;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;Fußrücken rechter Fuß;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;Fußsohle Ferse;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;Gesäß-/Sakralregion;Gesäß / Sakral
+mappings_LR.py;LOKALISATION_GT_MAPPING;Gesäß-/perianale Region eines Säuglings;Gesäß / Sakral
+mappings_LR.py;LOKALISATION_GT_MAPPING;Knöchelinnenseite;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;Lokalisation: Fußrücken, lateraler Vorfuß sowie Zehenbereiche;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;Lokalisation: Unterschenkelbereich;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;Lokalisation: Unterschenkelregion;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;Lokalisation: lateraler Mittelfuß/Knöchelbereich;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;Lokalisation: lateraler Vor-/Mittelfuß;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;Lokalisation: sakrogluteale/perianale Region beidseits;Gesäß / Sakral
+mappings_LR.py;LOKALISATION_GT_MAPPING;Lokalisation: vermutlich Sakral-/Gesäßregion;Gesäß / Sakral
+mappings_LR.py;LOKALISATION_GT_MAPPING;Oberarb Muskulus bizeps;Arm / Hand
+mappings_LR.py;LOKALISATION_GT_MAPPING;Os Sacrum;Gesäß / Sakral
+mappings_LR.py;LOKALISATION_GT_MAPPING;Rima Ani;Gesäß / Sakral
+mappings_LR.py;LOKALISATION_GT_MAPPING;Sakralbereich;Gesäß / Sakral
+mappings_LR.py;LOKALISATION_GT_MAPPING;Sakralbereich linke hälfte;Gesäß / Sakral
+mappings_LR.py;LOKALISATION_GT_MAPPING;Sakraler Bereich;Gesäß / Sakral
+mappings_LR.py;LOKALISATION_GT_MAPPING;Steiß;Gesäß / Sakral
+mappings_LR.py;LOKALISATION_GT_MAPPING;Unterarm;Arm / Hand
+mappings_LR.py;LOKALISATION_GT_MAPPING;Unterschenkel;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;Unterschenkel  medial;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;Unterschenkel warsch. gamaschenartig / bereits zirkulierend;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;Unterschenkel weit umfassend;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;Unterschenkel, Außenseite auf Knie Höhe;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;Unterschenkel, rechts, Innenseite;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;Unterschenkel/Knöchelregion, zirkumferenziell ausgedehnt;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;Unterschenkel?;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;"chronisches Ulkus im Bereich der Achillessehne
+dorsaler Unterschenkel / Achillessehnenregion";Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;ferse, fußsohle;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;"fibrinösem gelblich-weißem Belag,
+mäßiger Exsudation,
+gerötetem Wundrand,
+--> vermutlich entzündlicher bzw. kritisch kolonisierter Situation,";Enthaltung / keine Angabe
+mappings_LR.py;LOKALISATION_GT_MAPPING;größeres, flächiges Ulcus am Unterschenkel (Wade) bei ausgeprägtem Ödem und Adipositas-assoziierter Hautveränderung.;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;keine Angabe möglich;Enthaltung / keine Angabe
+mappings_LR.py;LOKALISATION_GT_MAPPING;könnte Innenseite linker Fuß sein;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;könnte Unterschenkel oder Handgelenk sein;Enthaltung / keine Angabe
+mappings_LR.py;LOKALISATION_GT_MAPPING;könnte am linken Fuß sein... Knöchelbereich;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;könnte der Unterschenkel sein, rechts;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;könnte oberhalb des os sacrum liegen;Gesäß / Sakral
+mappings_LR.py;LOKALISATION_GT_MAPPING;könnte sich im Bereich des Steißes befinden;Gesäß / Sakral
+mappings_LR.py;LOKALISATION_GT_MAPPING;lateral linker Fuß;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;li lateraler Malleolus;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;li. Fußrücken;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;linke Ferse;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;linker Fuss;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;linker Fussrücken;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;linker Fuß;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;"linker Fuß
+Lokalisation: dorsaler und lateraler Vorfuß mit Beteiligung der Zehenbasis";Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;linker Fuß - dorsaler Vorfuß/Fußrücken;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;linker Fuß außen;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;linker Fuß lateratl;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;linker Fuß medial, malleolär;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;"linker Fuß medial-lateral 
+kleine Nekrose an der Ferse außen plantar";Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;linker Fuß, Außenseite;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;linker Fuß, Ferse;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;linker Fuß, Innenseite;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;linker Fuß, Mittelfußsohle, Ferse;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;linker Fuß, Spann, Fußrücken;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;linker Fuß, außenseite;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;linker Fuß, seite;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;linker Fußrücken;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;linker Oberarm, Innenseite;Arm / Hand
+mappings_LR.py;LOKALISATION_GT_MAPPING;linker Oberarm/ Innenseitig;Arm / Hand
+mappings_LR.py;LOKALISATION_GT_MAPPING;linker proximaler Unterschenkel lateral;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;linkes Bein unterhalb Knie lateral;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;lokalisation nicht genau zu definieren;Enthaltung / keine Angabe
+mappings_LR.py;LOKALISATION_GT_MAPPING;mediale Fußseite linker Fuß;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;mehrere kleine bis mittelgroße Ulzerationen am Unterschenkel (Wade, rechts?) mit entzündlich wirkender Umgebungshaut.;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;multiple Schädigung gesamter Gesäßbereich;Gesäß / Sakral
+mappings_LR.py;LOKALISATION_GT_MAPPING;nicht beurteilbar;Enthaltung / keine Angabe
+mappings_LR.py;LOKALISATION_GT_MAPPING;nicht genau definierbar;Enthaltung / keine Angabe
+mappings_LR.py;LOKALISATION_GT_MAPPING;nicht genau definierbar könnte Sakralbereich sein;Gesäß / Sakral
+mappings_LR.py;LOKALISATION_GT_MAPPING;nicht genau definierbar sieht für mich aus wie am Vorfuß;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;nicht genau definierbar, Vermutung Unterschenkel;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;nicht genau definierbar, meist am Unterschenkel;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;oberhalb der Achillessehne;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;plantarseitig rechter Fuß;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;re Fuß;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;rechte Ferse;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;rechte Hand;Arm / Hand
+mappings_LR.py;LOKALISATION_GT_MAPPING;rechte Hand und Arm;Arm / Hand
+mappings_LR.py;LOKALISATION_GT_MAPPING;rechter Fuß;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;rechter Fuß - lateraler und plantarer Fußbereich/Ferse;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;rechter Fuß Fußrücken und lateral;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;rechter Fuß medial, Richtung plantar.;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;rechter Fuß plantar;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;rechter Fuß, Ferse;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;rechter Fuß, Ferse, Mittelfuß - Fußsohle;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;rechter Fuß, Fußsohle;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;rechter Fuß, Innenseite, Knöchel;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;rechter Fuß, Spann;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;rechter Fuß, in Höhe der großen Zehe, unterhalb der medialen Malleolen;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;rechter Unterarm, rechtes Handgelenk, rechte Hand;Arm / Hand
+mappings_LR.py;LOKALISATION_GT_MAPPING;rechter Unterschenkel;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;rechtes Bein, Kniebereich, Unterschenkel;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;rechtes Bein, höhe der Knöchel;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;sacralbereich;Gesäß / Sakral
+mappings_LR.py;LOKALISATION_GT_MAPPING;sakrales Dekubitalulkus;Gesäß / Sakral
+mappings_LR.py;LOKALISATION_GT_MAPPING;schwer zu beurteilen, Vermutung am Trochanter major;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;"schwer zu beurteilen, keine genaue Angabe möglich,
+eventuell Rücken Richtung Oberarm /";Enthaltung / keine Angabe
+mappings_LR.py;LOKALISATION_GT_MAPPING;schwierig zu beantworten... könnte die Wade sein, evtl. rechts;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;unterschenkel;Bein
+mappings_LR.py;LOKALISATION_GT_MAPPING;vermutlich am Außenknöchel;Fuß
+mappings_LR.py;LOKALISATION_GT_MAPPING;vermutlich am Unterschenkel;Bein
+mappings_LR.py;LOKALISATION_KEYWORDS;Abdomen;abdomen, bauch, peristom, stoma
+mappings_LR.py;LOKALISATION_KEYWORDS;Fuß;fuß, fuss, zehe, ferse, fußsohle, fußrücken, plantar, vorfuß, rückfuß, malleol, achillessehne, calcaneus, hallux, metatarsal
+mappings_LR.py;LOKALISATION_KEYWORDS;Bein;bein, knöchel, unterschenkel, oberschenkel, knie, gaiter
+mappings_LR.py;LOKALISATION_KEYWORDS;Hand;\bhand\b, \bhände\b, finger, handgelenk, handrücken
+mappings_LR.py;LOKALISATION_KEYWORDS;Arm;arm, ellenbogen, oberarm, unterarm, bizeps, axilla, achsel
+mappings_LR.py;LOKALISATION_KEYWORDS;Gesäß;gesäß, sakral, kreuzbein, steißbein, os sacrum, sacral, rima ani, steiß, trochanter, gluteal, paraglutäal
+mappings_LR.py;LOKALISATION_KEYWORDS;Rücken;(?<!fuß)(?<!fuss)(?<!hand)(?<!händ)rücken
+mappings_LR.py;LOKALISATION_KEYWORDS;Flanke;flanke
+mappings_LR.py;LOKALISATION_KEYWORDS;Kopf;\bkopf\b, hals, nacken
+mappings_LR.py;LOKALISATION_KEYWORDS;Brust;brust, thorax
+mappings_LR.py;PRODUKT_GT_MAPPING;Actico UlcerSys System;Actico UlcerSys System
+mappings_LR.py;PRODUKT_GT_MAPPING;ReadyWrap Untere Extremität;ReadyWrap Untere Extremität
+mappings_LR.py;PRODUKT_GT_MAPPING;Rosidal TCS;Rosidal TCS
+mappings_LR.py;PRODUKT_GT_MAPPING;Rosidal soft;Rosidal soft
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P SensiFlex multisite border lite;Suprasorb P Sensiflex
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P selbstklebend;Suprasorb P
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P sensitive (finger/toe);Suprasorb P Sensitive
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P sensitive (sacrum);Suprasorb P Sensitive
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb X + PHMB Tamponade;Suprasorb X + PHMB
+mappings_LR.py;PRODUKT_GT_MAPPING;Vliwasorb sensitive border sacrum;Vliwasorb sensitive border
+mappings_LR.py;PRODUKT_GT_MAPPING;tg Fertigverbände;tg Fertigverbände
+mappings_LR.py;PRODUKT_GT_MAPPING;tg Fertigverbände (Hand-/Fußverband);tg Fertigverbände
+mappings_LR.py;PRODUKT_GT_MAPPING;tg Fertigverbände Hand-/Fußverband;tg Fertigverbände
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb A + Ag;Suprasorb A + Ag
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb A + Ag (Kompresse);Suprasorb A + Ag
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb A + Ag Kompresse;Suprasorb A + Ag
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb A + Ag Tamponade;Suprasorb A + Ag
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb A Pro;Suprasorb A Pro
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb A Pro (Kompresse);Suprasorb A Pro
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb A Pro (Tamponade);Suprasorb A Pro
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb A Pro Kompresse;Suprasorb A Pro
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb A Pro Tamponade;Suprasorb A Pro
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb Liquacel Pro;Suprasorb Liquacel Pro
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb Liquacel Pro (Kompresse);Suprasorb Liquacel Pro
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb Liquacel Pro (Tamponade);Suprasorb Liquacel Pro
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb Liquacel Pro Kompresse;Suprasorb Liquacel Pro
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb Liquacel Pro Tamponade;Suprasorb Liquacel Pro
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P;Suprasorb P
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P (nicht klebend);Suprasorb P
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P (selbstklebend);Suprasorb P
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P (self-adhesive, sacrum);Suprasorb P
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P nicht klebend;Suprasorb P
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P heel (selbstklebend);Suprasorb P
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P + PHMB;Suprasorb P + PHMB
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P SensiFlex (border rechteckig);Suprasorb P Sensiflex
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P SensiFlex border;Suprasorb P Sensiflex
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P SensiFlex border rechteckig;Suprasorb P Sensiflex
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P SensiFlex multisite border;Suprasorb P Sensiflex
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P Sensiflex;Suprasorb P Sensiflex
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P sensitive;Suprasorb P Sensitive
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P sensitive (heel);Suprasorb P Sensitive
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P sensitive (nicht klebend);Suprasorb P Sensitive
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P sensitive (selbstklebend);Suprasorb P Sensitive
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P sensitive (selbstklebend) als abdeckender Verband;Suprasorb P Sensitive
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P sensitive heel;Suprasorb P Sensitive
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P sensitive heel (selbstklebend) – als polsternde, absorbierende Sekundärlage über der Tamponade;Suprasorb P Sensitive
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P sensitive sacrum;Suprasorb P Sensitive
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P sensitive selbstklebend;Suprasorb P Sensitive
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb X;Suprasorb X
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb X Kompresse;Suprasorb X
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb X Pro;Suprasorb X Pro
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb X Pro (Kompresse);Suprasorb X Pro
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb X Pro Kompresse;Suprasorb X Pro
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb X + PHMB;Suprasorb X + PHMB
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb X + PHMB (Kompresse);Suprasorb X + PHMB
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb X + PHMB Kompresse;Suprasorb X + PHMB
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb G Gel-Kompresse;Suprasorb G Gel-Kompresse
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb H;Suprasorb H
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb F;Suprasorb F
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb F Protect;Suprasorb F Protect
+mappings_LR.py;PRODUKT_GT_MAPPING;Lomatuell Pro;Lomatuell Pro
+mappings_LR.py;PRODUKT_GT_MAPPING;Lomatuell H;Lomatuell H
+mappings_LR.py;PRODUKT_GT_MAPPING;Vliwasorb Pro;Vliwasorb Pro
+mappings_LR.py;PRODUKT_GT_MAPPING;Vliwasorb sensitive;Vliwasorb sensitive
+mappings_LR.py;PRODUKT_GT_MAPPING;Vliwazell;Vliwazell
+mappings_LR.py;PRODUKT_GT_MAPPING;Vliwazell Pro;Vliwazell Pro
+mappings_LR.py;PRODUKT_GT_MAPPING;Vliwazell Pro als abdeckender Verband;Vliwazell Pro
+mappings_LR.py;PRODUKT_GT_MAPPING;Vliwazell Pro – als hochabsorbierende Sekundärlage über der Tamponade;Vliwazell Pro
+mappings_LR.py;PRODUKT_GT_MAPPING;Vliwaktiv Ag;Vliwaktiv Ag
+mappings_LR.py;PRODUKT_GT_MAPPING;Vliwaktiv Ag Saugkompresse;Vliwaktiv Ag
+mappings_LR.py;PRODUKT_GT_MAPPING;Vliwaktiv Ag Tamponade;Vliwaktiv Ag
+mappings_LR.py;PRODUKT_GT_MAPPING;Solvaline N;Solvaline N
+mappings_LR.py;PRODUKT_GT_MAPPING;Metalline Kompresse;Metalline Kompresse
+mappings_LR.py;PRODUKT_GT_MAPPING;Curafix H;Curafix H
+mappings_LR.py;PRODUKT_GT_MAPPING;Porofix;Porofix
+mappings_LR.py;PRODUKT_GT_MAPPING;Silkafix;Silkafix
+mappings_LR.py;PRODUKT_GT_MAPPING;Mollelast;Mollelast
+mappings_LR.py;PRODUKT_GT_MAPPING;Mollelast (Elastische Fixierbinde);Mollelast
+mappings_LR.py;PRODUKT_GT_MAPPING;Mollelast haft latexfrei;Mollelast haft latexfrei
+mappings_LR.py;PRODUKT_GT_MAPPING;Haftelast latexfrei;Haftelast latexfrei
+mappings_LR.py;PRODUKT_GT_MAPPING;Haftelast latexfrei (kohäsive Fixierbinde);Haftelast latexfrei
+mappings_LR.py;PRODUKT_GT_MAPPING;ActiFast;ActiFast
+mappings_LR.py;PRODUKT_GT_MAPPING;ActiFast Schlauchverband;ActiFast
+mappings_LR.py;PRODUKT_GT_MAPPING;tg Schlauchverband;tg Schlauchverband
+mappings_LR.py;PRODUKT_GT_MAPPING;Curapor;Curapor
+mappings_LR.py;PRODUKT_GT_MAPPING;Curapor transparent;Curapor transparent
+mappings_LR.py;PRODUKT_GT_MAPPING;Fixierbinde;Fixierbinde
+mappings_LR.py;PRODUKT_GT_MAPPING;Fixierbinden;Fixierbinde
+mappings_LR.py;PRODUKT_GT_MAPPING;Universalbinde;Universalbinde
+mappings_LR.py;PRODUKT_GT_MAPPING;Universalbinden;Universalbinde
+mappings_LR.py;PRODUKT_GT_MAPPING;Vliwasorb sensitive border;Vliwasorb sensitive border
+mappings_LR.py;PRODUKT_GT_MAPPING;Vliwasorb sensitive border (sacrum);Vliwasorb sensitive border
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P sensitive (Heel, selbstklebend);Suprasorb P Sensitive
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P sensitive (selbstklebend, sacrum);Suprasorb P Sensitive
+mappings_LR.py;PRODUKT_GT_MAPPING;Suprasorb P (Heel);Suprasorb P
+mappings_LR.py;WUNDGRUND_GT_MAPPING;nekrotisch;Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Fibrinbelegt;Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Sauber, bis auf die aufgetragene Salbe;Sauber
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Fibrinbelegte Wunde;Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;nekrotisch belegt;Nekrose, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Fibringbelegt mit durschscheinendem Granulationsgewebe;Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Mischuntergrund. Fibrinbelag, nekrotisch, teils mit Granulationsinseln;Mischuntergrund, Fibrinbelag, Nekrose, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;teilweise fibrinbelegt mit einzelnen Granulationsinseln;Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;sauberer Wundgrund mit Inseln von Granulation;Sauber, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Fibrinbelegt mit einzelnen Granulationsinseln;Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Fibrinbelegtes tiefes Ulcus;Fibrinbelag, Ulzeration
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Fibrinbelegt bei Wundrandepithelisierung;Fibrinbelag, Wundrandepithelisierung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;belegt mit Hypergranulation;Hypergranulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Fibrinbelegte Wundverhältnisse;Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Fibrinbelegt, zerklüftet;Fibrinbelag, Zerklüftet
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Sauberer Wundgrund mit kleinen Fibrininseln;Sauber, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;belegt, teilweise nekrotisch;Belag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;stark infiziert, massiv belegt;Infektion, Belag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;verbrannte  Epidermis;Verbrennung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;belegt, nekrotisch;Belag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;massive großflächige Verbrennung teilweise 4. Grades, je mehr es vom Wundzentrum nach außen geht werden Verbrennungen 3 7 2. und 1. Grades sichtbar. Nach der 9 er regel könnten hier bis zu 9 % der Körperoberfläche geschädigt sein;Verbrennung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Verbrennungen, Blasenbildung, offene Wunden keine verbrannten Sehnen / Knochen  epidermis geschädigt;Verbrennung, Blasenbildung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;stark belgtes Ulcus, teilweise einzelne Granulationsinseln,;Belag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;hämatös;Hämatom
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Fußwunde: Nekrotisch  Unterschenkelwunde fibrinös belegt,;Nekrose, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;sehr ausgeprägte massive Nekrose, teilweise frei liegende Strukturen, blutig seröses Exsudat;Nekrose, Freiliegende Strukturen, Exsudat
+mappings_LR.py;WUNDGRUND_GT_MAPPING;belegte Wunde, teilweise infiziert;Belag, Infektion
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Nekrotische und fibrinös belegte Wunde- auf Grund der Mazeration nach plantar hin könnte mäßige Exsudation auftreten. Wundinfektion möglich;Nekrose, Fibrinbelag, Mazeration
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"fibrinös belegt, zum Teil mit Granulationsinseln, teilweise freiliegende Sehnen.
+Nekrose plantar wandständig trocken";Fibrinbelag, Granulation, Freiliegende Sehnen, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;mehrere Stadien zu erkennen, nekrotisch, belegt, teilweise granuliert;Nekrose, Belag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Nekrotisch und durch Infektion belegt, Wunde bildet Geruch, Frage der Keimbestimmung wichtig, Wundabstrich notwendig,;Nekrose, Infektion
+mappings_LR.py;WUNDGRUND_GT_MAPPING;teilweise nekrotisch, belegt;Nekrose, Belag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;offenen stelle entzündet. belegt, nekrotisch, geschlossene stelle nekrotisch;Entzündung, Belag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"wandständige Nekrose, Prüfung, ob Knochen / Sehnen betroffen sind. Unbedingt chirurgisch intervenieren.
+Druckentlastung essentiell.";Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"fibrinös belegt, unterminierte Wundränder siehe punktierte Markierung
+Eventuelle freie Sehnen";Fibrinbelag, Unterminierung, Freiliegende Sehnen
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"freiliegende Sehnen Strang 5, freiliegende Knochen,
+teilweise nekrotisch";Freiliegende Sehnen, Freiliegende Knochen, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"großes Ulcus: belegt, teilweise nekrotisch
+Zehe: trockene Nekrose- bitte nicht durch autolytisches Débridement anfeuchten. Zeh fällt irgendwann ab, da die Durchblutung massiv gestört ist. Gefäßstatus prüfen und gfls. sanieren";Belag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Kleine Nekrose oberhalb des großen offenen Ulcus, muss mit versorgt werden
+sonstig massiv belegt, Nekrosenbildung bei Nichtbehandlung wahrscheinlich. Prüfung ob knöcherne Strukturen / Sehnen betroffen sind";Nekrose, Belag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;belegt, teilweise nekrotisch, teilweise überschießende Granulation;Belag, Nekrose, Hypergranulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;stark belegt, neben Fibrin könnte es sich auch um feuchte, wandständige Nekrosen handeln;Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Granulation und Beläge gleichzeitig;Granulation, Belag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;belegt, mäßige Exsudation Infektion möglich;Belag, Exsudat
+mappings_LR.py;WUNDGRUND_GT_MAPPING;leichte Granulation, belegt mit Fibrin, 2 Inseln Beurteilung hier schwer, da nicht genau zu erkennen sind, ob es ich um Nekrosen handelt.;Granulation, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;belegt, hypergranulation;Belag, Hypergranulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;nekrotisch und fibrinös belegt;Nekrose, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;belegt, teilweise kleine Nekrosen, könnte infiziert sein;Belag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;kleinere Nekrosen, belegt;Nekrose, Belag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;belegt, teilweise nekrotisch könnte infiziert sein;Belag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;grünlich belegt, deutet auf Infektion hin, Nekrosen am  Wundgrund belegt;Belag, Infektion, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"stark belegte, super infizierte Wunde, teilweise freiliegende Strukturen,
+Nekrosen.";Belag, Infektion, Freiliegende Strukturen, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;stark geschädigt, nekrotisch, fibrinös belegt, freiliegende Sehnen / Knochen;Nekrose, Fibrinbelag, Freiliegende Sehnen, Freiliegende Knochen
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Granulationsgewebe, teilweise fibrinös belegt, Biofilm;Granulation, Fibrinbelag, Biofilm
+mappings_LR.py;WUNDGRUND_GT_MAPPING;belegt, fibrinös, nekrotisch;Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Granulationsinseln, fibrinös belegt;Granulation, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;belegt, teilweise kleine Nekrosen, könnte infiziert sein, belegt;Belag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;belegt, teilweise kleine Nekrosen freiliegende Sehne sichtbar;Belag, Nekrose, Freiliegende Sehnen
+mappings_LR.py;WUNDGRUND_GT_MAPPING;tiefer Dekubitus Wundgrund belegt, Taschenbildung teilweise nekrotisch;Belag, Taschenbildung, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;feuchte Nekrose,;Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;nekrotisch, wandständige Nekrosen;Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;nekrotisch, feuchte nekrose;Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;fleischige Wunde mit Taschenbildung nach Feststellung der Ausdehnung;Granulation, Taschenbildung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;gerötet, stark geschädigt, teilweise nekrotisch belegt;Rötung, Nekrose, Belag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Ausgedehnte gelblich-fibrinöse Beläge mit schwarz-braunen Nekrosen, dazwischen rötliche granulierende Areale; feucht-glänzend.";Fibrinbelag, Nekrose, Rötung, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Ausgedehnte schwarz-braune Nekrose/Eschar mit feucht-glänzender Oberfläche, teils fibrinös belegt; keine Granulation sichtbar.";Nekrose, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Feucht glänzender, teils gelblich fibrinös belegter Wundgrund mit fragiler Granulation, oberflächlich, keine erkennbaren Taschen.;Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Feucht-glänzender Wundgrund mit flächigen, gelblich-weißen fibrinösen Belägen/Slough und vereinzelten rötlichen Granulationsinseln; keine schwarze Nekrose erkennbar; keine freiliegenden Sehnen/Knochen.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Feuchtes, gut durchblutetes granulierendes Wundbett mit kleinen, fest anhaftenden fibrinösen Inseln/Belägen; kein nekrotisches Gewebe sichtbar.";Granulation, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Feuchtes, teils granulierendes Wundbett mit ausgeprägten gelb-weißlichen Fibrinbelägen; keine trockene Nekrose erkennbar.";Granulation, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Fibrinös-gelblicher Belag mit Inseln rötlicher Granulation; feucht, keine trockene Nekrose sichtbar.";Fibrinbelag, Rötung, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Flaches Ulkus mit gelblich-fibrinösen Belägen und Anteilen von Granulationsgewebe; feucht.";Ulzeration, Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Flaches, irreguläres Ulkus mit gelblich-fibrinösen Belägen und Anteilen von Granulationsgewebe; feucht.";Ulzeration, Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Flaches, ovales Ulkus mit überwiegend gelblich-beigem Fibrinbelag; feucht glänzend; keine schwarzen Nekrosen und keine freiliegenden tiefen Strukturen sichtbar.";Ulzeration, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Flächendeckende, zähe gelblich-weiße Fibrinbeläge/Slough (~80%) mit geringen granulierenden Inseln; feucht; keine schwarze Nekrose; unregelmäßige Wundtiefe.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Flächig erythematös-erosiv, teils mit weißlich-schuppigen Auflagerungen; kein nekrotisches Gewebe erkennbar; feucht-glänzend; mäßige Exsudation.";Rötung, Exsudat
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Gelb-beiger, feuchter fibrinöser Belag/flächiger Slough, kaum Granulation sichtbar.;Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Gelb-ockerfarbener, fest anhaftender Fibrin-/Nekrosebelag mit zentral dunklen (schwarz-braunen) Nekroseinseln; keine sichtbare Granulation; Oberfläche teils krustös, teils feucht glänzend.";Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Gelb‑bräunlicher Fibrinbelag mit zentralen schwarz‑nekrotischen Arealen; kaum/keine sichtbare Granulation.";Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Gelblich-beiger, feuchter Fibrinbelag/Slough (~70%) mit randständiger rötlicher Granulation (~30%); keine schwarze Nekrose sichtbar.";Fibrinbelag, Rötung, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Gelblich-fibrinös belegter, feucht-glänzender Wundgrund mit teils rötlichen Arealen; kein trockener Nekroseanteil sichtbar.";Fibrinbelag, Rötung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Gelblich-weißer, zäher fibrinöser Belag mit wenigen punktförmigen Blutungen; feucht, vereinzelte rötliche Areale.";Fibrinbelag, Rötung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Gemischt: überwiegend rote Granulation mit teils gelblich-fibrinösen Belägen; feuchter Wundgrund.";Rötung, Granulation, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Gemischter Wundgrund mit gelblichen fibrinösen Belägen/Slough und rötlichem Granulationsgewebe; feucht, mäßige Tiefe; kein freiliegender Knochen sichtbar.";Fibrinbelag, Rötung, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Gemischtes Wundbett mit schwarzen nekrotischen Arealen und gelb-grauem Fibrinbelag; zentral rötliches, feuchtes Granulationsgewebe; tiefe Ulzeration mit möglicher Unterminierung.";Nekrose, Fibrinbelag, Rötung, Granulation, Ulzeration, Unterminierung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Granulierender Wundgrund mit ausgeprägten gelblichen fibrinösen Belägen/Slough, teils adhärent; vereinzelt dunklere nekrotische Areale distal.";Granulation, Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Großflächig gelb‑grünlicher, dicker Fibrin-/Slough-Belag, feucht und glänzend; am unteren Rand schwarz‑braune nekrotische/krustige Areale; nur wenige rötliche Granulationsinseln sichtbar; keine freiliegenden Strukturen (Knochen/Sehnen) erkennbar.";Fibrinbelag, Nekrose, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Großflächig nekrotisch mit schwarz-braunen Escharen; darüber ausgedehnter gelb-grünlicher fibrinöser Belag/Slough, feucht-glänzend; keine sichtbare Granulation oder Epithelisierung.";Nekrose, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Großflächiger gelb‑grünlicher Fibrinbelag/Slough mit einzelnen nekrotischen Arealen distal; feucht, kaum sichtbare Granulation.";Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Großflächiger, feucht glänzender Wundgrund mit hell- bis dunkelroter Granulation; multiple gelblich‑weiße Fibrinbeläge/Slough-Inseln; unregelmäßige Oberfläche; keine trockene Nekrose sichtbar.";Granulation, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Großflächiges, feuchtes Wundbett mit dicken gelblich-grünlichen Fibrinbelägen/Slough; stellenweise rötliche Granulationsinseln; keine schwarze Trockennekrose erkennbar.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Großes rundes Ulkus mit überwiegend gelblich-weißem Fibrin-/Schleimhautbelag, zentral teils rötliche Granulationsinseln; randständig trockene nekrotische Krusten; feucht-glänzend; kein freiliegender Knochen oder Sehne sichtbar.";Ulzeration, Fibrinbelag, Granulation, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Hauptläsion: flaches, ovales Ulkus mit gelblich-beigem fibrinösem Belag, randständig teils rötlich, feucht glänzend; keine schwarze Nekrose, feuchtem Wundbett. Zweite kleinere, oberflächliche Läsion lateral mit rötlichem, keine sichtbaren tieferen Strukturen.";Ulzeration, Fibrinbelag, Rötung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Kavitäre Ulzeration mit überwiegend gelblich-cremigem fibrinösem Belag/Slough; stellenweise rötliche Granulationsinseln an der Innenwand; feucht mit dickflüssigem Exsudat; keine freiliegenden Knochen oder Sehnen sichtbar.";Ulzeration, Fibrinbelag, Granulation, Exsudat
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Kleines rundes Ulkus mit gelblich-fibrinösem Belag; kein freiliegendes tieferes Gewebe sichtbar.";Ulzeration, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Kleines, ovales Ulkus mit gelblich-fibrinösem Belag; feucht, keine freiliegenden Strukturen sichtbar.";Ulzeration, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Kleine punktförmige Öffnungen/Pusteln mit serösem bis seropurulentem Exsudat, umgebend entzündlich gerötet; kein sichtbarer Nekrosenbelag.";Rötung, Exsudat
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Kleine rundliche Ulzeration mit gelblich-fibrinösem Belag, flach bis mäßig tief; kein sichtbares nekrotisches Gewebe.";Ulzeration, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Kraterförmige Ulzeration mit überwiegend gelblich-weißem fibrinösem Belag (Slough) und Anteilen rötlichen, feuchten Granulationsgewebes; kein schwarz nekrotisches Gewebe erkennbar.";Ulzeration, Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Kraterförmiges Ulkus mit gelblichen fibrinösen Belägen, teilweise rötlich-granulierende Areale; mäßig exsudierend.";Ulzeration, Fibrinbelag, Rötung, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Kräftig rot, homogen granulierend, feucht-glänzend ohne sichtbare Nekrosen oder dicke Fibrinbeläge.;Rötung, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Livide bis schwärzliche Areale mit partiell intakten/rupturierten Blasen; oberflächliche Hautnekrosen, kein sichtbares Granulationsgewebe; flächige Beteiligung ohne erkennbare Taschen.";Blasenbildung, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Mehrere flache bis mäßig vertiefte, teilweise konfluierende Ulzera mit ausgedehntem gelb-grünlichem fibrinösem Belag/Slough; stellenweise rötliche, feinkörnige Granulation sichtbar; feucht glänzend; keine schwarze Nekrose.";Ulzeration, Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Mehrere flache, rundliche Ulzera mit gelblichen Fibrinbelägen, teils rötliche Granulationsinseln; feucht glänzend.";Ulzeration, Fibrinbelag, Rötung, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Mehrere oberflächliche Läsionen (Erosionen/Ulzera) mit gelb-beigen Fibrinbelägen und rötlicher Granulation; feucht-glänzend; keine schwarze Nekrose sichtbar.";Ulzeration, Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Mehrere oberflächliche Ulzerationen mit gelblich-grünlichem fibrinösem Belag, feucht; teils rote Granulationsinseln.";Ulzeration, Fibrinbelag, Granulation, Rötung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Mehrere sakrale Ulzera, teils tiefer liegend; gemischter Wundgrund mit rötlichem Granulationsgewebe und gelblichen Fibrinbelägen; feucht.";Ulzeration, Granulation, Fibrinbelag, Rötung, Feucht
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Mehrere tiefe Ulzera mit gelblich-weißem Fibrinbelag und schwarzer Nekrose, feucht, teils mit Taschenbildung.;Ulzeration, Fibrinbelag, Nekrose, Taschenbildung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Mehrere ulzerierende Läsionen, teils mit schwarzer Nekrose/Eschar, teils gelb-fibrinös belegt; randständig teils rötlich, vereinzelt feuchte Areale mit beginnender Granulation.";Ulzeration, Nekrose, Fibrinbelag, Rötung, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Mehrere zirkuläre bis ovale, flache bis mäßig tiefe Ulzera mit gelblich-beigen Fibrinbelägen/Slough; zentral/peripher rötliche Granulationsinseln; feucht glänzend; keine trockene Schwarznekrose sichtbar.";Ulzeration, Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Oberflächlich bis mäßig tiefes Ulkus mit gelblich-fibrinösen Belägen und Anteilen rötlicher Granulation.;Ulzeration, Fibrinbelag, Rötung, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Oberflächliche Ulzeration mit gelb-grünlichem Fibrin-/Slough-Belag, stellenweise rötliche Granulation sichtbar; feucht, unregelmäßige Kontur, glänzende Oberfläche.";Ulzeration, Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Oberflächliche Ulzerationen mit gelblichen Fibrinbelägen und Anteilen von feuchtem rotem Granulationsgewebe; keine schwarze Nekrose sichtbar.";Ulzeration, Fibrinbelag, Rötung, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Oberflächliche, feuchte, rötliche Dermis mit erosiven Arealen; multiple intakte und rupturierte seröse Blasen; kein nekrotisches Gewebe sichtbar.";Rötung, Blasenbildung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Oberflächliche, teils nässende Erosionen mit gerötetem Wundgrund; keine tiefe Nekrose sichtbar.";Rötung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Oberflächlicher, größerer Defekt mit gelblich-fibrinösen Belägen und teils rötlicher Granulation; feucht glänzend, kein schwarzes Nekrosegewebe sichtbar.";Fibrinbelag, Rötung, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Oberflächliches Ulkus mit ausgedehnten gelblichen Fibrinbelägen, teils rötlich granulierend; feucht glänzend.";Ulzeration, Fibrinbelag, Rötung, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Oberflächliches Ulkus mit gelb-grünlichem Fibrin-/Belag, teils nekrotisch; feucht, unregelmäßiger Wundgrund.";Ulzeration, Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Oberflächliches Ulkus mit gelblich-fibrinösen Belägen, randständig teils granulierend; kleine zweite Läsion lateral.";Ulzeration, Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Ovaler Defekt mit zentralem gelblich-beigem Fibrin/Slough, peripher rötliches granulierendes Gewebe; feucht-glänzende Oberfläche; keine sichtbare trockene Nekrose oder freiliegende tiefe Strukturen.";Ulzeration, Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Ovale, mäßig tiefe Ulzeration mit überwiegend rötlichem, feuchtem Granulationsgewebe; randständig teils adhärente gelblich-fibrinöse Beläge; keine schwarze Nekrose sichtbar.";Ulzeration, Granulation, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Ovale, flache Ulzeration mit überwiegend gelblich-fibrinösem Belag (ca. 70-80%) und dazwischen rötlicher, feucht glänzender Granulation (ca. 20-30%); keine schwarze Nekrose, keine sichtbare Sehnen- oder Knochenexposition.";Ulzeration, Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Punktförmige, schlitzartige Fistelöffnung(en); Wundgrund nicht einsehbar. Eine Öffnung mit klar-gelblich seröser Flüssigkeit; kein sichtbarer Fibrin- oder Nekrosebelag.";Ulzeration, Exsudat
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Runde Ulzeration mit zentral gelblich-fibrinösem Belag, mäßig feucht; peripher schmaler erythematöser Saum, kein freiliegender Knochen/Sehne sichtbar.";Ulzeration, Fibrinbelag, Rötung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Runder, kraterförmiger Defekt mit überwiegend gelblich-fibrinösem Belag; feucht glänzend; keine schwarze Nekrose sichtbar; kaum bis keine erkennbare Granulation.";Ulzeration, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Rundliche Ulzeration mit überwiegend gelblich-fibrinösem Belag; punktuell rote, feuchte Areale/Granulationsinseln; glänzend-feucht, keine schwarze Nekrose sichtbar.";Ulzeration, Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Stark nässend; dicke gelb-grünliche Fibrin-/Beläge mit mutmaßlichem Biofilm, teils nekrotische Areale; kaum Granulation sichtbar.";Fibrinbelag, Biofilm, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Tief klaffende, längsovale Wunde; Wundgrund überwiegend mit dicken gelb-beigen fibrinösen Belägen/Slough bedeckt, teils graugelb; feucht-glänzend; kaum/kein sichtbares Granulationsgewebe; unregelmäßige Taschen/Kavernen erkennbar.";Fibrinbelag, Taschenbildung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Tiefes Ulkus mit gelb- bis grünlichem Fibrin-/Belag, teils avital, Biofilm-verdächtig; Höhle mit möglicher Unterminierung; geringe Inseln von Granulation.";Ulzeration, Fibrinbelag, Biofilm, Unterminierung, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Tiefes, kavernöses Areal mit überwiegend gelb-braunem, dickem fibrinös-purulentem Belag; vereinzelte nekrotische Areale; kaum sichtbares vitales Granulationsgewebe; feucht glänzend.";Fibrinbelag, Nekrose, Taschenbildung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Tiefes, rundes Ulkus mit zentral gelb-weißem Fibrin/nekrotischen Anteilen; feuchte Beläge, mehere Läsionen sichtbar.";Ulzeration, Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Tiefe moderat, kavitäre Ulzeration mit überwiegend gelblich-cremigem fibrinösem Belag/Slough; stellenweise rötliche Granulationsinseln an der Innenwand; feucht mit dickflüssigem Exsudat; keine freiliegenden Knochen oder Sehnen sichtbar.";Ulzeration, Fibrinbelag, Granulation, Exsudat
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Tiefe moderat, Wundbett nahezu vollständig (ca. 90-100%) mit gelb-beigem, faserigem Fibrin/Slough bedeckt; kein schwarzer Schorf sichtbar; kaum bis keine Granulation erkennbar; vereinzelte rötliche Areale am Boden; Wunde klar begrenzt, feucht-glänzendem, keine offen erkennbaren freiliegenden tieferen Strukturen.";Fibrinbelag, Rötung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Tiefer Defekt mit überwiegend vitalem, feuchtem Granulationsgewebe; randständig gelblich-fibrinöse Beläge.";Granulation, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Tieferes Ulkus mit dicken gelb-gräulichen Fibrinbelägen, feucht; kaum sichtbares Granulationsgewebe.";Ulzeration, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Überwiegend gelb-grauer, dicker fibrinöser/slough-Belag mit teils nekrotischem Aspekt; feucht, zäh; kaum bis kein vitales Granulationsgewebe sichtbar; Anzeichen von Tiefe/Unterminierung.";Fibrinbelag, Nekrose, Taschenbildung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Überwiegend gelb-grünlicher fibrinöser Belag; zentral schwarz-brauner Nekroseanteil (Eschar); feuchte, glänzende Oberfläche; keine sichtbare Granulation oder Epithelinseln.";Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Überwiegend gelb-weißlicher Fibrin-/Slough-Belag mit einzelnen Arealen rötlicher Granulation; feucht-glänzende Oberfläche; keine schwarze Nekrose sichtbar; keine freiliegenden tieferen Strukturen erkennbar.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Überwiegend gelb-weißlicher Fibrin-/Slough-Belag mit einzelnen grau-schwarzen nekrotischen Arealen; randständig geringe rötliche Gewebeanteile; unregelmäßiger, teilweise kavitiert; feucht glänzend; keine exponierten Knochen/Sehnen sichtbar.";Fibrinbelag, Nekrose, Rötung, Taschenbildung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Überwiegend gelblich-beiger Fibrinbelag/Slough (~70%) mit randständiger rötlicher, feucht-glänzender Granulation; keine schwarze Nekrose sichtbar; vereinzelte punktförmige Blutungen.";Fibrinbelag, Rötung, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Überwiegend gelblich-beiger fibrinöser Belag mit Anteilen rötlicher, feucht-glänzender Granulation; keine schwarze Nekrose sichtbar; vereinzelte punktförmige Blutungen.";Fibrinbelag, Rötung, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Überwiegend gelblich-weißer Fibrinbelag/Slough mit einzelnen rötlichen Granulationsinseln; feucht-glänzend; oberflächlich bis mitteltief; kein trockener schwarzer Nekroseschorf; keine freiliegenden Sehnen oder Knochen sichtbar.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Überwiegend gelblich-weißer Fibrinbelag/Biofilm, dazwischen kleine Inseln granulierenden, roten Gewebes; feucht glänzend.";Fibrinbelag, Biofilm, Granulation, Rötung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Überwiegend rötlich granulierendes Gewebe mit ausgedehnten gelblich-cremigen Fibrinbelägen/Slough; vereinzelt dunklere (bräunlich-schwarze) Beläge distal; feucht glänzend; keine freiliegenden Sehnen oder Knochen erkennbar.";Fibrinbelag, Nekrose, Rötung, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Überwiegend vitales, feuchtes Granulationsgewebe mit geringen fibrinösen Belägen.;Granulation, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Ulzeration mit gelblich-fibrinösem Belag am Rand, zentral teils vitales rötliches Granulationsgewebe; mäßig tiefe Kavität, keine trockene Nekrose sichtbar.";Ulzeration, Fibrinbelag, Rötung, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Unregelmäßig konfiguriertes, eher flaches Ulkus mit überwiegend gelblich-weißlichen fibrinösen Belägen und zähem Exsudat; dazwischen rötliche, feucht-körnige Granulation; keine schwarze Nekrose sichtbar.";Ulzeration, Fibrinbelag, Granulation, Exsudat
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Weitgehend rötlich-granulierend mit teils fibrinösen Belägen; feucht glänzend, mehere oberflächliche Läsionen im Cluster.";Rötung, Granulation, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Zentral schwarz-braune Nekrose, umgebend gelblich-fibrinöser Belag mit feuchtem Exsudatfilm; kein vitales Granulationsgewebe erkennbar.";Nekrose, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Zentral schwarz-braune Eschar mit fest anhaftenden Belägen; randständig livid-erythematös und leicht erhaben.";Nekrose, Rötung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Zentral trockene schwarz‑braune Nekrose (Eschar) mit gelblich‑bräunlichem Fibrin/Schorf; kein sichtbares Granulations- oder Epithelgewebe.";Nekrose, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Zwei Läsionen: kaudal ausgedehnte schwarze Nekrose (Eschar), kranial gelb-grünlicher fibrinöser Belag; feuchtes Milieu, kein sichtbares Granulationsgewebe.";Nekrose, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Zwei oberflächliche Ulzerationen mit gelblichen fibrinösen Belägen, teils rötlich granulierend, feucht; keine ausgedehnte trockene Nekrose sichtbar.";Ulzeration, Fibrinbelag, Rötung, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Zwei ulzerierende Läsionen mit dickem gelb-weißlichem Fibrinbelag/Detritus und viskösem Exsudat; kein freiliegender Knochen oder Sehne sichtbar.";Ulzeration, Fibrinbelag, Exsudat
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Zwei Ulzera mit gelb-grünlichen Fibrinbelägen und teils schwarzer Nekrose; feuchter Wundgrund mit randständiger Rötung.";Ulzeration, Fibrinbelag, Nekrose, Rötung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Zwei Ulzera: oberes Ulkus mit dickem gelblich-grünlichem Fibrin-/Schmierbelag, feucht glänzend; unteres, größeres Ulkus mit ausgedehnter schwarzer, teils feucht glänzender Nekrose/Eschare. Kein sichtbar vitales Granulations- oder Epithelgewebe; Beläge überwiegend adhärent.";Ulzeration, Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Tiefere Wunde mit dicken gelblichen fibrinösen Belägen/Detritus, kaum sichtbare Granulation; möglicherweise Wundtaschen.";Fibrinbelag, Granulation, Taschenbildung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Großflächige trockene, schwarze Eschar lateral am Rückfuß/Ferse; kleinere nekrotische Läsion am lateralen Zehenbereich. Umgebung teils stark gerötet, glänzend, keine sichtbare Granulation.";Nekrose, Rötung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Weitgehend rötlich-granulierend mit teils fibrinösen Belägen; feucht glänzend, mehrere oberflächliche Läsionen im Cluster.";Rötung, Granulation, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Großflächige, trockene schwarze Eschar (nekrotisches Gewebe) am Fersenpolster, keine sichtbare Granulation oder Sickerblutung.;Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Überwiegend gelblich-weißlicher fibrinöser Belag mit Anteilen rötlicher Granulation; kein freiliegender Knochen sichtbar.";Fibrinbelag, Rötung, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Tiefes, rundes Ulkus mit zentral gelb-weißem Fibrin/nekrotischen Anteilen; feuchte Beläge, mehrere Läsionen sichtbar.";Ulzeration, Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Schwarze Nekrosenanteile mit dicken gelb-grünlichen fibrinösen Belägen, feucht; peripher teils gerötetes/angegriffenes Gewebe.";Nekrose, Fibrinbelag, Rötung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Zentrale schwarz-gelbe Eschar mit fest anhaftenden Belägen; randständig livid-erythematös und leicht erhaben.";Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Flache, ovale Ulzeration mit zentral gelblichen Fibrinbelägen; randständig rötliche, feuchte Granulation.";Ulzeration, Fibrinbelag, Granulation, Rötung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Kleiner runder Ulkus (~1.5–2 cm) mit gelblich-weißen fibrinösen Belägen, punktuell rötlich/blasende Areale; oberflächlich und feucht.";Ulzeration, Fibrinbelag, Rötung, Blasenbildung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Ovales Ulkus mit dicken gelb-weißlichen Fibrinbelägen, zentral teils grau-schwarze nekrotische Areale; kaum sichtbare Granulation.";Ulzeration, Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;starke Granulation, überschießendes Gewebe, infektfrei;Granulation, Hypergranulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Hämangiome sind Neoplasien ( Neubildungen) , umschriebenes Hämangiom, klare Abgrenzung. segmentale Fehlbildung.
+Behandlung unbedingt notwendig.";Hämangiom
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Exsudation;Exsudat
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Tiefer Defekt mit dicken gelblichen Fibrin-/Schleimbelägen, teils nekrotisch; kaum Granulation sichtbar.";Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Vitales, homogen granulierendes Gewebe, feucht glänzend, keine sichtbaren Beläge oder Nekrosen.;Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Großflächige schwarze/braune Nekrosen und gelblich-fibrinöse Beläge, teils feucht; randständig kleine Areale mit frischer Blutung/Granulation.";Fibrinbelag, Granulation, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Teilweise freiliegende, feucht-rosige Dermis mit oberflächlichen Erosionen; mehrere intakte und rupturierte seröse Blasen, vereinzelte dünne Fibrinauflagen.";Blasenbildung, Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Flächig oberflächlich erosiv, feucht glänzend mit teils fibrinösen Belägen und rötlich-granulierenden Arealen.;Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Kein freiliegender Wundgrund sichtbar; intakte bzw. teils abgehobene Epidermis mit Hämatom und Blasen";Blasenbildung, Hämatom
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Großflächig trockene schwarze Nekrosen (Eschar) an Ferse und lateraler Fußseite; kleinere Areale mit gelblich-fibrinösem Belag proximal; keine erkennbare Granulation.";Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Ausgedehnte schwarz-braune Nekrosen mit gelblich-fibrinösen Belägen; zentral rötlich-granulierende Anteile; unregelmäßiger, teils tiefer Defekt.";Fibrinbelag, Granulation, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Schwarz-braune Nekrosen und fest anhaftende Fibrinbeläge; teils blutiges, freiliegendes Gewebe am Vorfuß; mehrere oberflächliche bis mäßig tiefe Ulzera.";Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Granulierendes Gewebe mit gelblich-fibrinösen Belägen; schräger, mäßig tiefer Defekt mit möglicher Randunterminierung; feucht glänzend.";Fibrinbelag, Granulation, Taschenbildung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Gemischt: gelblich-fibrinöse Beläge mit Anteilen von feuchter Granulation; unregelmäßige, flach bis mäßig tiefe Läsion.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Flacher Defekt mit überwiegender roter Granulation und teils gelblich-fibrinösen Belägen; keine trockene Nekrose sichtbar.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Mehrere tiefe Ulzerationen mit gelblich-fibrinösen Belägen und schwarzer Nekrose, teilweise rötlich-granulierende Areale, feucht.;Fibrinbelag, Granulation, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;vitalrotes, glänzend-feuchtes Granulationsgewebe, teils bereits beginnende Epithelisierung, keine Nekrosen sichtbar;Granulation, Wundrandepithelisierung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Mehrere flache Ulzera mit gelblich-fibrinösen Belägen, teils granuliert; einzelne Blutkrusten, kein freiliegender Knochen/Sehne sichtbar.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"gelblich-brauner Fibrinbelag mit teils rötlichen Anteilen; keine freiliegenden Strukturen sichtbar";Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Gemischter Wundgrund mit gelb-grünlichen Fibrinbelägen und teils schwarzer trockener Nekrose; teilweise gerötete, leicht feuchte Umgebung; geringe Blutungsspuren";Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Großflächige schwarz-braune, teils feucht glänzende Nekrose/Schorf ohne sichtbares vitales Gewebe; Übergangszonen mit grauen Belägen.";Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Großflächige, schwarz-braune, trockene Nekrose/Eschar; keine sichtbare Granulation, minimaler erythematöser Saum";Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Punktförmige Läsion mit gelb-grünlichem Belag/Eiterpfropf, Tiefe unklar.;Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Zentral gelblicher fibrinöser Belag, randständig teils rötliche Granulation; kein freiliegender Knochen sichtbar.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Großflächiger gelblich-fibrinöser Belag, teils serös‑blutig unterlaufen; oberflächlicher bis teildermaler Substanzverlust.";Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"gelblich-fibrinös belegter, teils nekrotischer Wundgrund mit Ulkuskrater; zweite Läsion mit trockener Nekrose/Schorf";Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Ausgedehnter schwarz-brauner Nekroseanteil mit gelblich-grünem Fibrin/Slough, feucht glänzend; möglicher Biofilm";Biofilm, Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Gelb-weißliche fibrinöse Beläge mit rötlich granulierenden Arealen; feuchter Wundgrund.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Zentrale schwarz-braune Eschar mit gelblich-fibrinösen Arealen; verhärteter, livid-erythematöser Rand.";Fibrinbelag, Nekrose, Rötung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Irregulärer Ulkus mit gelblichen fibrinösen Belägen und Anteilen rötlicher Granulation; feucht glänzend.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Gelblicher, zäher Fibrinbelag; kaum Granulation; teils tieferliegendes Gewebe/Faszie sichtbar.";Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Großflächig, feucht; überwiegend rote Granulation mit gelblichen fibrinösen Belägen/Slough.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Zentral gelblich-fibrinöser Belag, flach; geringe/keine sichtbare Granulation; kein nekrotisches Gewebe erkennbar.";Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Überwiegend rot-granulierend mit wenigen gelblich-fibrinösen Inseln; feucht; flach.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"ausgedehnter gelblich-fibrinöser Belag/Biofilm mit einzelnen rötlich-granulierenden Anteilen; feucht";Biofilm, Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"oberflächliche Ulzeration mit gelblich-weißen Fibrinbelägen und vereinzelten rötlich-granulierenden Arealen; keine trockene Nekrose sichtbar";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Gelb-bräunliche Fibrinauflagerungen mit zentralen schwarz-braunen Nekroseanteilen; kein Granulationsgewebe sichtbar.";Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Ovales Ulkus mit gelblich-fibrinösem Belag, feucht-glänzend; punktuell gerötete Granulation sichtbar.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Ovales, oberflächliches Ulkus mit gelblich-fibrinösem Belag zentral, peripher rötlich granulierend.;Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Runde, oberflächliche Läsion mit gelblich-fibrinösem Belag und punktuellen Granulationen; feucht glänzend.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Zentral gelblich-weisslicher Fibrinbelag mit zwei rötlichen Granulationsinseln; oberflächlich, feucht.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Ovales Ulkus mit randständigem gelblich-fibrinösem Belag und zentralen Granulationsarealen; keine freiliegenden Strukturen sichtbar.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Ausgedehnte gelb-grünliche Fibrin-/Beläge mit Biofilm, teils weich-nekrotische Areale; feucht, keine freiliegenden Strukturen erkennbar.";Biofilm, Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Ausgedehnter gelb-grünlicher Fibrin-/Detritusbelag mit einzelnen nekrotischen Arealen, kaum Granulation sichtbar; oberflächlich bis flach, unregelmäßige Ränder.";Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Weitläufige, flache Ulzeration mit gelblich-fibrinösem Belag, feucht; vereinzelte punktförmige Blutungen; keine freiliegenden Strukturen erkennbar.";Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;Kleiner ovaler Defekt mit gelblich-fibrinösem Belag, kaum sichtbare Granulation, oberflächlich.;Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Gelb-grünlicher Fibrinbelag mit zentraler schwarz-brauner Nekrose; feucht erscheinend.";Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Großflächiger gelblich-bräunlicher fibrinöser Belag mit feuchtem Wundbett; teils rötliche Granulation sichtbar; oberflächlich.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Gelblich-grünlicher Fibrin-/Belag mit teils rötlich punktförmig granulierenden Arealen; oberflächliche, irreguläre Ulzera.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Gemischter Wundgrund mit gelb-weißen Fibrinbelägen und dazwischen vitalem Granulationsgewebe; feucht, oval.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Kleines rundes Ulkus mit gelblich-fibrinösen Belägen, eher trocken; kein deutlich granulierendes Gewebe sichtbar.";Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Oberflächliches Ulkus mit gelblich-fibrinösen Belägen; randständig teils epithelisierend; zweite kleine oberflächliche Läsion lateral.";Fibrinbelag, Wundrandepithelisierung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Gelbliche fibrinöse Beläge, teils granulierend; flach-kraterförmiger Defekt.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Ausgedehnte schwarze trockene Nekrose am unteren Ulkus, oberes Ulkus mit gelblichen Fibrinbelägen; kein Granulationsgewebe sichtbar.";Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Tiefer Ulkus mit gelblich-fibrinösen Belägen, teils nekrotisch, wenig Granulation; Höhle mit möglicher Randunterminierung.";Fibrinbelag, Granulation, Nekrose, Taschenbildung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Gelb-weißlicher fibrinöser Belag mit zentral dunkler nekrotischer Komponente; bislang kaum Granulation sichtbar.";Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Gelb-grauer fibrinöser Belag mit feuchtem Slough; Tiefe/Unterminierungen nicht sicher beurteilbar.";Fibrinbelag, Taschenbildung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Kleine, serös gefüllte Blase mit möglicher punktueller Erosion; kein nekrotisches Gewebe sichtbar.";Blasenbildung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Rötlich-feuchtes, gut durchblutetes Granulationsgewebe, punktuell dünner Fibrinbelag; keine Nekrosen sichtbar.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Mischbild aus vitalem Granulationsgewebe mit gelblich-fibrinösen Belägen; zwei tiefer reichende Ulzera, kein freiliegender Knochen sichtbar.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Mehrere konfluierende, oberflächlich erodierte Areale mit feucht-glänzend rotem Gewebe; punktuell serös-sanguinöse Anteile; kein nekrotisches Gewebe erkennbar; teils weißliche, schuppige Auflagerungen an und um die Erosionen.";
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Großflächig flaches Areal mit kräftig rotem, feucht-glänzendem, homogenem Granulationsgewebe; keine sichtbaren Nekrosen oder gelblichen Fibrinbeläge; randständige beginnende Epithelisierung.";Granulation, Wundrandepithelisierung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Zwei tiefe Ulzerationen mit dickem gelblich-weißlichem fibrinösem/purulentem Belag; randständig teils rötliche Granulation; feucht, kein schwarzes Nekrosengewebe sichtbar.";Fibrinbelag, Granulation, Infektion
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Überwiegend gelblich-beiger, feucht-glänzender Fibrin-/Slough-Belag; ausgedehnte dunkelbraun-schwarze Nekrose-/Escharareale; vereinzelte rötliche Granulationsinseln, vor allem randständig; heterogene Tiefenwirkung";Fibrinbelag, Granulation, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Mehrere oberflächliche Erosionen mit feuchtem, rosig-rotem, glänzendem Wundgrund; teils intakte seröse Blasen, teils rupturierte Blasen mit freiliegender Dermis; keine sichtbaren Nekrosen oder dicker Fibrinbelag.";Blasenbildung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Flacher, ausgedehnter Defekt mit rötlich granulierendem Gewebe und ausgedehnten gelblich-fibrinösen Belägen; stark feucht/glänzend; keine schwarze Nekrose sichtbar.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Ausgedehnte livid‑violette Hautverfärbung mit deutlicher Schwellung; multiple intakte und kollabierte Blasen (teils serös/serosanguinös gefüllt); oberflächliche Erosionen/Krusten in rechteckigen Arealen; keine sichtbare Granulation, kein freiliegendes tiefes Gewebe erkennbar.";Blasenbildung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Großflächige schwarz-braune, trockene, fest haftende Nekrose (Eschar) an der Ferse/lateralem Rückfuß; weitere kleinere nekrotische Läsion am lateralen Vorfuß nahe dem 5. Strahl; kein sichtbares Granulations- oder Epithelgewebe; stellenweise gelblich-fibrinöse Beläge proximal am Knöchel.";Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Gemischter Wundgrund: großflächige schwarz-braune Nekrosen/Eschar und gelb-grauer Fibrinbelag; zentral tieferer Defekt mit rötlichem, feuchtem Granulationsgewebe; unregelmäßig, teilweise kavitiert; feucht glänzend; keine exponierten Knochen/Sehnen sichtbar.";Fibrinbelag, Granulation, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Mehrere Ulzera: 1) rundliches Ulkus am Fußrand mit zentraler schwarz‑brauner, trockener Nekrose/Eschar; 2) irreguläres Ulkus plantar am Vorfuß/Zehenbasis mit rötlicher Granulation, gelblich-fibrinösen Belägen und teils blutigen Auflagerungen; insgesamt feucht glänzend, keine sichtbaren Sehnen oder Knochen.";Fibrinbelag, Granulation, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Überwiegend rötliches, feuchtes Granulationsgewebe mit anteilig gelblich-fibrinösen Belägen; unregelmäßige Ulkusränder; teils kavernös wirkend mit Unterminierung; keine schwarze Nekrose sichtbar.";Fibrinbelag, Granulation, Taschenbildung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Gemischter Wundgrund mit rötlicher, feucht glänzender Granulation und ausgedehnten gelblich-fibrinösen Belägen; flach und unregelmäßig, teils zusammenfließende Ulzerationen; keine schwarze Nekrose sichtbar.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Großflächige Ulzeration mit überwiegend vitalem, feucht-glänzendem, hell- bis dunkelrotem Granulationsgewebe; eingestreut gelblich-weißliche fibrinöse Beläge (vor allem zentral und distal); keine schwarze Nekrose sichtbar; unregelmäßige Kontur.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Drei rund-ovale, teils tief reichende Defekte mit zentral schwarz-brauner Nekrose (Eschar) und gelblich-weißen fibrinösen Belägen; feucht-glänzende Oberfläche; am Rand abschnittsweise rötliches Granulationsgewebe erkennbar.";Fibrinbelag, Granulation, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Überwiegend granulierendes, rötlich bis dunkelrotes, feuchtes Gewebe; mehrere flache, teils konfluierende Ulzera; stellenweise dünner gelblicher Fibrinbelag an den Rändern; keine schwarze Nekrose sichtbar.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Multiple rund-ovale, teils konfluierende Ulzera mit gelblich-beigem fibrinösem Belag; Abschnitte mit rötlicher Granulation; vereinzelt hämorrhagische Krusten/Schorfinseln; überwiegend oberflächlich bis partiell dermal, feucht-glänzend ohne sichtbare tiefe Strukturen.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Zwei benachbarte Ulzera: proximal überwiegend gelb-beiger fibrinöser Belag; distal rötlich-feuchtes, teils granuliertes Gewebe. Keine schwarze Nekrose sichtbar. Oberflächlich bis mäßig tief.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Ovales Ulkus, zentral überwiegend gelblich-bräunlicher Fibrinbelag/Slough (~60–70%), peripher rötliche feucht wirkende Granulation (~30–40%); keine freiliegenden Sehnen oder Knochen erkennbar; moderat tief, klar begrenzte Defektzone.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Zwei getrennte Ulzera. Proximal: ovaler Defekt mit überwiegend gelb-grauem Fibrin/Slough (ca. 60-70%), restlich rötlich-feuchtes Gewebe. Distal: gemischter Wundgrund mit randständiger rötlicher Granulation und zentral schwarz-brauner trockener Nekrose/Schorf; teils serös-blutige Beläge. Tiefe bis ins subkutane Gewebe, keine freiliegenden Sehnen oder Knochen sichtbar.";Fibrinbelag, Granulation, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Großflächige schwarz-braune, teils glänzend-feuchte Eschar/Nekrose, fest haftend; randständig gelblich-graue Beläge; kein vitales Granulations- oder Epithelgewebe sichtbar.";Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Wundbett vollständig von trockener, schwarz-brauner, fest anhaftender Ledernekrose (Eschar) bedeckt; teils grauweißliche Anteile; keine sichtbare Granulation oder Epithelisierung.";Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Kleine runde Öffnung mit gelb-grünlichem purulentem/fibrinösem Belag (Eiterpfropf); kein sichtbares Granulations- oder Epithelgewebe.";Fibrinbelag, Infektion
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Überwiegend gelblich-beiger Fibrinbelag/Slough (~70%) mit randständiger rötlicher, feuchter Granulation (~30%); kein schwarzes Nekrosegewebe sichtbar; Wundbett feucht-glänzend, mäßige Tiefe; keine freiliegenden Strukturen (Knochen/Sehne) erkennbar.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Überwiegend gelblich-beiger, dicker Fibrin-/Belag mit teils grünlicher Tönung, feucht-glänzend; randständig vereinzelte rötliche granulierende Areale und punktförmige Blutungen; keine schwarze Nekrose sichtbar.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Großes rundes Ulkus mit überwiegend gelblich-weißem Fibrin-/Schleimhautbelag, zentral teils rötliche Granulationsinseln; randständig trockene nekrotische Krusten; feucht-glänzend, kein freiliegender Knochen oder Sehne sichtbar.";Fibrinbelag, Granulation, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Tiefe, kraterförmige Ulzeration mit überwiegend gelblich-weißem fibrinösem Belag (Slough) und Anteilen rötlichen, feuchten Granulationsgewebes; kein schwarz nekrotisches Gewebe erkennbar.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Wundbett nahezu vollständig (ca. 90-100%) mit gelb-beigem, feucht-glänzendem, faserigem Fibrin/Slough bedeckt; kein schwarzer Schorf sichtbar; kaum bis keine Granulation erkennbar; vereinzelte rötliche Areale am Boden; Wunde klar begrenzt, Tiefe moderat, keine offen erkennbaren freiliegenden tieferen Strukturen.";Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Großflächiger, oberflächlicher bis mäßig tiefer Ulkus mit überwiegend vitaler, feucht glänzender, hell- bis dunkelroter Granulation; multiple gelblich‑weiße Fibrinbeläge/Slough-Inseln; unregelmäßige Oberfläche; keine trockene Nekrose sichtbar.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Zentral überwiegend gelblich-weißlicher fibrinöser Belag (Slough), feucht; randständig schmaler rötlicher Saum mit beginnender Granulation; keine schwarze Nekrose sichtbar.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Überwiegend feucht-rote Granulation, flach; zwei zentral gelegene rundliche weißlich-gelbliche Fibrininseln/Beläge; keine schwarze Nekrose; beginnende Epithelisierung vom Rand.";Fibrinbelag, Granulation, Wundrandepithelisierung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Oberflächlicher, irregulär geformter Wundgrund mit überwiegend gelblich-grünlichem fibrinösem Belag/Slough; dazwischen rötliche, feucht-glänzende Granulation; kein trockener Nekroseanteil; flach ohne sichtbare Taschen.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Ovale, flache Ulzeration mit überwiegend gelblich-fibrinösem Belag (ca. 70–80%) und dazwischen rötlicher, feucht glänzender Granulation (ca. 20–30%); keine schwarze Nekrose, keine sichtbare Sehnen- oder Knochenexposition.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Überwiegend dicke gelb-grüne, schmierig-fibrinöse Beläge mit purulentem, viskösem Exsudat; dazwischen rötliche Granulationsinseln; einzelne bräunlich-dunklere Areale; Wundbett feucht und unregelmäßig, keine freiliegenden Sehnen oder Knochen sichtbar.";Exsudat, Fibrinbelag, Granulation, Infektion
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Oberflächliches, ovales Ulkus mit überwiegend gelblich-weißlichem, feuchtem Fibrinbelag; stellenweise rötliche Granulation sichtbar; keine schwarze Nekrose; unregelmäßige Kontur, glänzende Oberfläche.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Hauptläsion: flaches, ovales Ulkus mit gelblich-beigem fibrinösem Belag, randständig teils rötlich, feucht glänzend; keine schwarze Nekrose, keine sichtbaren tieferen Strukturen. Zweite kleinere, oberflächliche Läsion lateral mit rötlichem, feuchtem Wundbett.";Fibrinbelag, Rötung
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Überwiegend gelb-weißlicher fibrinöser Belag (Slough), stellenweise rötliche Granulation sichtbar; feucht, unregelmäßig-kraterförmig; keine trockene schwarze Nekrose erkennbar.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Tiefe, kavitäre Ulzeration mit überwiegend gelblich-cremigem fibrinösem Belag/Slough; stellenweise rötliche Granulationsinseln an der Innenwand; feucht mit dickflüssigem Exsudat; keine freiliegenden Knochen oder Sehnen sichtbar.";Exsudat, Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Überwiegend gelblich-weißlicher Fibrin-/Slough-Belag mit einzelnen grau-schwarzen nekrotischen Arealen; randständig geringe rötliche Gewebeanteile; unregelmäßiger, mäßig tiefer Defekt.";Fibrinbelag, Nekrose
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Überwiegend gelb-grauer fibrinöser Slough/Belag, feucht und zäh; kaum sichtbares Granulationsgewebe; unregelmäßig-oval.";Fibrinbelag
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Rötliches, feuchtes Granulationsgewebe; teils gelblich fibrinöser Belag randständig; kraterförmiger, tiefer Defekt ohne schwarze Nekrosen; glänzende Oberfläche.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDGRUND_GT_MAPPING;"Zwei größere kraterförmige Ulzera mit überwiegend vitaler roter Granulation und teils gelblich-beigen fibrinösen Belägen; feuchtes, glänzendes Wundbett; keine trockene Schwarznekrose sichtbar.";Fibrinbelag, Granulation
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Epibolie (eingerollter Wundrand)"",""Gerötet / entzündlich"",""Mazeriert""]";Epibolie (eingerollter Wundrand), Gerötet / entzündlich, Mazeriert
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Epibolie (eingerollter Wundrand)"",""Gerötet / entzündlich""]";Epibolie (eingerollter Wundrand), Gerötet / entzündlich
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Epibolie (eingerollter Wundrand)"",""Mazeriert""]";Epibolie (eingerollter Wundrand), Mazeriert
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Epibolie (eingerollter Wundrand)""]";Epibolie (eingerollter Wundrand)
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Gelbliche fibrinöse Randbeläge""]";
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Gerötet / entzündlich"",""Epibolie (eingerollter Wundrand)""]";Epibolie (eingerollter Wundrand), Gerötet / entzündlich
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Gerötet / entzündlich"",""Mazeriert"",""Unterminiert (Wundtaschen)""]";Gerötet / entzündlich, Mazeriert, Unterminiert (Wundtaschen)
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Gerötet / entzündlich"",""Mazeriert""]";Gerötet / entzündlich, Mazeriert
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Gerötet / entzündlich"",""Taschenbildung möglich""]";Gerötet / entzündlich, Unterminiert (Wundtaschen)
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Gerötet / entzündlich"",""Unterminiert (Wundtaschen)""]";Gerötet / entzündlich, Unterminiert (Wundtaschen)
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Gerötet / entzündlich"",""glänzende, ödematöse Haut""]";Gerötet / entzündlich
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Gerötet / entzündlich"",""livid-erythematöse Hautveränderungen""]";Gerötet / entzündlich
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Gerötet / entzündlich"",""relativ scharf begrenzte Wundränder""]";Gerötet / entzündlich
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Gerötet / entzündlich"",""unregelmäßige Wundränder""]";Gerötet / entzündlich
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Gerötet / entzündlich"",""unregelmäßigen Rändern""]";Gerötet / entzündlich
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Gerötet / entzündlich""]";Gerötet / entzündlich
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Hyperkeratotisch"",""Gerötet / entzündlich""]";Gerötet / entzündlich, Hyperkeratotisch
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Hyperkeratotisch""]";Hyperkeratotisch
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Mazeriert"",""Epibolie (eingerollter Wundrand)"",""Gerötet / entzündlich""]";Epibolie (eingerollter Wundrand), Gerötet / entzündlich, Mazeriert
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Mazeriert"",""Epibolie (eingerollter Wundrand)""]";Epibolie (eingerollter Wundrand), Mazeriert
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Mazeriert"",""Gerötet / entzündlich"",""Epibolie (eingerollter Wundrand)""]";Epibolie (eingerollter Wundrand), Gerötet / entzündlich, Mazeriert
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Mazeriert"",""Gerötet / entzündlich"",""Unterminiert (Wundtaschen)""]";Gerötet / entzündlich, Mazeriert, Unterminiert (Wundtaschen)
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Mazeriert"",""Gerötet / entzündlich""]";Gerötet / entzündlich, Mazeriert
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Mazeriert"",""Unterminiert (Wundtaschen)"",""Gerötet / entzündlich""]";Gerötet / entzündlich, Mazeriert, Unterminiert (Wundtaschen)
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Mazeriert"",""Unterminiert (Wundtaschen)""]";Mazeriert, Unterminiert (Wundtaschen)
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Mazeriert"",""teilweise aufgequollen""]";Mazeriert
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Mazeriert""]";Mazeriert
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Reizlos / unauffällig""]";Reizlos / unauffällig
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Unterminiert (Wundtaschen)"",""Epibolie (eingerollter Wundrand)""]";Epibolie (eingerollter Wundrand), Unterminiert (Wundtaschen)
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Unterminiert (Wundtaschen)"",""Gerötet / entzündlich""]";Gerötet / entzündlich, Unterminiert (Wundtaschen)
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Unterminiert (Wundtaschen)"",""Mazeriert""]";Mazeriert, Unterminiert (Wundtaschen)
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""Unterminiert (Wundtaschen)""]";Unterminiert (Wundtaschen)
+mappings_LR.py;WUNDRAND_GT_MAPPING;"[""scharf begrenzt, teils livide/verfärbt, ischämietypisch""]";Reizlos / unauffällig
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ausgedehnte feuchte Nekrose;Ausgedehnte feuchte Nekrose
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ausgetrtenes Blut oder Lymphe aus den entsprechenden Gefäßen mit Verteilung an der betroffenen Extremität;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Dekubitus;Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;"Dekubitus Grad 2 oder 3 nach EPUAP.
+Nicht genau zu definieren, ob sich Unterminierungen vorhanden sind.";Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;Dekubitus an der Ferse;Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;Dekubitus epuap Stadium 3 / 4;Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;Dekubitus mit Nekrose;Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;Dekubitus mit Taschenbildung;Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;Dekubitus sacralbereich;Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;Dekubitus, vermutlich am Außenknöchel;Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;Dekubtis im Sakralbereich, großflächig;Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;Fersendekubitus;Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;Fersenulcus / eventuell Mischulcus;Ulcus cruris mixtum
+mappings_LR.py;WUNDTYP_GT_MAPPING;Fibrinbelegtes Ulcus;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Fibringbelegtes Ulcus;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Hypergranulation nach Verbrennung;Verbrennungswunde
+mappings_LR.py;WUNDTYP_GT_MAPPING;"Hämangiom ist ein Spezialgebiet. In der Regel ist dieses innerhalb des ersten Lebensjahres rückläufig.
+Deshalb nehme ich hier keine Beurteilung vor.";"Hämangiom ist ein Spezialgebiet. In der Regel ist dieses innerhalb des ersten Lebensjahres rückläufig.
+Deshalb nehme ich hier keine Beurteilung vor."
+mappings_LR.py;WUNDTYP_GT_MAPPING;Infizierte Wunden am linken Oberarm / Innenseitig;Infizierte Wunden am linken Oberarm / Innenseitig
+mappings_LR.py;WUNDTYP_GT_MAPPING;Infiziertes Ulcus mit freiliegender Sehne;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Oberflächliches Ulcus;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Oberflächliches Ulcus (diffuse Defekte);Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Plantares Ulcus linker Fuß, Ursachen Klärung notwendig, bei Diabetiker Prüfung ob Neuropathisch oder Angiopathische Ursache;Plantares Ulcus linker Fuß, Ursachen Klärung notwendig, bei Diabetiker Prüfung ob Neuropathisch oder Angiopathische Ursache
+mappings_LR.py;WUNDTYP_GT_MAPPING;Platzbauch nach möglichem chirurgischen Eingriff;Postoperative Wunde / Dehiszenz
+mappings_LR.py;WUNDTYP_GT_MAPPING;Postoperative Wunde abdominal;Postoperative Wunde / Dehiszenz
+mappings_LR.py;WUNDTYP_GT_MAPPING;Taschenbildendes Ulcus am linken Fußrücken;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"Teils nekrotisches Ulcus an der linken Ferse.
+plantares Ulcus belegt mit Infektionszeichen";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcera rechter Fuß. könnte ursächlich diabetischer Fuß sein ( Neuropathie, Angiopathie) oder arterielles ulcus schäden auf Grund fehlender Durchblutung;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcerationen bedingt durch Vaskulitis- Form der rheumatischen Erkrankung ( Autoimmunerkrankung);Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus / warsch. Ulcus cruris, Ursache nicht klar, muss bestimmt werden;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus Dekubitus;Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus Dekubitus Bereich OS Sacrum;Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus Dekubitus Epuap Grad 3 / 4;Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus Dekubitus nach Epuap Grad 2 bis 3;Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus Ursache nicht genau definierbar;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus am Fussrücken;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus am Unterschenkel medial;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus an der Achillessehne;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus auf Grund von Mangeldurchblutung. Könnte diabetischer Fuß sein / angiopathisch bedingt.;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus auf Grund von Mangelernährung des Gewebes, Druckschäden in Kombination mit Gefäßschäden;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus cruris;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus cruris  unklarer Ursache;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus cruris /  Gravitationsulcus: Ulcus cruris venosum;Ulcus cruris venosum
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus cruris li lateraler Malleolus;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus cruris möglich arteriell oder mixtum;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus cruris venosum;Ulcus cruris venosum
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus decubitus;Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus decubitus Nach Epuap Grad 2 bis 3;Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus dekubitus;Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus dekubitus Ferse,  Stadium 3 / 4;Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus lokal abgegrenzt. belegt könnte ebenso nekrotisch sein;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus mit Stauung;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus mit scheinender Hypergranulation oberhalb der Achillessehne;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus nach Meshgraft (zumindest lässt die Struktur darauf schließen), eventuell ist die Struktur aber einer Unterdrucktherapie geschuldet;Postoperative Wunde / Dehiszenz
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus nach Stich;Traumatische Wunde
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus unbekannter Herkunft, könnte traumatologisch bedingte Wunde sein, durch die Wunde bei unsachgemäßer Versorgung entstehen ulcerationen ebenfalls, nicht immer Krankheitsbedingt;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus unklarer Genese;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus unklarer Genese am Bein genaue Lokalisation nicht beurteilbar;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"Ulcus unklarer Genese, könnte Venös oder arteriell oder mixum sein.
+Beachte kleine Nekrose an der Ferse plantar";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus unklarer Genese, könnte diabet. Ulcus sein, möglich ebenso durch traumatologische Ursachen;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus, Lokalisation am Bein nicht genau definierbar;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus, bei vermutetem Diabetes;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulcus, durch die Mangelernährung ( keine Durchblutung) im Wundgebiet  könnte es sich um einen Dekubitus oder ulcus cruris handeln.;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"Ulcus. Ursache klären sollte es ein diabet. Fuß sein dann Prüfung ob angiopathisch oder neuropathisch,
+Druckentlastung und Ursachenbeseitigung.";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulkus Dekubitus am Os sacrum  nach Epuap Grad 2 / 3;Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;Ulkus an der Ferse, warsch. Dekubitus nach EPUAP  Stadium 3;Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;Verbrennung 2 und 3 Grades nach 9 er Regel etwa 9 % Körperoberfläche;Verbrennungswunde
+mappings_LR.py;WUNDTYP_GT_MAPPING;Verbrennung 2. Grades am Bein;Verbrennungswunde
+mappings_LR.py;WUNDTYP_GT_MAPPING;Verbrennung 2. und teilweise 3. Grades Oberfläche ca 9 %;Verbrennungswunde
+mappings_LR.py;WUNDTYP_GT_MAPPING;Verbrennung Grad 1 bis 2 am rechten Fuß;Verbrennungswunde
+mappings_LR.py;WUNDTYP_GT_MAPPING;Verbrennungswunde 1. bis 2. Grades;Verbrennungswunde
+mappings_LR.py;WUNDTYP_GT_MAPPING;Verbrennungswunde am Arm Grad 2;Verbrennungswunde
+mappings_LR.py;WUNDTYP_GT_MAPPING;Wunde am li Fußrücken mit Sehnenfreilegung;Wunde am li Fußrücken mit Sehnenfreilegung
+mappings_LR.py;WUNDTYP_GT_MAPPING;Wunde aufgrund einer Infusion, welche ins umliegende Gewebe ausgetreten ist;Wunde aufgrund einer Infusion, welche ins umliegende Gewebe ausgetreten ist
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""Dekubitus"",""Diabetisches Fußulkus""]";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""Dekubitus"",""Ulcus""]";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""Dekubitus""]";Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""Diabetisches Fußulkus"",""hochgradig destruierende Fußwunde""]";Diabetisches Fußsyndrom (DFS)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""Diabetisches Fußulkus"",""ischämisches Ulkus""]";Diabetisches Fußsyndrom (DFS)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""Diabetisches Fußulkus"",""mit deutlichen Zeichen einer lokalen Infektion und chronisch entzündlicher Hautveränderungen""]";Diabetisches Fußsyndrom (DFS)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""Diabetisches Fußulkus""]";Diabetisches Fußsyndrom (DFS)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""Extravasationsverletzung""]";Extravasationsverletzung
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""Gravitationsulzera/Druckulzera""]";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""Postoperative Wunde""]";Postoperative Wunde / Dehiszenz
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""Traumatische Wunde"",""durch Insektenstich""]";Traumatische Wunde
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""Ulcus Fußrücken mit deutlicher Gewebedestruktion und freiliegender Sehnenstruktur""]";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""Ulcus cruris venosum"",""Adipositas-assoziiert""]";Ulcus cruris venosum
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""Ulcus cruris venosum"",""venös-lymphatischem Ulcus""]";Ulcus cruris venosum
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""Ulcus cruris venosum""]";Ulcus cruris venosum
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""Ulcus""]";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""Ulkus cruris""]";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""Ulkus""]";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""Verbrennungswunde""]";Verbrennungswunde
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""ausgedehnte, tiefe, nekrotische Ulzeration""]";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""ausgedehntes, tiefes chronisches Ulcus""]";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""ausgeprägtes infiziertes Ulcus cruris"",""Ulcus cruris venosum""]";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""chronische Fußwunde / Ulkus""]";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""chronisches Ulkus cruris""]";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""chronisches Ulkus""]";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""großflächiges, flaches chronisches Ulkus""]";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""kleines, oberflächliches Ulcus""]";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""multiple infizierte chronische Fußulzera""]";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""multiple kleine Ulzera""]";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""nekrotische Fersenwunde"",""Dekubitus""]";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""nekrotische ischämische Fußwunde / Gangrän""]";Ulcus cruris arteriosum / Ischämisches Ulkus
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""neuroischämisches bzw. arterielles Fußulkus""]";Ulcus cruris arteriosum / Ischämisches Ulkus
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""rundlich-ovales Ulcus""]";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""tiefer reichende Ulzerationen am Unterschenkel mit chronisch entzündlicher Umgebung""]";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""ulzeriertes infantiles Hämangiom mit zentraler Nekrose""]";ulzeriertes infantiles Hämangiom mit zentraler Nekrose
+mappings_LR.py;WUNDTYP_GT_MAPPING;"[""vaskulitischen Ulzera"",""möglicher kutaner Vaskulitis""]";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;arterielles Ulcus;Ulcus cruris arteriosum / Ischämisches Ulkus
+mappings_LR.py;WUNDTYP_GT_MAPPING;belegter Ulcus;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;diffuse fibrinbelegte und teils infizierte Ulzera am rechten Fuß;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;fibrinbelegtes Ulcus;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;gleiche Beurteilung wie Wunde 53;Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;infantiles Hämangiom,;infantiles Hämangiom,
+mappings_LR.py;WUNDTYP_GT_MAPPING;könnte arterieller Ulcus oder diabetischer Ulcus ( Angiopathie) auf Grund der Mangeldurchblutung  sein.;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;könnte diabetischer ulcus sein auf grund einer neuropathie;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"könnte ein diabetischer Fuß sein, Ulcus  nicht möglich,
+traumatologische Indikation ebenso nicht ausgeschlossen";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;laterales Ulcus linker Fuß;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;massives Ulcus dekubitus;Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;mumifizierte Zehen (D4 und D5), gleichzeitig Nekrose an der rechten Ferse;Ulcus cruris arteriosum / Ischämisches Ulkus
+mappings_LR.py;WUNDTYP_GT_MAPPING;möglicherweise ein feuchtes Gangrän;Ulcus cruris arteriosum / Ischämisches Ulkus
+mappings_LR.py;WUNDTYP_GT_MAPPING;nekrotischen Wunden am Fuß;nekrotischen Wunden am Fuß
+mappings_LR.py;WUNDTYP_GT_MAPPING;nekrotischer Defekt / Dekubitus;Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;nekrotischer Dekubitus li Ferse;Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;oberflächlicher Dekubitus ( 2 Stück);Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;oberflächliches Ulcus;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;offene ulcera;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;plantares ulcus;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"pseudomas besiedeltes teils nekrotisches Ulcus.
+Semizirkulär";Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;rechter Fuß lateral/ malleolär;rechter Fuß lateral/ malleolär
+mappings_LR.py;WUNDTYP_GT_MAPPING;"schwere Nekrose am Fuß rechts lateral und plantar, offene Geschwüre über den Malleolen lateral
+deutet auf arterielles Ulcus hin";Ulcus cruris arteriosum / Ischämisches Ulkus
+mappings_LR.py;WUNDTYP_GT_MAPPING;schwere Ulzerationen am Fuß- mehrere offene Stellen, freiliegende Sehen, teilweise nekrotisch, belegt;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;semizirkuläres Ulcus;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;semizirkuläres Ulcus re Fuß;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;superinfizierte Ulcration am rechen Fuß offene Ulcera;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;tiefer Dekubitus;Dekubitus
+mappings_LR.py;WUNDTYP_GT_MAPPING;tiefes Ulcus im Fersenbereich;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;traumatologische Wunde ( thermische Schädigung / Verbrennung 3. und 4. Grades;Verbrennungswunde
+mappings_LR.py;WUNDTYP_GT_MAPPING;ulcus cruris;Ulkus (Ätiologie unspezifisch)
+mappings_LR.py;WUNDTYP_GT_MAPPING;"vermutlich Mischulcus am rechten Bein, höhe der Knöchel.
+Semizirkulär";Ulcus cruris mixtum
+mappings_LR.py;WUNDTYP_GT_MAPPING;zirkuläres Ulcus Unterschenkel (vermutlich Mischulcus);Ulcus cruris mixtum
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)"",""Erythem / Rötung""]";CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose), Erythem / Rötung
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)""]";CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Ekzem / Dermatitis"",""Erythem / Rötung""]";Ekzem / Dermatitis, Erythem / Rötung
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Ekzem / Dermatitis""]";Ekzem / Dermatitis
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung"",""CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)""]";CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose), Erythem / Rötung
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung"",""Ekzem / Dermatitis"",""CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)""]";CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose), Ekzem / Dermatitis, Erythem / Rötung
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung"",""Ekzem / Dermatitis""]";Ekzem / Dermatitis, Erythem / Rötung
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung"",""Mazeration"",""CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)""]";CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose), Erythem / Rötung, Mazeration
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung"",""Mazeration""]";Erythem / Rötung, Mazeration
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung"",""Weichteilreizung""]";Erythem / Rötung
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung"",""deutliche entzündliche Rötung der Umgebung""]";Erythem / Rötung
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung"",""eher trocken wirkende Umgebung""]";Erythem / Rötung
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung"",""entzündliche Umgebungshaut""]";Erythem / Rötung
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung"",""leicht gerötete, glänzende Umgebungshaut""]";Erythem / Rötung
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung"",""Ödem"",""CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)""]";CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose), Erythem / Rötung, Ödem
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung"",""Ödem""]";Erythem / Rötung, Ödem
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Erythem / Rötung""]";Erythem / Rötung
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Keratosen""]";Sonstiges
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Mazeration"",""Erythem / Rötung"",""trockener wirkende Areale mit verminderter Durchblutung""]";Erythem / Rötung, Mazeration
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Mazeration"",""Erythem / Rötung""]";Erythem / Rötung, Mazeration
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Mazeration"",""glänzend""]";Mazeration
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Mazeration"",""glänzende, gespannte Umgebungshaut""]";Mazeration
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Mazeration""]";Mazeration
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Reizlos / intakt"",""Erythem / Rötung""]";Erythem / Rötung, Reizlos / intakt
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Reizlos / intakt""]";Reizlos / intakt
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""atrophisch-trockene Haut mit trophischen Störungen"",""CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)""]";CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""empfindliche Säuglingshaut mit hoher Feuchtigkeits- und Reibungsbelastung""]";Sonstiges
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""fragile, atrophe Haut""]";Sonstiges
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""gerötet-glänzende Haut, Hinweis auf chronische venöse Stauung/Ödemneigung""]";Erythem / Rötung, Ödem
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""gerötet-glänzende, ödematöse Haut"",""Erythem / Rötung""]";Erythem / Rötung, Ödem
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""gut durchbluteter, überwiegend roter Wundgrund""]";Reizlos / intakt
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""rocken, teils schuppig, gespannt""]";Sonstiges
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""zahlreiche erythematöse Makulae/Papeln, livid-entzündliche Hautveränderungen, Hinweis auf entzündlich-vaskulären Prozess""]";Ekzem / Dermatitis, Erythem / Rötung
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Ödem"",""CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose)""]";CVI-typische Hautveränderungen (Hyperpigmentierung, Atrophie blanche, Lipodermatosklerose), Ödem
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Ödem"",""Erythem / Rötung""]";Erythem / Rötung, Ödem
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Ödem"",""gespannte, trophisch veränderte Haut""]";Ödem
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;"[""Ödem""]";Ödem
+mappings_LR.py;WUNDUMGEBUNG_GT_MAPPING;[];

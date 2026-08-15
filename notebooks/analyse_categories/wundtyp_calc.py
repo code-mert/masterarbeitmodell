@@ -51,6 +51,9 @@ def map_wundtyp_explicit(val):
 
 BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
 
+FS_LR_PROMPT_EX = ["wunde_04", "wunde_18"]
+FS_NURS_PROMPT_EX = ["wunde_18", "wunde_28"]
+
 def calculate_wundtyp_lr_scores():
     """
     Calculates L&R Baselines, Inter-Rater Agreement, and KI Model Scores for Wundtyp (60 Wounds total).
@@ -114,12 +117,15 @@ def calculate_wundtyp_lr_scores():
         hits = 0
         for row in exp_data:
             img_id = row["img_id"]
+            if "Few-Shot" in name and img_id in FS_LR_PROMPT_EX:
+                continue
             m1, m2 = row["m1"], row["m2"]
             ki_mapped = map_wundtyp_explicit(model_dict.get(img_id, ""))
             if ki_mapped == m1 or ki_mapped == m2:
                 hits += 1
         ki_counts.append(hits)
-        ki_pcts.append((hits / total_wounds) * 100)
+        tot_w = 58 if "Few-Shot" in name else 60
+        ki_pcts.append((hits / tot_w) * 100)
 
     return {
         "total_wounds": total_wounds,
@@ -128,7 +134,8 @@ def calculate_wundtyp_lr_scores():
         "left_values": [random_pct, majority_best_pct, inter_rater_pct],
         "right_labels": ["Zero-Shot\nL&R", "Few-Shot\nL&R", "Two-Stage\nL&R"],
         "right_counts": ki_counts,
-        "right_values": ki_pcts
+        "right_values": ki_pcts,
+        "right_totals": [60, 58, 60]
     }
 
 
@@ -173,11 +180,14 @@ def calculate_wundtyp_nursit_scores():
     for name, model_dict in ki_nursit.items():
         hits = 0
         for img_id, m3 in exp3_mapped.items():
+            if "Few-Shot" in name and img_id in FS_NURS_PROMPT_EX:
+                continue
             ki_val = map_wundtyp_explicit(model_dict.get(img_id, ""))
             if ki_val == m3:
                 hits += 1
         ki_counts.append(hits)
-        ki_pcts.append((hits / total_wounds) * 100)
+        tot_w = 58 if "Few-Shot" in name else 60
+        ki_pcts.append((hits / tot_w) * 100)
 
     return {
         "total_wounds": total_wounds,
@@ -186,7 +196,8 @@ def calculate_wundtyp_nursit_scores():
         "left_values": [random_acc, majority_acc],
         "right_labels": ["Zero-Shot\nNursIT", "Few-Shot\nNursIT", "Two-Stage\nNursIT"],
         "right_counts": ki_counts,
-        "right_values": ki_pcts
+        "right_values": ki_pcts,
+        "right_totals": [60, 58, 60]
     }
 
 
@@ -266,7 +277,9 @@ def calculate_wundtyp_consensus_scores():
         "left_labels": ["Zero-Shot\nL&R", "Few-Shot\nL&R", "Two-Stage\nL&R"],
         "left_counts": lr_counts,
         "left_pcts": lr_pcts,
+        "left_totals": [29, 27, 29],
         "right_labels": ["Zero-Shot\nNursIT", "Few-Shot\nNursIT", "Two-Stage\nNursIT"],
         "right_counts": nursit_counts,
-        "right_pcts": nursit_pcts
+        "right_pcts": nursit_pcts,
+        "right_totals": [29, 27, 29]
     }

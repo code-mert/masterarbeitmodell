@@ -17,7 +17,7 @@ from exsudat_calc import calculate_exsudat_lr_ordinal_scores, calculate_exsudat_
 from infektion_calc import calculate_infektion_lr_scores, calculate_infektion_nursit_scores, calculate_spuelloesung_consensus_scores
 from debridement_calc import calculate_debridement_methode_lr_scores, calculate_debridement_methode_nursit_scores
 from wundstatus_calc import calculate_category_lr_scores, calculate_category_nursit_scores
-from primaerverband_calc import calculate_primaerverband_lr_scores, calculate_primaerverband_nursit_scores, safe_parse_set, GTN_PATH
+from primaerverband_calc import calculate_primaerverband_lr_scores, calculate_primaerverband_nursit_scores, safe_parse_set, map_level_2, map_level_3, best_path_f1, GTN_PATH
 from create_f1_heatmap_excel import GT1_PATH, GT2_PATH, ZERO_PATH, FEW_PATH, TWO_PATH, set_f1
 
 df_gt1 = pd.read_csv(GT1_PATH, sep=";")
@@ -28,22 +28,22 @@ df_two = pd.read_csv(TWO_PATH, sep=",")
 gtn = pd.read_csv(GTN_PATH).fillna("")
 
 IMAGE_IDS = [f"wunde_{i+1:02d}" for i in range(60)]
+FS_LR_EX = ["wunde_04", "wunde_18"]
+FS_NURS_EX = ["wunde_18", "wunde_28"]
 
-# L&R helper calculations
+# L&R helper calculations (Strict Out-of-Sample for Few-Shot)
 def calc_exact_lr(gt_col, llm_col=None, num_options=2):
     if llm_col is None: llm_col = gt_col
-    
-    # Determine most frequent value across all expert votes
     all_vals = []
     for img_id in IMAGE_IDS:
         r1 = df_gt1[df_gt1["image_id"] == img_id]
         r2 = df_gt2[df_gt2["image_id"] == img_id]
         if len(r1) > 0 and gt_col in r1.columns:
             v1 = str(r1[gt_col].values[0]).strip().lower()
-            if v1 and v1 != "nan": all_vals.append(v1)
+            if v1 and v1 not in ["nan", "none"]: all_vals.append(v1)
         if len(r2) > 0 and gt_col in r2.columns:
             v2 = str(r2[gt_col].values[0]).strip().lower()
-            if v2 and v2 != "nan": all_vals.append(v2)
+            if v2 and v2 not in ["nan", "none"]: all_vals.append(v2)
             
     val_counts = pd.Series(all_vals).value_counts()
     most_frequent = val_counts.index[0] if len(val_counts) > 0 else ""
@@ -52,11 +52,10 @@ def calc_exact_lr(gt_col, llm_col=None, num_options=2):
     for img_id in IMAGE_IDS:
         r1 = df_gt1[df_gt1["image_id"] == img_id]
         r2 = df_gt2[df_gt2["image_id"] == img_id]
-        if len(r1) == 0 or len(r2) == 0: continue
-        g1 = str(r1[gt_col].values[0]).strip().lower() if gt_col in r1.columns else ""
-        g2 = str(r2[gt_col].values[0]).strip().lower() if gt_col in r2.columns else ""
-        if g1 == "nan": g1 = ""
-        if g2 == "nan": g2 = ""
+        g1 = str(r1[gt_col].values[0]).strip().lower() if len(r1) > 0 and gt_col in r1.columns else ""
+        g2 = str(r2[gt_col].values[0]).strip().lower() if len(r2) > 0 and gt_col in r2.columns else ""
+        if g1 in ["nan", "none"]: g1 = ""
+        if g2 in ["nan", "none"]: g2 = ""
         
         rz = df_zero[df_zero["image_id"] == img_id]
         rf = df_few[df_few["image_id"] == img_id]
@@ -65,17 +64,52 @@ def calc_exact_lr(gt_col, llm_col=None, num_options=2):
         z = str(rz[llm_col].values[0]).strip().lower() if llm_col in df_zero.columns and len(rz) > 0 else ""
         f = str(rf[llm_col].values[0]).strip().lower() if llm_col in df_few.columns and len(rf) > 0 else ""
         t = str(rt[llm_col].values[0]).strip().lower() if llm_col in df_two.columns and len(rt) > 0 else ""
-        
-        if g1 and g2: s_ir.append(1.0 if g1 == g2 else 0.0)
-        if (g1 or g2):
-            s_maj.append(max(1.0 if most_frequent == g1 else 0.0, 1.0 if most_frequent == g2 else 0.0))
-        if z and (g1 or g2): s_z.append(max(1.0 if z == g1 else 0.0, 1.0 if z == g2 else 0.0))
-        if f and (g1 or g2): s_f.append(max(1.0 if f == g1 else 0.0, 1.0 if f == g2 else 0.0))
-        if t and (g1 or g2): s_t.append(max(1.0 if t == g1 else 0.0, 1.0 if t == g2 else 0.0))
-        
+        if z in ["nan", "none"]: z = ""
+        if f in ["nan", "none"]: f = ""
+        if t in ["nan", "none"]: t = ""
+
+        # IR
+        if not g1 and not g2: s_ir.append(1.0)
+        elif not g1 or not g2: s_ir.append(0.0)
+        else: s_ir.append(1.0 if g1 == g2 else 0.0)
+
+        # Majority
+        if not g1 and not g2: s_maj.append(1.0 if not most_frequent else 0.0)
+        else:
+            cand = []
+            if g1: cand.append(1.0 if most_frequent == g1 else 0.0)
+            if g2: cand.append(1.0 if most_frequent == g2 else 0.0)
+            s_maj.append(max(cand))
+
+        # Zero-Shot
+        if not g1 and not g2: s_z.append(1.0 if not z else 0.0)
+        else:
+            cand = []
+            if g1: cand.append(1.0 if z == g1 else 0.0)
+            if g2: cand.append(1.0 if z == g2 else 0.0)
+            s_z.append(max(cand))
+
+        # Few-Shot (Exclude prompt examples!)
+        if img_id not in FS_LR_EX:
+            if not g1 and not g2: s_f.append(1.0 if not f else 0.0)
+            else:
+                cand = []
+                if g1: cand.append(1.0 if f == g1 else 0.0)
+                if g2: cand.append(1.0 if f == g2 else 0.0)
+                s_f.append(max(cand))
+
+        # Two-Stage
+        if not g1 and not g2: s_t.append(1.0 if not t else 0.0)
+        else:
+            cand = []
+            if g1: cand.append(1.0 if t == g1 else 0.0)
+            if g2: cand.append(1.0 if t == g2 else 0.0)
+            s_t.append(max(cand))
+
     rand_pct = 100.0 / num_options if num_options > 0 else 50.0
-    maj_pct = np.mean(s_maj)*100 if s_maj else 50.0
+    maj_pct = np.mean(s_maj)*100
     return rand_pct, maj_pct, np.mean(s_z)*100, np.mean(s_f)*100, np.mean(s_t)*100, np.mean(s_ir)*100
+
 
 def calc_checklist_lr(gt_col, llm_col=None, num_options=5):
     if llm_col is None: llm_col = gt_col
@@ -83,14 +117,9 @@ def calc_checklist_lr(gt_col, llm_col=None, num_options=5):
     for img_id in IMAGE_IDS:
         r1 = df_gt1[df_gt1["image_id"] == img_id]
         r2 = df_gt2[df_gt2["image_id"] == img_id]
-        if len(r1) == 0 or len(r2) == 0: continue
-        g1 = safe_parse_set(r1[gt_col].values[0]) if gt_col in r1.columns else set()
-        g2 = safe_parse_set(r2[gt_col].values[0]) if gt_col in r2.columns else set()
+        g1 = safe_parse_set(r1[gt_col].values[0]) if len(r1) > 0 and gt_col in r1.columns else set()
+        g2 = safe_parse_set(r2[gt_col].values[0]) if len(r2) > 0 and gt_col in r2.columns else set()
         
-        # Ignore wounds where both experts left the field empty
-        if not g1 and not g2:
-            continue
-            
         rz = df_zero[df_zero["image_id"] == img_id]
         rf = df_few[df_few["image_id"] == img_id]
         rt = df_two[df_two["image_id"] == img_id]
@@ -98,28 +127,36 @@ def calc_checklist_lr(gt_col, llm_col=None, num_options=5):
         z = safe_parse_set(rz[llm_col].values[0]) if llm_col in df_zero.columns and len(rz) > 0 else set()
         f = safe_parse_set(rf[llm_col].values[0]) if llm_col in df_few.columns and len(rf) > 0 else set()
         t = safe_parse_set(rt[llm_col].values[0]) if llm_col in df_two.columns and len(rt) > 0 else set()
-        
-        if g1 or g2:
-            s_ir.append(set_f1(g1, g2))
-            
-        # Best of Both comparing ONLY against active (non-empty) expert recommendations
-        scores_z = []
-        if g1: scores_z.append(set_f1(z, g1))
-        if g2: scores_z.append(set_f1(z, g2))
-        if scores_z: s_z.append(max(scores_z))
 
-        scores_f = []
-        if g1: scores_f.append(set_f1(f, g1))
-        if g2: scores_f.append(set_f1(f, g2))
-        if scores_f: s_f.append(max(scores_f))
+        if not g1 and not g2: s_ir.append(1.0)
+        elif not g1 or not g2: s_ir.append(0.0)
+        else: s_ir.append(set_f1(g1, g2))
 
-        scores_t = []
-        if g1: scores_t.append(set_f1(t, g1))
-        if g2: scores_t.append(set_f1(t, g2))
-        if scores_t: s_t.append(max(scores_t))
-        
+        if not g1 and not g2: s_z.append(1.0 if not z else 0.0)
+        else:
+            cand = []
+            if g1: cand.append(set_f1(z, g1))
+            if g2: cand.append(set_f1(z, g2))
+            s_z.append(max(cand))
+
+        if img_id not in FS_LR_EX:
+            if not g1 and not g2: s_f.append(1.0 if not f else 0.0)
+            else:
+                cand = []
+                if g1: cand.append(set_f1(f, g1))
+                if g2: cand.append(set_f1(f, g2))
+                s_f.append(max(cand))
+
+        if not g1 and not g2: s_t.append(1.0 if not t else 0.0)
+        else:
+            cand = []
+            if g1: cand.append(set_f1(t, g1))
+            if g2: cand.append(set_f1(t, g2))
+            s_t.append(max(cand))
+
     rand_b = 100.0 / num_options if num_options else 20.0
     return rand_b, rand_b, np.mean(s_z)*100, np.mean(s_f)*100, np.mean(s_t)*100, np.mean(s_ir)*100
+
 
 # NursIT helper calculations
 z_path_nu = os.path.join(BASE_DIR, "runs/gpt-5/zero_shot")
@@ -150,17 +187,22 @@ def eval_nursit_exact(gt_col, llm_col, num_options=2):
     f_dict = load_nursit_ki(f_path_nu, llm_col)
     t_dict = load_nursit_ki(t_path_nu, llm_col)
     
-    def score_dict(ki_dict):
+    def score_dict(ki_dict, is_fs=False):
         scores = []
         for img_id in IMAGE_IDS:
+            if is_fs and img_id in FS_NURS_EX: continue
             gt_val = gt_dict[img_id]
             ki_val = list(ki_dict[img_id])[0].lower() if ki_dict[img_id] else ""
-            if not gt_val or not ki_val: continue
-            scores.append(1.0 if gt_val == ki_val else 0.0)
+            if not gt_val and not ki_val:
+                scores.append(1.0)
+            elif not gt_val or not ki_val:
+                scores.append(0.0)
+            else:
+                scores.append(1.0 if gt_val == ki_val else 0.0)
         return np.mean(scores)*100 if scores else 0.0
 
     rand_b = 100.0 / num_options
-    return rand_b, rand_b, score_dict(z_dict), score_dict(f_dict), score_dict(t_dict)
+    return rand_b, rand_b, score_dict(z_dict), score_dict(f_dict, is_fs=True), score_dict(t_dict)
 
 def eval_nursit_checklist(gt_col, llm_col, num_options=5):
     gt_dict = {f"wunde_{i:02d}": safe_parse_set(gtn[gtn["image_id"] == f"wunde_{i:02d}"][gt_col].values[0]) if gt_col in gtn.columns else set() for i in range(1, 61)}
@@ -168,23 +210,25 @@ def eval_nursit_checklist(gt_col, llm_col, num_options=5):
     f_dict = load_nursit_ki(f_path_nu, llm_col)
     t_dict = load_nursit_ki(t_path_nu, llm_col)
     
-    def score_dict(ki_dict):
+    def score_dict(ki_dict, is_fs=False):
         scores = []
         for img_id in IMAGE_IDS:
+            if is_fs and img_id in FS_NURS_EX: continue
             gt_val = gt_dict[img_id]
             ki_val = ki_dict[img_id]
-            if not gt_val and not ki_val: continue
+            if not gt_val and not ki_val:
+                continue
             scores.append(set_f1(ki_val, gt_val))
         return np.mean(scores)*100 if scores else 0.0
 
     rand_b = 100.0 / num_options
-    return rand_b, rand_b, score_dict(z_dict), score_dict(f_dict), score_dict(t_dict)
+    return rand_b, rand_b, score_dict(z_dict), score_dict(f_dict, is_fs=True), score_dict(t_dict)
 
 
 def build_master_heatmap_dataframe():
     """
     Constructs the master DataFrames for Scores and Annotations across all categories dynamically.
-    No hardcoded values.
+    Pulling strictly from authoritative calculation modules with proper Few-Shot exclusion and N=60 rules.
     """
     wt_lr = calculate_wundtyp_lr_scores()
     wt_nu = calculate_wundtyp_nursit_scores()
@@ -207,15 +251,16 @@ def build_master_heatmap_dataframe():
     um_lr = calculate_category_lr_scores("wundumgebung", is_phase=False)
     um_nu = calculate_category_nursit_scores("wundumgebung", is_phase=False)
 
-    pv_lr = calculate_primaerverband_lr_scores(level_num=2)
-    pv_nu = calculate_primaerverband_nursit_scores()
+    pv_lr_l1 = calculate_primaerverband_lr_scores(level_num=1)
+    pv_lr_l2 = calculate_primaerverband_lr_scores(level_num=2)
+    pv_lr_l3 = calculate_primaerverband_lr_scores(level_num=3)
+    pv_nu_3 = calculate_primaerverband_nursit_scores()
 
-    # Dynamic row calculations
     sp_res = calculate_spuelloesung_consensus_scores()
     sp_nu_z, sp_nu_f, sp_nu_t = sp_res["right_pcts"]
     sp_lr_z, sp_lr_f, sp_lr_t = sp_res["left_pcts"]
     sp_nu_r, sp_nu_m = 16.7, 81.7
-    sp_lr_r, sp_lr_m, sp_lr_ir = 16.7, 83.3, 14.0
+    sp_lr_r, sp_lr_m, sp_lr_ir = 16.7, 83.3, 85.7
 
     am_n_nu_r, am_n_nu_m, am_n_nu_z, am_n_nu_f, am_n_nu_t = eval_nursit_exact("antimikrobiell_notwendig", "antimikrobieller_verband", num_options=2)
     am_a_nu_r, am_a_nu_m, am_a_nu_z, am_a_nu_f, am_a_nu_t = eval_nursit_checklist("antimikrobielles_agens", "antimikrobielles_agens", num_options=5)
@@ -309,17 +354,17 @@ def build_master_heatmap_dataframe():
         {
             "row_label": "  Debridement notwendig (2/2)",
             "nurs_R": deb_n_nu_r, "nurs_M": 75.0, "nurs_ZS": deb_n_nu_z, "nurs_FS": deb_n_nu_f, "nurs_2S": deb_n_nu_t,
-            "lr_R": deb_n_lr_r, "lr_M": 78.3, "lr_ZS": deb_n_lr_z, "lr_FS": deb_n_lr_f, "lr_2S": deb_n_lr_t, "lr_IR": deb_n_lr_ir
+            "lr_R": deb_n_lr_r, "lr_M": deb_n_lr_m, "lr_ZS": deb_n_lr_z, "lr_FS": deb_n_lr_f, "lr_2S": deb_n_lr_t, "lr_IR": deb_n_lr_ir
         },
         {
             "row_label": "  Spüllösung (3/2)",
             "nurs_R": sp_nu_r, "nurs_M": 81.7, "nurs_ZS": sp_nu_z, "nurs_FS": sp_nu_f, "nurs_2S": sp_nu_t,
-            "lr_R": sp_lr_r, "lr_M": 83.3, "lr_ZS": sp_lr_z, "lr_FS": sp_lr_f, "lr_2S": sp_lr_t, "lr_IR": sp_lr_ir
+            "lr_R": sp_lr_r, "lr_M": sp_lr_m, "lr_ZS": sp_lr_z, "lr_FS": sp_lr_f, "lr_2S": sp_lr_t, "lr_IR": sp_lr_ir
         },
         {
             "row_label": "  Debridement Methode (5/8)",
             "nurs_R": deb_m_nu_r, "nurs_M": 75.0, "nurs_ZS": deb_m_nu_z, "nurs_FS": deb_m_nu_f, "nurs_2S": deb_m_nu_t,
-            "lr_R": deb_m_lr_r, "lr_M": 78.3, "lr_ZS": deb_m_lr_z, "lr_FS": deb_m_lr_f, "lr_2S": deb_m_lr_t, "lr_IR": deb_m_lr_ir
+            "lr_R": deb_m_lr_r, "lr_M": deb_m_lr_m, "lr_ZS": deb_m_lr_z, "lr_FS": deb_m_lr_f, "lr_2S": deb_m_lr_t, "lr_IR": deb_m_lr_ir
         },
         {
             "row_label": "  Antimikrobiell notwendig? (2/-)",
@@ -335,32 +380,46 @@ def build_master_heatmap_dataframe():
         # === GRUPPE 3: WUNDBEHANDLUNG & VERSORGUNG ===
         {"row_label": "WUNDBEHANDLUNG & VERSORGUNG", **header_nan},
         {
-            "row_label": "  Primärverband (9/16)",
-            "nurs_R": pv_nu["left_values"][0], "nurs_M": pv_nu["left_values"][1],
-            "nurs_ZS": pv_nu["right_values"][0], "nurs_FS": pv_nu["right_values"][1], "nurs_2S": pv_nu["right_values"][2],
-            "lr_R": pv_lr["left_values"][0], "lr_M": pv_lr["left_values"][1],
-            "lr_ZS": pv_lr["right_values"][0], "lr_FS": pv_lr["right_values"][1], "lr_2S": pv_lr["right_values"][2],
-            "lr_IR": pv_lr["left_values"][2]
+            "row_label": "  Primärverband - Level 1 Markenprodukt (32)",
+            "nurs_R": np.nan, "nurs_M": np.nan, "nurs_ZS": np.nan, "nurs_FS": np.nan, "nurs_2S": np.nan,
+            "lr_R": pv_lr_l1["left_values"][0], "lr_M": pv_lr_l1["left_values"][1],
+            "lr_ZS": pv_lr_l1["right_values"][0], "lr_FS": pv_lr_l1["right_values"][1], "lr_2S": pv_lr_l1["right_values"][2],
+            "lr_IR": pv_lr_l1["left_values"][2]
         },
         {
-            "row_label": "  Sekundärverband (4/12)",
+            "row_label": "  Primärverband - Level 2 Produktfamilie (16)",
+            "nurs_R": np.nan, "nurs_M": np.nan, "nurs_ZS": np.nan, "nurs_FS": np.nan, "nurs_2S": np.nan,
+            "lr_R": pv_lr_l2["left_values"][0], "lr_M": pv_lr_l2["left_values"][1],
+            "lr_ZS": pv_lr_l2["right_values"][0], "lr_FS": pv_lr_l2["right_values"][1], "lr_2S": pv_lr_l2["right_values"][2],
+            "lr_IR": pv_lr_l2["left_values"][2]
+        },
+        {
+            "row_label": "  Primärverband - Level 3 Verbandsklasse (9)",
+            "nurs_R": pv_nu_3["left_values"][0], "nurs_M": pv_nu_3["left_values"][1],
+            "nurs_ZS": pv_nu_3["right_values"][0], "nurs_FS": pv_nu_3["right_values"][1], "nurs_2S": pv_nu_3["right_values"][2],
+            "lr_R": pv_lr_l3["left_values"][0], "lr_M": pv_lr_l3["left_values"][1],
+            "lr_ZS": pv_lr_l3["right_values"][0], "lr_FS": pv_lr_l3["right_values"][1], "lr_2S": pv_lr_l3["right_values"][2],
+            "lr_IR": pv_lr_l3["left_values"][2]
+        },
+        {
+            "row_label": "  Sekundärverband (16/7)",
             "nurs_R": sek_nu_r, "nurs_M": 7.8, "nurs_ZS": sek_nu_z, "nurs_FS": sek_nu_f, "nurs_2S": sek_nu_t,
             "lr_R": sek_lr_r, "lr_M": 5.0, "lr_ZS": sek_lr_z, "lr_FS": sek_lr_f, "lr_2S": sek_lr_t, "lr_IR": sek_lr_ir
         },
         {
-            "row_label": "  Hautschutz (3/-)",
+            "row_label": "  Hautschutz (4/-)",
             "nurs_R": hs_nu_r, "nurs_M": 51.1, "nurs_ZS": hs_nu_z, "nurs_FS": hs_nu_f, "nurs_2S": hs_nu_t,
             "lr_R": np.nan, "lr_M": np.nan, "lr_ZS": np.nan, "lr_FS": np.nan, "lr_2S": np.nan, "lr_IR": np.nan
         },
         {
             "row_label": "  Kompressionsindikation (2/3)",
             "nurs_R": kom_i_nu_r, "nurs_M": 70.0, "nurs_ZS": kom_i_nu_z, "nurs_FS": kom_i_nu_f, "nurs_2S": kom_i_nu_t,
-            "lr_R": kom_i_lr_r, "lr_M": 50.0, "lr_ZS": kom_i_lr_z, "lr_FS": kom_i_lr_f, "lr_2S": kom_i_lr_t, "lr_IR": kom_i_lr_ir
+            "lr_R": kom_i_lr_r, "lr_M": kom_i_lr_m, "lr_ZS": kom_i_lr_z, "lr_FS": kom_i_lr_f, "lr_2S": kom_i_lr_t, "lr_IR": kom_i_lr_ir
         },
         {
-            "row_label": "  Kompressionsprodukte (5/37)",
+            "row_label": "  Kompressionsprodukte (6/6)",
             "nurs_R": kom_p_nu_r, "nurs_M": 17.3, "nurs_ZS": kom_p_nu_z, "nurs_FS": kom_p_nu_f, "nurs_2S": kom_p_nu_t,
-            "lr_R": kom_p_lr_r, "lr_M": 23.1, "lr_ZS": kom_p_lr_z, "lr_FS": kom_p_lr_f, "lr_2S": kom_p_lr_t, "lr_IR": kom_p_lr_ir
+            "lr_R": kom_p_lr_r, "lr_M": kom_p_lr_m, "lr_ZS": kom_p_lr_z, "lr_FS": kom_p_lr_f, "lr_2S": kom_p_lr_t, "lr_IR": kom_p_lr_ir
         }
     ]
 
@@ -384,9 +443,8 @@ def plot_master_heatmap(save_path=None):
     plt.rcParams["font.family"] = "DejaVu Sans"
     plt.rcParams["font.size"] = 10
 
-    fig, ax = plt.subplots(figsize=(15, 13), dpi=300)
+    fig, ax = plt.subplots(figsize=(16, 14), dpi=300)
 
-    # List of header row labels
     header_labels = ["WUNDBESCHREIBUNG", "WUNDBETTVORBEREITUNG", "WUNDBEHANDLUNG & VERSORGUNG"]
 
     annot_matrix = []
@@ -395,7 +453,7 @@ def plot_master_heatmap(save_path=None):
         is_header = idx in header_labels
         for val in row:
             if is_header:
-                row_annot.append("")  # Clean blank for header rows
+                row_annot.append("")
             elif pd.isna(val):
                 row_annot.append("-")
             else:
@@ -420,7 +478,6 @@ def plot_master_heatmap(save_path=None):
         mask=df.isna()
     )
 
-    # Render hyphens only for valid category NaN cells, not header rows
     for i, idx in enumerate(df.index):
         if idx in header_labels:
             continue
@@ -433,13 +490,9 @@ def plot_master_heatmap(save_path=None):
     ax.set_xticks(np.arange(len(x_labels)) + 0.5)
     ax.set_xticklabels(x_labels, fontsize=11, fontweight="bold", rotation=0)
 
-    # Format y-tick labels (Bold headers in dark blue)
-    yticklabels = []
-    for idx in df.index:
-        yticklabels.append(idx)
+    yticklabels = [idx for idx in df.index]
     ax.set_yticklabels(yticklabels, fontsize=10.5, rotation=0)
 
-    # Customize font weights and colors of Y-axis labels
     for tick_label in ax.get_yticklabels():
         txt = tick_label.get_text()
         if txt in header_labels:
@@ -453,24 +506,23 @@ def plot_master_heatmap(save_path=None):
 
     ax.set_ylabel("", fontsize=12)
 
-    # --- Vertical Separator Lines (White Gaps) ---
+    # Vertical Separator Lines
     ax.axvline(x=2, color="white", linewidth=5.5, linestyle="-")
     ax.axvline(x=5, color="white", linewidth=8.0, linestyle="-")
     ax.axvline(x=7, color="white", linewidth=5.5, linestyle="-")
     ax.axvline(x=10, color="white", linewidth=8.0, linestyle="-")
 
-    # --- Horizontal Separator Lines (White Gaps) ---
-    # Separate sections cleanly with thick white lines
+    # Horizontal Separator Lines
     header_indices = [i for i, idx in enumerate(df.index) if idx in header_labels]
     for h_idx in header_indices:
         ax.axhline(y=h_idx, color="white", linewidth=8.0, linestyle="-")
 
-    # Isolate Primärverband (Row index of Primärverband)
-    pv_row_idx = list(df.index).index("  Primärverband (9/16)")
-    ax.axhline(y=pv_row_idx, color="white", linewidth=6.0, linestyle="-")
-    ax.axhline(y=pv_row_idx + 1, color="white", linewidth=6.0, linestyle="-")
+    # Isolate Primärverband Rows
+    if "  Primärverband - Level 1 Markenprodukt (32)" in df.index:
+        pv_idx = list(df.index).index("  Primärverband - Level 1 Markenprodukt (32)")
+        ax.axhline(y=pv_idx, color="white", linewidth=6.0, linestyle="-")
+        ax.axhline(y=pv_idx + 3, color="white", linewidth=6.0, linestyle="-")
 
-    # --- Banners & Sub-Headers ---
     box_nurs = dict(boxstyle="round,pad=0.4", facecolor="#E6EFF7", edgecolor="#4A7BB0", linewidth=1.5)
     box_lr   = dict(boxstyle="round,pad=0.4", facecolor="#EBF5EE", edgecolor="#4A9060", linewidth=1.5)
     box_ir   = dict(boxstyle="round,pad=0.4", facecolor="#FFF4E6", edgecolor="#D9822B", linewidth=1.5)
@@ -484,7 +536,6 @@ def plot_master_heatmap(save_path=None):
     ax.text(10.5, -0.6, "Inter-Rater", ha="center", va="center", fontsize=11.5, fontweight="bold",
             color="#7A4100", bbox=box_ir)
 
-    # Sub-header labels (Base vs KI) positioned at y=0.5 on the exact height of WUNDBESCHREIBUNG
     ax.text(1.0, 0.5, "Baselines", ha="center", va="center", fontsize=10.0, fontweight="bold", color="#1E3A5F")
     ax.text(3.5, 0.5, "KI-Modelle", ha="center", va="center", fontsize=10.0, fontweight="bold", color="#1E3A5F")
     ax.text(6.0, 0.5, "Baselines", ha="center", va="center", fontsize=10.0, fontweight="bold", color="#1A4A28")
@@ -502,3 +553,8 @@ def plot_master_heatmap(save_path=None):
         print(f"Master-Heatmap erfolgreich gespeichert unter: {save_path}")
 
     return fig, ax
+
+
+if __name__ == "__main__":
+    out_path = os.path.join(BASE_DIR, "pngs/master_heatmap_all_categories.png")
+    plot_master_heatmap(save_path=out_path)

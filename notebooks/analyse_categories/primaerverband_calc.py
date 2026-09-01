@@ -225,7 +225,97 @@ def calculate_primaerverband_lr_scores(level_num=1):
     }
 
 
+def calculate_primaerverband_lr_expert_scores(level_num=2, expert_id=1):
+    """
+    Calculates Primärverband scores for Lohmann & Rauscher for a specific expert (Experte 1 or Experte 2)
+    for a given Level (1, 2, or 3).
+    """
+    df_gt1 = pd.read_csv(GT1_PATH, sep=";")
+    df_gt2 = pd.read_csv(GT2_PATH, sep=";")
+    df_zero = pd.read_csv(ZERO_PATH, sep=",")
+    df_few = pd.read_csv(FEW_PATH, sep=",")
+    df_two = pd.read_csv(TWO_PATH, sep=",")
+
+    df_target_gt = df_gt1 if expert_id == 1 else df_gt2
+
+    # Inter-Rater Score
+    ir_scores = []
+    for img_id in IMAGE_IDS:
+        e1_p_raw = safe_parse_set(df_gt1[df_gt1["image_id"] == img_id]["praeferenz_produkt"].values[0] if len(df_gt1[df_gt1["image_id"] == img_id]) > 0 else "")
+        e1_a_raw = safe_parse_set(df_gt1[df_gt1["image_id"] == img_id]["alternative_produkt"].values[0] if len(df_gt1[df_gt1["image_id"] == img_id]) > 0 else "")
+        e2_p_raw = safe_parse_set(df_gt2[df_gt2["image_id"] == img_id]["praeferenz_produkt"].values[0] if len(df_gt2[df_gt2["image_id"] == img_id]) > 0 else "")
+        e2_a_raw = safe_parse_set(df_gt2[df_gt2["image_id"] == img_id]["alternative_produkt"].values[0] if len(df_gt2[df_gt2["image_id"] == img_id]) > 0 else "")
+
+        if level_num == 1:
+            e1_p, e1_a = e1_p_raw, e1_a_raw
+            e2_p, e2_a = e2_p_raw, e2_a_raw
+        elif level_num == 2:
+            e1_p, e1_a = map_level_2(e1_p_raw), map_level_2(e1_a_raw)
+            e2_p, e2_a = map_level_2(e2_p_raw), map_level_2(e2_a_raw)
+        else:
+            e1_p, e1_a = map_level_3(e1_p_raw), map_level_3(e1_a_raw)
+            e2_p, e2_a = map_level_3(e2_p_raw), map_level_3(e2_a_raw)
+
+        if (not e1_p and not e1_a) or (not e2_p and not e2_a):
+            continue
+        ir_scores.append(best_path_f1(e1_p, e1_a, e2_p, e2_a))
+
+    ir_f1 = sum(ir_scores) / len(ir_scores) * 100 if ir_scores else 0.0
+
+    def get_ki_level_scores(df_ki, is_fs=False):
+        scores = []
+        for img_id in IMAGE_IDS:
+            if is_fs and img_id in FS_LR_PROMPT_EX: continue
+            if img_id not in df_ki["image_id"].values: continue
+            ki_p_raw = safe_parse_set(df_ki[df_ki["image_id"] == img_id]["praeferenz_wundauflage"].values[0] if "praeferenz_wundauflage" in df_ki.columns else "")
+            ki_a_raw = safe_parse_set(df_ki[df_ki["image_id"] == img_id]["alternativ_wundauflage"].values[0] if "alternativ_wundauflage" in df_ki.columns else "")
+
+            gt_p_raw = safe_parse_set(df_target_gt[df_target_gt["image_id"] == img_id]["praeferenz_produkt"].values[0] if len(df_target_gt[df_target_gt["image_id"] == img_id]) > 0 else "")
+            gt_a_raw = safe_parse_set(df_target_gt[df_target_gt["image_id"] == img_id]["alternative_produkt"].values[0] if len(df_target_gt[df_target_gt["image_id"] == img_id]) > 0 else "")
+
+            if level_num == 1:
+                ki_p, ki_a = ki_p_raw, ki_a_raw
+                gt_p, gt_a = gt_p_raw, gt_a_raw
+            elif level_num == 2:
+                ki_p, ki_a = map_level_2(ki_p_raw), map_level_2(ki_a_raw)
+                gt_p, gt_a = map_level_2(gt_p_raw), map_level_2(gt_a_raw)
+            else:
+                ki_p, ki_a = map_level_3(ki_p_raw), map_level_3(ki_a_raw)
+                gt_p, gt_a = map_level_3(gt_p_raw), map_level_3(gt_a_raw)
+
+            if (not gt_p and not gt_a) or (not ki_p and not ki_a):
+                continue
+
+            scores.append(best_path_f1(ki_p, ki_a, gt_p, gt_a))
+
+        return sum(scores) / len(scores) * 100 if scores else 0.0
+
+    z_f1 = get_ki_level_scores(df_zero, is_fs=False)
+    f_f1 = get_ki_level_scores(df_few, is_fs=True)
+    t_f1 = get_ki_level_scores(df_two, is_fs=False)
+
+    if level_num == 1:
+        rand_lr_f1 = 22.5
+        maj_lr_f1 = 60.7
+    elif level_num == 2:
+        rand_lr_f1 = 31.4
+        maj_lr_f1 = 61.7
+    else:
+        rand_lr_f1 = 37.6
+        maj_lr_f1 = 69.5
+
+    return {
+        "is_ordinal": True,
+        "is_f1": True,
+        "left_labels": ["Random\nBaseline", "Majority\nBaseline", "Inter-Rater\nAgreement"],
+        "left_values": [rand_lr_f1, maj_lr_f1, ir_f1],
+        "right_labels": [f"Zero-Shot\nExperte {expert_id}", f"Few-Shot\nExperte {expert_id}", f"Two-Stage\nExperte {expert_id}"],
+        "right_values": [z_f1, f_f1, t_f1]
+    }
+
+
 def calculate_primaerverband_lr_level2_high_agreement_scores(threshold=0.8):
+
     """
     Calculates L&R KI performance on Level 2 (Unterkategorie-Ebene) restricted strictly to wounds
     where L&R Inter-Rater Agreement is >= threshold (>= 80%).

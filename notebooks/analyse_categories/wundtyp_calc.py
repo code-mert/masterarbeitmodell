@@ -252,25 +252,33 @@ def calculate_wundtyp_consensus_scores():
 
     lr_counts = []
     lr_pcts = []
-    for name, model_dict in lr_models.items():
+    lr_totals = [29, 27, 29]
+    for idx, (name, model_dict) in enumerate(lr_models.items()):
         hits = 0
+        tot = lr_totals[idx]
         for img_id, target in consensus_wounds.items():
+            if "Few-Shot" in name and img_id in FS_LR_PROMPT_EX:
+                continue
             ki_mapped = map_wundtyp_explicit(model_dict.get(img_id, ""))
             if ki_mapped == target:
                 hits += 1
         lr_counts.append(hits)
-        lr_pcts.append((hits / total_consensus) * 100)
+        lr_pcts.append((hits / tot) * 100)
 
     nursit_counts = []
     nursit_pcts = []
-    for name, model_dict in nursit_models.items():
+    nursit_totals = [29, 27, 29]
+    for idx, (name, model_dict) in enumerate(nursit_models.items()):
         hits = 0
+        tot = nursit_totals[idx]
         for img_id, target in consensus_wounds.items():
+            if "Few-Shot" in name and img_id in FS_NURS_PROMPT_EX:
+                continue
             ki_mapped = map_wundtyp_explicit(model_dict.get(img_id, ""))
             if ki_mapped == target:
                 hits += 1
         nursit_counts.append(hits)
-        nursit_pcts.append((hits / total_consensus) * 100)
+        nursit_pcts.append((hits / tot) * 100)
 
     return {
         "total_consensus": total_consensus,

@@ -155,12 +155,36 @@ Important constraints:
 - Respond ONLY with the JSON object, no additional text."""
 
 
-def build_stage2_user_prompt(catalog: str, stage1_output: Dict[str, Any], mode: str = "standard") -> str:
+def build_stage2_user_prompt(
+    catalog: str,
+    stage1_output: Dict[str, Any],
+    mode: str = "standard",
+    verified_findings: Dict[str, Any] = None
+) -> str:
+    """
+    Baut den Stage-2 User-Prompt.
+    verified_findings: Optionale, von Expert:innen dokumentierte Befunde (z. B. Exsudat, Infektion),
+                       die als gegeben übernommen werden sollen. Ohne Angabe bleibt der Prompt unverändert.
+    """
     schema = get_stage2_schema(mode)
     schema_str = json.dumps(schema, indent=2, ensure_ascii=False)
     stage1_json_str = json.dumps(stage1_output, indent=2, ensure_ascii=False)
     target = "Lohmann & Rauscher (L&R) products" if mode == "lr" else "dressing classes"
-    
+
+    findings_block = ""
+    if verified_findings:
+        findings_json_str = json.dumps(verified_findings, indent=2, ensure_ascii=False)
+        findings_block = f"""
+## Verified Clinical Findings
+The following findings were documented by a wound care expert during the clinical assessment. \
+Treat them as given; they take precedence over any differing information in the Stage 1 assessment \
+or in your own visual impression:
+
+<verified_findings>
+{findings_json_str}
+</verified_findings>
+"""
+
     return f"""## Available Product Catalog
 The following products/classes are available for recommendation. You must ONLY recommend items listed in this catalog.
 
@@ -174,7 +198,7 @@ The visual assessment from Stage 1 produced the following structured findings:
 <stage_1_wound_assessment>
 {stage1_json_str}
 </stage_1_wound_assessment>
-
+{findings_block}
 ## Task (Stage 2)
 Using the wound image and the Stage 1 wound assessment above, select the appropriate {target} \
 from the product catalog for:
